@@ -1,0 +1,84 @@
+package edu.ncsu.csc.itrust.http.team;
+
+import com.meterware.httpunit.WebConversation;
+import com.meterware.httpunit.WebResponse;
+import com.meterware.httpunit.WebTable;
+import edu.ncsu.csc.itrust.http.iTrustHTTPTest;
+
+public class UC9_Test extends iTrustHTTPTest {
+
+	protected void setUp() throws Exception {
+		super.setUp();
+		gen.clearAllTables();
+		gen.standardData();
+	}
+
+	public void testViewMyRecords() throws Exception {
+		// Login
+		WebConversation wc = login("2", "pw");
+		WebResponse wr = wc.getCurrentPage();
+		wr = wr.getLinkWith("View My Records").click();
+
+		// Records page contains patient information
+		assertTrue(wr.getText().contains("Patient Information"));
+	}
+	
+	public void testRepresent() throws Exception {
+		// Login
+		WebConversation wc = login("2", "pw");
+		WebResponse wr = wc.getCurrentPage();
+		wr = wr.getLinkWith("View My Records").click();
+		
+		wr = wr.getLinkWith("Baby Programmer").click();
+		
+		// Clicking on a representee's name takes you to their records
+		assertTrue(wr.getText().contains("You are currently viewing your representee's records"));
+	}
+	
+	public void testDoctor() throws Exception {
+		// Login
+		WebConversation wc = login("2", "pw");
+		WebResponse wr = wc.getCurrentPage();
+		wr = wr.getLinkWith("View My Records").click();
+		
+		wr = wr.getLinkWith("Kelly Doctor").click();
+		assertTrue(wr.getText().contains("kdoctor@iTrust.org"));
+	}
+	
+	/*
+	 * Precondition:
+	 * Patient 2 and all his data have been loaded into iTrust
+	 * Patient 2 has successfully authenticated
+	 * Description:
+	 * 1. Patient 2 chooses to view his records
+	 * 2. Chooses link to office visit "6/10/2007"
+	 * Expected Result:
+	 * The following data should be displayed: Office Visit Details Date: 06/10/2007
+	 *   HCP: Kelly Doctor (9000000000)
+	 *   Diagnoses
+	 *   ICD Code	Description
+	 *   No Diagnoses for this visit
+	 *   Medications
+	 *   No Medications on record
+	 *   Procedures
+	 *   No Procedures on record
+	 */
+	public void testViewPatientOfficeVisit() throws Exception {
+		// precondition
+		gen.clearAllTables();
+		gen.patient2();
+		gen.hcp0();
+		WebConversation wc = login("2", "pw");
+		WebResponse wr = wc.getCurrentPage();
+		assertEquals("iTrust - Patient Home", wr.getTitle());
+		wr = wr.getLinkWith("View My Records").click();
+		
+		assertTrue(wr.getText().contains("Patient Information"));
+		WebTable wt = wr.getTableStartingWith("Office Visits");
+		wr = wt.getTableCell(1, 0).getLinkWith("Jun 10, 2007").click();
+		assertTrue(wr.getText().contains("Kelly Doctor"));
+		assertTrue(wr.getText().contains("No Diagnoses for this visit"));
+		assertTrue(wr.getText().contains("No Medications on record"));
+		assertTrue(wr.getText().contains("No Procedures on record"));
+	}
+}

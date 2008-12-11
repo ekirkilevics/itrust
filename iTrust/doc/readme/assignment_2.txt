@@ -1,0 +1,47 @@
+Homework 2.
+
+For #3, CoffeeMaker and JUnit
+Bug #1.
+Inventory class method useIngredients() adds to the amount of coffee in the inventory instead of subtracting from the inventory the amount specified in the recipe. 
+
+Tested with JUnit test class InventoryTest method testUseIngredients().
+
+Bug #2.
+Inventory class, method addSugar() does not add to the sugar object when the input is a positive integer, only a negative integer which is obviously wrong.
+
+Tested with JUnit test class Inventorytest method testAddSugar().
+
+
+For #10.
+Design decisions:
+
+	Enhanced getUserScript.jsp to work with input text boxes by removing the
+	requirement to work with DOM elements of any name. Also added 
+	correctness checking to prevent javascript undefined reference failures.
+
+	Enhanced form validation and exception description for AppointmentRequestValidator.
+		
+New Tests:
+
+	httptests/
+	edu.ncsu.csc.itrust.http.appointment.lhcp AddAppointmentRequestHTTPTest
+	Test for valid MID for requestedMID or personelID form field.
+		
+	edu.ncsu.csc.itrust.http LoginHCPTest
+	Test for logging in new HCP with no appointments.
+	
+	edu.ncsu.csc.itrust.http EpidemicDetectionTest
+	New class and test to exercise form validation via http.
+	
+	unittests/
+	edu.ncsu.csc.itrust.action LabProcHCPActionTest
+	Test for logging in a new HCP with no appointments
+	
+	edu.ncsu.csc.itrust.action EpidemicDetectionActionTest
+	new test to exercise form validation of range fields
+	
+	Update to testdata for sql/data/patients.sql to allow for more thorough coverage of CODAction class.
+	
+	All test plan changes have been incorporated into the blackbox testplan.
+	
+	

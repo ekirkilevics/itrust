@@ -1,0 +1,34 @@
+Homework 4
+
+For Inserting and deleting test data:
+
+	Test data for UC29 is loaded via hw4_testData.sql which is activated using TestDataGenerator::hcp_diagnosis_data(). 
+	This data may be added independently or as part of standardData. The data is also removed using the clearTables method.
+	
+Black Box:
+	
+	iTrust/doc/blackbox/patient/patient.html
+	
+	The following were added:
+		ViewDiagnoses
+		ViewDiagnosisEchoVirus
+		ViewHCPDetails
+		
+	Implemented as class UC29_Test
+		testViewDiagnoses
+		testViewDiagnosisEchoVirus
+		testHCPDetails
+
+Classes Added:
+
+	edu.ncsu.csc.itrust.action -->
+	update EditMyPrivacyLevels for UC29
+	
+	edu.ncsu.csc.itrust.beans -->	
+	new class for UC29 HCPDiagnosisBean
+	
+	WebRoot/auth/patient/ -->
+	 	Update myDiagnoses.jsp for UC29 functionality
+	 	
+Unit Test update:
+	Added testGetHCPByDiagnosis to exercise new functionality in EditMyPrivacyLevels

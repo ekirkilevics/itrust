@@ -1,0 +1,5 @@
+INSERT INTO appointments
+(ID,RequestID,PatientMID,LHCPMID,DateOfAppt,Minutes)
+VALUES
+(1,2,2,9000000000,'2007-07-25 16:30:00',30),
+(2,4,1,9000000000,'2007-07-24 15:00:00',60);

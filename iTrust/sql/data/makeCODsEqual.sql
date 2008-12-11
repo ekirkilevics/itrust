@@ -1,0 +1,1 @@
+DELETE FROM Patients WHERE CauseOfDeath = '84.5' LIMIT 2;

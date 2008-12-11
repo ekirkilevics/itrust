@@ -1,0 +1,253 @@
+<html>    
+<head>
+<style type="text/css">
+h4 {
+	border: 0px;
+	margin-top: 15px;
+	margin-bottom: 0px;
+	padding: 0px;
+}
+
+.code {
+	font-family: monospace;
+}
+</style>
+</head>
+<body>
+<h1>iTrust Developer Notes</h1>
+<div style="width: 60%"><em>Last Updated: Pre-Fall 2008</em>
+
+<h2>DISCLAIMER:</h2>
+<p>Please remember that this file is here to help you figure stuff
+out that may not be entirely obvious. It's here to help you find where
+to look. That's it. Please be aware that, if the system changes in some
+way, some of the notes here will become out-of-date.</p>
+<p>Also, please don't consider this file to be "official"
+documentation. This is by no means a design document or anything of that
+sort. This is not a tutorial. The notes here are exactly that - notes to
+help you know where to start looking. You are always welcome to ask
+question of your TA and fellow students, but these notes might help you
+get started in figuring out how to do some non-obvious tasks.</p>
+<p><em>Most times in real life you won't get something like
+this - so no complaining!</em></p>
+
+<h3>Table of Contents</h3>
+<p>
+<ul>
+	<li><a href="#design">Design Notes</a>
+	<ul>
+		<li><a href="#action">Actions</a></li>
+		<li><a href="#baseaction">Base Actions</a></li>
+		<li><a href="#bean">Beans</a></li>
+		<li><a href="#form">Forms</a></li>
+		<li><a href="#loader">Loaders</a></li>
+		<li><a href="#validator">Validator</a></li>
+		<li><a href="#dao">DAO: Database Access Object</a></li>
+	</ul>
+	</li>
+	<li><a href="#howto">How-To...</a>
+	<ul>
+		<li><a href="#connect">Connect to the proper database</a></li>
+		<li><a href="#rebuild">Rebuild and Repopulate the database</a></li>
+		<li><a href="#beanbuilder">Use <code>BeanBuilder</code></a></li>
+		<li><a href="#iframe">Use the Get User iFrame</a></li>
+		<li><a href="#requirepid">Require a PID for a page</a></li>
+		<li><a href="#datepicker">Use the Date Picker</a></li>
+		<li><a href="#daofactory">Use DAOFactory</a></li>
+		<li><a href="#exceptions">Use Exceptions</a></li>
+		<li><a href="#sqlfiles">Use SQL Files</a></li>
+		<li><a href="#patientnav">Use the Patient Navigation tag</a></li>
+		<li><a href="#state">Use the State tag</a></li>
+		<li><a href="#fastunit">Make your unit tests <em>fast</em></a></li>
+	</ul>
+	</li>
+
+</ul>
+
+
+<a name="design"></a>
+<h3>DESIGN NOTES</h3>
+Here are some archetype classes that the system uses. In adding new
+code, please keep using the appropriate responsibilities for each class
+type. <a name="action"></a>
+<h4>Action</h4>
+Each JSP uses exactly one Action class. These classes are the ones that
+integrate all of the other classes together to form the feature. For
+example, the Action class will take in parameters, validate the
+information, perform some "business logic" if needed, then pass the
+information over to the DAO for database interaction. Since the action
+classes are considered to be "integrative" classes, we test these
+classes with FIT and not JUnit (note that, in order to really test
+Action classes, we'd have to use Mock Objects, which are beyond the
+scope of CSC 326/712). <a name="baseaction"></a>
+<h4>Base Actions</h4>
+These are abstractions to provide some ease in making new actions. Use a
+base action when a page <b>requires</b> an ID of some sort to work. For
+example, "Edit Patient" would <b>have</b> to have a Patient ID in order
+to make sense. If you use a <code>PatientBaseAction</code>, then its
+constructor will verify the MID string and throw an exception if it
+doesn't check out (thus kicking you back to your homepage with an error
+message). <a name="bean"></a>
+<h4>Bean</h4>
+A bean's purpose is to store data. Period. Little or no functionality is
+to be added to a bean (with the exception of minor formatting such as
+concatenating phone numbers together). A bean must only have Getters and
+Setters (Eclipse Hint: Use Source > Generate Getters and Setters... to
+create these easily) <a name="form"></a>
+<h4>Form</h4>
+A form is a bean, kinda. You could say that it's a "form" of a bean :)
+Think of a form as a real-life administrative form that you would fill
+out to get something done, not necessarily making sense by itself. For
+example, a <code>Patient</code> is a Bean, but the info used to request
+an Epidemic Detection is a Form. <a name="loader"></a>
+<h4>Loader</h4>
+Loads in information to/from beans using <code>ResultSet</code>s and <code>PreparedStatement</code>s.
+Use the superclass to enforce consistency. <a name="validator"></a>
+<h4>Validator</h4>
+Just validates the information based on a regex or other validation
+mechanism. Throws a fancy schmancy <code>FormValidationException</code>
+if something goes wrong. Database kinds of checks need to be done in
+DAOs; Validators are meant to just check the data in isolation.<a
+	name="dao"></a>
+<h4>DAO</h4>
+Database Access Object. All info coming into a DAO is already validated.
+Just worry about DB stuff here. Note that all DAOs need to have a <code>DAOFactory</code>
+with which to access other DAOs and to get connections. Also, every DAO
+must have a constructor with a <code>DAOFactory</code> as a parameter.
+See <code>DAOFactory</code> below for more info on how that works. <a
+	name="howto"></a>
+<h3>How To</h3>
+
+<a name="connect"></a>
+<h4>How to Connect to the Database</h4>
+Edit the <code>context.xml</code> file located in the <code>WebRoot/META-INF</code>
+folder - all database information is pulled from this location. See
+comments there for specifics. <a name="rebuild"></a>
+<h4>How to Rebuild and Populate the Database</h4>
+<ul>
+	<li>To rebuild the database (if you made a change to the <code>createTables.sql</code>,
+	for example), run <code>DBBuilder</code> as a Java application, or call
+	the method <code>DBBuilder.rebuildAll()</code>. <code>DBBuilder</code>
+	is located in the <code>src</code> folder, under the itrust package.</li>
+	<li>To repopulate the database with sample data, run <code>TestDataGenerator</code>
+	as Java application, or call the method <code>TestDataGenerator.insertAll()</code>.
+	<code>TestDataGenerator</code> is located in the unittests folder in
+	the datagenerators package.</li>
+</ul>
+<a name="beanbuilder">
+<h4>How to use <code>BeanBuilder</code></h4>
+<code>BeanBuilder</code> is a utility that transfers parameter maps
+given by the JSP pages into a bean. BeanBuilder is intended to be used
+in the JSP, and the returning bean be passed to the Action class. The
+utility works by introspecting the bean, looking for all "setters". If a
+setter exists, then the utility will look up the name of the setter
+property in the parameter map, and then put the value into the setter.
+For example, if a bean has "setName", then the property name is "name".
+<br>
+<br>
+Make SURE you get this right in your JSP by naming your HTML fields
+correctly, otherwise your parameter will not be passed into the Action
+class. Also, don't overload a setter - just name them differently. For
+example, use <code>setDateOfBirthStr(String str)</code>, instead of
+overloading <code>setDateOfBirth</code> with both a string and date
+type. If BeanBuilder is used on a bean that is overloaded, then an
+exception will be thrown. <a name="iframe"></a>
+<h4>How to use the “Find User” iFrame</h4>
+See <code>/auth/editHCPs.jsp</code> for an example. Include the <code>getUserScript.jspf</code>,
+then make sure you pass the name of your hidden HTML value correctly. <a
+	name="requirepid"></a>
+<h4>How to Require a PID for a page</h4>
+See <code>/auth/hcp-uap/editPHR.jsp</code> for an example. Send a
+forward to <code>getPatientID.jsp</code>, passing your current URL as
+the parameter "forward". <a name="datepicker"></a>
+<h4>How to use the Date Picker</h4>
+See <code>editPatient.jsp</code> for an example. Include the <code>DatePicker.js</code>,
+which is located at: <code>/iTrust/resources/scripts/DatePicker.js</code>
+For a button (or any js event), call the function: <code>displayDatePicker('PARAM')</code>,
+where PARAM is the name of your HTML field <a name="daofactory"></a>
+<h4>How to use the DAOFactory</h4>
+DAOFactory is a double-singleton (doubleton?). It has exactly two
+instances...
+<ul>
+	<li><code>ProductionInstance</code>: to be used in all production
+	code (JSP, etc)</li>
+	<li><code>TestInstance</code>: to be used in all test code</li>
+</ul>
+Also note that when in a DAO, you should use the "factory" variable to
+call other DAOs - since you don't know which instance is currently being
+used. <a name="exceptions"></a>
+<h4>Usage of exceptions</h4>
+JSPs will often have an exception handler (see the &lt;%@page errorPage
+directive at the top of many pages). This means that if an exception
+occurred on this page, then kick the user out to the homepage. This is
+not always the appropriate handling, however. Sometimes (e.g.
+FormValidationException) you need to catch the exception in the JSP and
+handle it. <br>
+<br>
+Also, note that <code>DBException</code>s are formed from <code>SQLException</code>,
+printed out the console, and then a really vague error is shown to the
+user. This is intentional. For security reasons, database information
+should not become available to users. Note that you should alway print
+this out to the console so that you can trace your exception. <a
+	name="sqlfiles"></a>
+<h4>How to use the SQL files</h4>
+SQL files are intended to be either data or schema files. They're parsed
+by code written in this project to split at a semicolon ';'. Each piece
+of SQL (with \n removed) will be executed as-is. This is purely for
+aesthetic reasons. And no, the unit tests don't run slower because of
+all the File I/O - it's not all that slow! <a name="patientnav"></a>
+<h4>How to use the Patient Navigation tag</h4>
+The Patient Navigation tag (ie &lt;itrust:patientNav /> ) is supposed to
+be used to navigate from patient pages. To use it, you need to include
+the library at the top of your JSP: <%@taglib prefix="itrust"
+uri="/WEB-INF/tags.tld" %> And then use it in your code with the
+following attributes
+<ul>
+	<li>pid: the Patient's MID that will be used to form the link</li>
+	<li>thisTitle: the name of the page (must exactly match the value
+	code in the PatientNavigation.java in the "tags" folder) See <code>PatientNavigation.java</code>
+	in the "tags" folder for the actual JSP tag code.</li>
+</ul>
+
+<a name="state"></a>
+<h4>How to use the State tag</h4>
+This is to be used to make the State select tag easier.
+<ul>
+	<li>Name: the name of your HTML field</li>
+	<li>Value: the default value of your HTML field<br>
+	For example: <pre>&lt;itrust:state name="icState" value="<%=p.getIcState()%>"/></pre></li>
+</ul>
+
+<a name="fastunit"></a>
+<h4>How to make your unit tests fast</h4>
+There are many little tweaks you can make in your unit tests to make
+them go fast. With these tips, I was able to make the unit tests go from
+several minutes to 20 seconds on my laptop (when iTrust had ~770 tests
+pre-Fall 2008). Many people have tested these out before, so you can
+really trust these tips:
+<ul>
+	<li>Use a local database (or work on campus from Aramis). The less
+	network traffic, the better.</li>
+	<li>Dropping and creating tables is slow. Don't do it unless it's
+	the test for creating and dropping tables (which is already written).</li>
+	<li>Clearing a table using deleteTables.sql is fast - <18ms on
+	many machines. Don't worry about clearing unnecessary tables, the
+	delete operation is so fast that it's better to be safe than sorry.</li>
+	<li>Install the MySQL tools, and use the Administrator to
+	configure the default database to be MyISAM, and not InnoDB (under
+	Startup Variables > General Parameters > Default Storage). InnoDB does
+	safe transactions,which we want in production, but for local databases
+	it's okay to use the much faster MyISAM engine. You'll need to restart
+	the server for the change to take effect.</li>
+	<li>Also using the MySQL administrator, bump up the key buffer
+	size much higher (like 64M)</li>
+	<li>Don't bother with tearDown() in your unit tests, just start
+	all of our setUp() methods with delete all tables. This leaves the
+	database in an unknown state after the unit tests are run, but that's
+	okay because you can just run the test data generator again to make
+	sure.</li>
+</ul>
+
+</div>
+</body>
+</html>
