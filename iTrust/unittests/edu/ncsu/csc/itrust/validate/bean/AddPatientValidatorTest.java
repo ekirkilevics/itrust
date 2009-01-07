@@ -2,11 +2,25 @@ package edu.ncsu.csc.itrust.validate.bean;
 
 import junit.framework.TestCase;
 import edu.ncsu.csc.itrust.beans.PatientBean;
+import edu.ncsu.csc.itrust.datagenerators.TestDataGenerator;
 import edu.ncsu.csc.itrust.exception.FormValidationException;
 import edu.ncsu.csc.itrust.validate.AddPatientValidator;
 import edu.ncsu.csc.itrust.validate.ValidationFormat;
 
 public class AddPatientValidatorTest extends TestCase {
+	
+	protected void tearDown()
+	{
+		try
+		{
+			(new TestDataGenerator()).clearAllTables();
+		}
+		catch (Exception e)
+		{
+			System.err.println("ERROR: Couldn't clear tables. Everything else will fail");
+		}
+	}
+	
 	public void testPatientAllCorrect() throws Exception {
 		PatientBean p = new PatientBean();
 		p.setFirstName("Person'a");

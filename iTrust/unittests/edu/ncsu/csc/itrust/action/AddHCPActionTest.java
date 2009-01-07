@@ -23,7 +23,6 @@ public class AddHCPActionTest extends TestCase {
 	@Override
 	protected void setUp() throws Exception {
 		gen = new TestDataGenerator();
-		gen.clearAllTables();
 		gen.transactionLog();
 		gen.hcp0();
 		action = new AddHCPAction(factory, 9000000000L);

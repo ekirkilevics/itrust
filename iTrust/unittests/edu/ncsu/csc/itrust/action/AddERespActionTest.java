@@ -26,7 +26,6 @@ public class AddERespActionTest extends TestCase {
 	@Override
 	protected void setUp() throws Exception {
 		gen = new TestDataGenerator();
-		gen.clearAllTables();
 		gen.admin1();
 		action = new AddERespAction(factory, 9000000000L);
 	}

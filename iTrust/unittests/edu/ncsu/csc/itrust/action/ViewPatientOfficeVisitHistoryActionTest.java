@@ -21,7 +21,7 @@ public class ViewPatientOfficeVisitHistoryActionTest extends TestCase{
 		gen.clearAllTables();
 		gen.standardData();
 	}
-
+	
 	public void testGetPersonnel() throws Exception {
 		PersonnelBean hcp = action.getPersonnel();
 		assertNotNull(hcp.getFirstName(),"Kelly");

@@ -83,12 +83,12 @@ public class CPTCodeTest extends TestCase {
 
 	public void testUpdateDescription() throws DBException, iTrustException {
 		final String code = "7777D";
-		final String desc = "testUpdateDescription NEW description";
+		final String desc = "short description code";
 		ProcedureBean proc = genericAdd(code, "");
 		proc.setDescription(desc);
 		assertEquals(1, cptDAO.updateCode(proc));
 		proc = cptDAO.getCPTCode(code);
-		assertEquals("testUpdateDescription NEW desc", proc.getDescription());
+		assertEquals("short description code", proc.getDescription());
 	}
 
 	public void testUpdateNonExistent() throws SQLException, DBException {

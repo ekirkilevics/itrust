@@ -21,7 +21,7 @@ public class AddPatientActionTest extends TestCase {
 	@Override
 	protected void setUp() throws Exception {
 		gen = new TestDataGenerator();
-		gen.clearAllTables();
+		
 		gen.transactionLog();
 		gen.hcp0();
 		action = new AddPatientAction(factory, 900000000L);

@@ -22,7 +22,6 @@ public class AddUAPActionTest extends TestCase {
 	@Override
 	protected void setUp() throws Exception {
 		gen = new TestDataGenerator();
-		gen.clearAllTables();
 		gen.hcp0();
 		action = new AddUAPAction(factory, 900000000L);
 	}
