@@ -12,10 +12,6 @@ public class CODBeanTest extends TestCase {
 		bean = new CODBean();
 	}
 
-	protected void tearDown() throws Exception {
-		super.tearDown();
-	}
-
 	public void testSetDiagnosisName() {
 		String expected = "Some Diagnosis";
 		bean.setDiagnosisName(expected);

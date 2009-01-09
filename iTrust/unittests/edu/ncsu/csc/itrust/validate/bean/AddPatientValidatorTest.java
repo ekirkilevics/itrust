@@ -9,6 +9,7 @@ import edu.ncsu.csc.itrust.validate.ValidationFormat;
 
 public class AddPatientValidatorTest extends TestCase {
 	
+	/*
 	protected void tearDown()
 	{
 		try
@@ -20,6 +21,7 @@ public class AddPatientValidatorTest extends TestCase {
 			System.err.println("ERROR: Couldn't clear tables. Everything else will fail");
 		}
 	}
+	*/
 	
 	public void testPatientAllCorrect() throws Exception {
 		PatientBean p = new PatientBean();
