@@ -7,7 +7,7 @@ public class MockSystemOut extends PrintStream {
 	private String console = "";
 
 	public MockSystemOut() throws FileNotFoundException {
-		super("err.txt");
+		super("doc/readme/err.txt");
 	}
 
 	public String getConsole() {

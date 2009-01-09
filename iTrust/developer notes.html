@@ -75,6 +75,7 @@ this - so no complaining!</em></p>
 		<li><a href="#fastunit">Make your unit tests <em>fast</em></a></li>
 	</ul>
 	</li>
+	<li><a href="#errtxt">What is err.txt?</a></li>
 
 </ul>
 
@@ -262,6 +263,15 @@ really trust these tips:
 	sure.</li>
 </ul>
 
+
+<a name="errtxt"></a>
+<h4>What is err.txt?</h4>
+For testing purposes, we have created a mock object 
+which mocks the System.out console print stream.
+Err.txt is the file which results from the output of a few unit tests
+which use our mock object. This file will almost always
+be empty and it will get overwritten and rewritten every time
+you run your unit tests.
 </div>
 </body>
 </html>

@@ -12,3 +12,8 @@ Please note the following in your readme:
 + Any major design decisions you made; interpretations of the assignment that you think the TA should know about
 + The tests you added (doesn't need to be detailed, just the package and a few classes would suffice)
 + Anything else you think the TA should know about before grading
+
+What is err.txt?
+For testing purposes, we have created a mock object which mocks the System.out console print stream.
+Err.txt is the file which results from the output of a few unit tests which use our mock object. This file 
+will almost always be empty and it will get overwritten and rewritten every time you run your unit tests.
