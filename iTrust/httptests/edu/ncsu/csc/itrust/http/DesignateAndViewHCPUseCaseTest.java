@@ -7,7 +7,10 @@ import com.meterware.httpunit.WebResponse;
 import com.meterware.httpunit.WebTable;
 import com.meterware.httpunit.TableRow;
 
-public class UC6Test extends iTrustHTTPTest {
+/**
+ * Use Case 6
+ */
+public class DesignateAndViewHCPUseCaseTest extends iTrustHTTPTest {
 
 	protected void setUp() throws Exception {
 		super.setUp();

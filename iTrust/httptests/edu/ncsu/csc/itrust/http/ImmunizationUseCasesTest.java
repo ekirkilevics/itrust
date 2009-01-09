@@ -5,8 +5,10 @@ import com.meterware.httpunit.WebForm;
 import com.meterware.httpunit.WebResponse;
 import com.meterware.httpunit.WebTable;
 
-
-public class UC9_11_17_Test extends iTrustHTTPTest {
+/**
+ * Use Cases 9, 11 & 17
+ */
+public class ImmunizationUseCasesTest extends iTrustHTTPTest {
 
 	protected void setUp() throws Exception {
 		super.setUp();

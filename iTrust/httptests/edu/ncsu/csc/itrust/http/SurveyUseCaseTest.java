@@ -6,11 +6,9 @@ import com.meterware.httpunit.WebResponse;
 import com.meterware.httpunit.WebTable;
 
 /**
- * 
- * @author Ted Lowery (tblowery@ncsu.edu)
- *
+ * Use Case 24
  */
-public class UC24_Test extends iTrustHTTPTest {
+public class SurveyUseCaseTest extends iTrustHTTPTest {
 
 	/*
 	 * Precondition:

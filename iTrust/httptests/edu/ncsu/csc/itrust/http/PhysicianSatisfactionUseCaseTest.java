@@ -7,11 +7,9 @@ import com.meterware.httpunit.WebTable;
 import edu.ncsu.csc.itrust.beans.SurveyResultBean;
 
 /**
- * 
- * @author Ted Lowery (tblowery@ncsu.edu)
- *
+ * Use Case 25
  */
-public class UC25_Test extends iTrustHTTPTest {
+public class PhysicianSatisfactionUseCaseTest extends iTrustHTTPTest {
 
 	/*
 	 * 	Preconditions: Patient 2 is in the system and has authenticated successfully. 

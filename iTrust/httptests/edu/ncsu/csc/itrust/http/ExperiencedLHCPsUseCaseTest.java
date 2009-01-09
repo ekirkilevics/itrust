@@ -3,7 +3,10 @@ package edu.ncsu.csc.itrust.http;
 import com.meterware.httpunit.WebConversation;
 import com.meterware.httpunit.WebResponse;
 
-public class UC29_Test extends iTrustHTTPTest {
+/**
+ * Use Case 29
+ */
+public class ExperiencedLHCPsUseCaseTest extends iTrustHTTPTest {
 
 	public void testViewDiagnoses() throws Exception {
 		gen.clearAllTables();

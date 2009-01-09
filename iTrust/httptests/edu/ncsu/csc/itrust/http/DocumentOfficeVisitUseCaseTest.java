@@ -5,8 +5,10 @@ import com.meterware.httpunit.WebForm;
 import com.meterware.httpunit.WebResponse;
 import com.meterware.httpunit.WebTable;
 
-
-public class UC11_Test extends iTrustHTTPTest {
+/**
+ * Use Case 11
+ */
+public class DocumentOfficeVisitUseCaseTest extends iTrustHTTPTest {
 
 	public void testAddLabProcedure() throws Exception {
 		gen.clearAllTables();

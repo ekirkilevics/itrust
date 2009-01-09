@@ -5,11 +5,9 @@ import com.meterware.httpunit.WebResponse;
 import com.meterware.httpunit.WebTable;
 
 /**
- * 
- * @author Jake Kensmoe
- *
+ * Use Case 28
  */
-public class UC28_Test extends iTrustHTTPTest {
+public class ViewPatientsUseCaseTest extends iTrustHTTPTest {
 
 	/*
 	 * Precondition:

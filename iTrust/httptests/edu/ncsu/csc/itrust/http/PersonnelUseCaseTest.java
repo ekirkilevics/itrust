@@ -4,7 +4,10 @@ import com.meterware.httpunit.WebConversation;
 import com.meterware.httpunit.WebForm;
 import com.meterware.httpunit.WebResponse;
 
-public class UC2_Test extends iTrustHTTPTest {
+/**
+ * Use Case 2
+ */
+public class PersonnelUseCaseTest extends iTrustHTTPTest {
 	@Override
 	protected void setUp() throws Exception {
 		super.setUp();

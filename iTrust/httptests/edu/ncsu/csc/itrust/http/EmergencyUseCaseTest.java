@@ -4,7 +4,7 @@ import com.meterware.httpunit.WebConversation;
 import com.meterware.httpunit.WebForm;
 import com.meterware.httpunit.WebResponse;
 
-public class UC21_Test extends iTrustHTTPTest {
+public class EmergencyUseCaseTest extends iTrustHTTPTest {
 
 	/*
 	 */

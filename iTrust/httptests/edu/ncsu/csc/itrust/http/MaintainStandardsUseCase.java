@@ -5,7 +5,10 @@ import com.meterware.httpunit.WebForm;
 import com.meterware.httpunit.WebResponse;
 
 
-public class UC15_Test extends iTrustHTTPTest {
+/**
+ * Use Case 15
+ */
+public class MaintainStandardsUseCase extends iTrustHTTPTest {
 
 
 	/*

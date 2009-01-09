@@ -8,7 +8,10 @@ import edu.ncsu.csc.itrust.beans.Email;
 import edu.ncsu.csc.itrust.dao.mysql.FakeEmailDAO;
 import edu.ncsu.csc.itrust.testutils.TestDAOFactory;
 
-public class UC30_Test extends iTrustHTTPTest {
+/**
+ * Use Case 30
+ */
+public class MessagingUseCaseTest extends iTrustHTTPTest {
 
 	protected void setUp() throws Exception {
 		super.setUp(); // clear tables is called in super

@@ -6,8 +6,11 @@ import com.meterware.httpunit.WebConversation;
 import com.meterware.httpunit.WebForm;
 import com.meterware.httpunit.WebResponse;
 
-
-public class NF46Test  extends iTrustHTTPTest {
+/**
+ * Non-functional requirement 4.6:
+ * Remove MID from being displayed on all pages and URLs. MIDs should be considered private, sensitive information. 
+ */
+public class SecureMIDNFRTest  extends iTrustHTTPTest {
 
 	@Override
 	protected void setUp() throws Exception {
