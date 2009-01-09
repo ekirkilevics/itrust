@@ -32,3 +32,4 @@ DROP TABLE IF EXISTS PersonalImmunizations;
 DROP TABLE IF EXISTS PersonalRelations;
 DROP TABLE IF EXISTS PersonalStaticInformation;
 DROP TABLE IF EXISTS TransactionFailureAttempts;
+DROP TABLE IF EXISTS Images;

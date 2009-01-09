@@ -15,6 +15,12 @@ CREATE TABLE Hospitals(
 	PRIMARY KEY (hospitalID)
 );
 
+CREATE TABLE  Images (
+  `img_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `image` mediumblob,
+  PRIMARY KEY (`img_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
 CREATE TABLE Personnel(
 	MID BIGINT unsigned auto_increment,
 	AMID BIGINT unsigned default NULL,

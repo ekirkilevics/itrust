@@ -28,3 +28,5 @@ TRUNCATE Users;
 TRUNCATE PersonalAllergies;
 TRUNCATE PersonalHealthInformation;
 TRUNCATE PersonalRelations;
+
+TRUNCATE Images;

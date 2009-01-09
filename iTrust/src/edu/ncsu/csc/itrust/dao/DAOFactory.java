@@ -13,6 +13,7 @@ import edu.ncsu.csc.itrust.dao.mysql.FamilyDAO;
 import edu.ncsu.csc.itrust.dao.mysql.HealthRecordsDAO;
 import edu.ncsu.csc.itrust.dao.mysql.HospitalsDAO;
 import edu.ncsu.csc.itrust.dao.mysql.ICDCodesDAO;
+import edu.ncsu.csc.itrust.dao.mysql.ImageDAO;
 import edu.ncsu.csc.itrust.dao.mysql.LOINCDAO;
 import edu.ncsu.csc.itrust.dao.mysql.LabProcedureDAO;
 import edu.ncsu.csc.itrust.dao.mysql.MessageDAO;
@@ -154,5 +155,10 @@ public class DAOFactory {
 	
 	public MessageDAO getMessageDAO() {
 		return new MessageDAO(this);
+	}
+	
+	public ImageDAO getImageDAO()
+	{
+		return new ImageDAO(this);
 	}
 }

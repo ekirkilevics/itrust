@@ -2,7 +2,6 @@ package edu.ncsu.csc.itrust.validate.bean;
 
 import junit.framework.TestCase;
 import edu.ncsu.csc.itrust.beans.PatientBean;
-import edu.ncsu.csc.itrust.datagenerators.TestDataGenerator;
 import edu.ncsu.csc.itrust.exception.FormValidationException;
 import edu.ncsu.csc.itrust.validate.AddPatientValidator;
 import edu.ncsu.csc.itrust.validate.ValidationFormat;
