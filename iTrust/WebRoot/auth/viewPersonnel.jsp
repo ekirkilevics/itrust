@@ -52,15 +52,6 @@ ViewPersonnelAction action = new ViewPersonnelAction(prodDAO, loggedInMID.longVa
 	</tr>
 </table>
 <br />
-<%
-	if(userRole.equals("patient") ) {
-%>
-<div align="center">
-<a href="/iTrust/auth/patient/addappointmentrequest.jsp">Schedule an appointment with this doctor</a>
-</div>
-<%
-		session.setAttribute("personnel", p);
-	}
-%>
+
 
 <%@include file="/footer.jsp"%>

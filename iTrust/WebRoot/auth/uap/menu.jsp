@@ -11,7 +11,6 @@
 </div>
 <div class="menu_category">
 	<span>View</span><br />
-	<a href="/iTrust/auth/hcp-uap/viewMyAppointments.jsp">View My Appointments</a><br />
 	<a href="/iTrust/auth/hcp-uap/viewMyReportRequests.jsp">View My Report Requests</a><br />
 	<a href="/iTrust/auth/hcp-uap/LabProcUAP.jsp">View Laboratory Procedures</a><br />
 </div>

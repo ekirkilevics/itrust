@@ -61,6 +61,5 @@ List<PatientVisitBean> patientVisits = action.getPatients();
 </form>
 <br />
 <br />
-<a href="addAppointmentRequest.jsp">Add a new Appointment Request</a> 
 
 <%@include file="/footer.jsp" %>

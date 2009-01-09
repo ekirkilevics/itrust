@@ -1,4 +1,3 @@
-<%@page import="edu.ncsu.csc.itrust.beans.AppointmentBean"%>
 <%@page import="edu.ncsu.csc.itrust.beans.OfficeVisitBean"%>
 <%@page import="edu.ncsu.csc.itrust.beans.LabProcedureBean"%>
 <%@page import="edu.ncsu.csc.itrust.beans.TransactionBean"%>
@@ -7,9 +6,7 @@
 <%@page import="edu.ncsu.csc.itrust.dao.mysql.TransactionDAO"%>
 <%@page import="edu.ncsu.csc.itrust.dao.mysql.PersonnelDAO"%>
 <%@page import="edu.ncsu.csc.itrust.action.ViewMyRecordsAction"%>
-<%@page import="edu.ncsu.csc.itrust.action.ViewMyAppointmentsAction"%>
 <%@page import="edu.ncsu.csc.itrust.action.ViewMyReportRequestsAction"%>
-<%@page import="edu.ncsu.csc.itrust.beans.AppointmentRequestBean"%>
 <%@page import="edu.ncsu.csc.itrust.beans.PatientBean"%>
 <%@page import="edu.ncsu.csc.itrust.beans.PersonnelBean"%>
 <%@page import="edu.ncsu.csc.itrust.beans.ReportRequestBean"%>
@@ -30,9 +27,6 @@ pageTitle = "iTrust - Patient Home";
 
 <%
 session.removeAttribute("personnelList");
-ViewMyAppointmentsAction action = new ViewMyAppointmentsAction(prodDAO, loggedInMID.longValue());
-List<AppointmentBean> appointments = action.getAppointmentsForNextWeek();
-List<AppointmentRequestBean> requests1 = action.getRequestsNeedingReponse(AppointmentRequestBean.NeedPatientConfirm);
 ViewMyRecordsAction surveyAction = new ViewMyRecordsAction(prodDAO,loggedInMID.longValue());
 List <OfficeVisitBean> surList = prodDAO.getOfficeVisitDAO().getOfficeVisitsWithNoSurvey(loggedInMID.longValue());
 PatientBean patient = new PatientDAO(prodDAO).getPatient(loggedInMID.longValue());
@@ -60,74 +54,11 @@ int personnel_counter = 0;
 
 <ul>
 <li>Very happy or upset about your last office visit? Fill out a survey and let us know!</li>
-<li>You can now schedule appointments with HCPs found in Survey Results!</li>
-<li>No more typing in a date! We now have a calendar pop-up that makes scheduling appointments incredibly easy!.</li>
+<li>No more typing in a date! We now have a calendar pop-up that makes setting dates incredibly easy!.</li>
 </ul>
 
 <h3>Notifications</h3>
-<h4>Appointments in the next week</h4>
 
-<%
-if (0 != appointments.size()) {
-%>
-<ul>
-<%
-	for (AppointmentBean bean : appointments) {
-		PersonnelBean personnel = personnelDAO.getPersonnel(bean.getLHCPMID());
-		personnelList.add(personnel);
-%>
-		<li><%=bean.getAppointmentDateString()%> with <a href="/iTrust/auth/viewPersonnel.jsp?personnel=<%=personnel_counter%>"><%=personnel.getFullName()%></a></li>
-<%		
-		personnel_counter++;
-	}
-%>
-</ul>
-<%
-}
-else {
-%>
-	<i>No Upcoming Appointments</i>
-<%
-}
-%>
-
-<h4>Appointment Requests Needing Your Response</h4>
-<a href="viewMyAppointments.jsp">View your appointment history here</a>
-<%
-if (0 != requests1.size()) {
-%>
-<ul>
-<%
-	for (AppointmentRequestBean bean : requests1) {
-		PersonnelBean personnel = surveyAction.getPersonnel(bean.getRequesterMID());
-		personnelList.add(personnel);
-%>
-		<li>Request from <a href="/iTrust/auth/viewPersonnel.jsp?personnel=<%=personnel_counter%>"><%=personnel.getFullName()%></a>, reason:
-<%
-		personnel_counter++;
-		if (bean.getReason().equals("")) { 
-%> 
-			<i>none</i> 
-<%
-		}
-		else {
-			out.print(bean.getReason());
-		}
-%>
-		</li>
-<%
-	}
-session.setAttribute("personnelList", personnelList);
-%>
-</ul>
-<%
-}
-else {
-%>
-<i>No Appointment Requests</i>
-<%
-}
-%>
 
 <h4>Surveys that still need to be completed</h4>
 

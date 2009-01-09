@@ -7,7 +7,7 @@ import java.util.Date;
  * 
  * @author tedlowery
  *
- * Utility class to compare iTrust time ranges.  Useful for comparing appointment times.
+ * Utility class to compare iTrust time ranges.
  * 
  */
 

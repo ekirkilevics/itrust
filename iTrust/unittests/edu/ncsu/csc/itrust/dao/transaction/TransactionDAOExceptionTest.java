@@ -43,7 +43,7 @@ public class TransactionDAOExceptionTest extends TestCase {
 
 	public void testLogException() throws Exception {
 		try {
-			evilDAO.logTransaction(TransactionType.ADD_APPOINTMENT, 0L);
+			evilDAO.logTransaction(TransactionType.ADD_PATIENT_SURVEY, 0L);
 			fail("DBException should have been thrown");
 		} catch (DBException e) {
 			assertEquals(EvilDAOFactory.MESSAGE, e.getSQLException().getMessage());

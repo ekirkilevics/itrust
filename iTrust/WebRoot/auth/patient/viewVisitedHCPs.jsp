@@ -9,7 +9,6 @@
 <%@page import="edu.ncsu.csc.itrust.beans.OfficeVisitBean"%>
 <%@page import="edu.ncsu.csc.itrust.action.ViewVisitedHCPsAction"%>
 <%@page import="edu.ncsu.csc.itrust.beans.PersonnelBean"%>
-<%@page import="edu.ncsu.csc.itrust.action.ViewMyAppointmentsAction"%>
 <%@page import="edu.ncsu.csc.itrust.dao.mysql.PatientDAO"%>
 <%@page import="edu.ncsu.csc.itrust.exception.iTrustException"%>
 

@@ -39,14 +39,6 @@ public class TestDataGenerator {
 		new DBBuilder(factory).executeSQLFile(DIR + "/admin2.sql");
 	}
 
-	public void appointmentRequests() throws FileNotFoundException, SQLException, IOException {
-		new DBBuilder(factory).executeSQLFile(DIR + "/appointmentRequests.sql");
-	}
-
-	public void appointments() throws FileNotFoundException, SQLException, IOException {
-		new DBBuilder(factory).executeSQLFile(DIR + "/appointments.sql");
-	}
-
 	public void clearAllTables() throws SQLException, FileNotFoundException, IOException {
 		new DBBuilder(factory).executeSQLFile(DIR + "/deleteFromAllTables.sql");
 	}
@@ -230,8 +222,6 @@ public class TestDataGenerator {
 		officeVisit1();
 		tester();
 		fakeEmail();
-		appointmentRequests();
-		appointments();
 		reportRequests();
 		loincs();
 		labProcedures();

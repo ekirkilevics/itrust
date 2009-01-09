@@ -47,9 +47,9 @@ public class DetermineOperationalProfileTest extends iTrustHTTPTest {
 		assertEquals("0", table.getCellAsText(1, 5));//was 0
 		assertEquals("0%", table.getCellAsText(1,6));//was 0
 		//now check the totals are correct
-		assertEquals("Totals", table.getCellAsText(41, 0));
-		assertEquals("3", table.getCellAsText(41, 1));//was 4
-		assertEquals("2", table.getCellAsText(41, 3));//was 3
-		assertEquals("1", table.getCellAsText(41, 5));
+		assertEquals("Totals", table.getCellAsText(36, 0));
+		assertEquals("3", table.getCellAsText(36, 1));//was 4
+		assertEquals("2", table.getCellAsText(36, 3));//was 3
+		assertEquals("1", table.getCellAsText(36, 5));
 	}
 }

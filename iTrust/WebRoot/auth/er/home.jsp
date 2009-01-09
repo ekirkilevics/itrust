@@ -13,7 +13,7 @@ pageTitle = "iTrust - ER Home";
 	<tr>
 		<td>
 			<ul>
-				<li>No more typing in a date! We now have a calendar pop-up that makes scheduling appointments incredibly easy!.</li>
+				<li>No more typing in a date! We now have a calendar pop-up that makes setting dates incredibly easy!.</li>
 			</ul>
 		</td>
 	</tr>

@@ -21,7 +21,6 @@
 	<span>View</span><br />
 	<a href="/iTrust/auth/hcp-uap/viewPatientOfficeVisitHistory.jsp">All Patients</a><br />
 	<a href="/iTrust/auth/hcp/LabProcHCP.jsp">Laboratory Procedures</a><br />
-	<a href="/iTrust/auth/hcp-uap/viewMyAppointments.jsp">My Appointments</a><br />
 	<a href="/iTrust/auth/hcp-uap/viewMyReportRequests.jsp">My Report Requests</a><br />
 </div>
 <div class="menu_category">

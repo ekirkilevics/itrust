@@ -229,28 +229,6 @@ CREATE TABLE FakeEmail(
 	AddedDate timestamp NOT NULL default CURRENT_TIMESTAMP
 );
 
-CREATE TABLE AppointmentRequests(
-	ID INT(10) auto_increment primary key,
-	RequesterMID BIGINT unsigned,
-	RequestedMID BIGINT unsigned,
-	HospitalID varchar(10),
-	Date1 datetime,
-	Date2 datetime,
-    Minutes int,
-	Reason varchar(1000),
-	WeeksUntilVisit int,
-	Status varchar(30)
-);
-
-CREATE TABLE Appointments(
-	ID INT(10) auto_increment primary key,
-	RequestID BIGINT unsigned,
-	PatientMID BIGINT unsigned,
-	LHCPMID BIGINT unsigned,
-	DateOfAppt datetime,
-	Minutes int
-);
-
 CREATE TABLE ReportRequests (
 	ID INT(10) auto_increment primary key,
     RequesterMID BIGINT unsigned,

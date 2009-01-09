@@ -15,7 +15,6 @@
 <%@page import="edu.ncsu.csc.itrust.beans.ProcedureBean"%>
 <%@page import="edu.ncsu.csc.itrust.action.ViewMyRecordsAction"%>
 <%@page import="edu.ncsu.csc.itrust.beans.LabProcedureBean"%>
-<%@page import="edu.ncsu.csc.itrust.action.ViewMyAppointmentsAction"%>
 <%@page import="edu.ncsu.csc.itrust.dao.mysql.PatientDAO"%>
 <%@page import="edu.ncsu.csc.itrust.dao.mysql.PersonnelDAO"%>
 

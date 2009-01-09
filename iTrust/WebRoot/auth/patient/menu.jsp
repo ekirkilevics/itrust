@@ -1,15 +1,10 @@
 <div class="menu_category">
-	<span>Add</span><br>
-	<a href="/iTrust/auth/patient/addappointmentrequest.jsp">Appointment Request</a>
-</div>
-<div class="menu_category">
 	<span>Edit</span><br>
 	<a href="/iTrust/auth/patient/editMyDemographics.jsp">My Demographics</a><br />
 </div>
 <div class="menu_category">
 	<span>View</span><br />
 	<a href="/iTrust/auth/patient/viewAccessLog.jsp">Access Log</a><br />
-	<a href="/iTrust/auth/patient/viewMyAppointments.jsp">My Appointments</a><br />
 	<a href="/iTrust/auth/patient/myDiagnoses.jsp">My Diagnoses</a><br />
 	<a href="/iTrust/auth/patient/viewVisitedHCPs.jsp">My Providers</a><br />
 	<a href="/iTrust/auth/patient/viewMyRecords.jsp">View My Records</a><br />

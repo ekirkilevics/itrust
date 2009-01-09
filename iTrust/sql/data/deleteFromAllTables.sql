@@ -1,6 +1,4 @@
 TRUNCATE Allergies;
-TRUNCATE AppointmentRequests;
-TRUNCATE Appointments;
 TRUNCATE CPTCodes;
 TRUNCATE DeclaredHCP;
 TRUNCATE FakeEmail;

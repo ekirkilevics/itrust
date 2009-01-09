@@ -2,7 +2,6 @@ package edu.ncsu.csc.itrust.bean;
 
 import junit.framework.TestCase;
 import edu.ncsu.csc.itrust.beans.loaders.AllergyBeanLoader;
-import edu.ncsu.csc.itrust.beans.loaders.AppointmentBeanLoader;
 import edu.ncsu.csc.itrust.beans.loaders.CODBeanLoader;
 import edu.ncsu.csc.itrust.beans.loaders.DiagnosisBeanLoader;
 import edu.ncsu.csc.itrust.beans.loaders.FamilyBeanLoader;
@@ -25,13 +24,6 @@ public class BeanLoaderTest extends TestCase {
 		
 		try {
 			new AllergyBeanLoader().loadParameters(null, null);
-			fail("Should have thrown Exception");
-		} catch (IllegalStateException ex) {
-			assertEquals("unimplemented!", ex.getMessage());
-		}
-		
-		try {
-			new AppointmentBeanLoader().loadParameters(null, null);
 			fail("Should have thrown Exception");
 		} catch (IllegalStateException ex) {
 			assertEquals("unimplemented!", ex.getMessage());

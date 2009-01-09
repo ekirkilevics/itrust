@@ -4,8 +4,6 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import edu.ncsu.csc.itrust.dao.mysql.AccessDAO;
 import edu.ncsu.csc.itrust.dao.mysql.AllergyDAO;
-import edu.ncsu.csc.itrust.dao.mysql.AppointmentDAO;
-import edu.ncsu.csc.itrust.dao.mysql.AppointmentRequestDAO;
 import edu.ncsu.csc.itrust.dao.mysql.AuthDAO;
 import edu.ncsu.csc.itrust.dao.mysql.CODDAO;
 import edu.ncsu.csc.itrust.dao.mysql.CPTCodesDAO;
@@ -133,13 +131,6 @@ public class DAOFactory {
 		return new FakeEmailDAO(this);
 	}
 
-	public AppointmentDAO getAppointmentDAO() {
-		return new AppointmentDAO(this);
-	}
-
-	public AppointmentRequestDAO getAppointmentRequestDAO() {
-		return new AppointmentRequestDAO(this);
-	}
 
 	public ReportRequestDAO getReportRequestDAO() {
 		return new ReportRequestDAO(this);
