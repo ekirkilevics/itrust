@@ -1,10 +1,9 @@
-package edu.ncsu.csc.itrust.http.team;
+package edu.ncsu.csc.itrust.http;
 
 import com.meterware.httpunit.WebConversation;
 import com.meterware.httpunit.WebForm;
 import com.meterware.httpunit.WebResponse;
 import com.meterware.httpunit.WebTable;
-import edu.ncsu.csc.itrust.http.iTrustHTTPTest;
 
 public class PatientHTTPTest extends iTrustHTTPTest {
 	@Override

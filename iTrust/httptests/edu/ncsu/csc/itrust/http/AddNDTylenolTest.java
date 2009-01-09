@@ -11,7 +11,6 @@ public class AddNDTylenolTest extends iTrustHTTPTest {
 		super.setUp();
 		gen.clearAllTables();
 		gen.admin1();
-//		gen.resetAllCPTCodes();
 	}
 
 	/*
@@ -39,8 +38,6 @@ public class AddNDTylenolTest extends iTrustHTTPTest {
 		// verify change
 		assertTrue(wr.getURL().toString().contains("auth/admin/editNDCodes.jsp"));
 		assertTrue(wr.getText().contains("Success: 551541922 - Tylenol Tablets added"));
-		//assertTrue(wr.getText().contains("55154-1917  	Tylenol Tablets"));
-		//assertTrue(wr.getTableStartingWithPrefix("55154-1921").getCellAsText(1,2).contains("Tylenol Tablets"));
 	}
 	
 

@@ -1,4 +1,4 @@
-package edu.ncsu.csc.itrust.http.team;
+package edu.ncsu.csc.itrust.http;
 
 import java.util.List;
 import com.meterware.httpunit.WebConversation;
@@ -6,7 +6,6 @@ import com.meterware.httpunit.WebForm;
 import com.meterware.httpunit.WebResponse;
 import edu.ncsu.csc.itrust.beans.Email;
 import edu.ncsu.csc.itrust.dao.mysql.FakeEmailDAO;
-import edu.ncsu.csc.itrust.http.iTrustHTTPTest;
 import edu.ncsu.csc.itrust.testutils.TestDAOFactory;
 
 public class UC30_Test extends iTrustHTTPTest {
