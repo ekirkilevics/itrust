@@ -20,6 +20,9 @@ public class TestDataForCauseOfDeath {
 	}
 
 	public void insertAllData() throws FileNotFoundException, IOException, SQLException {
+		TestDataGenerator gen = new TestDataGenerator();
+		gen.clearAllTables();
+		gen.hcp0();
 		icdcodes();
 		patients();
 		hcps();
@@ -32,14 +35,14 @@ public class TestDataForCauseOfDeath {
 	}
 
 	public void patients() throws SQLException, FileNotFoundException, IOException {
-		new DBBuilder(factory).executeSQLFile(DIR + "/patients.sql");
+		new DBBuilder(factory).executeSQLFile(DIR + "/codpatients.sql");
 	}
 
 	public void hcps() throws SQLException, FileNotFoundException, IOException {
-		new DBBuilder(factory).executeSQLFile(DIR + "/hcps.sql");
+		new DBBuilder(factory).executeSQLFile(DIR + "/codhcps.sql");
 	}
 
 	public void ovs() throws SQLException, FileNotFoundException, IOException {
-		new DBBuilder(factory).executeSQLFile(DIR + "/ovs.sql");
+		new DBBuilder(factory).executeSQLFile(DIR + "/codOfficeVisits.sql");
 	}
 }
