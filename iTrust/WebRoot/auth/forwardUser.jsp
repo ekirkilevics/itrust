@@ -43,7 +43,12 @@ if(request.getUserPrincipal() != null) {
 		return;
 	}
 	else if(!validSession) {
-		response.sendRedirect("/");
+		session.invalidate();
+		response.sendRedirect("/iTrust/");
+	}
+	else if (mid == 0)
+	{
+		session.invalidate();
 	}
 	else {
 		response.sendRedirect("errors/noaccess.jsp");

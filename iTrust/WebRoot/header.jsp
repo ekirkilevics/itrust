@@ -7,6 +7,7 @@
 		errorMessage = (String) session.getAttribute("errorMessage");
 		session.removeAttribute("errorMessage");
 	}
+	
 %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
@@ -36,25 +37,25 @@
 					&nbsp;&nbsp;&nbsp;
 <%
 			if( validSession ) {
+				
 				if(    (loggedInMID != null)
-					&& (loggedInMID.longValue() != 0L) ) 
+					&& (loggedInMID.longValue() != 0L) ) //if no one is logged in
 				{
-					if(userRole != "tester") {
+					if(userRole != "tester") { //if it's a tester
 %>					
 						<a class="iTrustNavlink"
 						   href="/iTrust/auth/<%=userRole %>/information.jsp"
 						   rel="facebox">Information</a>
 <%
-					}
+					} //end tester section
+					
 %>
-					<!-- Extra global nav links go here -->
 			</div>
 			<div style="float: right; width: 48%; text-align: right; margin-right: 10px;">
-				<%=userName %> 
+				<% out.println(userName); %>
 				| <a class="iTrustNavlink" href="/iTrust/logout.jsp">Logout</a>
-<%
-				}
-			}	
+<%				} //no one is logged in
+			}	  //valid session
 %>
 			</div>
 			<div style="clear: both;">
@@ -69,40 +70,40 @@
 <%
 				if (  validSession ) {
 					if (    (loggedInMID != null)
-					     && (loggedInMID.longValue() != 0L)) 
+					     && (loggedInMID.longValue() != 0L)) //someone is logged in
 					{
-						if (userRole == "patient") {
+						if (userRole.equals("patient")) {
 							%><%@include file="/auth/patient/menu.jsp"%><%
 						}
-						else if (userRole == "uap") {
+						else if (userRole.equals("uap")) {
 							%><%@include file="/auth/uap/menu.jsp"%><%
 						}
-						else if (userRole == "hcp") {
+						else if (userRole.equals("hcp")) {
 							%><%@include file="/auth/hcp/menu.jsp"%><%
 						}
-						else if (userRole == "er") {
+						else if (userRole.equals("er")) {
 							%><%@include file="/auth/er/menu.jsp"%><%
 						}
-						else if (userRole == "admin") {
+						else if (userRole.equals("admin")) {
 							%><%@include file="/auth/admin/menu.jsp"%><%
 						}
-						else if (userRole == "tester") {
+						else if (userRole.equals("tester")) {
 							%><%@include file="/auth/tester/menu.jsp"%><%
 						}
-					}	
+					} //no one is logged in	
 					else {
 						String uri = request.getRequestURI();
-						if( uri.indexOf("privacyPolicy.jsp") >= 0) {
+						if( uri.indexOf("privacyPolicy.jsp") >= 0) { //looking at privacy policy, include logout menu.
 %>
-							<%@include file="/logoutMenu.jsp"%>
+							<%@include file="logoutMenu.jsp"%>
 <%
-						} else {
+						} else {									//we are actually logged out entirely, show login menu
 %>
-							<%@include file="/loginMenu.jsp"%>
+							<%@include file="loginMenu.jsp"%>		
 <%
-						}
-					}
-				}
+						} //else
+					}   //else
+				} //if valid session
 				else {
 %>
 					<%@include file="/logoutMenu.jsp"%>
