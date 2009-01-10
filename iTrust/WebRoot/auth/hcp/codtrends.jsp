@@ -37,7 +37,6 @@ pageTitle = "iTrust - Cause of Death Trends";
 			List<CODBean> allPs = action.getAllCODs();
 			List<CODBean> myPs = action.getMyCODs();
 		%>
-		
 				<table class="fTable">
 					<tr>
 						<th colspan=4>All Patients</th>
@@ -52,6 +51,8 @@ pageTitle = "iTrust - Cause of Death Trends";
 		}
 		else {
 %>
+
+
 					<tr class="subHeader">
 						<th>Rank</th>
 						<th>Description</th>
@@ -59,11 +60,13 @@ pageTitle = "iTrust - Cause of Death Trends";
 						<th>Quantity</th>
 					</tr>
 <%	
+			int i=0;
 			while (! allPs.isEmpty())
 			{
+				i++;
 				CODBean thisOne = allPs.remove(0);
-				out.println("<tr><td>" + thisOne.getRank() + ".</td><td>" 
-					+ thisOne.getDiagnosisName() + "</td><td>" 
+				out.println("<tr><td>" + i + ".</td><td>" 
+					+ thisOne.getDiagnosisName() + "</li></td><td>" 
 					+ thisOne.getIcdCode() + "</td><td>" 
 					+ thisOne.getTotal() 
 					+ "</td></tr>");
@@ -94,17 +97,20 @@ pageTitle = "iTrust - Cause of Death Trends";
 						<th>ICD Code</th>
 						<th>Quantity</th>
 					</tr>
-<%		
-			while (! myPs.isEmpty()) {
+<%	
+			int i=0;
+			while (! myPs.isEmpty())
+			{
+				i++;
 				CODBean thisOne = myPs.remove(0);
-				out.println("<tr><td>" + thisOne.getRank() + ".</td><td>" 
-					+ thisOne.getDiagnosisName() + "</td><td>" 
+				out.println("<tr><td>" + i + ".</td><td>" 
+					+ thisOne.getDiagnosisName() + "</li></td><td>" 
 					+ thisOne.getIcdCode() + "</td><td>" 
 					+ thisOne.getTotal() 
 					+ "</td></tr>");
 			}
 		}
-%>
+		%>
 				</table>
 <%		
 	}

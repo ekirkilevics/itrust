@@ -33,11 +33,4 @@ public class CODBeanTest extends TestCase {
 		assertEquals("CODBean.setTotal() failed to set the total properly.", expected, actual);
 	}
 
-	public void testSetRank() {
-		int expected = 100;
-		bean.setRank(expected);
-		int actual = bean.getRank();
-		assertEquals("CODBean.setRank() failed to set the rank properly.", expected, actual);
-	}
-
 }

@@ -1,6 +1,5 @@
 package edu.ncsu.csc.itrust.action;
 
-import java.util.ArrayList;
 import java.util.List;
 import edu.ncsu.csc.itrust.action.base.PersonnelBaseAction;
 import edu.ncsu.csc.itrust.beans.CODBean;
@@ -37,7 +36,6 @@ public class CODAction extends PersonnelBaseAction {
 		this.loggedInMID = loggedInMID;
 		this.form = new CODForm();
 		this.transDAO = new TransactionDAO(factory);
-
 	}
 
 	/**
@@ -63,30 +61,7 @@ public class CODAction extends PersonnelBaseAction {
 		// TODO this needs to be extracted to a separate class - too hard to read
 		coddao.setGender(form.getGen());
 		List<CODBean> theList = coddao.getCODsAllPatients(form.getAfterDate(), form.getBeforeDate());
-		if (theList.size() == 0)
-			return theList;
-		int rank = 1, trailingrank = 1;
-		int toptotal = theList.get(0).getTotal();
-		theList.get(0).setRank(1);
-		for (int i = 1; i < theList.size(); i++) {
-			trailingrank++;
-			if (theList.get(i).getTotal() == toptotal) {
-				theList.get(i).setRank(rank);
-			} else {
-				rank = trailingrank;
-				theList.get(i).setRank(rank);
-				toptotal = theList.get(i).getTotal();
-			}
-		}
-
-		ArrayList<CODBean> newList = new ArrayList<CODBean>();
-		for (int j = 0; j < theList.size(); j++) {
-			if (((CODBean) theList.get(j)).getRank() > 2)
-				break;
-			newList.add(theList.get(j));
-		}
-
-		return newList;
+		return theList;
 	}
 
 	/**
@@ -101,29 +76,6 @@ public class CODAction extends PersonnelBaseAction {
 		coddao.setGender(form.getGen());
 		List<CODBean> theList = coddao.getCODsMyPatients(this.loggedInMID, form.getAfterDate(), form
 				.getBeforeDate());
-		if (theList.size() == 0)
-			return theList;
-		int rank = 1, trailingrank = 1;
-		int toptotal = theList.get(0).getTotal();
-		theList.get(0).setRank(1);
-		for (int i = 1; i < theList.size(); i++) {
-			trailingrank++;
-			if (theList.get(i).getTotal() == toptotal) {
-				theList.get(i).setRank(rank);
-			} else {
-				rank = trailingrank;
-				theList.get(i).setRank(rank);
-				toptotal = theList.get(i).getTotal();
-			}
-		}
-
-		ArrayList<CODBean> newList = new ArrayList<CODBean>();
-		for (int j = 0; j < theList.size(); j++) {
-			if (((CODBean) theList.get(j)).getRank() > 2)
-				break;
-			newList.add(theList.get(j));
-		}
-
-		return newList;
+		return theList;
 	}
 }

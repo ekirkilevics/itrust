@@ -80,7 +80,7 @@ public class CODDAO {
 							+ " ICDCodes.Description, Patients.CauseOfDeath from OfficeVisits, Patients, ICDCodes WHERE "
 							+ " OfficeVisits.PatientID = Patients.MID AND Patients.CauseOfDeath = ICDCodes.Code"
 							+ " and Patients.DateOfDeath between ? and ? " + getGenderWhereClause()
-							+ " group by (ICDCodes.Code) order by Total desc;");
+							+ " group by (ICDCodes.Code) order by Total desc limit 2;");
 
 			ps.setString(1, afterDate);
 			ps.setString(2, beforeDate);
@@ -116,7 +116,7 @@ public class CODDAO {
 							+ "OfficeVisits.PatientID = Patients.MID AND Patients.CauseOfDeath = ICDCodes.Code"
 							+ " and Patients.DateOfDeath between ? and ? " + getGenderWhereClause()
 							+ " and OfficeVisits.HCPID = ? "
-							+ " group by (ICDCodes.Code) order by Total desc;");
+							+ " group by (ICDCodes.Code) order by Total desc limit 2;");
 
 			ps.setString(1, afterDate);
 			ps.setString(2, beforeDate);

@@ -2,7 +2,7 @@ package edu.ncsu.csc.itrust.beans;
 
 public class CODBean {
 	private String diagnosisName, icdCode;
-	private int total, rank;
+	private int total;
 
 	public String getDiagnosisName() {
 		return diagnosisName;
@@ -26,14 +26,6 @@ public class CODBean {
 
 	public void setTotal(int total) {
 		this.total = total;
-	}
-
-	public int getRank() {
-		return rank;
-	}
-
-	public void setRank(int rank) {
-		this.rank = rank;
 	}
 
 }
