@@ -15,9 +15,9 @@
 		Do NOT change the "name=jdbc/itrust"
 		-->
 	<Resource
-		username="root"
-		password="h0m3pl4t3"
-		url="jdbc:mysql://localhost/itrust6b"		
+		username="itrustuser"
+		password="itrustpassword"
+		url="jdbc:mysql://localhost/yourdatabase"		
 		name="jdbc/itrust"
 		auth="Container"
 		type="javax.sql.DataSource"
