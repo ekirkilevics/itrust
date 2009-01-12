@@ -10,6 +10,6 @@
 	<classpathentry exported="true" kind="lib" path="Tidy.jar"/>
 	<classpathentry exported="true" kind="lib" path="xmlParserAPIs.jar"/>
 	<classpathentry kind="lib" path="junit-addons-1.4.jar"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk1.5.0_15"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
