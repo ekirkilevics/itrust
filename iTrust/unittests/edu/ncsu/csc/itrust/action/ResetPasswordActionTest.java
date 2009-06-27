@@ -4,7 +4,7 @@ import java.util.List;
 import junit.framework.TestCase;
 import edu.ncsu.csc.itrust.beans.Email;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
-import edu.ncsu.csc.itrust.dao.mysql.FakeEmailDAO;
+import edu.ncsu.csc.itrust.dao.mysql.EmailDAO;
 import edu.ncsu.csc.itrust.datagenerators.TestDataGenerator;
 import edu.ncsu.csc.itrust.exception.FormValidationException;
 import edu.ncsu.csc.itrust.exception.iTrustException;
@@ -15,7 +15,7 @@ import edu.ncsu.csc.itrust.validate.ValidationFormat;
 public class ResetPasswordActionTest extends TestCase {
 	private DAOFactory factory = TestDAOFactory.getTestInstance();
 	private DAOFactory evil = EvilDAOFactory.getEvilInstance();
-	private FakeEmailDAO feDAO = factory.getFakeEmailDAO();
+	private EmailDAO feDAO = factory.getFakeEmailDAO();
 	private ResetPasswordAction action;
 	private TestDataGenerator gen;
 
@@ -100,7 +100,7 @@ public class ResetPasswordActionTest extends TestCase {
 
 		assertEquals("Password changed", action.resetPassword(1L, "patient", "blue", "12345678", "12345678",
 				"127.0.0.1"));
-		List<Email> list = feDAO.getAllFakeEmails();
+		List<Email> list = feDAO.getAllEmails();
 		assertEquals("Dear Random Person, \n You have chosen to change your iTrust password for user 1", list
 				.get(0).getBody());
 
@@ -112,7 +112,7 @@ public class ResetPasswordActionTest extends TestCase {
 		gen.hcp0();
 		assertEquals("Password changed", action.resetPassword(9000000000L, "hcp", "a", "12345678",
 				"12345678", "127.0.0.1"));
-		List<Email> list = feDAO.getAllFakeEmails();
+		List<Email> list = feDAO.getAllEmails();
 		assertEquals(
 				"Dear Kelly Doctor, \n You have chosen to change your iTrust password for user 9000000000",
 				list.get(0).getBody());

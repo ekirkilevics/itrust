@@ -32,4 +32,21 @@ public class GetPrescriptionsTest extends TestCase {
 		List<DiagnosisBean> diagnoses = patientDAO.getDiagnoses(200L);
 		assertEquals(0, diagnoses.size());
 	}
+	
+	public void testExpiredPrescription() throws Exception {
+		List<PrescriptionBean> list;
+		
+		list = patientDAO.getExpiredPrescriptions(2);
+		assertEquals(2, list.size());
+		
+		list = patientDAO.getExpiredPrescriptions(1);
+		assertEquals(0, list.size());
+	}
+	
+	public void testCurrentPrescriptions() throws Exception {
+List<PrescriptionBean> list;
+		
+		list = patientDAO.getCurrentPrescriptions(2);
+		assertEquals(1, list.size());
+	}
 }

@@ -23,7 +23,7 @@ public class AddUAPActionTest extends TestCase {
 	protected void setUp() throws Exception {
 		gen = new TestDataGenerator();
 		gen.hcp0();
-		action = new AddUAPAction(factory, 900000000L);
+		action = new AddUAPAction(factory, 9000000000L);
 	}
 
 	/**

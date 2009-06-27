@@ -50,8 +50,42 @@ if("Get Reminders".equals(request.getParameter("getReminders"))) {
 				<th colspan="2">Patient Information</th>
 			</tr>
 			<tr>
+				<td class="subHeaderVertical">Name:</td>
+				<td >
+					<a href="sendEmailNotification.jsp?mid=<%=reminder.getPatientID()%>">
+					<%=reminder.getFirstName()+" "+reminder.getLastName()%>
+					</a>
+				</td>
+			</tr>
+			<tr>
+				<td class="subHeaderVertical">Phone Number:</td>
+				<td ><%=reminder.getPhoneNumber()%></td>
+			</tr>
+			<tr>
+				<td class="subHeaderVertical">Reasons:</td>
+				<td>
+<%
+			for(VisitFlag vf : reminder.getVisitFlags()) {
+%>
+					<%=vf.getType() %>: &nbsp;&nbsp; <%=vf.getValue() %><br />
+<%
+			}
+%>
+			 	</td>
+			</tr>
+		</table>
+		
+<!--  This is the original Table format which has the first and last name on separate lines.  In favor of making
+	the link to send an email to a patient more friendly I've changed this to the above table which puts both names
+	together.
+		
+		<table class="fTable">
+			<tr>
+				<th colspan="2">Patient Information</th>
+			</tr>
+			<tr>
 				<td class="subHeaderVertical">Last Name:</td>
-				<td ><%=reminder.getLastName()%></td>
+				<td ><a href="sendEmailNotification.jsp?mid=<%=reminder.getPatientID()%>"><%=reminder.getLastName()%></a></td>
 			</tr>
 			<tr>
 				<td class="subHeaderVertical">First Name:</td>
@@ -74,6 +108,7 @@ if("Get Reminders".equals(request.getParameter("getReminders"))) {
 			 	</td>
 			</tr>
 		</table>
+-->
 		<br />
 <%
 	} 

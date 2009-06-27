@@ -17,6 +17,9 @@
 <%@page import="edu.ncsu.csc.itrust.beans.ProcedureBean"%>
 <%@page import="edu.ncsu.csc.itrust.beans.PrescriptionBean"%>
 <%@page import="edu.ncsu.csc.itrust.beans.MedicationBean"%>
+<%@page import="java.text.NumberFormat" %>
+<%@page import="java.text.DecimalFormat" %>
+<%@page import="edu.ncsu.csc.itrust.Localization" %>
 
 <%@include file="/global.jsp" %>
 
@@ -172,10 +175,13 @@ List<PersonnelBean> hcps = viewAction.getDeclaredHCPs(patientMID);
 				<td colspan="2" style="text-align: center;">No diagnoses on record</td>
 			</tr>
 			<%} else {
+				NumberFormat numberFormatter = NumberFormat.getInstance(Localization.instance().getCurrentLocale());
+				((DecimalFormat)numberFormatter).setMaximumFractionDigits(2);
+				((DecimalFormat)numberFormatter).setMinimumFractionDigits(2);
 				for(DiagnosisBean diagnosis : diagnoses){%>
 			<tr>
 				<td style="text-align: center;"><%=diagnosis.getOvDiagnosisID()%></td>
-				<td style="text-align: center;"><%=diagnosis.getICDCode()%></td>
+				<td style="text-align: center;"><%=numberFormatter.format(Float.parseFloat(diagnosis.getICDCode()))%></td>
 				<td style="text-align: center;"><%=diagnosis.getDescription()%></td>
 			</tr>			
 			<%  }

@@ -20,7 +20,8 @@ public class AddEditHospitalDAOTest extends TestCase {
 	@Override
 	protected void setUp() throws Exception {
 		TestDataGenerator gen = new TestDataGenerator();
-		clearHospitals();
+		//clearHospitals();
+		gen.clearAllTables();
 		gen.hospitals();
 	}
 
@@ -30,7 +31,7 @@ public class AddEditHospitalDAOTest extends TestCase {
 
 	public void testGetAllHospitals() throws Exception {
 		List<HospitalBean> hospitals = hospitalDAO.getAllHospitals();
-		assertEquals(3, hospitals.size());
+		assertEquals(4, hospitals.size());
 		assertEquals("Test Hospital 1", hospitals.get(0).getHospitalName());
 		assertEquals("9191919191", hospitals.get(2).getHospitalID());
 	}
@@ -56,8 +57,8 @@ public class AddEditHospitalDAOTest extends TestCase {
 		final String name = "testAddHospital Hospital ";
 		genericAdd(id, name);
 		List<HospitalBean> allCodes = hospitalDAO.getAllHospitals();
-		assertEquals(id, allCodes.get(allCodes.size() - 1).getHospitalID());
-		assertEquals(name, allCodes.get(allCodes.size() - 1).getHospitalName());
+		assertEquals(id, allCodes.get(allCodes.size() - 2).getHospitalID());
+		assertEquals(name, allCodes.get(allCodes.size() - 2).getHospitalName());
 	}
 
 	public void testAddDupe() throws SQLException, DBException, iTrustException {

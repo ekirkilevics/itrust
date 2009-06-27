@@ -1,0 +1,44 @@
+Readme - Theme 5
+Tyler Arehart (tsarehar)
+
+--------------------------------------------------------------------------------
+Added Files
+--------------------------------------------------------------------------------
+		- commons-validator-1.3.1.jar in WebRoot/WEB-INF/lib
+		
+		
+--------------------------------------------------------------------------------
+Changed Files
+--------------------------------------------------------------------------------
+		- PatientDAO.java: src.edu.ncsu.csc.itrust.dao.mysql
+			Changed editPatient() and getPatient() to include credit card info
+		- createTables.sql: sql
+			Added CreditCardType and CreditCardNumber fields
+		- PatientBean.java: src.edu.ncsu.csc.itrust.beans
+			Added credit card variables plus getters and setters
+		- PatientLoader.java: src.edu.ncsu.csc.itrust.beans.loaders
+			Added CC stuff to loadSingle() and loadParameters()
+		- PatientValidator.java: src.edu.ncsu.csc.itrust.validate
+			Added CC validation to the validate() method
+		- editMyDemographics.jsp: WebRoot/auth/patient
+			Added fields for entering CC information
+		- editPatient.jsp: WebRoot/auth/hcp-uap
+			Added fields for entering CC information
+--------------------------------------------------------------------------------
+JUnit Tests
+--------------------------------------------------------------------------------
+		
+		- PatientValidatorTest.java : unittests.edu.ncsu.csc.itrust.validate.bean
+
+		
+--------------------------------------------------------------------------------
+Http Tests
+--------------------------------------------------------------------------------
+
+		- CreditCardValidatorTest.java : httptests
+
+--------------------------------------------------------------------------------
+Insertion and Deletion of Test Data
+--------------------------------------------------------------------------------
+
+		- No new test data

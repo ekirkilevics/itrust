@@ -19,9 +19,10 @@ public class EmergencyReportActionTest extends TestCase {
 	protected void setUp() throws Exception {
 		gen.clearAllTables();
 		gen.patient2();
+		gen.hcp0();
 		gen.ndCodes();
 		gen.icd9cmCodes();
-		action = new EmergencyReportAction(factory, 0L, "2");
+		action = new EmergencyReportAction(factory, 9000000000L, "2");
 	}
 
 	public void testBaseCase() throws iTrustException {

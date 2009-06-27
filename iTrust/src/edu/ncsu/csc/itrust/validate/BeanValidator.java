@@ -3,6 +3,8 @@ package edu.ncsu.csc.itrust.validate;
 import edu.ncsu.csc.itrust.enums.Gender;
 import edu.ncsu.csc.itrust.exception.ErrorList;
 import edu.ncsu.csc.itrust.exception.FormValidationException;
+import edu.ncsu.csc.itrust.validate.*;
+
 
 /**
  * Abstract class used by all validators that provides utility methods for checking formatting of a particular
@@ -15,7 +17,7 @@ import edu.ncsu.csc.itrust.exception.FormValidationException;
  */
 abstract public class BeanValidator<T> {
 	abstract public void validate(T bean) throws FormValidationException;
-
+	
 	/**
 	 * Check the format against the given enum. isNullable will check if the string is empty or a Java null.
 	 * Otherwise, an error message will be returned. Use this in conjunction with {@link ErrorList}.
@@ -27,10 +29,24 @@ abstract public class BeanValidator<T> {
 	 * @return
 	 */
 	protected String checkFormat(String name, String value, ValidationFormat format, boolean isNullable) {
+		 
 		String errorMessage = name + ": " + format.getDescription();
-		if (value == null || "".equals(value))
+		//Lane   March 31, 2009
+		if(name.toLowerCase().contains("email")){
+			//try{
+				if(format.EMAIL(value)){
+					return "";
+				}
+				else
+				{
+					return value;
+				}
+		
+		
+		}  //end Lane's change
+		 if (value == null || "".equals(value))
 			return isNullable ? "" : errorMessage;
-		if (format.getRegex().matcher(value).matches())
+		else if (format.getRegex().matcher(value).matches())
 			return "";
 		else
 			return errorMessage;

@@ -130,6 +130,22 @@
 				<td><input name="fatherMID" value="<%=p.getFatherMID()%>"
 					maxlength="10" type="text"></td>
 			</tr>
+			<tr>
+				<td class="subHeaderVertical">Credit Card Type:</td>
+				<td><select name="creditCardType">
+				<option value="">Select:</option>
+				<option value="MASTERCARD" <%= p.getCreditCardType().equals("MASTERCARD") ? "selected" : "" %>>Mastercard</option>
+				<option value="VISA" <%= p.getCreditCardType().equals("VISA") ? "selected" : "" %>>Visa</option>
+				<option value="DISCOVER" <%= p.getCreditCardType().equals("DISCOVER") ? "selected" : "" %>>Discover</option>
+				<option value="AMEX" <%= p.getCreditCardType().equals("AMEX") ? "selected" : "" %>>American Express</option>
+				</select>
+				</td>
+			</tr>
+			<tr>
+				<td class="subHeaderVertical">Credit Card Number:</td>
+				<td><input name="creditCardNumber" value="<%=p.getCreditCardNumber()%>"
+					maxlength="19" type="text"></td>
+			</tr>
 		</table>
 		<br />
 		<table class="fTable" align=center style="width: 350px;">

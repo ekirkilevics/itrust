@@ -24,6 +24,7 @@ public class AddSurveyTest extends TestCase {
 		TestDataGenerator gen = new TestDataGenerator();
 		gen.clearAllTables();
 		gen.patient2();
+		gen.surveyResults();
 	}
 	
 	public void testAddSurveyData() throws Exception {

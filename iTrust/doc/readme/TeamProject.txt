@@ -1,0 +1,624 @@
+iTrust Team Project Readme
+
+Team Red
+--------
+Tyler Arehart (tsarehar)
+Eric Lifka (eslifka)
+Mitchell Surratt (mlsurrat)
+Jason Clardy (jcclardy)
+
+
+
+All themes and extra credit are included below in sections.
+Please note that we have done two extra credit options:
+	-Internationalization
+	-Real Email Sending
+
+
+
+
+
+=====================================
+Readme - Theme 1
+Tyler Arehart
+Eric Lifka
+=====================================
+
+--------------------------------------------------------------------------------
+Added Files
+--------------------------------------------------------------------------------
+		- EditPrescriptionAction.java : src.edu.ncsu.csc.itrust.action
+			Calls OfficeVisitDAO to edit a prescription.
+		
+		
+--------------------------------------------------------------------------------
+Changed Files
+--------------------------------------------------------------------------------
+		
+		- OfficeVisitDAO.java : src.edu.ncsu.csc.itrust.dao.mysql
+			Added the editPrescription method.
+		- TestDataGenerator.java: unittests.edu.ncsu.csc.itrust.datagenerators
+			Included patient_hcp_vists() hcp_diagnosis_data() in the main method
+			as a matter of testing convenience.
+		- MyDiagnosisAction.java: src.edu.ncsu.csc.itrust.action
+			Added the getPrescriptionsByHCPAndICD method.
+		- myDiagnoses.jsp : WebRoot/auth/patient/
+			
+--------------------------------------------------------------------------------
+JUnit Tests
+--------------------------------------------------------------------------------
+		
+		- EditPrescriptionTest : unittests.edu.ncsu.csc.itrust.dao.officevisit
+			Tested to see that edits via the EditPatientAction are reflected
+			in the database.
+
+		
+--------------------------------------------------------------------------------
+Http Tests
+--------------------------------------------------------------------------------
+
+		- PrescriptionInstructionsTest.java : httptests
+
+--------------------------------------------------------------------------------
+Insertion and Deletion of Test Data
+--------------------------------------------------------------------------------
+
+		- No new test data
+		- Minor changes to TestDataGenerator for convenience.
+
+		
+	
+	
+	
+	
+	
+		
+		
+		
+=====================================		
+Read me - Theme 2
+Eric Lifka (eslifka)
+=====================================
+
+--------------------------------------------------------------------------------
+Added Files
+--------------------------------------------------------------------------------
+		
+		- sendEmailNotification.jsp : iTrust/WebRoot/auth/hcp
+			Creates a web - page for sending an email to a patient.
+		
+--------------------------------------------------------------------------------
+Changed Files
+--------------------------------------------------------------------------------
+		
+		- visitReminders.jsp : iTrust/WebRoot/auth/hcp
+			Modified the table entries, putting both names together as a 'full name'
+			and made names link to sendEmailNotification.jsp
+		
+		- viewPrescriptionRenewalNeeds.jsp : iTrust/WebRoot/auth/hcp
+			Made names in the list link to sendEmailNotification.jsp
+		
+--------------------------------------------------------------------------------
+JUnit Tests
+--------------------------------------------------------------------------------
+		
+		- This Theme required no JUnit tests.  All of the appropriate action's
+			were already available, so the sendEmailNotification file utilizes
+			those rather than create new ones.  No new java code was created,
+			so no new test cases were needed to cover the code.
+		
+--------------------------------------------------------------------------------
+Http Tests
+--------------------------------------------------------------------------------
+		
+		- SendEmailNotificationTest.java : httptests
+		
+--------------------------------------------------------------------------------
+Insertion and Deletion of Test Data
+--------------------------------------------------------------------------------
+		
+		- No new test data - uses the test data created for UC32
+		
+
+		
+		
+		
+
+
+
+
+
+		
+======================================		
+Readme - Theme 4
+Lane Surratt (mlsurrat)
+======================================
+
+Added files:
+	MailValidator.java to edu.ncsu.csc.itrust.validate
+
+Changed files:
+	ValidationFormat.java
+	BeanValidator.java
+JUnit tests:
+	TestMailValidator.java added
+	PatientValidatorTest.java
+	AddPatientValidatorTest.java
+	AddPersonnelValidatorTest.java
+HTTPUnit Tests:
+	no need for changes
+Acceptance Tests:
+	no need for changes
+
+
+Old functionality:
+the old strategy checked for valid domains where as the new strategy from EmailValidator doesn't check 
+whether or not the domain name is valid or not.
+		example:  invalid: google@google.google
+					valid: google@google.com
+
+the old strategy would kick back and error when encountering "andy.programmer?gmail.com" where as the new 
+strategy for email refactoring just rejects the email as invalid.
+
+the old strategy limited the length of the email sender to 30 characters where as the new strategy puts no limit
+on the length of the email sender.	
+		example:  rejected = googlegooglegoogle@google.com
+					accepted = google@google.com
+					
+					
+					
+					
+					
+					
+=========================================					
+Readme - Theme 5
+Tyler Arehart (tsarehar)
+=========================================
+
+--------------------------------------------------------------------------------
+Added Files
+--------------------------------------------------------------------------------
+		- commons-validator-1.3.1.jar in WebRoot/WEB-INF/lib
+		
+		
+--------------------------------------------------------------------------------
+Changed Files
+--------------------------------------------------------------------------------
+		- PatientDAO.java: src.edu.ncsu.csc.itrust.dao.mysql
+			Changed editPatient() and getPatient() to include credit card info
+		- createTables.sql: sql
+			Added CreditCardType and CreditCardNumber fields
+		- PatientBean.java: src.edu.ncsu.csc.itrust.beans
+			Added credit card variables plus getters and setters
+		- PatientLoader.java: src.edu.ncsu.csc.itrust.beans.loaders
+			Added CC stuff to loadSingle() and loadParameters()
+		- PatientValidator.java: src.edu.ncsu.csc.itrust.validate
+			Added CC validation to the validate() method
+		- editMyDemographics.jsp: WebRoot/auth/patient
+			Added fields for entering CC information
+		- editPatient.jsp: WebRoot/auth/hcp-uap
+			Added fields for entering CC information
+--------------------------------------------------------------------------------
+JUnit Tests
+--------------------------------------------------------------------------------
+		
+		- PatientValidatorTest.java : unittests.edu.ncsu.csc.itrust.validate.bean
+
+		
+--------------------------------------------------------------------------------
+Http Tests
+--------------------------------------------------------------------------------
+
+		- CreditCardValidatorTest.java : httptests
+
+--------------------------------------------------------------------------------
+Insertion and Deletion of Test Data
+--------------------------------------------------------------------------------
+
+		- No new test data
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+====================================					
+Readme - Theme 6
+Jason Clardy
+====================================
+
+--------------------------------------------------------------------------------
+Added Files
+--------------------------------------------------------------------------------
+		ICDCodeProperties.java
+		- Loads the ICD Code properties file on the server
+		WebRoot/META-INF/properties.txt
+		- The properties file for the server
+		commons-collections-3.2.1.jar, commons-configuration-1.6.jar, commons-lang-2.4.jar
+		- Libraries for Apache Configuration
+		
+--------------------------------------------------------------------------------
+Changed Files
+--------------------------------------------------------------------------------
+		VisitRemindersDAO.java
+		- Changed to use ICDCodeProperties instead of hardcoded values
+		PatientDAO.java
+		- Changed to use ICDCodeProperties instead of hardcoded values
+		
+
+--------------------------------------------------------------------------------
+JUnit Tests
+--------------------------------------------------------------------------------
+
+		ICDCodePropertiesTest.java
+		- Tests property file loading
+
+		
+--------------------------------------------------------------------------------
+Http Tests
+--------------------------------------------------------------------------------
+
+		None
+
+--------------------------------------------------------------------------------
+Insertion and Deletion of Test Data
+--------------------------------------------------------------------------------
+
+		No new test data.
+			
+			
+			
+			
+			
+			
+			
+========================================		
+Readme - Theme 7
+Tyler Arehart
+Mitchell Surratt
+========================================
+
+--------------------------------------------------------------------------------
+Added Files
+--------------------------------------------------------------------------------
+		None
+		
+		
+--------------------------------------------------------------------------------
+Changed Files
+--------------------------------------------------------------------------------
+		- createTables.sql: sql/data/
+			Added foreign key constraints
+		- Tons of test data
+			Changed to satisfy constraints
+		- Tons of junit tests
+			Changed to satisfy constraints
+
+--------------------------------------------------------------------------------
+JUnit Tests
+--------------------------------------------------------------------------------
+
+		- unittests.dao.ForeignKeyTest.java
+			Ensures that the foreign keys are properly restrictive
+
+		
+--------------------------------------------------------------------------------
+Http Tests
+--------------------------------------------------------------------------------
+
+		None
+
+--------------------------------------------------------------------------------
+Insertion and Deletion of Test Data
+--------------------------------------------------------------------------------
+
+		Uses old test data, much of it modified to meet constraints.
+		
+		
+	
+	
+	
+	
+	
+		
+		
+======================================		
+Readme - Theme 8
+Tyler Arehart
+Eric Lifka
+======================================
+
+--------------------------------------------------------------------------------
+Added Files
+--------------------------------------------------------------------------------
+		- ReferralDAO.java : src.edu.ncsu.csc.itrust.dao.mysql
+		
+		- ReferralBean.java : src.edu.ncsu.csc.itrust.beans
+		
+		- ReferralBeanLoader.java : src.edu.ncsu.csc.itrust.beans.loaders
+		
+		- ReferralManagementAction.java : src.edu.ncsu.csc.itrust.action
+		
+		- hcpConsultation.jsp : iTrust/WebRoot/auth/hcp
+		
+		
+--------------------------------------------------------------------------------
+Changed Files
+--------------------------------------------------------------------------------
+		
+		- createTables.sql : sql
+			Created the referrals table
+		- dropTables.sql : sql
+			Drop the referrals table
+		- DAOFactory.java : src.edu.ncsu.csc.itrust.dao
+			Added a method for creating ReferralDAOs
+		- deleteFromAllTables.sql : sql.data
+			Truncated referrals
+		- added links from hcp home: iTrust/WebRoot/auth/hcp/menu.jsp
+			
+--------------------------------------------------------------------------------
+JUnit Tests
+--------------------------------------------------------------------------------
+
+		- ReferralManagementActionTest.java : unittests.edu.ncsu.csc.itrust.action
+		
+		- ReferralBeanTest.java : unittests.edu.ncsu.csc.itrust.bean
+
+		
+--------------------------------------------------------------------------------
+Http Tests
+--------------------------------------------------------------------------------
+
+		- ConsultationTest.java : httptests
+
+--------------------------------------------------------------------------------
+Insertion and Deletion of Test Data
+--------------------------------------------------------------------------------
+
+		No new test data was required.
+
+
+
+
+
+
+
+
+=======================================
+Theme 9
+Jason Clardy
+Lane Surratt
+=======================================
+
+--------------------------------------------------------------------------------
+Added Files
+--------------------------------------------------------------------------------
+		- SearchUsersAction.java : src.edu.ncsu.csc.itrust.action
+		
+		
+--------------------------------------------------------------------------------
+Changed Files
+--------------------------------------------------------------------------------
+		
+		PatientDAO.java
+			-added search function
+		PersonnelDAO.java
+			-added search function
+		getPatientID.jsp
+			-added search box
+		getPersonnelID.jsp
+			-added search box
+			
+--------------------------------------------------------------------------------
+JUnit Tests
+--------------------------------------------------------------------------------
+		
+		- SearchUsersActionTest.java : unittests.edu.ncsu.csc.itrust.action
+
+		
+--------------------------------------------------------------------------------
+Http Tests
+--------------------------------------------------------------------------------
+
+		- SearchUserTest.java : httptests
+
+--------------------------------------------------------------------------------
+Insertion and Deletion of Test Data
+--------------------------------------------------------------------------------
+
+		- No new test data
+		
+		
+		
+		
+		
+		
+		
+===================================
+Readme - Theme 10
+Lane Surratt (mlsurrat)
+===================================
+
+Added file:
+	None
+
+Changed files:
+	ViewVisitedHCPsAction.java
+		-changed method getVisitedHCPs()
+	
+	
+JUnit Tests:
+	changed ViewVisitedHCPsActionTest.java
+		-added testGetVisitedHCPsRed()
+		-added testGetVisitedHCPsRed2()
+	
+	
+Acceptance tests:
+	None
+
+HttpUnit tests:
+	None
+
+	
+	
+	
+	
+===============================	
+Theme 11
+Eric Lifka
+Jason Clardy
+===============================
+		
+--------------------------------------------------------------------------------
+Changed Files
+--------------------------------------------------------------------------------
+		
+		- emergencyReport.jsp
+		
+--------------------------------------------------------------------------------
+Http Tests
+--------------------------------------------------------------------------------
+
+		- viewEmergencyReportTest.java
+		
+--------------------------------------------------------------------------------
+Insertion and Deletion of Test Data
+--------------------------------------------------------------------------------
+
+		- No new test data
+	
+	
+	
+	
+	
+	
+	
+====================================	
+Internationalization
+Jason Clardy (jcclardy)
+====================================
+
+Added:
+Localization.java - Keeps track of the current Locale
+Messages.java - Loads a resource bundle with localized strings
+messages.properties - File containing localized strings
+
+Tests:
+MessagesTest.java
+LocalizationTest.java
+
+Modified:
+viewReport.jsp - ICD codes are formatted based on the current locale
+ReportRequestBean.java - load strings from property file
+ViewPrescriptionRecordsAction.java - load strings from property file
+ViewPrescriptionRenewalNeedsAction.java - load strings from property file
+ViewPersonnelAction.java - load strings from property file
+ViewOfficeVisitsAction - load strings from property file
+
+Localized Strings:
+ReportRequestBean.requested=Requested
+ReportRequestBean.approved=Approved
+ReportRequestBean.rejected=Rejected
+ReportRequestBean.viewed=Viewed
+ViewPrescriptionRecordsAction.1=Undesignated Personnel Have Accessed Your Prescription Records
+ViewPrescriptionRecordsAction.2=An undesignated HCP or UAP has accessed your prescription records. For more information, please log in to iTrust.
+ViewPrescriptionRenewalNeedsAction.0=\ viewed renewal needs patients
+ViewPrescriptionRenewalNeedsAction.1=DB Exception from ViewPrescriptionRenewalNeedsAction
+ViewPersonnelAction.0=Patient viewed personnel 
+ViewPersonnelAction.1=No personnel record exists for this MID
+ViewPersonnelAction.2=MID not a number
+ViewOfficeVisitAction.0=You do not represent this patient, contact your HCP to represent this patient
+ViewOfficeVisitAction.1=Representee's MID is not valid
+	
+	
+	
+	
+	
+	
+	
+===================================
+Real Email Sending
+Lane Surratt(mlsurrat)
+===================================
+
+--------------------------------------------------------------------------------
+Added Files
+--------------------------------------------------------------------------------
+		
+		
+--------------------------------------------------------------------------------
+Changed Files
+--------------------------------------------------------------------------------
+		
+		EmailDAO.java
+			-added real email sending method (sendRealEmail)
+		EmailUtil.java
+			-added a call to sendRealEmail();
+			
+
+			
+--------------------------------------------------------------------------------
+JUnit Tests
+--------------------------------------------------------------------------------
+		
+		- EmailTest.java : unittests.edu.ncsu.csc.itrust.action
+		
+		
+--------------------------------------------------------------------------------
+Http Tests
+--------------------------------------------------------------------------------
+
+		
+
+--------------------------------------------------------------------------------
+Insertion and Deletion of Test Data
+--------------------------------------------------------------------------------
+
+		- No new test data
+
+		
+--------------------------------------------------------------------------------
+Notes
+--------------------------------------------------------------------------------
+
+	Left the old fake email functionality as a record keeping system for emails that have been sent.
+	Now iTrust both adds an email to the database and sends a real email through the smtp.gmail.com server.
+	
+	
+	
+	
+	
+=================================
+Graphical changes
+Tyler Arehart
+=================================
+
+--------------------------------------------------------------------------------
+Added Files
+--------------------------------------------------------------------------------
+		bottomangle.gif : WebRoot/image/teamred
+			The image at the bottom of the menu.
+		header.gif : WebRoot/image/teamred
+			The image at the top of the menu.
+		redborder.gif : WebRoot/image/teamred
+			The tiled image for the red border
+		
+--------------------------------------------------------------------------------
+Changed Files
+--------------------------------------------------------------------------------
+		
+		main.css : WebRoot/css
+			-Made everything red and paved the way for the images
+		header.jsp : WebRoot
+			-Added images to the menu
+			
+			

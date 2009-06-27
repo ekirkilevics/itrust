@@ -22,7 +22,7 @@ List<PatientBean> representees = action.getRepresentees();
 boolean showMine = false;
 boolean showOther = false;
 	
-	if (request.getParameter("mine") != null && request.getParameter("mine").equals("View")) showMine = true;
+	if (request.getParameter("mine") != null && request.getParameter("mine").equals("View Current")) showMine = true;
 	if (request.getParameter("other") != null && request.getParameter("other").equals("View")) showOther = true;
 	if (request.getParameter("representee") != null && request.getParameter("representee").equals("-1")) showOther = false;
 %>
@@ -34,7 +34,7 @@ boolean showOther = false;
 					<span style="font-size: 24px; font-weight: bold;">View My Own Prescriptions</span>
 				</td>
 				<td>
-					<input type="submit" name="mine" value="View"></input>
+					<input type="submit" name="mine" value="View Current"></input>
 				</td>
 			</tr>
 			<tr>
@@ -74,6 +74,11 @@ boolean showOther = false;
 	</form>
 	<br />
 	<table class="fTable">
+	
+	
+	
+	
+	
 <%
 	if (showMine) { 
 		List<PrescriptionBean> prescriptions = action.getPrescriptionsForPatient(loggedInMID.longValue());
@@ -100,7 +105,7 @@ boolean showOther = false;
 			for (PrescriptionBean prescription : prescriptions) { 
 %>
 		<tr>
-			<td ><%=prescription.getMedication().getNDCodeFormatted() %></td>
+			<td ><a href="viewPrescriptionInformation.jsp?visitID=<%=prescription.getVisitID()%>&presID=<%=prescription.getId()%>"><%=prescription.getMedication().getNDCodeFormatted() %></a></td>
 			<td ><%=prescription.getMedication().getDescription() %></td>
 			<td ><%=prescription.getStartDateStr() %> to <%=prescription.getEndDateStr() %></td>
 			<td ><%= action.getPrescribingDoctor(prescription).getFullName() %></td>

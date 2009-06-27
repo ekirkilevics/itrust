@@ -1,32 +1,36 @@
-TRUNCATE Allergies;
-TRUNCATE CPTCodes;
 TRUNCATE DeclaredHCP;
 TRUNCATE FakeEmail;
 TRUNCATE GlobalVariables;
 TRUNCATE HCPAssignedHos;
 TRUNCATE HCPRelations;
-TRUNCATE Hospitals;
-TRUNCATE ICDCodes;
 TRUNCATE LabProcedure;
 TRUNCATE LoginFailures;
 TRUNCATE LOINC;
 TRUNCATE Message;
-TRUNCATE NDCodes;
+TRUNCATE referrals;
 TRUNCATE OVDiagnosis;
 TRUNCATE OVMedication;
 TRUNCATE OVProcedure;
 TRUNCATE OVSurvey;
 TRUNCATE OfficeVisits;
-TRUNCATE Patients;
-TRUNCATE Personnel;
 TRUNCATE ReportRequests;
 TRUNCATE Representatives;
 TRUNCATE ResetPasswordFailures;
 TRUNCATE TransactionLog;
-TRUNCATE Users;
+
 
 TRUNCATE PersonalAllergies;
 TRUNCATE PersonalHealthInformation;
 TRUNCATE PersonalRelations;
-
+TRUNCATE Allergies;
 TRUNCATE Images;
+TRUNCATE ICDCodes;
+
+
+TRUNCATE Personnel;
+TRUNCATE Hospitals;
+TRUNCATE NDCodes;
+
+TRUNCATE CPTCodes;
+TRUNCATE Patients;
+TRUNCATE Users;

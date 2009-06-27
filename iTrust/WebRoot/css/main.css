@@ -4,7 +4,7 @@ body {
 }
 
 a {
-	color: #0044AA;
+	color: #CC0000;
 	font-size: 14px;
 }
 
@@ -66,7 +66,7 @@ a {
 }
 
 .iTrustError {
-	color: #CC0000;
+	color: #FF0000;
 	font-weight: bold;
 }
 
@@ -75,14 +75,19 @@ a {
 }
 
 .iTrustMenu {
-	background-color: #FFFFFF;
+	background-color: #F9F9F9;
 	border-top: 1px solid black;
 	border-left: 1px solid black;
+	border-right: 1px solid black;
 	float: left; 
 	margin: 0px;
 	margin-left: 10px;
+	margin-bottom: 30px;
 	padding: 5px;
+	width: 199px;
+	
 }
+
 
 .iTrustMenu a {
 	color: 336699;
@@ -125,13 +130,14 @@ a {
 }
 
 .iTrustNavlink {
-	color: #003399;
+	color: #AA0000;
 	font-size: small;
 	text-decoration: none;
 }
 
 .iTrustPage {
-	background-color: #99CCFF;
+	background-color: #DD8888;
+	background-image:url('/iTrust/image/teamred/redborder.gif');
 	border: 1px solid black;
 	margin: 10px;
 	margin-top: 0;

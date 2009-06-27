@@ -13,6 +13,8 @@ import edu.ncsu.csc.itrust.dao.mysql.PersonnelDAO;
 import edu.ncsu.csc.itrust.dao.mysql.TransactionDAO;
 import edu.ncsu.csc.itrust.enums.TransactionType;
 import edu.ncsu.csc.itrust.exception.iTrustException;
+import edu.ncsu.csc.itrust.Messages;
+
 
 /**
  * Handles retrieving beans for viewPrescriptionRecords.jsp
@@ -116,9 +118,9 @@ public class ViewPrescriptionRecordsAction {
 		
 		Email email = new Email();
 		email.setToList(toList);
-		email.setFrom("noreply@itrust.com");
-		email.setSubject("Undesignated Personnel Have Accessed Your Prescription Records");
-		email.setBody("An undesignated HCP or UAP has accessed your prescription records. For more information, please log in to iTrust.");
+		email.setFrom("noreply@itrust.com"); //$NON-NLS-1$
+		email.setSubject(Messages.getString("ViewPrescriptionRecordsAction.1")); //$NON-NLS-1$
+		email.setBody(Messages.getString("ViewPrescriptionRecordsAction.2")); //$NON-NLS-1$
 		emailer.sendEmail(email);
 		transDAO.logTransaction(TransactionType.VIEW_PRESCRIPTION_REPORT, loggedInMID);
 		return patientDAO.getPrescriptions(patientID);

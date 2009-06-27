@@ -62,6 +62,8 @@ public class PatientLoader implements BeanLoader<PatientBean> {
 		p.setEthnicityStr(rs.getString("Ethnicity"));
 		p.setGenderStr(rs.getString("Gender"));
 		p.setTopicalNotes(rs.getString("TopicalNotes"));
+		p.setCreditCardType(rs.getString("CreditCardType"));
+		p.setCreditCardNumber(rs.getString("CreditCardNumber"));
 		return p;
 	}
 
@@ -122,6 +124,8 @@ public class PatientLoader implements BeanLoader<PatientBean> {
 		ps.setString(i++, p.getEthnicity().getName());
 		ps.setString(i++, p.getGender().getName());
 		ps.setString(i++, p.getTopicalNotes());
+		ps.setString(i++, p.getCreditCardType());
+		ps.setString(i++, p.getCreditCardNumber());
 		return ps;
 	}
 }

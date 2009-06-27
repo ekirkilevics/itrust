@@ -4,9 +4,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Vector;
 import java.util.List;
 import edu.ncsu.csc.itrust.DBUtil;
 import edu.ncsu.csc.itrust.beans.HospitalBean;
+//import edu.ncsu.csc.itrust.beans.PatientBean;
 import edu.ncsu.csc.itrust.beans.PersonnelBean;
 import edu.ncsu.csc.itrust.beans.PrescriptionBean;
 import edu.ncsu.csc.itrust.beans.loaders.HospitalBeanLoader;
@@ -15,6 +17,7 @@ import edu.ncsu.csc.itrust.dao.DAOFactory;
 import edu.ncsu.csc.itrust.exception.DBException;
 import edu.ncsu.csc.itrust.exception.iTrustException;
 import edu.ncsu.csc.itrust.enums.Role;
+
 
 /**
  * Used for managing information related to personnel: HCPs, UAPs, Admins
@@ -263,6 +266,32 @@ public class PersonnelDAO {
 			ps.setLong(1, prescription.getVisitID());
 			ResultSet rs = ps.executeQuery();
 			return personnelLoader.loadList(rs).get(0);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DBException(e);
+		} finally {
+			DBUtil.closeConnection(conn, ps);
+		}
+	}
+	
+	/**
+	 * Searches for personnel with given name
+	 * 
+	 */
+	public List<PersonnelBean> searchForPersonnelWithName(String first, String last) throws DBException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		
+		if (first.equals("%") && last.equals("%")) return new Vector<PersonnelBean>();
+		
+		try {
+			conn = factory.getConnection();
+			
+			ps = conn.prepareStatement("SELECT * FROM personnel WHERE firstName LIKE ? AND lastName LIKE ?");
+			ps.setString(1, first);
+			ps.setString(2, last);
+			ResultSet rs = ps.executeQuery();
+			return personnelLoader.loadList(rs);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new DBException(e);

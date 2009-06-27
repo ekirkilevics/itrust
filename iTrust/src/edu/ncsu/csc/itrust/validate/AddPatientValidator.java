@@ -24,4 +24,5 @@ public class AddPatientValidator extends BeanValidator<PatientBean> {
 		if (errorList.hasErrors())
 			throw new FormValidationException(errorList);
 	}
+	
 }

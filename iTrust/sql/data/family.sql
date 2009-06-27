@@ -8,6 +8,7 @@ INSERT INTO Patients (MID, FirstName, MotherMID, FatherMID)
 			         (9, 'Sib2', 0, 5),
 			         (10, 'Sib3', 4,5);
 
-INSERT INTO OfficeVisits(ID, PatientID) VALUES (50, 4),(51, 7);
+INSERT INTO OfficeVisits(ID, hcpid, PatientID, hospitalid) VALUES (50,9000000000, 4, '1'),
+			(51,9000000000, 7,'1');
 
 INSERT INTO OVDiagnosis(ICDCode, VisitID) VALUES (250.3, 50),(250.3, 51);

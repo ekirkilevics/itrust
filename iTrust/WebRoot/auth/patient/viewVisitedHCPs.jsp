@@ -39,6 +39,7 @@ boolean filtered = false;
 
 ViewVisitedHCPsAction action = new ViewVisitedHCPsAction(DAOFactory.getProductionInstance(),loggedInMID.longValue());
 List<HCPVisitBean> hcpVisits = action.getVisitedHCPs();
+
 String confirm = "";
 try {
 	if (removeID != null && !removeID.equals("")) {
@@ -86,6 +87,7 @@ if (filterName != null && !filterName.equals("")) {
 			</tr>
 
 <%
+	
 	int i = 0; 
 	for (HCPVisitBean vb: hcpVisits) { 
 %>
@@ -103,6 +105,9 @@ if (filterName != null && !filterName.equals("")) {
 <%
 		i++;
 	}
+
+	
+	
 %>
 			<tr>
 				<td colspan="5" style="color: #CC3333; text-align: right; font-weight: bold; font-size: 12px;">
@@ -125,9 +130,11 @@ else {
 				<th>Designated HCP?</th>
 			</tr>
 <% 
+	List<PersonnelBean> added = null;
 	if (null != personnel) {
 		int i = 0; 
 		for (PersonnelBean ele: personnel) {
+		
 %>
 			<tr>
 				<td><%=ele.getFullName() %></td>
@@ -140,8 +147,13 @@ else {
 				</td>
 			</tr> 
 <%
+
 			i++;
+			
 		}
+	
+	
+		
 	}
 %>
 			<tr>

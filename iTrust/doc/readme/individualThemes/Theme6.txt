@@ -1,0 +1,41 @@
+Readme - Theme 6
+Jason Clardy
+
+--------------------------------------------------------------------------------
+Added Files
+--------------------------------------------------------------------------------
+		ICDCodeProperties.java
+		- Loads the ICD Code properties file on the server
+		WebRoot/META-INF/properties.txt
+		- The properties file for the server
+		commons-collections-3.2.1.jar, commons-configuration-1.6.jar, commons-lang-2.4.jar
+		- Libraries for Apache Configuration
+		
+--------------------------------------------------------------------------------
+Changed Files
+--------------------------------------------------------------------------------
+		VisitRemindersDAO.java
+		- Changed to use ICDCodeProperties instead of hardcoded values
+		PatientDAO.java
+		- Changed to use ICDCodeProperties instead of hardcoded values
+		
+
+--------------------------------------------------------------------------------
+JUnit Tests
+--------------------------------------------------------------------------------
+
+		ICDCodePropertiesTest.java
+		- Tests property file loading
+
+		
+--------------------------------------------------------------------------------
+Http Tests
+--------------------------------------------------------------------------------
+
+		None
+
+--------------------------------------------------------------------------------
+Insertion and Deletion of Test Data
+--------------------------------------------------------------------------------
+
+		No new test data.

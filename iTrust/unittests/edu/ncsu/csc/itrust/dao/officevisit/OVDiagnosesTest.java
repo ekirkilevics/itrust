@@ -15,6 +15,7 @@ public class OVDiagnosesTest extends TestCase {
 		TestDataGenerator gen = new TestDataGenerator();
 		gen.clearAllTables();
 		gen.icd9cmCodes();
+		gen.officeVisit1();
 	}
 
 	public void testAddRemoveOneOVDiagnosis() throws Exception {

@@ -14,7 +14,7 @@ import edu.ncsu.csc.itrust.beans.PersonnelBean;
 import edu.ncsu.csc.itrust.beans.ReportRequestBean;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
 import edu.ncsu.csc.itrust.dao.mysql.AllergyDAO;
-import edu.ncsu.csc.itrust.dao.mysql.FakeEmailDAO;
+import edu.ncsu.csc.itrust.dao.mysql.EmailDAO;
 import edu.ncsu.csc.itrust.dao.mysql.FamilyDAO;
 import edu.ncsu.csc.itrust.dao.mysql.HealthRecordsDAO;
 import edu.ncsu.csc.itrust.dao.mysql.LabProcedureDAO;
@@ -42,7 +42,7 @@ public class ViewMyRecordsAction {
 	private OfficeVisitDAO ovDAO;
 	private SurveyDAO surveyDAO;
 	private LabProcedureDAO labDAO;
-	private FakeEmailDAO emailDAO;
+	private EmailDAO emailDAO;
 	private ICDCodesDAO icdDAO;
 	private ReportRequestDAO reportRequestDAO;
 	private long loggedInMID;
@@ -127,7 +127,7 @@ public class ViewMyRecordsAction {
 	 * @throws iTrustException
 	 */
 	public List<Email> getEmailHistory() throws iTrustException {
-		return emailDAO.getFakeEmailsByPerson(getPatient().getEmail());
+		return emailDAO.getEmailsByPerson(getPatient().getEmail());
 	}
 
 	/**

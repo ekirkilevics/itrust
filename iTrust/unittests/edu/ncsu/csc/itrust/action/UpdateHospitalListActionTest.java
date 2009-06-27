@@ -18,6 +18,7 @@ public class UpdateHospitalListActionTest extends TestCase {
 	protected void setUp() throws Exception {
 		action = new UpdateHospitalListAction(factory, performingAdmin);
 		gen.clearAllTables();
+		gen.admin1();
 		gen.hospitals();
 	}
 
@@ -117,7 +118,7 @@ public class UpdateHospitalListActionTest extends TestCase {
 		HospitalBean hosp = new HospitalBean(id, "shouldn't be here");
 		assertEquals("Error: Hospital not found.", action.updateInformation(hosp));
 		assertEquals(null, factory.getHospitalsDAO().getHospital(id));
-		assertEquals(3, factory.getHospitalsDAO().getAllHospitals().size());
+		assertEquals(4, factory.getHospitalsDAO().getAllHospitals().size());
 	}
 
 }

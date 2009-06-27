@@ -4,11 +4,12 @@ import java.util.List;
 import edu.ncsu.csc.itrust.beans.Email;
 import edu.ncsu.csc.itrust.beans.PersonnelBean;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
-import edu.ncsu.csc.itrust.dao.mysql.FakeEmailDAO;
+import edu.ncsu.csc.itrust.dao.mysql.EmailDAO;
 import edu.ncsu.csc.itrust.dao.mysql.PersonnelDAO;
 import edu.ncsu.csc.itrust.dao.mysql.TransactionDAO;
 import edu.ncsu.csc.itrust.enums.TransactionType;
 import edu.ncsu.csc.itrust.exception.iTrustException;
+import edu.ncsu.csc.itrust.Messages;
 
 /**
  * Handles retrieving personnel beans for a given personnel Used by viewPersonnel.jsp
@@ -19,7 +20,7 @@ import edu.ncsu.csc.itrust.exception.iTrustException;
 public class ViewPersonnelAction {
 	private PersonnelDAO personnelDAO;
 	private TransactionDAO transDAO;
-	private FakeEmailDAO emailDAO;
+	private EmailDAO emailDAO;
 	private long loggedInMID;
 
 	/**
@@ -49,13 +50,13 @@ public class ViewPersonnelAction {
 			PersonnelBean personnel = personnelDAO.getPersonnel(mid);
 			if (personnel != null) {
 				transDAO.logTransaction(TransactionType.ENTER_EDIT_DEMOGRAPHICS, loggedInMID, mid,
-						"Patient viewed personnel " + mid);
+						Messages.getString("ViewPersonnelAction.0") + mid); //$NON-NLS-1$
 				return personnel;
 			} else
-				throw new iTrustException("No personnel record exists for this MID");
+				throw new iTrustException(Messages.getString("ViewPersonnelAction.1")); //$NON-NLS-1$
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
-			throw new iTrustException("MID not a number");
+			throw new iTrustException(Messages.getString("ViewPersonnelAction.2")); //$NON-NLS-1$
 		}
 	}
 	
@@ -66,7 +67,7 @@ public class ViewPersonnelAction {
 	 * @throws iTrustException
 	 */
 	public List<Email> getEmailHistory() throws iTrustException {
-		return emailDAO.getFakeEmailsByPerson(personnelDAO.getPersonnel(loggedInMID).getEmail());
+		return emailDAO.getEmailsByPerson(personnelDAO.getPersonnel(loggedInMID).getEmail());
 	}
 
 }

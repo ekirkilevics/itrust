@@ -12,13 +12,14 @@ public class UpdateLabProcListActionTest extends TestCase {
 	private DAOFactory factory = TestDAOFactory.getTestInstance();
 	private UpdateLabProcListAction action;
 	private TestDataGenerator gen;
-	private static long performingAdmin = 9000000001l;
+	private static long performingAdmin = 9000000001L;
 
 	@Override
 	protected void setUp() throws Exception {
 		gen = new TestDataGenerator();
 		action = new UpdateLabProcListAction(factory, performingAdmin);
 		gen.clearAllTables();
+		gen.admin1();
 		gen.loincs();
 
 	}

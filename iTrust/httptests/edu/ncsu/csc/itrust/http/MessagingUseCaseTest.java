@@ -5,7 +5,7 @@ import com.meterware.httpunit.WebConversation;
 import com.meterware.httpunit.WebForm;
 import com.meterware.httpunit.WebResponse;
 import edu.ncsu.csc.itrust.beans.Email;
-import edu.ncsu.csc.itrust.dao.mysql.FakeEmailDAO;
+import edu.ncsu.csc.itrust.dao.mysql.EmailDAO;
 import edu.ncsu.csc.itrust.testutils.TestDAOFactory;
 
 /**
@@ -39,8 +39,8 @@ public class MessagingUseCaseTest extends iTrustHTTPTest {
 		assertTrue(wr.getText().contains("Announcements"));
 
 		// Check email
-		FakeEmailDAO feDAO = new FakeEmailDAO(TestDAOFactory.getTestInstance());
-		List<Email> eList = feDAO.getFakeEmailsByPerson("andy.programmer@gmail.com");
+		EmailDAO feDAO = new EmailDAO(TestDAOFactory.getTestInstance());
+		List<Email> eList = feDAO.getEmailsByPerson("andy.programmer@gmail.com");
 		
 		boolean foundEmail = false;
 		for(Email e:eList) {
@@ -79,8 +79,8 @@ public class MessagingUseCaseTest extends iTrustHTTPTest {
 		wr = wr.getLinkWith("Log into iTrust").click();
 
 		// Check email
-		FakeEmailDAO feDAO = new FakeEmailDAO(TestDAOFactory.getTestInstance());
-		List<Email> eList = feDAO.getFakeEmailsByPerson("kdoctor@iTrust.org");
+		EmailDAO feDAO = new EmailDAO(TestDAOFactory.getTestInstance());
+		List<Email> eList = feDAO.getEmailsByPerson("kdoctor@iTrust.org");
 		
 		boolean foundEmail = false;
 		for(Email e:eList) {

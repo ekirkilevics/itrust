@@ -21,11 +21,14 @@ public class EditOfficeVisitActionTest extends TestCase {
 	@Override
 	protected void setUp() throws Exception {
 		gen.clearAllTables();
+		gen.hospitals();
 		gen.hcp0();
 		gen.patient1();
+		gen.admin1();
 		gen.officeVisit1();
-		gen.hospitals();
-		action = new EditOfficeVisitAction(factory, 9000000001l, "1", "1");
+		gen.ndCodes();
+		
+		action = new EditOfficeVisitAction(factory, 9000000001L, "1", "1");
 	}
 
 	public void testOVID() {
@@ -61,7 +64,7 @@ public class EditOfficeVisitActionTest extends TestCase {
 
 	public void testGetHospitals() throws Exception {
 		List<HospitalBean> hospitals = action.getHospitals(9000000000L);
-		assertEquals(3, hospitals.size());
+		assertEquals(4, hospitals.size());
 		assertEquals("Test Hospital 8181818181", hospitals.get(0).getHospitalName());
 		assertEquals("Test Hospital 9191919191", hospitals.get(1).getHospitalName());
 		assertEquals("Test Hospital 1", hospitals.get(2).getHospitalName());

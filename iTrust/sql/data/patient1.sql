@@ -70,20 +70,25 @@ VALUES
 'African American',
 'Female',
 '')
-;
+ ON DUPLICATE KEY UPDATE MID = MID;
 
 INSERT INTO Users(MID, password, role, sQuestion, sAnswer) 
-			VALUES (1, 'pw', 'patient', 'what is your favorite color?', 'blue');
+			VALUES (1, 'pw', 'patient', 'what is your favorite color?', 'blue')
+ ON DUPLICATE KEY UPDATE MID = MID;
 
+DELETE FROM PersonalHealthInformation WHERE PatientID = 1;
 INSERT INTO PersonalHealthInformation
 (PatientID,Height,Weight,Smoker,BloodPressureN,BloodPressureD,CholesterolHDL,CholesterolLDL,CholesterolTri,HCPID, AsOfDate)
 VALUES ( 1,  72,   180,   0,      100,          100,           40,             100,         100,          9000000000, '2007-06-07 20:33:58');
 
 INSERT INTO OfficeVisits(id,visitDate,HCPID,notes,HospitalID,PatientID)
-VALUES (11,'2005-10-10',9000000000,'Yet another office visit.','',1);
+VALUES (11,'2005-10-10',9000000000,'Yet another office visit.','',1)
+ ON DUPLICATE KEY UPDATE id = id;
 
 INSERT INTO OVDiagnosis(ICDCode, VisitID) VALUES 
 (350.0, 11),
-(250.0, 11);
+(250.0, 11)
+ ON DUPLICATE KEY UPDATE ICDCode = VALUES(ICDCode), VisitID = VALUES(VisitID);
 
-INSERT INTO DeclaredHCP(PatientID,HCPID) VALUE(1, 9000000003);
+INSERT INTO DeclaredHCP(PatientID,HCPID) VALUE(1, 9000000003)
+ ON DUPLICATE KEY UPDATE PatientID = PatientID;

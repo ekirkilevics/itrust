@@ -9,6 +9,7 @@
 	<a href="/iTrust/auth/patient/viewVisitedHCPs.jsp">My Providers</a><br />
 	<a href="/iTrust/auth/patient/viewMyRecords.jsp">View My Records</a><br />
 	<a href="/iTrust/auth/patient/viewPrescriptionRecords.jsp">Prescription Records</a><br />
+	<a href="/iTrust/auth/patient/viewExpiredPrescriptionRecords.jsp">My Expired Prescription Reports</a><br />
 </div>
 <div class="menu_category">
 	<span>Messaging</span><br />

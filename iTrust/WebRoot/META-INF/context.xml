@@ -13,11 +13,12 @@
 		
 		Nothing else here needs to change during development.
 		Do NOT change the "name=jdbc/itrust"
+		url="jdbc:mysql://aramis.csc.ncsu.edu/CSC326_tsarehar"
 		-->
 	<Resource
-		username="itrustuser"
-		password="itrustpassword"
-		url="jdbc:mysql://localhost/yourdatabase"		
+		username="tsarehar"
+		password="tsarehar"
+		url="jdbc:mysql://aramis.csc.ncsu.edu/CSC326_tsarehar"		
 		name="jdbc/itrust"
 		auth="Container"
 		type="javax.sql.DataSource"

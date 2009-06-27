@@ -70,21 +70,27 @@ VALUES
 'African American',
 'Male',
 '')
-;
+ ON DUPLICATE KEY UPDATE MID = MID;
 
 INSERT INTO Users(MID, password, role, sQuestion, sAnswer) 
-			VALUES (3, 'pw', 'patient', 'opposite of yin', 'yang');
+			VALUES (3, 'pw', 'patient', 'opposite of yin', 'yang')
+ ON DUPLICATE KEY UPDATE MID = MID;
 
 INSERT INTO PersonalHealthInformation
 (PatientID,Height,Weight,Smoker,BloodPressureN,BloodPressureD,CholesterolHDL,CholesterolLDL,CholesterolTri,HCPID, AsOfDate)
-VALUES ( 3,  72,   180,   0,      100,          100,           40,             100,         100,          9000000000, '2005-06-07 20:33:58');
+VALUES ( 3,  72,   180,   0,      100,          100,           40,             100,         100,          9000000000, '2005-06-07 20:33:58')
+ ON DUPLICATE KEY UPDATE PatientID = PatientID;
 
 INSERT INTO OfficeVisits(id,visitDate,HCPID,notes,HospitalID,PatientID)
-VALUES (111,'2005-10-10',9000000000,'Old office visit.','',3);
+VALUES (111,'2005-10-10',9000000000,'Old office visit.','',3)
+ ON DUPLICATE KEY UPDATE id = id;
 
 INSERT INTO OVDiagnosis(ICDCode, VisitID) VALUES 
-(459.99, 111);
+(487.00, 111)
+ ON DUPLICATE KEY UPDATE id = id;
 
-INSERT INTO DeclaredHCP(PatientID,HCPID) VALUE(3, 9000000003);
+INSERT INTO DeclaredHCP(PatientID,HCPID) VALUE(3, 9000000003)
+ ON DUPLICATE KEY UPDATE PatientID = PatientID;
 
-INSERT INTO Representatives(RepresenterMID, RepresenteeMID) VALUES(2,3);
+INSERT INTO Representatives(RepresenterMID, RepresenteeMID) VALUES(2,3)
+ ON DUPLICATE KEY UPDATE RepresenterMID = RepresenterMID;

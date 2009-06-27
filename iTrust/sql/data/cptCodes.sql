@@ -16,4 +16,5 @@ VALUES
 ('90707', 'Measles, Mumps, Rubella', 'immunization'),
 ('90396', 'Varicella', 'immunization'),
 ('90633', 'Hepatitis A', 'immunization'),
-('90649', 'Human Papillomavirus', 'immunization'); 
+('90649', 'Human Papillomavirus', 'immunization')
+ON DUPLICATE KEY UPDATE Code = Code; 

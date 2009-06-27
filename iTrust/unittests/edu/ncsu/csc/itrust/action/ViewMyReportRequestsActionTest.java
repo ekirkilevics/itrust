@@ -5,7 +5,7 @@ import junit.framework.TestCase;
 import edu.ncsu.csc.itrust.beans.Email;
 import edu.ncsu.csc.itrust.beans.ReportRequestBean;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
-import edu.ncsu.csc.itrust.dao.mysql.FakeEmailDAO;
+import edu.ncsu.csc.itrust.dao.mysql.EmailDAO;
 import edu.ncsu.csc.itrust.datagenerators.TestDataGenerator;
 import edu.ncsu.csc.itrust.exception.DBException;
 import edu.ncsu.csc.itrust.exception.iTrustException;
@@ -17,7 +17,7 @@ public class ViewMyReportRequestsActionTest extends TestCase {
 	private DAOFactory factory = TestDAOFactory.getTestInstance();
 	private DAOFactory evilFactory = EvilDAOFactory.getEvilInstance();
 	private ViewMyReportRequestsAction action;
-	private FakeEmailDAO feDAO = factory.getFakeEmailDAO();
+	private EmailDAO feDAO = factory.getFakeEmailDAO();
 
 	protected void setUp() throws Exception {
 		TestDataGenerator gen = new TestDataGenerator();
@@ -25,6 +25,7 @@ public class ViewMyReportRequestsActionTest extends TestCase {
 		gen.reportRequests();
 		gen.patient2();
 		gen.hcp0();
+		gen.admin1();
 		gen.fakeEmail();
 
 	}
@@ -117,7 +118,7 @@ public class ViewMyReportRequestsActionTest extends TestCase {
 		long id = action.addReportRequest(2);
 		action = new ViewMyReportRequestsAction(factory, 9000000001L);
 		action.approveReportRequest(id);
-		List<Email> list = feDAO.getAllFakeEmails();
+		List<Email> list = feDAO.getAllEmails();
 		assertEquals(
 				"Dear Andy Programmer, \n The iTrust Health Care Provider (9000000000) submitted a request to view your full medical records.  The iTrust administrator (9000000001) approved a one-time viewing of this report.  You will be notified when the HCP chooses to view it.",
 				list.get(0).getBody());
@@ -165,13 +166,13 @@ public class ViewMyReportRequestsActionTest extends TestCase {
 		long id = action.addReportRequest(2);
 		action = new ViewMyReportRequestsAction(factory, 9000000001L);
 		action.approveReportRequest(id);
-		List<Email> list = feDAO.getAllFakeEmails();
+		List<Email> list = feDAO.getAllEmails();
 		assertEquals(
 				"Dear Andy Programmer, \n The iTrust Health Care Provider (9000000000) submitted a request to view your full medical records.  The iTrust administrator (9000000001) approved a one-time viewing of this report.  You will be notified when the HCP chooses to view it.",
 				list.get(0).getBody());
 		new TestDataGenerator().clearFakeEmail();
 		action.setViewed((int) id);
-		list = feDAO.getAllFakeEmails();
+		list = feDAO.getAllEmails();
 		assertEquals(
 				"Dear Andy Programmer, \n The iTrust Health Care Provider (9000000000) has chosen to view your full medical report, which was approved by an iTrust administrator (9000000001).  This report was only viewable one time and is no longer available.",
 				list.get(0).getBody());

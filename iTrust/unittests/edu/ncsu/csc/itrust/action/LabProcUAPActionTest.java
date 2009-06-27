@@ -5,7 +5,7 @@ import junit.framework.TestCase;
 import edu.ncsu.csc.itrust.beans.Email;
 import edu.ncsu.csc.itrust.beans.LabProcedureBean;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
-import edu.ncsu.csc.itrust.dao.mysql.FakeEmailDAO;
+import edu.ncsu.csc.itrust.dao.mysql.EmailDAO;
 import edu.ncsu.csc.itrust.dao.mysql.LabProcedureDAO;
 import edu.ncsu.csc.itrust.datagenerators.TestDataGenerator;
 import edu.ncsu.csc.itrust.testutils.TestDAOFactory;
@@ -15,7 +15,7 @@ public class LabProcUAPActionTest extends TestCase {
 	private DAOFactory factory = TestDAOFactory.getTestInstance();
 	private LabProcedureDAO lpDAO = factory.getLabProcedureDAO();
 	private TestDataGenerator gen;
-	private FakeEmailDAO feDAO = factory.getFakeEmailDAO();
+	private EmailDAO feDAO = factory.getFakeEmailDAO();
 	LabProcUAPAction action;
 
 	@Override
@@ -46,7 +46,7 @@ public class LabProcUAPActionTest extends TestCase {
 		LabProcedureBean procedures = lpDAO.getLabProcedure(id);
 		assertEquals(LabProcedureBean.Completed, procedures.getStatus());
 		assertEquals("No abnormal results", procedures.getResults());
-		List<Email> list = feDAO.getAllFakeEmails();
+		List<Email> list = feDAO.getAllEmails();
 		assertEquals("Dear Andy Programmer, \n Your Lab Procedure (10763-1) has a new updated status of COMPLETED. Log on to iTrust to view.", list.get(0).getBody());
 
 	}

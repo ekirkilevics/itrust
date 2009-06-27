@@ -109,7 +109,6 @@ pageTitle = "iTrust - Hospital Staffing Assignments";
 	</table>
     </td></tr>
 </table>
-</form>
 </div>
 <br />
 

@@ -70,7 +70,8 @@ VALUES
 'African American',
 'Male',
 '')
-;
+ON DUPLICATE KEY UPDATE MID = MID;
 
 INSERT INTO Users(MID, password, role, sQuestion, sAnswer) 
-			VALUES (4, 'pw', 'patient', 'opposite of yin?', 'yang');
+			VALUES (4, 'pw', 'patient', 'opposite of yin?', 'yang')
+ON DUPLICATE KEY UPDATE MID = MID;

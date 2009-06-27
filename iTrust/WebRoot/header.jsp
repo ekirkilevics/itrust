@@ -61,8 +61,17 @@
 			<div style="clear: both;">
 			</div>
 		</div>
-		<div style="margin-left: 10px;">
-			<span style="color: #FFCC00; font-style: italic; font-size: 2em;">i</span><span style="color: #666; font-size: 3em;">Trust</span>
+		<div style="margin:0px; margin-left: 10px; padding:0px;">
+			<img src="/iTrust/image/teamred/header.gif" style="position:relative; bottom:<% 
+			
+				System.out.println(request.getHeader("user-agent"));
+				if (request.getHeader("user-agent").contains("MSIE 7.0")) {
+					%>-5<%  
+				}
+				else {  
+					%>-1<%
+				}
+				%>px; margin:0px; padding:0px;" />
 		</div>	
 
 		<div>
@@ -110,6 +119,8 @@
 <%
 				}
 %>
+			
+			<img src="/iTrust/image/teamred/bottomangle.gif" style="position:relative; left:-6px; bottom:-15px">
 			</div>
 			<div class="iTrustPage">
 				<div class="iTrustContent">

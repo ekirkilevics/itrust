@@ -10,3 +10,16 @@ VALUES
 
 UPDATE LabProcedure SET UpdatedDate=(SYSDATE() - INTERVAL 1 DAY) WHERE PatientMID=4;
 
+INSERT INTO OfficeVisits(
+	id,
+	visitDate,
+	HCPID,
+	notes,
+	HospitalID,
+	PatientID
+)
+VALUES (902,'2005-10-10',9000000000,'Generated for Death for Patient: 1','1',1),
+(905,'2005-10-10',9000000000,'Generated for Death for Patient: 1','1',1),
+(918,'2005-10-10',9000000000,'Generated for Death for Patient: 1','1',1)
+ON DUPLICATE KEY UPDATE ID = ID;
+

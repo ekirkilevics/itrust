@@ -17,6 +17,7 @@ public class UpdateICDCodeListActionTest extends TestCase {
 	protected void setUp() throws Exception {
 		gen = new TestDataGenerator();
 		gen.clearAllTables();
+		gen.admin1();
 		action = new UpdateICDCodeListAction(factory, performingAdmin);
 	}
 

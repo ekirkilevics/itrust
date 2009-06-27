@@ -20,7 +20,7 @@ public class EditPatientActionTest extends TestCase {
 	protected void setUp() throws Exception {
 		gen.clearAllTables();
 		gen.patient2();
-		action = new EditPatientAction(factory, 0L, "2");
+		action = new EditPatientAction(factory, 9000000000L, "2");
 	}
 
 	public void testConstructNormal() throws Exception {

@@ -34,6 +34,7 @@ null,
 '888',
 '7777',
 'administrator'
-);
+) ON DUPLICATE KEY UPDATE MID = MID;
 
-INSERT INTO Users(MID, password, role, sQuestion, sAnswer) VALUES(9000000002, 'pw', 'admin', 'first letter?', 'a');
+INSERT INTO Users(MID, password, role, sQuestion, sAnswer) VALUES(9000000002, 'pw', 'admin', 'first letter?', 'a')
+ON DUPLICATE KEY UPDATE MID = MID;

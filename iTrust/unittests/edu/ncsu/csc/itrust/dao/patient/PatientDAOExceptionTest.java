@@ -138,4 +138,31 @@ public class PatientDAOExceptionTest extends TestCase {
 			assertEquals(EvilDAOFactory.MESSAGE, e.getSQLException().getMessage());
 		}
 	}
+	
+	public void testExpiredPrescriptionException() throws Exception {
+		try {
+			evilDAO.getExpiredPrescriptions(0L);
+			fail("DBException should have been thrown");
+		} catch (DBException e) {
+			assertEquals("pid cannot be 0", e.getSQLException().getMessage());
+		}
+	}
+	
+	public void testExpiredPrescriptionException2() throws Exception {
+		try {
+			evilDAO.getExpiredPrescriptions(1);
+			fail("DBException should have been thrown");
+		} catch (DBException e) {
+			assertEquals(EvilDAOFactory.MESSAGE, e.getSQLException().getMessage());
+		}
+	}
+	
+	public void testGetCurrentPrescriptions() throws Exception {
+		try {
+			evilDAO.getExpiredPrescriptions(1);
+			fail("DBException should have been thrown");
+		} catch (DBException e) {
+			assertEquals(EvilDAOFactory.MESSAGE, e.getSQLException().getMessage());
+		}
+	}
 }

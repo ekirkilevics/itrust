@@ -18,6 +18,7 @@ public class AddPHRTest extends TestCase {
 		gen.clearAllTables();
 		gen.patient1();
 		gen.patient2();
+		gen.hcp0();
 	}
 
 	public void testAddSimple() throws Exception {
@@ -31,7 +32,7 @@ public class AddPHRTest extends TestCase {
 		hr.setHeight(2);
 		hr.setSmoker(true);
 		hr.setWeight(50);
-		hr.setPersonnelID(5);
+		hr.setPersonnelID(9000000000L);
 		hr.setPatientID(2);
 		boolean confirm = hrDAO.add(hr);
 		assertTrue(confirm);

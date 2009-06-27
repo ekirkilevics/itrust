@@ -136,11 +136,11 @@ if (!"".equals(confirm)) {
 		<th colspan="6">Prescriptions</th>
 	</tr>
 	<tr class="subHeader">
-		<td>Medication</th>
-		<td>Dosage</th>
-		<td>Dates</th>
-		<td colspan=2>Instructions</th>
-		<td style="width: 60px;">Action</th>
+		<td>Medication</td>
+		<td>Dosage</td>
+		<td>Dates</td>
+		<td colspan=2>Instructions</td>
+		<td style="width: 60px;">Action</td>
 	</tr>
 	
 	<%if(ov.getPrescriptions().size()==0){ %>
@@ -150,7 +150,7 @@ if (!"".equals(confirm)) {
 	<%}else{ %>
 		<%for(PrescriptionBean pres : ov.getPrescriptions()){ %>
 		<tr>
-			<td align=center><%=pres.getMedication().getDescription()%> (<%=pres.getMedication().getNDCode()%>)</td>
+			<td align=center><a href="./editPrescription.jsp?presID=<%=pres.getId()%>&ovID=<%=ovIDString%>"><%=pres.getMedication().getDescription()%> (<%=pres.getMedication().getNDCode()%>)</a></td>
 			<td align=center><%=pres.getDosage()%>mg</td>
 			<td align=center><%=pres.getStartDateStr()%> to <%=pres.getEndDateStr()%></td>						
 			<td align=center colspan=2><%=pres.getInstructions()%></td>						

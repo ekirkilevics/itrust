@@ -19,6 +19,7 @@ public class UpdateNDCodeListActionTest extends TestCase {
 	protected void setUp() throws Exception {
 		action = new UpdateNDCodeListAction(factory, performingAdmin);
 		gen.clearAllTables();
+		gen.admin1();
 		gen.ndCodes();
 	}
 

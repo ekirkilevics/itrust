@@ -19,6 +19,7 @@ public class EmailUtil {
 	}
 
 	public void sendEmail(Email email) throws DBException {
-		factory.getFakeEmailDAO().sendFakeEmail(email);
+		factory.getFakeEmailDAO().sendEmailRecord(email);
+		factory.getFakeEmailDAO().sendRealEmail(email);
 	}
 }

@@ -10,4 +10,4 @@ INSERT INTO ICDCodes(Code, Description, Chronic) VALUES
 ('42.00', 'Human Immunodeficiency Virus', 'yes'),
 ('70.10', 'Viral hepatitis A, infectious', 'yes'),
 ('250.00','Acute Lycanthropy', 'yes'),
-('350.00','Disco Fever', 'no');
+('350.00','Disco Fever', 'no')  ON DUPLICATE KEY UPDATE Code = Code;

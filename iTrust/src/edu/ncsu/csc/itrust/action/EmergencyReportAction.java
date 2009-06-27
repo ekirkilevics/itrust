@@ -144,6 +144,10 @@ public class EmergencyReportAction extends PatientBaseAction {
 			for (DiagnosisBean bean: allDiagnoses) {
 				OfficeVisitBean ovb = ovDAO.getOfficeVisit(bean.getVisitID());
 
+				if(ovb == null){
+					continue;
+					
+				}
 				if ("yes".equals(bean.getClassification()) || (ovb.getVisitDate().getTime() > Calendar.getInstance().getTimeInMillis() - 30 * 24 * 60 * 60 * 1000))  {
 					for (DiagnosisBean wbean: warningList) {
 						if (bean.getDescription().equals(wbean.getDescription())) {

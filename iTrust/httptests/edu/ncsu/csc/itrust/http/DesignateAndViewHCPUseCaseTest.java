@@ -34,15 +34,7 @@ public class DesignateAndViewHCPUseCaseTest extends iTrustHTTPTest {
 		assertEquals("| HCP Name | Specialty | Address | Date of Office Visit | Designated HCP?", rows[0].getText());
 		assertEquals("| Jason Frankenstein | surgeon | 333 Dark Lane Raleigh, NC 27603 | 05/01/2008 |", rows[1].getText());
 		assertEquals("| Kelly Doctor | surgeon | 4321 My Road St PO BOX 2 CityName, NY 12345-1234 | 06/10/2007 |",rows[2].getText());
-		assertEquals("| Kelly Doctor | surgeon | 4321 My Road St PO BOX 2 CityName, NY 12345-1234 | 06/09/2007 |",rows[3].getText());
-		assertEquals("| Kelly Doctor | surgeon | 4321 My Road St PO BOX 2 CityName, NY 12345-1234 | 10/10/2006 |",rows[4].getText());
-		assertEquals("| Kelly Doctor | surgeon | 4321 My Road St PO BOX 2 CityName, NY 12345-1234 | 10/10/2005 |",rows[5].getText());
-		assertEquals("| Kelly Doctor | surgeon | 4321 My Road St PO BOX 2 CityName, NY 12345-1234 | 10/10/2005 |",rows[6].getText());
-		assertEquals("| Kelly Doctor | surgeon | 4321 My Road St PO BOX 2 CityName, NY 12345-1234 | 10/10/2005 |",rows[7].getText());
-		assertEquals("| Kelly Doctor | surgeon | 4321 My Road St PO BOX 2 CityName, NY 12345-1234 | 10/10/2005 |",rows[8].getText());
-		assertEquals("| Kelly Doctor | surgeon | 4321 My Road St PO BOX 2 CityName, NY 12345-1234 | 10/10/2005 |",rows[9].getText());
-		assertEquals("| Kelly Doctor | surgeon | 4321 My Road St PO BOX 2 CityName, NY 12345-1234 | 10/10/1985 |",rows[10].getText());
-		assertEquals("| Gandalf Stormcrow | none | 4321 My Road St PO BOX 2 CityName, NY 12345-1234 |  |",rows[11].getText());
+		assertEquals("| Gandalf Stormcrow | none | 4321 My Road St PO BOX 2 CityName, NY 12345-1234 |  |",rows[3].getText());
 
 	}
 	

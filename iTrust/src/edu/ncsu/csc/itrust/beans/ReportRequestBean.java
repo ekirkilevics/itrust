@@ -1,8 +1,11 @@
 package edu.ncsu.csc.itrust.beans;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import edu.ncsu.csc.itrust.Localization;
+import edu.ncsu.csc.itrust.Messages;
 
 /**
  * 
@@ -17,15 +20,15 @@ public class ReportRequestBean {
 	private Date requestedDate;
 	private Date approvedDate;
 	private Date viewedDate;
-	private String status = "";
-	private String comment = "";
+	private String status = ""; //$NON-NLS-1$
+	private String comment = ""; //$NON-NLS-1$
 
-	public final static String dateFormat = "MM/dd/yyyy HH:mm";
+	public final static String dateFormat = "MM/dd/yyyy HH:mm"; //$NON-NLS-1$
 
-	public final static String Requested = "Requested";
-	public final static String Approved = "Approved";
-	public final static String Rejected = "Rejected";
-	public final static String Viewed = "Viewed";
+	public final static String Requested = Messages.getString("ReportRequestBean.requested"); //$NON-NLS-1$
+	public final static String Approved = Messages.getString("ReportRequestBean.approved"); //$NON-NLS-1$
+	public final static String Rejected = Messages.getString("ReportRequestBean.rejected"); //$NON-NLS-1$
+	public final static String Viewed = Messages.getString("ReportRequestBean.viewed"); //$NON-NLS-1$
 
 	public ReportRequestBean() {
 	}
@@ -80,7 +83,7 @@ public class ReportRequestBean {
 
 	public String getRequestedDateString() {
 		if (requestedDate == null)
-			return "";
+			return ""; //$NON-NLS-1$
 		return new SimpleDateFormat(dateFormat).format(requestedDate);
 	}
 
@@ -102,7 +105,7 @@ public class ReportRequestBean {
 
 	public String getApprovedDateString() {
 		if (approvedDate == null)
-			return "";
+			return ""; //$NON-NLS-1$
 		return new SimpleDateFormat(dateFormat).format(approvedDate);
 	}
 
@@ -124,7 +127,9 @@ public class ReportRequestBean {
 
 	public String getViewedDateString() {
 		if (viewedDate == null)
-			return "";
+			return ""; //$NON-NLS-1$
+		//DateFormat dateFormatter = DateFormat.getDateTimeInstance(DateFormat.SHORT,DateFormat.SHORT,Localization.instance().getCurrentLocale());
+		//return dateFormatter.format(viewedDate);
 		return new SimpleDateFormat(dateFormat).format(viewedDate);
 	}
 

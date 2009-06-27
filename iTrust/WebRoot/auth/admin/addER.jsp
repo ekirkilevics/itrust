@@ -67,7 +67,7 @@ if (formIsFilled) {
 <p style="width: 50%; text-align:left;">Please enter in the name of the new
 Emergency Responder, with a valid email address. If the user does not have an email
 address, use the hospital's email address, [insert pre-defined email],
-to recover the password.</span>
+to recover the password.</p>
 
 <form action="addER.jsp" method="post">
 <input type="hidden" name="formIsFilled" value="true"><br />

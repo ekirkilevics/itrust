@@ -1,3 +1,7 @@
+INSERT INTO Users(MID, password, role, sQuestion, sAnswer) 
+			VALUES (5, 'pw', 'patient', 'opposite of yin?', 'yang');
+
+
 INSERT INTO Patients
 (MID,
 lastName, 
@@ -72,8 +76,7 @@ VALUES
 '')
 ;
 
-INSERT INTO Users(MID, password, role, sQuestion, sAnswer) 
-			VALUES (5, 'pw', 'patient', 'opposite of yin?', 'yang');
+
 
 INSERT INTO Representatives(RepresenterMID, RepresenteeMID) VALUES(2, 5);
 

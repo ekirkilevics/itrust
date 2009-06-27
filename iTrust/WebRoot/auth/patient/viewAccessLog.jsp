@@ -89,7 +89,8 @@ session.removeAttribute("personnelList");
 </table>
 <br />
 <input type="submit" name="submit" value="Filter Records">
-</div
+
 </form>
+</div>
 
 <%@include file="/footer.jsp"%>

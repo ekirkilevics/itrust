@@ -6,6 +6,7 @@
 <%@page import="edu.ncsu.csc.itrust.beans.DiagnosisBean"%>
 <%@page import="edu.ncsu.csc.itrust.dao.mysql.LOINCDAO"%>
 <%@page import="edu.ncsu.csc.itrust.beans.PersonnelBean"%>
+<%@page import="edu.ncsu.csc.itrust.beans.PrescriptionBean"%>
 <%@page import="edu.ncsu.csc.itrust.dao.mysql.PersonnelDAO"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.ArrayList"%>
@@ -66,7 +67,13 @@ if (icdcode != null && !icdcode.equals("")) {
 		<tr>
 			<td><a href="/iTrust/auth/viewPersonnel.jsp?personnel=<%=index%>"><%=bean.getHCPName()%></a></td>
 			<td><%=bean.getNumPatients()%></td>
-			<td><%if (bean.getMedList().isEmpty()) { out.print("(no prescriptions)"); } else { for (MedicationBean m: bean.getMedList()) {%><%=m.getNDCode() + " " + m.getDescription() + " prescribed"%><br/><%}} %></td>
+			<td><%if (bean.getMedList().isEmpty()) { out.print("(no prescriptions)"); } else { 
+					for (PrescriptionBean p: action.getPrescriptionsByHCPAndICD(bean.getHCP(), icdcode)) {%>
+						<a href="viewPrescriptionInformation.jsp?visitID=<%=p.getVisitID()%>&presID=<%=p.getId()%>">
+							<%=p.getMedication().getNDCode() + " " + p.getMedication().getDescription() + " prescribed"%>
+						</a><br/>
+					<%}} %></td>
+						
 			<td><%if (bean.getLabList().isEmpty()) { out.print("(no lab procedures ordered)"); } else { for (LabProcedureBean p: bean.getLabList()) {%><%=p.getLoinc() + " " + loincDAO.getProcedures(p.getLoinc()).get(0).getComponent() + " procedure ordered"%><br/><%}} %></td>
 			<td><%=bean.getVisitSatisfaction() %></td>
 			<td><%=bean.getTreatmentSatisfaction() %></td>

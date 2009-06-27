@@ -52,10 +52,10 @@ public class LogTransactionTest extends TestCase {
 	 * @throws Exception
 	 */
 	public void testSecondaryMIDHCP() throws Exception{
-		tranDAO.logTransaction(TransactionType.CREATE_DISABLE_PATIENT_HCP, 9000000009L, 98L, "added information");
+		tranDAO.logTransaction(TransactionType.CREATE_DISABLE_PATIENT_HCP, 9000000000L, 98L, "added information");
 		List<TransactionBean> list = tranDAO.getAllTransactions();
 
-		assertEquals(9000000009L, list.get(0).getLoggedInMID());
+		assertEquals(9000000000L, list.get(0).getLoggedInMID());
 		assertEquals(98L, list.get(0).getSecondaryMID());
 	}
 	
@@ -68,10 +68,10 @@ public class LogTransactionTest extends TestCase {
 	}
 
 	public void testSecondaryMIDUAP() throws Exception{
-		tranDAO.logTransaction(TransactionType.CREATE_DISABLE_PATIENT_HCP, 8000000009L, 98L, "added information");
+		tranDAO.logTransaction(TransactionType.CREATE_DISABLE_PATIENT_HCP, 9000000001L, 98L, "added information");
 		List<TransactionBean> list = tranDAO.getAllTransactions();
 
-		assertEquals(8000000009L, list.get(0).getLoggedInMID());
+		assertEquals(9000000001L, list.get(0).getLoggedInMID());
 		assertEquals(98L, list.get(0).getSecondaryMID());
 	}
 }

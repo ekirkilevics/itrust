@@ -25,7 +25,8 @@ INSERT INTO OfficeVisits (id,visitDate,HCPID,notes,HospitalID,PatientID)
 		   (914,'2007-6-09',9100000001,'Bad has 8 visits and 6 surveys','1',2),
 		   (915,'2007-6-09',9100000001,'Bad has 8 visits and 6 surveys','1',2),
 		   (916,'2007-6-09',9100000001,'Bad has 8 visits and 6 surveys','1',2),
-		   (917,'2007-6-09',9100000001,'Bad has 8 visits and 6 surveys','1',2);
+		   (917,'2007-6-09',9100000001,'Bad has 8 visits and 6 surveys','1',2)
+		ON DUPLICATE KEY UPDATE HCPID = VALUES(HCPID);
 
 INSERT INTO OVSurvey (VisitID, SurveyDate, WaitingRoomMinutes, ExamRoomMinutes, VisitSatisfaction, TreatmentSatisfaction)
 	VALUES (900, '2008-03-01 12:00:00', null, 10, 5, 5),
@@ -38,4 +39,6 @@ INSERT INTO OVSurvey (VisitID, SurveyDate, WaitingRoomMinutes, ExamRoomMinutes, 
 		   (913, '2008-03-01 12:00:00', 20, 30, 1, 1),
 		   (914, '2008-03-01 12:00:00', 20, 30, 1, 3),
 		   (915, '2008-03-01 12:00:00', 20, 30, 1, 3),
-		   (916, '2008-03-01 12:00:00', 20, 30, 1, 3);
+		   (916, '2008-03-01 12:00:00', 20, 30, 1, 3)
+				ON DUPLICATE KEY UPDATE VisitSatisfaction = VALUES(VisitSatisfaction),
+										TreatmentSatisfaction = Values(TreatmentSatisfaction);

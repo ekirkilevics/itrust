@@ -15,6 +15,7 @@ public class ViewVisitedHCPsActionTest extends TestCase {
 	private DAOFactory factory = TestDAOFactory.getTestInstance();
 	private TestDataGenerator gen;
 	private ViewVisitedHCPsAction action;
+	private ViewVisitedHCPsAction action2;
 
 	protected void setUp() throws Exception {
 		gen = new TestDataGenerator();
@@ -22,15 +23,23 @@ public class ViewVisitedHCPsActionTest extends TestCase {
 		gen.standardData();
 		gen.patient_hcp_vists();
 		action = new ViewVisitedHCPsAction(factory, 2L);
+		action2 = new ViewVisitedHCPsAction(factory, 1L);
 	}
 
-	public void testGetVisitedHCPs() {
+	public void testGetVisitedHCPsRed() {
 		List<HCPVisitBean> beans = action.getVisitedHCPs();
-		assertEquals(beans.size(), 11);
+		
 
 		assertEquals("Jason Frankenstein", beans.get(0).getHCPName());
 		assertEquals("Kelly Doctor", beans.get(1).getHCPName());
-		assertEquals("Gandalf Stormcrow", beans.get(10).getHCPName());
+		assertEquals("Gandalf Stormcrow", beans.get(2).getHCPName());
+	}
+
+	public void testGetVisitedHCPsRed2(){
+	List<HCPVisitBean> beans = action2.getVisitedHCPs();
+
+		assertEquals("Kelly Doctor", beans.get(0).getHCPName());
+		assertEquals("Gandalf Stormcrow", beans.get(1).getHCPName());
 	}
 
 	public void testDeclareHCP() {

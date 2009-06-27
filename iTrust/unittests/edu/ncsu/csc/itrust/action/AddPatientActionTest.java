@@ -24,7 +24,7 @@ public class AddPatientActionTest extends TestCase {
 		
 		gen.transactionLog();
 		gen.hcp0();
-		action = new AddPatientAction(factory, 900000000L);
+		action = new AddPatientAction(factory, 9000000000L);
 	}
 
 	/**

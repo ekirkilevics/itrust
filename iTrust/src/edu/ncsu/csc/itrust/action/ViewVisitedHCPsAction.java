@@ -98,6 +98,7 @@ public class ViewVisitedHCPsAction {
 				visits.add(visitBean);
 			}
 			
+			
 		}
 		catch (DBException dbe) {
 			throw new iTrustException(dbe.getMessage());
@@ -113,6 +114,15 @@ public class ViewVisitedHCPsAction {
 		
 		try {
 			processOfficeVisits();
+		
+			for(int i = 0; i<visits.size(); i++){
+				for(int j = i+1; j<visits.size(); j++){
+					if(visits.get(i).getHCPMID()==visits.get(j).getHCPMID()){
+						visits.remove(visits.get(j));
+						j--;
+					}
+				}
+			}
 		}
 		catch (iTrustException ie) {
 			
@@ -259,4 +269,5 @@ public class ViewVisitedHCPsAction {
 		}
 		return filterList;
 	}
+
 }

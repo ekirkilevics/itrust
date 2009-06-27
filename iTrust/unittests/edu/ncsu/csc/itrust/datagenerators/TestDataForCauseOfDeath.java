@@ -22,6 +22,7 @@ public class TestDataForCauseOfDeath {
 	public void insertAllData() throws FileNotFoundException, IOException, SQLException {
 		TestDataGenerator gen = new TestDataGenerator();
 		gen.clearAllTables();
+		gen.hospitals();
 		gen.hcp0();
 		icdcodes();
 		patients();

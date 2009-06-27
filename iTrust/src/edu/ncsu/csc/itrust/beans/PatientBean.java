@@ -40,6 +40,8 @@ public class PatientBean {
 	private String icPhone2 = "";
 	private String icPhone3 = "";
 	private String icID = "";
+	private String creditCardType = "";
+	private String creditCardNumber = "";
 	// Topical Health Information
 	private String dateOfBirthStr = new SimpleDateFormat("MM/dd/yyyy").format(new Date());
 	private String dateOfDeathStr = "";
@@ -258,6 +260,22 @@ public class PatientBean {
 
 	public void setIcID(String icID) {
 		this.icID = icID;
+	}
+	
+	public String getCreditCardType() {
+		return creditCardType;
+	}
+	
+	public void setCreditCardType(String creditCardType) {
+		this.creditCardType = creditCardType;
+	}
+	
+	public String getCreditCardNumber() {
+		return creditCardNumber;
+	}
+	
+	public void setCreditCardNumber(String creditCardNumber) {
+		this.creditCardNumber = creditCardNumber;
 	}
 
 	public String getIcName() {

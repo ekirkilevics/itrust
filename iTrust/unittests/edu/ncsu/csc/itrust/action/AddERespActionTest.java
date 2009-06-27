@@ -27,6 +27,7 @@ public class AddERespActionTest extends TestCase {
 	protected void setUp() throws Exception {
 		gen = new TestDataGenerator();
 		gen.admin1();
+		gen.hcp0();
 		action = new AddERespAction(factory, 9000000000L);
 	}
 	

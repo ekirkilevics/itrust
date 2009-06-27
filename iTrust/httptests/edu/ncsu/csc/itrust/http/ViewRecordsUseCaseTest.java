@@ -79,8 +79,8 @@ public class ViewRecordsUseCaseTest extends iTrustHTTPTest {
 		WebTable wt = wr.getTableStartingWith("Office Visits");
 		wr = wt.getTableCell(1, 0).getLinkWith("Jun 10, 2007").click();
 		assertTrue(wr.getText().contains("Kelly Doctor"));
-		assertTrue(wr.getText().contains("No Diagnoses for this visit"));
-		assertTrue(wr.getText().contains("No Medications on record"));
-		assertTrue(wr.getText().contains("No Procedures on record"));
+		assertTrue(wr.getText().contains("Diabetes with ketoacidosis"));
+		assertTrue(wr.getText().contains("64764-1512"));
+		assertTrue(wr.getText().contains("Injection procedure"));
 	}
 }

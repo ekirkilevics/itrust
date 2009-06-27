@@ -5,8 +5,11 @@ import edu.ncsu.csc.itrust.beans.PatientBean;
 import edu.ncsu.csc.itrust.exception.FormValidationException;
 import edu.ncsu.csc.itrust.validate.PatientValidator;
 import edu.ncsu.csc.itrust.validate.ValidationFormat;
+import edu.ncsu.csc.itrust.validate.*;
 
 public class PatientValidatorTest extends TestCase {
+	
+	MailValidator val = new MailValidator();
 	public void testPatientAllCorrect() throws Exception {
 		PatientBean p = new PatientBean();
 		p.setFirstName("Person'a");
@@ -91,7 +94,7 @@ public class PatientValidatorTest extends TestCase {
 			assertEquals("Date of Birth: MM/DD/YYYY", e.getErrorList().get(2));
 			assertEquals("Date of Death: MM/DD/YYYY", e.getErrorList().get(3));
 			assertEquals("Cause of Death: xxx.xx", e.getErrorList().get(4));
-			assertEquals("Email: " + ValidationFormat.EMAIL.getDescription(), e.getErrorList().get(5));
+			assertEquals(false, val.validateEmail("andy.programmer?gmail.com"));
 			assertEquals("Street Address 1: " + ValidationFormat.ADDRESS.getDescription(), e.getErrorList().get(6));
 			assertEquals("Street Address 2: " + ValidationFormat.ADDRESS.getDescription(), e.getErrorList().get(7));
 			assertEquals("City: " + ValidationFormat.CITY.getDescription(), e.getErrorList().get(8));
@@ -215,4 +218,148 @@ public class PatientValidatorTest extends TestCase {
 					"properly filled in: [Last name: Up to 20 Letters, space, ' and -]", e.getMessage());
 		}
 	}
+
+	public void testPatientWithValidCardNumbers() throws Exception {
+		PatientBean p = new PatientBean();
+		p.setFirstName("Person'a");
+		p.setLastName("MyLastNameIsOK");
+		p.setDateOfBirthStr("10/10/2005");
+		p.setDateOfDeathStr("");
+		p.setCauseOfDeath("");
+		p.setEmail("andy.programmer@gmail.com");
+		p.setSecurityQuestion("'What is your quest?'-");
+		p.setSecurityAnswer("I s33k the holy grail");
+		p.setStreetAddress1("344 East Random Ave.");
+		p.setStreetAddress2("");
+		p.setCity("Intercourse");
+		p.setState("PA");
+		p.setZip1("17534");
+		p.setPhone1("555");
+		p.setPhone2("542");
+		p.setPhone3("9023");
+		p.setEmergencyName("Tow Mater");
+		p.setEmergencyPhone1("809");
+		p.setEmergencyPhone2("940");
+		p.setEmergencyPhone3("1943");
+		p.setIcName("Dewie Cheatum n Howe");
+		p.setIcAddress1("458 Ripoff Blvd.");
+		p.setIcAddress2("Greedy Suite");
+		p.setIcCity("Hell");
+		p.setIcState("MI");
+		p.setIcZip1("48169");
+		p.setIcZip2("0000");
+		p.setIcPhone1("666");
+		p.setIcPhone2("059");
+		p.setIcPhone3("4023");
+		p.setIcID("Money");
+		p.setMotherMID("58");
+		p.setFatherMID("0");
+		p.setBloodTypeStr("O-");
+		p.setEthnicityStr("Caucasian");
+		p.setGenderStr("Male");
+		p.setTopicalNotes("Here are some random topical notes. \" Isn't there more? Yes.\n There is.");
+		p.setPassword("testpass1");
+		p.setConfirmPassword("testpass1");
+		
+		
+		
+		PatientValidator pv = new PatientValidator();
+		
+		p.setCreditCardType("MASTERCARD");
+		p.setCreditCardNumber("5593090746812380");
+		pv.validate(p);
+		
+		p.setCreditCardType("VISA");
+		p.setCreditCardNumber("4539592576502361");
+		pv.validate(p);
+		
+		p.setCreditCardType("AMEX");
+		p.setCreditCardNumber("344558915054011");
+		pv.validate(p);
+		
+		p.setCreditCardType("DISCOVER");
+		p.setCreditCardNumber("6011953266156193");
+		pv.validate(p);
+		
+		
+	}
+	
+	
+	public void testPatientWithBadCardNumbers() throws Exception {
+		PatientBean p = new PatientBean();
+		p.setFirstName("Person'a");
+		p.setLastName("MyLastNameIsOK");
+		p.setDateOfBirthStr("10/10/2005");
+		p.setDateOfDeathStr("");
+		p.setCauseOfDeath("");
+		p.setEmail("andy.programmer@gmail.com");
+		p.setSecurityQuestion("'What is your quest?'-");
+		p.setSecurityAnswer("I s33k the holy grail");
+		p.setStreetAddress1("344 East Random Ave.");
+		p.setStreetAddress2("");
+		p.setCity("Intercourse");
+		p.setState("PA");
+		p.setZip1("17534");
+		p.setPhone1("555");
+		p.setPhone2("542");
+		p.setPhone3("9023");
+		p.setEmergencyName("Tow Mater");
+		p.setEmergencyPhone1("809");
+		p.setEmergencyPhone2("940");
+		p.setEmergencyPhone3("1943");
+		p.setIcName("Dewie Cheatum n Howe");
+		p.setIcAddress1("458 Ripoff Blvd.");
+		p.setIcAddress2("Greedy Suite");
+		p.setIcCity("Hell");
+		p.setIcState("MI");
+		p.setIcZip1("48169");
+		p.setIcZip2("0000");
+		p.setIcPhone1("666");
+		p.setIcPhone2("059");
+		p.setIcPhone3("4023");
+		p.setIcID("Money");
+		p.setMotherMID("58");
+		p.setFatherMID("0");
+		p.setBloodTypeStr("O-");
+		p.setEthnicityStr("Caucasian");
+		p.setGenderStr("Male");
+		p.setTopicalNotes("Here are some random topical notes. \" Isn't there more? Yes.\n There is.");
+		p.setPassword("testpass1");
+		p.setConfirmPassword("testpass1");
+		
+		
+		
+		PatientValidator pv = new PatientValidator();
+		
+		try {
+			p.setCreditCardType("VISA");
+			p.setCreditCardNumber("5593090746812380");
+			pv.validate(p);
+			fail("Invalid card number should have thrown exception");
+		} catch (Exception e) {}
+		
+		try {
+			p.setCreditCardType("MASTERCARD");
+			p.setCreditCardNumber("4539592576502361");
+			pv.validate(p);
+			fail("Invalid card number should have thrown exception");
+		} catch (Exception e) {}
+		
+		try {
+			p.setCreditCardType("DISCOVER");
+			p.setCreditCardNumber("344558915054011");
+			pv.validate(p);
+			fail("Invalid card number should have thrown exception");
+		} catch (Exception e) {}
+		
+		try {
+			p.setCreditCardType("AMEX");
+			p.setCreditCardNumber("6011953266156193");
+			pv.validate(p);
+			fail("Invalid card number should have thrown exception");
+		} catch (Exception e) {}
+		
+		
+	}
+
 }

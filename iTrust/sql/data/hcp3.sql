@@ -36,8 +36,10 @@ null,
 '7777',
 NULL,
 'gstormcrow@iTrust.org'
-);
+) ON DUPLICATE KEY UPDATE MID = MID;
 
-INSERT INTO Users(MID, password, role, sQuestion, sAnswer) VALUES(9000000003, 'pw', 'hcp', 'first letter?', 'a');
+INSERT INTO Users(MID, password, role, sQuestion, sAnswer) VALUES(9000000003, 'pw', 'hcp', 'first letter?', 'a')
+ON DUPLICATE KEY UPDATE MID = MID;
 
-INSERT INTO HCPAssignedHos(HCPID, HosID) VALUES(9000000003,'9191919191');
+INSERT INTO HCPAssignedHos(HCPID, HosID) VALUES(9000000003,'9191919191')
+ON DUPLICATE KEY UPDATE HCPID = HCPID;

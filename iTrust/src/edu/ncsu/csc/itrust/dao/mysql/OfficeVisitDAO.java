@@ -304,6 +304,37 @@ public class OfficeVisitDAO {
 			DBUtil.closeConnection(conn, ps);
 		}
 	}
+	
+	
+	/**
+	 * Adds the given CPT codes to the given office visit
+	 * 
+	 * @param cptCode
+	 * @param visitID
+	 * @return
+	 * @throws DBException
+	 */
+	public long editPrescription(PrescriptionBean pres) throws DBException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		try {
+			conn = factory.getConnection();
+			//ps = conn.prepareStatement("UPDATE OVMedication (VisitID,NDCode,StartDate,EndDate,Dosage,Instructions) VALUES (?,?,?,?,?,?)");
+			String statement = "UPDATE OVMedication " +
+				"SET VisitID=?, NDCode=?, StartDate=?, EndDate=?, Dosage=?, Instructions=? " +
+				"WHERE ID=?";
+			ps = conn.prepareStatement(statement);
+			prescriptionLoader.loadParameters(ps, pres);
+			ps.setLong(7, pres.getId());
+			ps.executeUpdate();
+			return DBUtil.getLastInsert(conn);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DBException(e);
+		} finally {
+			DBUtil.closeConnection(conn, ps);
+		}
+	}
 
 	/**
 	 * Removes the given medication from its office visit

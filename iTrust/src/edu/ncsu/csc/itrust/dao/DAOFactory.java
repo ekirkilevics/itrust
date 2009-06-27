@@ -8,7 +8,7 @@ import edu.ncsu.csc.itrust.dao.mysql.AuthDAO;
 import edu.ncsu.csc.itrust.dao.mysql.CODDAO;
 import edu.ncsu.csc.itrust.dao.mysql.CPTCodesDAO;
 import edu.ncsu.csc.itrust.dao.mysql.EpidemicDAO;
-import edu.ncsu.csc.itrust.dao.mysql.FakeEmailDAO;
+import edu.ncsu.csc.itrust.dao.mysql.EmailDAO;
 import edu.ncsu.csc.itrust.dao.mysql.FamilyDAO;
 import edu.ncsu.csc.itrust.dao.mysql.HealthRecordsDAO;
 import edu.ncsu.csc.itrust.dao.mysql.HospitalsDAO;
@@ -21,6 +21,7 @@ import edu.ncsu.csc.itrust.dao.mysql.NDCodesDAO;
 import edu.ncsu.csc.itrust.dao.mysql.OfficeVisitDAO;
 import edu.ncsu.csc.itrust.dao.mysql.PatientDAO;
 import edu.ncsu.csc.itrust.dao.mysql.PersonnelDAO;
+import edu.ncsu.csc.itrust.dao.mysql.ReferralDAO;
 import edu.ncsu.csc.itrust.dao.mysql.ReportRequestDAO;
 import edu.ncsu.csc.itrust.dao.mysql.RiskDAO;
 import edu.ncsu.csc.itrust.dao.mysql.SurveyDAO;
@@ -44,12 +45,19 @@ import edu.ncsu.csc.itrust.dao.mysql.VisitRemindersDAO;
  */
 public class DAOFactory {
 	private static DAOFactory productionInstance = null;
+	private static DAOFactory testInstance = null;
 	private IConnectionDriver driver;
 
 	public static DAOFactory getProductionInstance() {
 		if (productionInstance == null)
 			productionInstance = new DAOFactory();
 		return productionInstance;
+	}
+	
+	public static DAOFactory getTestInstance() {
+		if (testInstance == null)
+			testInstance = new DAOFactory();
+		return testInstance;
 	}
 
 	protected DAOFactory() {
@@ -112,6 +120,10 @@ public class DAOFactory {
 		return new PersonnelDAO(this);
 	}
 
+	public ReferralDAO getReferralDAO() {
+		return new ReferralDAO(this);
+	}
+	
 	public RiskDAO getRiskDAO() {
 		return new RiskDAO(this);
 	}
@@ -128,8 +140,8 @@ public class DAOFactory {
 		return new CODDAO(this);
 	}
 
-	public FakeEmailDAO getFakeEmailDAO() {
-		return new FakeEmailDAO(this);
+	public EmailDAO getFakeEmailDAO() {
+		return new EmailDAO(this);
 	}
 
 

@@ -21,6 +21,8 @@ public class PriorDiagnosesFactorTest extends TestCase {
 		factor = new PriorDiagnosisFactor(factory, 2L, 250.3, 487);
 		gen = new TestDataGenerator();
 		gen.clearAllTables();
+		gen.hospitals();
+		gen.hcp0();
 		gen.patient2();
 	}
 
@@ -50,7 +52,7 @@ public class PriorDiagnosesFactorTest extends TestCase {
 		PreparedStatement ps = null;
 		try{
 		conn = factory.getConnection();
-			ps = conn.prepareStatement("INSERT INTO OfficeVisits(VisitDate,PatientID) VALUES(?, 2)");
+			ps = conn.prepareStatement("INSERT INTO OfficeVisits(VisitDate, hcpid, PatientID, hospitalid) VALUES(?,9000000000, 2, '1')");
 			ps.setDate(1, new java.sql.Date(date.getTime()));
 			ps.executeUpdate();
 			ps = conn.prepareStatement("INSERT INTO OVDiagnosis(VisitID, ICDCode) VALUES(?,?)");

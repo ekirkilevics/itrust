@@ -10,6 +10,7 @@ import edu.ncsu.csc.itrust.dao.mysql.PatientDAO;
 import edu.ncsu.csc.itrust.dao.mysql.PersonnelDAO;
 import edu.ncsu.csc.itrust.exception.DBException;
 import edu.ncsu.csc.itrust.exception.iTrustException;
+import edu.ncsu.csc.itrust.Messages;
 
 /**
  * Handles viewing the office visits, prescriptions, and HCP name for the given ovID Used by
@@ -62,9 +63,9 @@ public class ViewOfficeVisitAction extends OfficeVisitBaseAction {
 			long repee = Long.valueOf(repPIDString);
 			if (!patientDAO.represents(loggedInMID, repee))
 				throw new iTrustException(
-						"You do not represent this patient, contact your HCP to represent this patient");
+						Messages.getString("ViewOfficeVisitAction.0")); //$NON-NLS-1$
 		} catch (NumberFormatException e) {
-			throw new iTrustException("Representee's MID is not valid");
+			throw new iTrustException(Messages.getString("ViewOfficeVisitAction.1")); //$NON-NLS-1$
 		}
 	}
 

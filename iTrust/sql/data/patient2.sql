@@ -75,15 +75,18 @@ VALUES (
 'Caucasian',
 'Male',
 'This person is absolutely crazy. Do not touch them.'
-);
+)  ON DUPLICATE KEY UPDATE MID = MID;
 
 INSERT INTO Users(MID, password, role, sQuestion, sAnswer) 
-			VALUES (2, 'pw', 'patient', 'how you doin?', 'good');
+			VALUES (2, 'pw', 'patient', 'how you doin?', 'good')
+ ON DUPLICATE KEY UPDATE MID = MID;
 
+DELETE FROM Allergies WHERE PatientID = 2;
 INSERT INTO Allergies(PatientID,Description, FirstFound) 
 	VALUES (2, 'Pollen', '2007-06-05 20:33:58'),
 	       (2, 'Penicillin', '2007-06-04 20:33:58');
 
+DELETE FROM PersonalHealthInformation WHERE PatientID = 2;
 INSERT INTO PersonalHealthInformation
 (PatientID,Height,Weight,Smoker,BloodPressureN,BloodPressureD,CholesterolHDL,CholesterolLDL,CholesterolTri,HCPID, AsOfDate)
 VALUES ( 2,  60,   200,   0,      190,          100,           500,             239,         290,          9000000000, '2007-06-07 20:33:58'),
@@ -98,7 +101,8 @@ VALUES (952,'2007-6-09',9000000000,'Yet another office visit.','1',2),
 	   (957,'2005-10-10',9000000000,'Yet another office visit.','1',2),
 	   (958,'2005-10-10',9000000000,'Yet another office visit.','1',2),
 	   (959,'2006-10-10',9000000000,'Yet another office visit.','1',2),
-	   (960,'1985-10-10',9000000000,'Yet another office visit.','',2);
+	   (960,'1985-10-10',9000000000,'Yet another office visit.','',2)
+		 ON DUPLICATE KEY UPDATE id = id;
 
 INSERT INTO OVDiagnosis(ID, ICDCode, VisitID) 
 	VALUES  (100, 250.1, 955),
@@ -106,18 +110,26 @@ INSERT INTO OVDiagnosis(ID, ICDCode, VisitID)
 			(102, 250.1, 960),
 			(103, 250.1, 960),
 			(104, 11.4, 960),
-			(105, 15.00, 960);
+			(105, 15.00, 960)
+			 ON DUPLICATE KEY UPDATE id = id;
 
+DELETE FROM OVMedication WHERE VisitID = 955;
 INSERT INTO OVMedication(NDCode, VisitID, StartDate,EndDate,Dosage,Instructions)
 	VALUES ('009042407', 955, '2006-10-10', '2006-10-11', 5, 'Take twice daily'),
 		   ('009042407', 955, '2006-10-10', '2006-10-11', 5, 'Take twice daily'),
 		   ('647641512', 955, '2006-10-10', '2020-10-11', 5, 'Take twice daily');
+
+
+DELETE FROM OVProcedure WHERE VisitID = 955;
 INSERT INTO OVProcedure(CPTCode, VisitID) VALUES ('1270F', 955);
 
-INSERT INTO DeclaredHCP(PatientID,HCPID) VALUE(2, 9000000003);
+INSERT INTO DeclaredHCP(PatientID,HCPID) VALUE(2, 9000000003)
+ ON DUPLICATE KEY UPDATE PatientID = PatientID;
 
-INSERT INTO Representatives(RepresenterMID, RepresenteeMID) VALUES(2,1);
+INSERT INTO Representatives(RepresenterMID, RepresenteeMID) VALUES(2,1)
+ ON DUPLICATE KEY UPDATE RepresenterMID = RepresenterMID;
 
 INSERT INTO OVSurvey (VisitID, SurveyDate, WaitingRoomMinutes, ExamRoomMinutes, VisitSatisfaction, TreatmentSatisfaction)
 	VALUES (952, '2008-03-01 12:00:00', null, 20, 1, 5),
-		   (954, '2008-03-02 13:00:00', 25, 55, 2, 4);
+		   (954, '2008-03-02 13:00:00', 25, 55, 2, 4)
+			 ON DUPLICATE KEY UPDATE VisitID = VisitID;

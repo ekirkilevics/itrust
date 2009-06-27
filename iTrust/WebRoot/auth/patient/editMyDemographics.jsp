@@ -5,6 +5,7 @@
 <%@page import="edu.ncsu.csc.itrust.exception.FormValidationException"%>
 <%@page import="edu.ncsu.csc.itrust.action.SetSecurityQuestionAction"%>
 <%@page import="edu.ncsu.csc.itrust.beans.SecurityQA"%>
+<%@page import="org.apache.commons.validator.CreditCardValidator"%>
 
 <%@taglib prefix="itrust" uri="/WEB-INF/tags.tld"%>
 <%@page errorPage="/auth/exceptionHandler.jsp"%>
@@ -38,6 +39,7 @@
 		try {
 			action.updateInformation(p);
 			saction.updateInformation(s);
+			
 %>
 		<div align=center>
 			<span class="iTrustMessage">Information Successfully Updated</span>
@@ -122,6 +124,22 @@
 				<td class="subHeaderVertical">Father MID:</td>
 				<td><input name="FatherMID" value="<%=p.getFatherMID()%>"
 					maxlength="10" type="text"></td>
+			</tr>
+			<tr>
+				<td class="subHeaderVertical">Credit Card Type:</td>
+				<td><select name="creditCardType">
+				<option value="">Select:</option>
+				<option value="MASTERCARD" <%= p.getCreditCardType().equals("MASTERCARD") ? "selected" : "" %>>Mastercard</option>
+				<option value="VISA" <%= p.getCreditCardType().equals("VISA") ? "selected" : "" %>>Visa</option>
+				<option value="DISCOVER" <%= p.getCreditCardType().equals("DISCOVER") ? "selected" : "" %>>Discover</option>
+				<option value="AMEX" <%= p.getCreditCardType().equals("AMEX") ? "selected" : "" %>>American Express</option>
+				</select>
+				</td>
+			</tr>
+			<tr>
+				<td class="subHeaderVertical">Credit Card Number:</td>
+				<td><input name="creditCardNumber" value="<%=p.getCreditCardNumber()%>"
+					maxlength="19" type="text"></td>
 			</tr>
 		</table>
 		</td>

@@ -186,7 +186,6 @@ This search allows you to search for a HCP based on a zip code or hospital ID.  
 <li>Average satisfaction with treatment/information
 <li>Percent of office visits for which satisfaction information is available</ol>
 </td></tr></table>
-</table>
 <% } %>
 
 <% }  %>

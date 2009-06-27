@@ -6,7 +6,7 @@ import edu.ncsu.csc.itrust.beans.Email;
 import edu.ncsu.csc.itrust.beans.LabProcedureBean;
 import edu.ncsu.csc.itrust.beans.OfficeVisitBean;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
-import edu.ncsu.csc.itrust.dao.mysql.FakeEmailDAO;
+import edu.ncsu.csc.itrust.dao.mysql.EmailDAO;
 import edu.ncsu.csc.itrust.dao.mysql.LabProcedureDAO;
 import edu.ncsu.csc.itrust.dao.mysql.OfficeVisitDAO;
 import edu.ncsu.csc.itrust.datagenerators.TestDataGenerator;
@@ -17,7 +17,7 @@ public class LabProcHCPActionTest extends TestCase {
 	private DAOFactory factory = TestDAOFactory.getTestInstance();
 	private LabProcedureDAO lpDAO = factory.getLabProcedureDAO();
 	private OfficeVisitDAO ovDAO = factory.getOfficeVisitDAO();
-	private FakeEmailDAO feDAO = factory.getFakeEmailDAO();
+	private EmailDAO feDAO = factory.getFakeEmailDAO();
 	private TestDataGenerator gen;
 	LabProcHCPAction action;
 	LabProcHCPAction action2;
@@ -29,6 +29,7 @@ public class LabProcHCPActionTest extends TestCase {
 		gen.transactionLog();
 		gen.patient1();
 		gen.patient2();
+		gen.patient3();
 		gen.patient4();
 		gen.hcp0();
 		gen.hcp3();
@@ -54,7 +55,7 @@ public class LabProcHCPActionTest extends TestCase {
 		LabProcedureBean procedures = lpDAO.getLabProcedure(id);
 		assertEquals(LabProcedureBean.Completed, procedures.getStatus());
 		assertEquals("No abnormal results", procedures.getResults());
-		List<Email> list = feDAO.getAllFakeEmails();
+		List<Email> list = feDAO.getAllEmails();
 		assertEquals(
 				"Dear Andy Programmer, \n Your Lab Procedure (10763-1) has a new updated status of COMPLETED. Log on to iTrust to view.",
 				list.get(0).getBody());
@@ -105,7 +106,7 @@ public class LabProcHCPActionTest extends TestCase {
 		LabProcedureBean lp = new LabProcedureBean();
 		lp.setLoinc("12933-5");
 		lp.setCommentary("This is a routine procedure");
-		lp.setOvID(911);
+		lp.setOvID(952);
 		lp.setPid(2L);
 		lp.setResults("");
 		lp.allow();
@@ -115,7 +116,7 @@ public class LabProcHCPActionTest extends TestCase {
 		LabProcedureBean lp2 = new LabProcedureBean();
 		lp2.setLoinc("00000-0");
 		lp2.setCommentary("This is a routine procedure");
-		lp2.setOvID(916);
+		lp2.setOvID(953);
 		lp2.setPid(2L);
 		lp2.setResults("");
 		lp2.allow();
@@ -125,7 +126,7 @@ public class LabProcHCPActionTest extends TestCase {
 		LabProcedureBean lp3 = new LabProcedureBean();
 		lp3.setLoinc("10543-5");
 		lp3.setCommentary("This is a routine procedure");
-		lp3.setOvID(945);
+		lp3.setOvID(954);
 		lp3.setPid(2L);
 		lp3.setResults("");
 		lp3.allow();
@@ -133,7 +134,7 @@ public class LabProcHCPActionTest extends TestCase {
 		lpDAO.addLabProcedure(lp3);
 
 		List<LabProcedureBean> lplist = action.sortByLOINC(2);
-		assertEquals(916, lplist.get(0).getOvID());
+		assertEquals(953, lplist.get(0).getOvID());
 		assertEquals("00000-0", lplist.get(0).getLoinc());
 
 	}

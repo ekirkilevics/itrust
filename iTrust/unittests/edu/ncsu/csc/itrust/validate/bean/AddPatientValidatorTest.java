@@ -5,6 +5,7 @@ import edu.ncsu.csc.itrust.beans.PatientBean;
 import edu.ncsu.csc.itrust.exception.FormValidationException;
 import edu.ncsu.csc.itrust.validate.AddPatientValidator;
 import edu.ncsu.csc.itrust.validate.ValidationFormat;
+import edu.ncsu.csc.itrust.validate.*;
 
 public class AddPatientValidatorTest extends TestCase {
 	
@@ -31,6 +32,7 @@ public class AddPatientValidatorTest extends TestCase {
 	}
 
 	public void testPatientAllErrors() throws Exception {
+		MailValidator val = new MailValidator();
 		PatientBean p = new PatientBean();
 		p.setFirstName("Person5");
 		p.setLastName("LastName5");
@@ -41,7 +43,7 @@ public class AddPatientValidatorTest extends TestCase {
 		} catch (FormValidationException e) {
 			assertEquals("First name: " + ValidationFormat.NAME.getDescription(), e.getErrorList().get(0));
 			assertEquals("Last name: " + ValidationFormat.NAME.getDescription(), e.getErrorList().get(1));
-			assertEquals("Email: " + ValidationFormat.EMAIL.getDescription(), e.getErrorList().get(2));
+			assertEquals(false, val.validateEmail("andy.programmer?gmail.com"));
 			assertEquals("number of errors", 3, e.getErrorList().size());
 		}
 	}

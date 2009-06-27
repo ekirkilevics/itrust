@@ -15,7 +15,7 @@ public class ManageHospitalAssignmentsActionTest extends TestCase {
 	private DAOFactory evil = EvilDAOFactory.getEvilInstance();
 	private ManageHospitalAssignmentsAction action;
 	private TestDataGenerator gen = new TestDataGenerator();
-	private final static long performingAdmin = 9000000001l;
+	private final static long performingAdmin = 9000000001L;
 	private final static long hcp0 = 9000000000l;
 	private final static String hosp0 = "1";
 	private final static String hosp1 = "9191919191";
@@ -25,6 +25,7 @@ public class ManageHospitalAssignmentsActionTest extends TestCase {
 	protected void setUp() throws Exception {
 		gen.clearAllTables();
 		gen.hcp0();
+		gen.admin1();
 		gen.hospitals();
 		gen.clearHospitalAssignments();
 		action = new ManageHospitalAssignmentsAction(factory, performingAdmin);
@@ -130,7 +131,7 @@ public class ManageHospitalAssignmentsActionTest extends TestCase {
 	}
 
 	public void testGetAvailableHospitals() throws iTrustException {
-		assertSame(3, action.getAvailableHospitals("9000000000").size());
+		assertSame(4, action.getAvailableHospitals("9000000000").size());
 	}
 
 	public void testGetAvailableHospitalsBadMID() {

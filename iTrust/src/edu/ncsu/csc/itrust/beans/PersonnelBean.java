@@ -1,6 +1,7 @@
 package edu.ncsu.csc.itrust.beans;
 
 import edu.ncsu.csc.itrust.enums.Role;
+import java.util.List;
 
 public class PersonnelBean {
 	private long MID = 0;
@@ -15,7 +16,7 @@ public class PersonnelBean {
 	private String streetAddress1 = "";
 	private String streetAddress2 = "";
 	private String city = "";
-	private String state = "AK";
+	private String state = "";
 	private String zip1 = "";
 	private String zip2 = "";
 	private String phone1 = "";
@@ -197,6 +198,20 @@ public class PersonnelBean {
 	
 	public void setSpecialty(String specialty) {
 		this.specialty = specialty;
+	}
+	
+	/*
+	public int compareTo(PersonnelBean other) {
+		if (MID == other.getMID()) return 0;
+		if (MID > other.getMID()) return 1;
+		return -1;
+	}*/
+	
+	public int getIndexIn(List<PersonnelBean> list) {
+		for (int i = 0; i < list.size(); i++) {
+			if (list.get(i).MID == this.MID) return i;
+		}
+		return -1;
 	}
 
 }

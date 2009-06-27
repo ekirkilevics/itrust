@@ -4,6 +4,7 @@ import edu.ncsu.csc.itrust.action.EditPatientAction;
 import edu.ncsu.csc.itrust.beans.PatientBean;
 import edu.ncsu.csc.itrust.exception.ErrorList;
 import edu.ncsu.csc.itrust.exception.FormValidationException;
+import org.apache.commons.validator.CreditCardValidator;
 
 /**
  * Validates a patient bean, from {@link EditPatientAction}
@@ -67,6 +68,31 @@ public class PatientValidator extends BeanValidator<PatientBean> {
 		errorList.addIfNotNull(checkFormat("Father MID", p.getFatherMID(), ValidationFormat.MID, true));
 		errorList
 				.addIfNotNull(checkFormat("Topical Notes", p.getTopicalNotes(), ValidationFormat.NOTES, true));
+		
+		/* This block was added for Theme 5 by Tyler Arehart */
+		
+		if (!(p.getCreditCardNumber().equals("") && p.getCreditCardType().equals(""))) {
+		
+			String s = null;
+			CreditCardValidator c;
+			int type = -1;
+			if (p.getCreditCardType().equals("VISA")) type = CreditCardValidator.VISA;
+			if (p.getCreditCardType().equals("MASTERCARD")) type = CreditCardValidator.MASTERCARD;
+			if (p.getCreditCardType().equals("DISCOVER")) type = CreditCardValidator.DISCOVER;
+			if (p.getCreditCardType().equals("AMEX")) type = CreditCardValidator.AMEX;
+			
+			if (type != -1) {	
+				c = new CreditCardValidator(type);
+				if (!c.isValid(p.getCreditCardNumber())) {
+					s = "Credit Card Number";
+				}
+			}
+			else {
+				s = "Credit Card Type";
+			}
+			errorList.addIfNotNull(s);
+		}
+		
 		if (errorList.hasErrors())
 			throw new FormValidationException(errorList);
 	}

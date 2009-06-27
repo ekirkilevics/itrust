@@ -1,7 +1,7 @@
 
 <%@page import="java.sql.*"%>
 <%@page import="edu.ncsu.csc.itrust.dao.DAOFactory"%>
-<%@page import="edu.ncsu.csc.itrust.dao.mysql.FakeEmailDAO"%>
+<%@page import="edu.ncsu.csc.itrust.dao.mysql.EmailDAO"%>
 <%@page import="edu.ncsu.csc.itrust.beans.Email"%>
 <%@page import="java.util.List"%>
 <html>
@@ -40,7 +40,7 @@ body {
 <a href="/iTrust">Back to iTrust</a>
 <h2>FOR TESTING PURPOSES ONLY</h2>
 <%
-List<Email> emails = DAOFactory.getProductionInstance().getFakeEmailDAO().getAllFakeEmails();
+List<Email> emails = DAOFactory.getProductionInstance().getFakeEmailDAO().getAllEmails();
 %>
 <b>Fake Emails</b>
 <br />

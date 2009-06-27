@@ -1,0 +1,22 @@
+Readme - Theme 10
+Lane Surratt (mlsurrat)
+
+Added file:
+	None
+
+Changed files:
+	ViewVisitedHCPsAction.java
+		-changed method getVisitedHCPs()
+	
+	
+JUnit Tests:
+	changed ViewVisitedHCPsActionTest.java
+		-added testGetVisitedHCPsRed()
+		-added testGetVisitedHCPsRed2()
+	
+	
+Acceptance tests:
+	None
+
+HttpUnit tests:
+	None

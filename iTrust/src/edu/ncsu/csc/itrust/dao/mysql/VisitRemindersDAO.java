@@ -13,6 +13,7 @@ import edu.ncsu.csc.itrust.beans.forms.VisitReminderReturnForm;
 import edu.ncsu.csc.itrust.beans.loaders.VisitReminderReturnFormLoader;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
 import edu.ncsu.csc.itrust.exception.DBException;
+import edu.ncsu.csc.itrust.utilities.ICDCodeProperties;
 
 /**
  * Used for queries related to patient reminders
@@ -134,11 +135,11 @@ public class VisitRemindersDAO {
 					+ "       ov.visitDate <= DATE_SUB(CURDATE(), INTERVAL 1 YEAR) "
 					+ "   AND "
 					+ "       ( "
-					+ "            ovd.ICDCode BETWEEN 250.00 AND 250.99 "
+					+ "            ovd.ICDCode BETWEEN ? AND ? " //250.00 AND 250.99
 					+ "         OR "
-					+ "            ovd.ICDCode BETWEEN 390.00 AND 459.99 "
+					+ "            ovd.ICDCode BETWEEN ? AND ? " //390.00 AND 459.99
 					+ "         OR "
-					+ "            ovd.ICDCode BETWEEN 493.00 AND 493.99 "
+					+ "            ovd.ICDCode BETWEEN ? AND ? " //493.00 AND 493.99
 					+ "        )"
 					+ "GROUP BY "
 					+ "       p.MID "
@@ -147,6 +148,20 @@ public class VisitRemindersDAO {
 
 			ps.setLong(1, hcpid);
 //			ps.setLong(2, hcpid);
+			
+			ICDCodeProperties prop = new ICDCodeProperties("../../META-INF/properties.txt");
+			ps.setFloat(2, prop.getICDForDiabetesMellitus());
+			ps.setFloat(3, prop.getICDForDiabetesMellitus()+0.99f);
+				
+			ps.setFloat(4, prop.getStartICDForCirculatorySystemDisease());
+			ps.setFloat(5, prop.getEndICDForCirculatorySystemDisease());
+				
+			ps.setFloat(6, prop.getICDForAsthma());
+			ps.setFloat(7, prop.getICDForAsthma()+0.99f);
+			
+
+
+			
 			rs = ps.executeQuery();
 			List<VisitReminderReturnForm> patients = new ArrayList<VisitReminderReturnForm>();
 			VisitReminderReturnForm temp;

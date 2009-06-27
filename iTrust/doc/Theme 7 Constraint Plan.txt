@@ -1,0 +1,73 @@
+Allergies:
+	PatientID
+	
+DeclaredHCP:
+	PatientID
+	HCPID
+	
+DiagnosisAccessLevels:
+	ID (Personnel.MID)
+	
+Diagnostic Information:
+	PatientID
+	HCPID
+	
+HCPAssignedHos
+	hosID
+	HCPID
+	
+HCPRelations
+	HCP
+	
+LabProcedure
+	PatientMID
+	OfficeVisitID
+
+Message
+	to_id (users.mid)
+	from_id
+	
+OfficeVisits:
+	HCPID
+	HospitalID
+	PatientID
+
+OVDiagnosis
+	VisitID
+	ICDCode
+	
+OVMedication
+	VisitID
+	NDCode
+
+OVProcedure
+	VisitID
+	CPTCode
+	
+OVSurvey
+	VisitID
+	
+PersonalAllergies
+	PatientID
+	Allergy
+	
+PersonalHealthINformation
+	PatientID
+	HCPID
+	
+PersonalRelations
+	PatientID
+	RelativeID (Users.MID)
+	
+ReportRequests
+	RequesterMID(Users.MID)
+	PatientMID
+	ApproverMID(Users.Mid)
+	
+Representatives
+	RepresenterMID (Users.MiD)
+	RepresenteeMID (Users.MID)
+	
+TransactionLog
+	loggedInMID
+	

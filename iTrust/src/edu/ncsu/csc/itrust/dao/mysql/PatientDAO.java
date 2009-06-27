@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Vector;
 import edu.ncsu.csc.itrust.DBUtil;
 import edu.ncsu.csc.itrust.beans.DiagnosisBean;
 import edu.ncsu.csc.itrust.beans.PatientBean;
@@ -19,6 +20,7 @@ import edu.ncsu.csc.itrust.beans.loaders.ProcedureBeanLoader;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
 import edu.ncsu.csc.itrust.exception.DBException;
 import edu.ncsu.csc.itrust.exception.iTrustException;
+import edu.ncsu.csc.itrust.utilities.ICDCodeProperties;
 import edu.ncsu.csc.itrust.DateUtil;
 
 /**
@@ -181,9 +183,9 @@ public class PatientDAO {
 					+ "eName=?,ePhone1=?,ePhone2=?,ePhone3=?,iCName=?,iCAddress1=?,iCAddress2=?,iCCity=?,"
 					+ "ICState=?,iCZip1=?, iCZip2=?, iCPhone1=?,iCPhone2=?,iCPhone3=?,iCID=?,DateOfBirth=?,"
 					+ "DateOfDeath=?,CauseOfDeath=?,MotherMID=?,FatherMID=?,"
-					+ "BloodType=?,Ethnicity=?,Gender=?,TopicalNotes=? WHERE MID=?");
+					+ "BloodType=?,Ethnicity=?,Gender=?,TopicalNotes=?, CreditCardType=?, CreditCardNumber=? WHERE MID=?");
 			patientLoader.loadParameters(ps, p);
-			ps.setLong(37, p.getMID());
+			ps.setLong(39, p.getMID());
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -594,12 +596,148 @@ public class PatientDAO {
 		}
 	}
 	
+	/**
+	 * Return a list of prescriptions which are expired prescription for a patient
+	 * 
+	 * @param patientID
+	 * @return
+	 * @throws DBException
+	 **/
+	 
+	public List<PrescriptionBean> getExpiredPrescriptions (long patientID) throws DBException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		try {
+			if (patientID == 0L) throw new SQLException("pid cannot be 0");
+			conn = factory.getConnection();
+			ps = conn.prepareStatement("Select * From OVMedication,NDCodes,OfficeVisits "
+					+ "Where OfficeVisits.PatientID = ? AND OVMedication.VisitID = "
+					+ "OfficeVisits.ID AND NDCodes.Code=OVMedication.NDCode AND "
+					+ "OVMedication.EndDate < ?" + "ORDER BY OVMedication.ID DESC;");
+			ps.setLong(1, patientID);
+			ps.setDate(2, DateUtil.getSQLdateXDaysAgoFromNow(0));
+			ResultSet rs = ps.executeQuery();
+			return prescriptionLoader.loadList(rs);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DBException(e);
+		} finally {
+			DBUtil.closeConnection(conn, ps);
+		}
+	}
+	
 	public List<PatientBean> getAllPatients() throws DBException {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
 			ps = conn.prepareStatement("SELECT * FROM patients ");
+			ResultSet rs = ps.executeQuery();
+			return patientLoader.loadList(rs);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DBException(e);
+		} finally {
+			DBUtil.closeConnection(conn, ps);
+		}
+	}
+	
+	/**
+	 * Return a list of patients with a special-diagnosis-history who
+	 * have the logged in HCP as a DHCP and whose medications are going to
+	 * expire within seven days.
+	 * 
+	 * @param hcpMID The MID of the logged in HCP
+	 * @return A list of patients satisfying the conditions.
+	 * @throws DBException
+	 */
+	public List<PatientBean> getRenewalNeedsPatients(long hcpMID) throws DBException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		try {
+			conn = factory.getConnection();
+			
+				
+				ps = conn.prepareStatement("SELECT * FROM ( " + 
+
+				"SELECT DISTINCT patients.* From patients, declaredhcp, ovdiagnosis, officevisits, ovmedication " + 
+				"Where " + 
+				
+				"declaredHCP.HCPID = ? AND " + 
+				"patients.MID = declaredhcp.PatientID AND " + 
+				
+				
+				"( " + 
+				"ovdiagnosis.VisitID = officevisits.ID AND officevisits.PatientID = declaredhcp.PatientID " + 
+				"AND " + 
+				
+				"((ovdiagnosis.ICDCode >= ? AND ovdiagnosis.ICDCode <= ?) " + 
+				"OR (ovdiagnosis.ICDCode >= ? AND ovdiagnosis.ICDCode <= ?) " + 
+				"OR (ovdiagnosis.ICDCode >= ? AND ovdiagnosis.ICDCode <= ?)) " + 
+				") " + 
+				
+				
+				
+				"UNION ALL " + 
+				
+				
+				"SELECT DISTINCT patients.* From patients, declaredhcp, ovdiagnosis, officevisits, ovmedication " + 
+				"Where " + 
+				
+				"declaredHCP.HCPID = ? AND " + 
+				"patients.MID = declaredhcp.PatientID AND " + 
+				
+				"( " + 
+				"declaredhcp.PatientID = officevisits.PatientID AND officevisits.ID = ovmedication.VisitID " + 
+				"AND " + 
+				"ovmedication.EndDate BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 7 DAY) " + 
+				") " + 
+				
+				") AS final " + 
+				
+				"GROUP BY final.MID HAVING COUNT(*) = 2 " + 
+				
+				"ORDER BY final.lastname ASC, final.firstname ASC"); 
+			
+			ps.setLong(1, hcpMID);
+			
+			ICDCodeProperties prop = new ICDCodeProperties("../../META-INF/properties.txt");
+			ps.setFloat(2, prop.getICDForDiabetesMellitus());
+			ps.setFloat(3, prop.getICDForDiabetesMellitus()+0.99f);
+				
+			ps.setFloat(4, prop.getICDForAsthma());
+			ps.setFloat(5, prop.getICDForAsthma()+0.99f);
+			
+			ps.setFloat(6, prop.getStartICDForCirculatorySystemDisease());
+			ps.setFloat(7, prop.getEndICDForCirculatorySystemDisease());
+
+			ps.setLong(8, hcpMID);
+			
+			ResultSet rs = ps.executeQuery();
+			return patientLoader.loadList(rs);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DBException(e);
+		} finally {
+			DBUtil.closeConnection(conn, ps);
+		}
+	}
+	
+	/** Searches for patients with a given name
+	 * 
+	 */
+	public List<PatientBean> searchForPatientsWithName(String first, String last) throws DBException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		
+		if (first.equals("%") && last.equals("%")) return new Vector<PatientBean>();
+		
+		try {
+			conn = factory.getConnection();
+			
+			ps = conn.prepareStatement("SELECT * FROM patients WHERE firstName LIKE ? AND lastName LIKE ?");
+			ps.setString(1, first);
+			ps.setString(2, last);
 			ResultSet rs = ps.executeQuery();
 			return patientLoader.loadList(rs);
 		} catch (SQLException e) {

@@ -4,6 +4,7 @@ import java.util.*;
 import edu.ncsu.csc.itrust.beans.DiagnosisBean;
 import edu.ncsu.csc.itrust.beans.HCPDiagnosisBean;
 import edu.ncsu.csc.itrust.beans.OfficeVisitBean;
+import edu.ncsu.csc.itrust.beans.PatientBean;
 import edu.ncsu.csc.itrust.beans.PrescriptionBean;
 import edu.ncsu.csc.itrust.beans.MedicationBean;
 import edu.ncsu.csc.itrust.beans.SurveyBean;
@@ -158,6 +159,22 @@ public class MyDiagnosisAction {
 		Collections.sort(list, new HCPDiagnosisBeanComparator() );
 		return list;
 	}
+	
+	public List<PrescriptionBean> getPrescriptionsByHCPAndICD(long hcpid, String icdcode) throws DBException {
+		List<PrescriptionBean> list = new ArrayList<PrescriptionBean>();
+		
+		List<OfficeVisitBean> ovs = officeVisitDAO.getAllOfficeVisitsForDiagnosis(icdcode);
+		for (int i = 0; i < ovs.size(); i++) {
+			if (ovs.get(i).getHcpID() == hcpid) {
+				list.addAll(ovs.get(i).getPrescriptions());
+			}
+		}
+		
+		return list;
+		
+		
+	}
+	
 	
 	/**
 	 * Checks to see what HCP has had the most experience with a diagnosis
