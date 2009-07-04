@@ -1,13 +1,11 @@
 package edu.ncsu.csc.itrust;
 
-import static org.junit.Assert.*;
-import org.junit.Test;
+import junit.framework.TestCase;
 
-public class MessagesTest {
+public class MessagesTest extends TestCase {
 
-	@Test
 	public void testGetString() {
-		assertEquals("Requested",Messages.getString("ReportRequestBean.requested"));
+		assertEquals("Requested", Messages.getString("ReportRequestBean.requested"));
 	}
 
 }
