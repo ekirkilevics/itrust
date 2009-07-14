@@ -18,8 +18,10 @@ public class EmailUtil {
 		this.factory = factory;
 	}
 
+	// DO NOT SEND REAL EMAILS!!!!!
+	// Sending emails - even to a throwaway account, is a waste of bandwidth and looks very suspicious.
+	// If you want to know how to send emails from Java, just Google it on your own time.
 	public void sendEmail(Email email) throws DBException {
 		factory.getFakeEmailDAO().sendEmailRecord(email);
-		factory.getFakeEmailDAO().sendRealEmail(email);
 	}
 }

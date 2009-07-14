@@ -102,31 +102,6 @@ public class EmailDAO {
 			DBUtil.closeConnection(conn, ps);
 		}
 	}
-	
-	/**
-	 * "Send" an email, which is sent to a common address (ncsucsc326@gmail.com).
-	 * 
-	 * @param email
-	 */
-	public boolean sendRealEmail(Email email) {
-	
-		try {
-			 SimpleEmail newEmail = new SimpleEmail();
-			 newEmail.setAuthentication("ncsucsc326@gmail.com", "ncsucsc326spring");
-			 newEmail.setTLS(true);
-			 newEmail.setSSL(true);
-			  newEmail.setHostName("smtp.gmail.com");
-			  newEmail.addTo("ncsucsc326@gmail.com");
-			  newEmail.setFrom(email.getFrom(), email.getFrom());
-			  newEmail.setSubject(email.getSubject());
-			  newEmail.setMsg(email.getBody());
-			  newEmail.send();
-			  return true;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
-		} 
-	}
 
 	/**
 	 * Returns a list of emails that have the given string as a substring of the body

@@ -48,26 +48,7 @@ public class EmailTest extends TestCase {
 		assertEquals(2,emails.size());
 		assertEquals(getTestEmail(), emails.get(0));
 		assertEquals(getTestEmail(), emails.get(1));
-	}
-	
-	public void testFindWithStringReal() throws Exception {
-		assertEquals(true, factory.getFakeEmailDAO().sendRealEmail(getTestEmail()));
-		assertEquals(true, factory.getFakeEmailDAO().sendRealEmail(getTestEmail()));	
-		Email other = getTestEmail();
-		other.setBody("this is a test of the real email sending system of iTrust");
-		assertEquals(true, factory.getFakeEmailDAO().sendRealEmail(other));
-	
-	}
-	
-	public void testFindWithStringReal2() throws Exception {
-		assertEquals(true, factory.getFakeEmailDAO().sendRealEmail(getTestEmail()));
-		assertEquals(true, factory.getFakeEmailDAO().sendRealEmail(getTestEmail()));
-		Email other = getTestEmail();
-		other.setBody("iTrust system email notification system test");
-		assertEquals(true, factory.getFakeEmailDAO().sendRealEmail(other));
-	
-	}
-	
+	}	
 
 	public void testGetAllException() throws Exception {
 		factory = EvilDAOFactory.getEvilInstance();
