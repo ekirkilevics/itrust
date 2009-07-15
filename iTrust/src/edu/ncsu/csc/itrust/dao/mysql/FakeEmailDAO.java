@@ -4,15 +4,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Arrays;
 import java.util.List;
-import org.apache.commons.mail.SimpleEmail;
 import edu.ncsu.csc.itrust.DBUtil;
 import edu.ncsu.csc.itrust.beans.Email;
 import edu.ncsu.csc.itrust.beans.loaders.EmailBeanLoader;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
 import edu.ncsu.csc.itrust.exception.DBException;
-import org.apache.commons.mail.*;
 
 /**
  * 
@@ -27,11 +24,11 @@ import org.apache.commons.mail.*;
  * @author Andy
  * 
  */
-public class EmailDAO {
+public class FakeEmailDAO {
 	private DAOFactory factory;
 	private EmailBeanLoader emailBeanLoader = new EmailBeanLoader();
 
-	public EmailDAO(DAOFactory factory) {
+	public FakeEmailDAO(DAOFactory factory) {
 		this.factory = factory;
 	}
 

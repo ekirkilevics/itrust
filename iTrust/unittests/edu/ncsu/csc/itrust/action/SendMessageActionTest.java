@@ -68,7 +68,7 @@ public class SendMessageActionTest extends TestCase {
 	
 	public void testGetMyRepresentees() throws iTrustException {
 		List<PatientBean> pbList = this.smAction.getMyRepresentees();
-		
+		//TODO Always asset what's in the list
 		assertEquals(6, pbList.size());
 	}
 	

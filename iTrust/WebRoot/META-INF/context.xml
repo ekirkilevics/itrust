@@ -16,9 +16,9 @@
 		url="jdbc:mysql://aramis.csc.ncsu.edu/CSC326_tsarehar"
 		-->
 	<Resource
-		username="database user name"
-		password="database password"
-		url="jdbc:mysql://server:3306/iTrust"		
+		username="root"
+		password="root"
+		url="jdbc:mysql://localhost:3306/itrust"		
 		name="jdbc/itrust"
 		auth="Container"
 		type="javax.sql.DataSource"

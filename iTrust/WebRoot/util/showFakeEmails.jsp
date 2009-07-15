@@ -1,7 +1,7 @@
 
 <%@page import="java.sql.*"%>
 <%@page import="edu.ncsu.csc.itrust.dao.DAOFactory"%>
-<%@page import="edu.ncsu.csc.itrust.dao.mysql.EmailDAO"%>
+<%@page import="edu.ncsu.csc.itrust.dao.mysql.FakeEmailDAO"%>
 <%@page import="edu.ncsu.csc.itrust.beans.Email"%>
 <%@page import="java.util.List"%>
 <html>

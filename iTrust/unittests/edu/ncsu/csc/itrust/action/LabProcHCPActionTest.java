@@ -6,7 +6,7 @@ import edu.ncsu.csc.itrust.beans.Email;
 import edu.ncsu.csc.itrust.beans.LabProcedureBean;
 import edu.ncsu.csc.itrust.beans.OfficeVisitBean;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
-import edu.ncsu.csc.itrust.dao.mysql.EmailDAO;
+import edu.ncsu.csc.itrust.dao.mysql.FakeEmailDAO;
 import edu.ncsu.csc.itrust.dao.mysql.LabProcedureDAO;
 import edu.ncsu.csc.itrust.dao.mysql.OfficeVisitDAO;
 import edu.ncsu.csc.itrust.datagenerators.TestDataGenerator;
@@ -17,7 +17,7 @@ public class LabProcHCPActionTest extends TestCase {
 	private DAOFactory factory = TestDAOFactory.getTestInstance();
 	private LabProcedureDAO lpDAO = factory.getLabProcedureDAO();
 	private OfficeVisitDAO ovDAO = factory.getOfficeVisitDAO();
-	private EmailDAO feDAO = factory.getFakeEmailDAO();
+	private FakeEmailDAO feDAO = factory.getFakeEmailDAO();
 	private TestDataGenerator gen;
 	LabProcHCPAction action;
 	LabProcHCPAction action2;

@@ -53,9 +53,9 @@ public class ViewPrescriptionRecordsActionTest extends TestCase {
 		action = new ViewPrescriptionRecordsAction(factory, 2L);
 		prescriptions = action.getPrescriptionsForPatient(2L);
 		assertEquals(3, prescriptions.size());
-		assertEquals("009042407", prescriptions.get(0).getMedication().getNDCode());
+		assertEquals("647641512", prescriptions.get(0).getMedication().getNDCode());
 		assertEquals("009042407", prescriptions.get(1).getMedication().getNDCode());
-		assertEquals("647641512", prescriptions.get(2).getMedication().getNDCode());
+		assertEquals("009042407", prescriptions.get(2).getMedication().getNDCode());
 		
 		prescriptions = action.getPrescriptionsForPatient(1L);
 		assertEquals(0, prescriptions.size());
@@ -63,8 +63,8 @@ public class ViewPrescriptionRecordsActionTest extends TestCase {
 		action = new ViewPrescriptionRecordsAction(factory, 9000000000L);
 		prescriptions = action.getPrescriptionsForPatient(2L);
 		assertEquals(3, prescriptions.size());
-		assertEquals("009042407", prescriptions.get(0).getMedication().getNDCode());
+		assertEquals("647641512", prescriptions.get(0).getMedication().getNDCode());		
 		assertEquals("009042407", prescriptions.get(1).getMedication().getNDCode());
-		assertEquals("647641512", prescriptions.get(2).getMedication().getNDCode());		
+		assertEquals("009042407", prescriptions.get(2).getMedication().getNDCode());
 	}
 }

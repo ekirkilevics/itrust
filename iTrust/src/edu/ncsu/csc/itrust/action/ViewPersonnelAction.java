@@ -4,7 +4,7 @@ import java.util.List;
 import edu.ncsu.csc.itrust.beans.Email;
 import edu.ncsu.csc.itrust.beans.PersonnelBean;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
-import edu.ncsu.csc.itrust.dao.mysql.EmailDAO;
+import edu.ncsu.csc.itrust.dao.mysql.FakeEmailDAO;
 import edu.ncsu.csc.itrust.dao.mysql.PersonnelDAO;
 import edu.ncsu.csc.itrust.dao.mysql.TransactionDAO;
 import edu.ncsu.csc.itrust.enums.TransactionType;
@@ -20,7 +20,7 @@ import edu.ncsu.csc.itrust.Messages;
 public class ViewPersonnelAction {
 	private PersonnelDAO personnelDAO;
 	private TransactionDAO transDAO;
-	private EmailDAO emailDAO;
+	private FakeEmailDAO emailDAO;
 	private long loggedInMID;
 
 	/**

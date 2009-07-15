@@ -4,7 +4,7 @@ import java.util.List;
 import junit.framework.TestCase;
 import edu.ncsu.csc.itrust.beans.Email;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
-import edu.ncsu.csc.itrust.dao.mysql.EmailDAO;
+import edu.ncsu.csc.itrust.dao.mysql.FakeEmailDAO;
 import edu.ncsu.csc.itrust.datagenerators.TestDataGenerator;
 import edu.ncsu.csc.itrust.exception.FormValidationException;
 import edu.ncsu.csc.itrust.exception.iTrustException;
@@ -15,7 +15,7 @@ import edu.ncsu.csc.itrust.validate.ValidationFormat;
 public class ResetPasswordActionTest extends TestCase {
 	private DAOFactory factory = TestDAOFactory.getTestInstance();
 	private DAOFactory evil = EvilDAOFactory.getEvilInstance();
-	private EmailDAO feDAO = factory.getFakeEmailDAO();
+	private FakeEmailDAO feDAO = factory.getFakeEmailDAO();
 	private ResetPasswordAction action;
 	private TestDataGenerator gen;
 

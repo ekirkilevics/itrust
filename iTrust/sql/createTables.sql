@@ -6,20 +6,21 @@ CREATE TABLE Users(
 	sAnswer             VARCHAR(30) DEFAULT '',
 
 	PRIMARY KEY (MID)
-) ENGINE=INNODB;
+	/* Please use the MyISAM backend with no foreign keys.*/
+) ENGINE=MyISAM; 
 
 CREATE TABLE Hospitals(
 	HospitalID   varchar(10),
 	HospitalName varchar(30) NOT NULL, 
 	
 	PRIMARY KEY (hospitalID)
-) ENGINE=INNODB;
+) ENGINE=MyISAM;
 
 CREATE TABLE  Images (
   `img_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `image` mediumblob,
   PRIMARY KEY (`img_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) AUTO_INCREMENT=2 ENGINE=MyISAM;
 
 CREATE TABLE Personnel(
 	MID BIGINT unsigned auto_increment,
@@ -42,7 +43,7 @@ CREATE TABLE Personnel(
 	specialty varchar(40) default NULL,
 	email varchar(55)  default '', 
 	PRIMARY KEY  (MID)
-) ENGINE=INNODB;
+) ENGINE=MyISAM;
 
 CREATE TABLE Patients(
 	MID BIGINT unsigned  auto_increment, 
@@ -85,41 +86,41 @@ CREATE TABLE Patients(
 	CreditCardType VARCHAR(20) default '',
 	CreditCardNumber VARCHAR(19) default '',
 	PRIMARY KEY (MID)
-) ENGINE=INNODB;
+) ENGINE=MyISAM;
 
 CREATE TABLE LoginFailures(
 	ipaddress varchar(128) NOT NULL, 
 	failureCount int NOT NULL default 0, 
 	lastFailure TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	PRIMARY KEY (ipaddress)
-);
+) ENGINE=MyISAM;
 
 CREATE TABLE ResetPasswordFailures(
 	ipaddress varchar(128) NOT NULL, 
 	failureCount int NOT NULL default 0, 
 	lastFailure TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	PRIMARY KEY (ipaddress)
-);
+) ENGINE=MyISAM;
 
 CREATE TABLE icdcodes (
   Code decimal(5,2) NOT NULL,
   Description TEXT NOT NULL,
   Chronic enum('no','yes') NOT NULL default 'no',
   PRIMARY KEY (Code)
-) ENGINE=INNODB;
+) ENGINE=MyISAM;
 
 CREATE TABLE CPTCodes(
 	Code varchar(5) NOT NULL COMMENT 'Actual CPT Code', 
 	Description varchar(30) NOT NULL COMMENT 'Description of the CPT Codes', 
 	Attribute varchar(30),
 	PRIMARY KEY (Code)
-) ENGINE=INNODB;
+) ENGINE=MyISAM;
 
 CREATE TABLE NDCodes(
 	Code varchar(9) NOT NULL, 
 	Description varchar(40) NOT NULL, 
 	PRIMARY KEY  (Code)
-) ENGINE=INNODB;
+) ENGINE=MyISAM;
 
 CREATE TABLE TransactionLog(
 	transactionID int(10) unsigned NOT NULL auto_increment, 
@@ -128,59 +129,38 @@ CREATE TABLE TransactionLog(
 	transactionCode int(10) UNSIGNED NOT NULL default '0', 
 	timeLogged timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP, 
 	addedInfo VARCHAR(50) default '',
-	PRIMARY KEY  (transactionID) ,
-	FOREIGN KEY (loggedInMID) REFERENCES Users(MID) 
-		ON UPDATE CASCADE
-) ENGINE=INNODB;
+	PRIMARY KEY (transactionID)
+) ENGINE=MyISAM;
 
 CREATE TABLE HCPRelations(
 	HCP BIGINT unsigned NOT NULL default '0', 
 	UAP BIGINT unsigned NOT NULL default '0',
-	PRIMARY KEY (HCP, UAP),
-	FOREIGN KEY (HCP) REFERENCES Personnel(MID) 
-		ON UPDATE CASCADE
-) ENGINE=INNODB;
+	PRIMARY KEY (HCP, UAP)
+) ENGINE=MyISAM;
 
 CREATE TABLE PersonalRelations(
 	PatientID BIGINT unsigned NOT NULL COMMENT 'MID of the patient',
 	RelativeID BIGINT unsigned NOT NULL COMMENT 'MID of the Relative',
-	RelativeType VARCHAR( 35 ) NOT NULL COMMENT 'Relation Type',
-	FOREIGN KEY (PatientID) REFERENCES Patients(MID) 
-		ON UPDATE CASCADE,
-	FOREIGN KEY (RelativeID) REFERENCES Users(MID) 
-		ON UPDATE CASCADE
-) ENGINE=INNODB;
+	RelativeType VARCHAR( 35 ) NOT NULL COMMENT 'Relation Type'
+) ENGINE=MyISAM;
 
 CREATE TABLE Representatives(
 	representerMID BIGINT unsigned default 0, 
 	representeeMID BIGINT unsigned default 0,
-
-	PRIMARY KEY  (representerMID,representeeMID),
-	FOREIGN KEY (representerMID) REFERENCES Users(MID) 
-		ON UPDATE CASCADE,
-	FOREIGN KEY (representeeMID) REFERENCES Users(MID) 
-		ON UPDATE CASCADE
-) ENGINE=INNODB;
+	PRIMARY KEY  (representerMID,representeeMID)
+) ENGINE=MyISAM;
 
 CREATE TABLE HCPAssignedHos(
 	hosID VARCHAR(10) NOT NULL, 
 	HCPID BIGINT unsigned NOT NULL, 
-	PRIMARY KEY (hosID,HCPID),
-	FOREIGN KEY (hosID) REFERENCES Hospitals(HospitalID) 
-		ON UPDATE CASCADE,
-	FOREIGN KEY (HCPID) REFERENCES Personnel(MID) 
-		ON UPDATE CASCADE
-) ENGINE=INNODB;
+	PRIMARY KEY (hosID,HCPID)
+) ENGINE=MyISAM;
 
 CREATE TABLE DeclaredHCP(
 	PatientID BIGINT unsigned NOT NULL default '0', 
 	HCPID BIGINT unsigned NOT NULL default '0', 
-	PRIMARY KEY  (PatientID,HCPID),
-	FOREIGN KEY (PatientID) REFERENCES Patients(MID) 
-		ON UPDATE CASCADE,
-	FOREIGN KEY (HCPID) REFERENCES Personnel(MID) 
-		ON UPDATE CASCADE
-) ENGINE=INNODB;
+	PRIMARY KEY  (PatientID,HCPID)
+) ENGINE=MyISAM;
 
 CREATE TABLE OfficeVisits(
 	ID int(10) unsigned auto_increment,
@@ -189,12 +169,8 @@ CREATE TABLE OfficeVisits(
 	notes mediumtext, 
 	PatientID BIGINT unsigned default '0', 
 	HospitalID VARCHAR(10) default '',
-	PRIMARY KEY  (ID),
-	FOREIGN KEY (HospitalID) REFERENCES Hospitals(HospitalID) 
-		ON UPDATE CASCADE ON DELETE SET NULL,
-	FOREIGN KEY (HCPID) REFERENCES Personnel(MID) 
-		ON UPDATE CASCADE ON DELETE SET NULL
-) ENGINE=INNODB;
+	PRIMARY KEY  (ID)
+) ENGINE=MyISAM;
 
 CREATE TABLE PersonalHealthInformation (
 	PatientID BIGINT unsigned NOT NULL default '0',
@@ -207,38 +183,26 @@ CREATE TABLE PersonalHealthInformation (
 	CholesterolLDL int(11) default '0' COMMENT 'LDL Ccholesterol',  
 	CholesterolTri int(11) default '0' COMMENT 'Cholesterol Triglyceride',  
 	HCPID BIGINT unsigned default NULL,  
-	AsOfDate timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
-	FOREIGN KEY (PatientID) REFERENCES Patients(MID) 
-		ON UPDATE CASCADE,
-	FOREIGN KEY (HCPID) REFERENCES Personnel(MID) 
-		ON UPDATE CASCADE ON DELETE SET NULL
-) ENGINE=INNODB;
+	AsOfDate timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP
+) ENGINE=MyISAM;
 
 CREATE TABLE PersonalAllergies(
 	PatientID BIGINT unsigned NOT NULL COMMENT 'MID of the Patient',
-	Allergy VARCHAR( 50 ) NOT NULL COMMENT 'Description of the allergy',
-	FOREIGN KEY (PatientID) REFERENCES Patients(MID) 
-		ON UPDATE CASCADE
-) ENGINE=INNODB;
+	Allergy VARCHAR( 50 ) NOT NULL COMMENT 'Description of the allergy'
+) ENGINE=MyISAM;
 
 CREATE TABLE Allergies(
 	ID INT(10) unsigned auto_increment primary key,
 	PatientID BIGINT unsigned NOT NULL COMMENT 'MID of the Patient',
 	Description VARCHAR( 50 ) NOT NULL COMMENT 'Description of the allergy',
-	FirstFound TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	FOREIGN KEY (PatientID) REFERENCES Patients(MID) 
-		ON UPDATE CASCADE
-) ENGINE=INNODB;
+	FirstFound TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=MyISAM;
 
 CREATE TABLE OVProcedure(
 	ID INT(10) auto_increment primary key,
 	VisitID INT( 10 ) unsigned NOT NULL COMMENT 'ID of the Office Visit',
-	CPTCode VARCHAR( 5 ) NOT NULL COMMENT 'CPTCode of the procedure',
-	FOREIGN KEY (VisitID) REFERENCES OfficeVisits(ID) 
-		ON UPDATE CASCADE,
-	FOREIGN KEY (CPTCode) REFERENCES CPTCodes(Code) 
-		ON UPDATE CASCADE
-) ENGINE=INNODB;
+	CPTCode VARCHAR( 5 ) NOT NULL COMMENT 'CPTCode of the procedure'
+) ENGINE=MyISAM;
 
 CREATE TABLE OVMedication (
     ID INT(10)  auto_increment primary key,
@@ -247,27 +211,19 @@ CREATE TABLE OVMedication (
 	StartDate DATE,
 	EndDate DATE,
 	Dosage INT DEFAULT 0 COMMENT 'Always in mg - this could certainly be changed later',
-	Instructions VARCHAR(500) DEFAULT '',
-	FOREIGN KEY (VisitID) REFERENCES OfficeVisits(ID)
-		ON UPDATE CASCADE,
-	FOREIGN KEY (NDCode) REFERENCES NDCodes(Code) 
-		ON UPDATE CASCADE
-) ENGINE=INNODB;
+	Instructions VARCHAR(500) DEFAULT ''
+) ENGINE=MyISAM;
 
 CREATE TABLE OVDiagnosis (
     ID INT(10) auto_increment primary key,
 	VisitID INT( 10 ) unsigned NOT NULL COMMENT 'ID of the Office Visit',
-	ICDCode DECIMAL( 5, 2 ) NOT NULL COMMENT 'Code for the Diagnosis',
-	FOREIGN KEY (VisitID) REFERENCES OfficeVisits(ID) 
-		ON UPDATE CASCADE,
-	FOREIGN KEY (ICDCode) REFERENCES ICDCodes(Code) 
-		ON UPDATE CASCADE
-) ENGINE=INNODB;
+	ICDCode DECIMAL( 5, 2 ) NOT NULL COMMENT 'Code for the Diagnosis'
+) ENGINE=MyISAM;
 
 CREATE TABLE GlobalVariables (
 	Name VARCHAR(20) primary key,
 	Value VARCHAR(20)
-);
+) ENGINE=MyISAM;
 
 INSERT INTO GlobalVariables(Name,Value) VALUES ('Timeout', '20');
 
@@ -278,7 +234,7 @@ CREATE TABLE FakeEmail(
 	Subject VARCHAR(500),
 	Body VARCHAR(1000),
 	AddedDate timestamp NOT NULL default CURRENT_TIMESTAMP
-);
+) ENGINE=MyISAM;
 
 CREATE TABLE ReportRequests (
 	ID INT(10) auto_increment primary key,
@@ -289,12 +245,8 @@ CREATE TABLE ReportRequests (
     ApprovedDate datetime,
     ViewedDate datetime,
     Status varchar(30),
-	Comment TEXT,
-	FOREIGN KEY (RequesterMID) REFERENCES Users(MID) 
-		ON UPDATE CASCADE ON DELETE SET NULL,
-	FOREIGN KEY (PatientMID) REFERENCES Patients(MID) 
-		ON UPDATE CASCADE ON DELETE SET NULL
-) ENGINE=INNODB;
+	Comment TEXT
+) ENGINE=MyISAM;
 
 CREATE TABLE OVSurvey (
 	VisitID int(10) unsigned primary key COMMENT 'ID of the Office Visit',
@@ -302,10 +254,8 @@ CREATE TABLE OVSurvey (
 	WaitingRoomMinutes int(3) COMMENT 'How many minutes did you wait in the waiting room?',
 	ExamRoomMinutes int(3) COMMENT 'How many minutes did you wait in the examination room before seeing your physician?',
     VisitSatisfaction int(1) COMMENT 'How satisfied were you with your office visit?',
-	TreatmentSatisfaction int(1) COMMENT 'How satisfied were you with the treatment or information you received?',
-	FOREIGN KEY (VisitID) REFERENCES OfficeVisits(ID) 
-		ON UPDATE CASCADE
-)ENGINE=INNODB;
+	TreatmentSatisfaction int(1) COMMENT 'How satisfied were you with the treatment or information you received?'
+) ENGINE=MyISAM;
 
 CREATE TABLE LOINC (
 	LaboratoryProcedureCode VARCHAR (7), 
@@ -315,7 +265,7 @@ CREATE TABLE LOINC (
 	System VARCHAR(100),
 	ScaleType VARCHAR(100),
 	MethodType VARCHAR(100)
-);
+) ENGINE=MyISAM;
 
 CREATE TABLE LabProcedure (
 	LaboratoryProcedureID BIGINT(10) auto_increment primary key,
@@ -326,12 +276,8 @@ CREATE TABLE LabProcedure (
 	Commentary MEDIUMTEXT,
 	Results MEDIUMTEXT,
 	OfficeVisitID INT (10) unsigned,
-	UpdatedDate timestamp NOT NULL default CURRENT_TIMESTAMP,
-	FOREIGN KEY (PatientMID) REFERENCES Patients(MID) 
-		ON UPDATE CASCADE ON DELETE SET NULL,
-	FOREIGN KEY (OfficeVisitID) REFERENCES OfficeVisits(ID) 
-		ON UPDATE CASCADE ON DELETE SET NULL
-) ENGINE=INNODB;
+	UpdatedDate timestamp NOT NULL default CURRENT_TIMESTAMP
+) ENGINE=MyISAM;
 
 CREATE TABLE message (
 	message_id          INT UNSIGNED AUTO_INCREMENT,
@@ -340,15 +286,8 @@ CREATE TABLE message (
 	to_id               BIGINT UNSIGNED NOT NULL,
 	sent_date           DATETIME NOT NULL,
 	message             TEXT,
-
-	PRIMARY KEY (message_id),
-	FOREIGN KEY message_id_fk (parent_msg_id) REFERENCES message (message_id),
-	FOREIGN KEY (from_id) REFERENCES Users(MID) 
-		ON UPDATE CASCADE,
-	FOREIGN KEY (to_id) REFERENCES Users(MID) 
-		ON UPDATE CASCADE
-
-) ENGINE=INNODB;
+	PRIMARY KEY (message_id)
+) ENGINE=MyISAM;
 
 CREATE TABLE referrals (
 	id          INT UNSIGNED AUTO_INCREMENT,
@@ -358,14 +297,6 @@ CREATE TABLE referrals (
 	ReferralDetails             TEXT,
 	ConsultationDetails             TEXT,
 	Status						ENUM('Pending','Finished', 'Declined'),
-
-	PRIMARY KEY (id),
-	FOREIGN KEY (PatientID) REFERENCES Patients(MID) 
-		ON UPDATE CASCADE,
-	FOREIGN KEY (SenderID) REFERENCES Personnel(MID) 
-		ON UPDATE CASCADE,
-	FOREIGN KEY (ReceiverID) REFERENCES Personnel(MID) 
-		ON UPDATE CASCADE
-
-) ENGINE=INNODB;
+	PRIMARY KEY (id)
+) ENGINE=MyISAM;
 

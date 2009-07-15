@@ -62,8 +62,8 @@ public class ViewExpiredPrescriptionRecordsActionTest extends TestCase {
 		action = new ViewExpiredPrescriptionsAction(factory, 9000000000L);
 		prescriptions = action.getPrescriptionsForPatient(2L);
 		assertEquals(3, prescriptions.size());
-		assertEquals("009042407", prescriptions.get(0).getMedication().getNDCode());
+		assertEquals("647641512", prescriptions.get(0).getMedication().getNDCode());		
 		assertEquals("009042407", prescriptions.get(1).getMedication().getNDCode());
-		assertEquals("647641512", prescriptions.get(2).getMedication().getNDCode());		
+		assertEquals("009042407", prescriptions.get(2).getMedication().getNDCode());
 	}
 }

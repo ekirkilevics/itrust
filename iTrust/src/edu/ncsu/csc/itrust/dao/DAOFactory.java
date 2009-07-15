@@ -8,7 +8,7 @@ import edu.ncsu.csc.itrust.dao.mysql.AuthDAO;
 import edu.ncsu.csc.itrust.dao.mysql.CODDAO;
 import edu.ncsu.csc.itrust.dao.mysql.CPTCodesDAO;
 import edu.ncsu.csc.itrust.dao.mysql.EpidemicDAO;
-import edu.ncsu.csc.itrust.dao.mysql.EmailDAO;
+import edu.ncsu.csc.itrust.dao.mysql.FakeEmailDAO;
 import edu.ncsu.csc.itrust.dao.mysql.FamilyDAO;
 import edu.ncsu.csc.itrust.dao.mysql.HealthRecordsDAO;
 import edu.ncsu.csc.itrust.dao.mysql.HospitalsDAO;
@@ -140,10 +140,9 @@ public class DAOFactory {
 		return new CODDAO(this);
 	}
 
-	public EmailDAO getFakeEmailDAO() {
-		return new EmailDAO(this);
+	public FakeEmailDAO getFakeEmailDAO() {
+		return new FakeEmailDAO(this);
 	}
-
 
 	public ReportRequestDAO getReportRequestDAO() {
 		return new ReportRequestDAO(this);

@@ -5,7 +5,7 @@ import junit.framework.TestCase;
 import edu.ncsu.csc.itrust.beans.Email;
 import edu.ncsu.csc.itrust.beans.ReportRequestBean;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
-import edu.ncsu.csc.itrust.dao.mysql.EmailDAO;
+import edu.ncsu.csc.itrust.dao.mysql.FakeEmailDAO;
 import edu.ncsu.csc.itrust.datagenerators.TestDataGenerator;
 import edu.ncsu.csc.itrust.exception.DBException;
 import edu.ncsu.csc.itrust.exception.iTrustException;
@@ -17,7 +17,7 @@ public class ViewMyReportRequestsActionTest extends TestCase {
 	private DAOFactory factory = TestDAOFactory.getTestInstance();
 	private DAOFactory evilFactory = EvilDAOFactory.getEvilInstance();
 	private ViewMyReportRequestsAction action;
-	private EmailDAO feDAO = factory.getFakeEmailDAO();
+	private FakeEmailDAO feDAO = factory.getFakeEmailDAO();
 
 	protected void setUp() throws Exception {
 		TestDataGenerator gen = new TestDataGenerator();
