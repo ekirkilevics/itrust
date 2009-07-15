@@ -20,7 +20,7 @@ public class ViewReportActionTest extends TestCase {
 	protected void setUp() throws Exception {
 		gen = new TestDataGenerator();
 		gen.clearAllTables();
-		gen.standardData();
+		gen.patient2();
 	}
 
 	public void testGetDiagnoses() throws Exception {
