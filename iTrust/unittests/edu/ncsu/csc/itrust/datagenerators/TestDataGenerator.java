@@ -134,7 +134,7 @@ public class TestDataGenerator {
 		patient2();
 		patient3();
 		patient4();
-		//TODO StandardData loads this twice - take these four calls out
+		//TODO StandardData loads this twice - take these four calls out and make it work
 		new DBBuilder(factory).executeSQLFile(DIR + "/labprocedures.sql");
 	}
 
