@@ -32,6 +32,7 @@ public class ReportRequestDAOTest extends TestCase {
 		assertEquals(7, list.size());
 	}
 
+	//TODO Rename all of these methods to be actually meaningful. Shame!
 	public void testGetReportRequests2() throws Exception {
 		try {
 			dao.getAllReportRequestsForRequester(0);
