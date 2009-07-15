@@ -12,7 +12,6 @@ public class TestDataGenerator {
 		TestDataGenerator gen = new TestDataGenerator();
 		gen.clearAllTables();
 		gen.standardData();
-		gen.extraData();
 	}
 
 	private String DIR = "sql/data";
