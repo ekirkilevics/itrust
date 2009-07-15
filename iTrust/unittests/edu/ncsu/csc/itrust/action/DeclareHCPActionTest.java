@@ -80,23 +80,7 @@ public class DeclareHCPActionTest extends TestCase {
 		assertEquals(0, transList.size());
 	}
 
-	public void testDeclareMalformed() throws Exception {
-		try {
-			action.declareHCP("not a number");
-			fail("exception should have been thrown");
-		} catch (iTrustException e) {
-			assertEquals("HCP's MID not a number", e.getMessage());
-		}
-	}
-
-	public void testUnDeclareMalformed() throws Exception {
-		try {
-			action.undeclareHCP("not a number");
-			fail("exception should have been thrown");
-		} catch (iTrustException e) {
-			assertEquals("HCP's MID not a number", e.getMessage());
-		}
-	}
+	
 
 	public void testDeclareAdmin() throws Exception {
 		gen.admin1();

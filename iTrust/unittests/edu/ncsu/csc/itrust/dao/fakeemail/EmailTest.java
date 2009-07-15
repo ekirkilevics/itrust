@@ -7,8 +7,6 @@ import edu.ncsu.csc.itrust.EmailUtil;
 import edu.ncsu.csc.itrust.beans.Email;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
 import edu.ncsu.csc.itrust.datagenerators.TestDataGenerator;
-import edu.ncsu.csc.itrust.exception.DBException;
-import edu.ncsu.csc.itrust.testutils.EvilDAOFactory;
 import edu.ncsu.csc.itrust.testutils.TestDAOFactory;
 
 public class EmailTest extends TestCase {
@@ -30,6 +28,7 @@ public class EmailTest extends TestCase {
 		assertEquals(5, emails.size());
 		assertEquals(getTestEmail(), emails.get(0));
 	}
+
 	public void testListEmailsByPerson() throws Exception {
 		List<Email> emails = factory.getFakeEmailDAO().getEmailsByPerson("gstormcrow@iTrust.org");
 		assertEquals(2, emails.size());
@@ -42,41 +41,12 @@ public class EmailTest extends TestCase {
 		factory.getFakeEmailDAO().sendEmailRecord(getTestEmail());
 		Email other = getTestEmail();
 		other.setBody("");
-		//assertEquals(true, factory.getFakeEmailDAO().sendRealEmail(other  ));
+		// assertEquals(true, factory.getFakeEmailDAO().sendRealEmail(other ));
 		factory.getFakeEmailDAO().sendEmailRecord(other);
 		List<Email> emails = factory.getFakeEmailDAO().getEmailWithBody("is the");
-		assertEquals(2,emails.size());
+		assertEquals(2, emails.size());
 		assertEquals(getTestEmail(), emails.get(0));
 		assertEquals(getTestEmail(), emails.get(1));
-	}	
-
-	public void testGetAllException() throws Exception {
-		factory = EvilDAOFactory.getEvilInstance();
-		try {
-			factory.getFakeEmailDAO().getAllEmails();
-			fail("exception should have been thrown");
-		} catch (DBException e) {
-			assertEquals(EvilDAOFactory.MESSAGE, e.getSQLException().getMessage());
-		}
-	}
-	public void testGetPersonException() throws Exception {
-		factory = EvilDAOFactory.getEvilInstance();
-		try {
-			factory.getFakeEmailDAO().getEmailsByPerson("gstormcrow@iTrust.org");
-			fail("exception should have been thrown");
-		} catch (DBException e) {
-			assertEquals(EvilDAOFactory.MESSAGE, e.getSQLException().getMessage());
-		}
-	}
-
-	public void testSendException() throws Exception {
-		factory = EvilDAOFactory.getEvilInstance();
-		try {
-			factory.getFakeEmailDAO().sendEmailRecord(new Email());
-			fail("exception should have been thrown");
-		} catch (DBException e) {
-			assertEquals(EvilDAOFactory.MESSAGE, e.getSQLException().getMessage());
-		}
 	}
 
 	private Email getTestEmail() {
