@@ -5,11 +5,14 @@
 	<classpathentry kind="src" path="httptests"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/Apache Tomcat v5.5"/>
-	<classpathentry exported="true" kind="lib" path="httpunit.jar"/>
-	<classpathentry exported="true" kind="lib" path="js.jar"/>
-	<classpathentry exported="true" kind="lib" path="Tidy.jar"/>
-	<classpathentry exported="true" kind="lib" path="xmlParserAPIs.jar"/>
-	<classpathentry kind="lib" path="junit-addons-1.4.jar"/>
+	<classpathentry kind="lib" path="testing-libs/cglib-nodep-2.2.jar"/>
+	<classpathentry kind="lib" path="testing-libs/easymock.jar"/>
+	<classpathentry kind="lib" path="testing-libs/easymockclassextension.jar"/>
+	<classpathentry kind="lib" path="testing-libs/httpunit.jar"/>
+	<classpathentry kind="lib" path="testing-libs/js.jar"/>
+	<classpathentry kind="lib" path="testing-libs/junit-addons-1.4.jar"/>
+	<classpathentry kind="lib" path="testing-libs/Tidy.jar"/>
+	<classpathentry kind="lib" path="testing-libs/xmlParserAPIs.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
