@@ -28,7 +28,7 @@ public class EmergencyUseCaseTest extends iTrustHTTPTest {
         assertTrue(wr.getText().contains("Pollen 06/05/2007"));
         assertTrue(wr.getText().contains("Penicillin 06/04/2007"));
         assertTrue(wr.getText().contains("250.10 Diabetes with ketoacidosis"));
-        assertTrue(wr.getText().contains("9.30 Coxsackie"));
+        assertTrue(wr.getText().contains("79.30 Coxsackie"));
         assertTrue(wr.getText().contains("647641512 Prioglitazon"));
         assertTrue(wr.getText().contains("no immunizations on record"));
 	}
@@ -53,7 +53,7 @@ public class EmergencyUseCaseTest extends iTrustHTTPTest {
         assertTrue(wr.getText().contains("Pollen 06/05/2007"));
         assertTrue(wr.getText().contains("Penicillin 06/04/2007"));
         assertTrue(wr.getText().contains("250.10 Diabetes with ketoacidosis"));
-        assertTrue(wr.getText().contains("9.30 Coxsackie"));
+        assertTrue(wr.getText().contains("79.30 Coxsackie"));
         assertTrue(wr.getText().contains("647641512 Prioglitazon"));
         assertTrue(wr.getText().contains("no immunizations on record"));
 	}

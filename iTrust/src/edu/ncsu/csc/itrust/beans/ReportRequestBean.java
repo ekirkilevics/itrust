@@ -1,10 +1,8 @@
 package edu.ncsu.csc.itrust.beans;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import edu.ncsu.csc.itrust.Localization;
 import edu.ncsu.csc.itrust.Messages;
 
 /**

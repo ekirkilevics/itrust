@@ -27,7 +27,7 @@ public class SendEmailNotificationTest extends iTrustHTTPTest {
 		WebResponse wr = wc.getCurrentPage();
 		assertEquals("iTrust - HCP Home", wr.getTitle());
 		
-		wr = wr.getLinkWith("My Patients with Potential Prescription-Renewal Needs").click();
+		wr = wr.getLinkWith("Potential Prescription-Renewals").click();
 		assertTrue(wr.getText().contains("Darryl Thompson"));
 		wr = wr.getLinkWith("Darryl Thompson").click();
 		assertTrue(wr.getText().contains("Send Email Form"));

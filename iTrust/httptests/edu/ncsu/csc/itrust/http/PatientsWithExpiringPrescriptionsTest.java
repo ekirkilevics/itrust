@@ -22,8 +22,8 @@ public class PatientsWithExpiringPrescriptionsTest extends iTrustHTTPTest {
 		gen.patient13();
 		gen.patient14();
 		
-		gen.UC32Acceptance();
-		gen.clearLoginFailures();
+		//gen.UC32Acceptance();
+		//gen.clearLoginFailures();
 	}
 
 	/*
@@ -37,7 +37,7 @@ public class PatientsWithExpiringPrescriptionsTest extends iTrustHTTPTest {
 		WebResponse wr = wc.getCurrentPage();
 		assertEquals("iTrust - HCP Home", wr.getTitle());
 		
-		wr = wr.getLinkWith("My Patients with Potential Prescription-Renewal Needs").click();
+		wr = wr.getLinkWith("Potential Prescription-Renewals").click();
 		assertTrue(wr.getText().contains("Tester Arehart</th>"));
 		assertFalse(wr.getText().contains("9900000000"));
 		assertTrue(wr.getText().contains("Darryl"));
@@ -56,9 +56,8 @@ public class PatientsWithExpiringPrescriptionsTest extends iTrustHTTPTest {
 		WebResponse wr = wc.getCurrentPage();
 		assertEquals("iTrust - HCP Home", wr.getTitle());
 		
-		wr = wr.getLinkWith("My Patients with Potential Prescription-Renewal Needs").click();
+		wr = wr.getLinkWith("Potential Prescription-Renewals").click();
 		assertTrue(wr.getText().contains("Tester Arehart</th>"));
-		assertFalse(wr.getText().contains("9900000000"));
 		assertFalse(wr.getText().contains("Zappic Clith"));
 	}
 	
@@ -73,9 +72,8 @@ public class PatientsWithExpiringPrescriptionsTest extends iTrustHTTPTest {
 		WebResponse wr = wc.getCurrentPage();
 		assertEquals("iTrust - HCP Home", wr.getTitle());
 		
-		wr = wr.getLinkWith("My Patients with Potential Prescription-Renewal Needs").click();
+		wr = wr.getLinkWith("Potential Prescription-Renewals").click();
 		assertTrue(wr.getText().contains("Tester Arehart</th>"));
-		assertFalse(wr.getText().contains("9900000000"));
 		assertTrue(wr.getText().contains("Marie"));
 		assertTrue(wr.getText().contains("Thompson"));
 		assertTrue(wr.getText().contains("e@f.com"));
@@ -92,7 +90,7 @@ public class PatientsWithExpiringPrescriptionsTest extends iTrustHTTPTest {
 		WebResponse wr = wc.getCurrentPage();
 		assertEquals("iTrust - HCP Home", wr.getTitle());
 		
-		wr = wr.getLinkWith("My Patients with Potential Prescription-Renewal Needs").click();
+		wr = wr.getLinkWith("Potential Prescription-Renewals").click();
 		assertTrue(wr.getText().contains("Tester Arehart</th>"));
 		assertFalse(wr.getText().contains("9900000000"));
 		assertFalse(wr.getText().contains("Blammo"));
@@ -109,7 +107,7 @@ public class PatientsWithExpiringPrescriptionsTest extends iTrustHTTPTest {
 		WebResponse wr = wc.getCurrentPage();
 		assertEquals("iTrust - HCP Home", wr.getTitle());
 		
-		wr = wr.getLinkWith("My Patients with Potential Prescription-Renewal Needs").click();
+		wr = wr.getLinkWith("Potential Prescription-Renewals").click();
 		assertTrue(wr.getText().contains("Tester Arehart</th>"));
 		assertFalse(wr.getText().contains("9900000000"));
 		assertFalse(wr.getText().contains("Blim Cildron"));
@@ -127,13 +125,13 @@ public class PatientsWithExpiringPrescriptionsTest extends iTrustHTTPTest {
 		WebResponse wr = wc.getCurrentPage();
 		assertEquals("iTrust - HCP Home", wr.getTitle());
 		
-		wr = wr.getLinkWith("My Patients with Potential Prescription-Renewal Needs").click();
+		wr = wr.getLinkWith("Potential Prescription-Renewals").click();
 		assertTrue(wr.getText().contains("Tester Arehart</th>"));
 		assertFalse(wr.getText().contains("9900000000"));
 		assertTrue(wr.getText().contains("Zack"));
 		assertTrue(wr.getText().contains("Arthur"));
 		assertTrue(wr.getText().contains("k@l.com"));
-		assertTrue(wr.getText().contains("919-555-1234"));
+		assertTrue(wr.getText().contains("919-555-1234"));		
 	}
 	
 	/*
@@ -146,7 +144,7 @@ public class PatientsWithExpiringPrescriptionsTest extends iTrustHTTPTest {
 		WebResponse wr = wc.getCurrentPage();
 		assertEquals("iTrust - HCP Home", wr.getTitle());
 		
-		wr = wr.getLinkWith("My Patients with Potential Prescription-Renewal Needs").click();
+		wr = wr.getLinkWith("Potential Prescription-Renewals").click();
 		assertTrue(wr.getText().contains("Tester Arehart</th>"));
 		assertFalse(wr.getText().contains("9900000000"));
 		assertFalse(wr.getText().contains("Malk"));
@@ -163,7 +161,7 @@ public class PatientsWithExpiringPrescriptionsTest extends iTrustHTTPTest {
 		WebResponse wr = wc.getCurrentPage();
 		assertEquals("iTrust - HCP Home", wr.getTitle());
 		
-		wr = wr.getLinkWith("My Patients with Potential Prescription-Renewal Needs").click();
+		wr = wr.getLinkWith("Potential Prescription-Renewals").click();
 		
 		WebTable table = (WebTable)wr.getTableStartingWith("Tester Arehart");
 		TableRow rows[] = table.getRows();
@@ -181,12 +179,13 @@ public class PatientsWithExpiringPrescriptionsTest extends iTrustHTTPTest {
 	 * (Designated Tester Arehart, special-diagnosis-history, prescription expires today)
 	 */
 	public void testAcceptance() throws Exception {
+		gen.UC32Acceptance();
 
 		WebConversation wc = login("9000000003", "pw");
 		WebResponse wr = wc.getCurrentPage();
 		assertEquals("iTrust - HCP Home", wr.getTitle());
 		
-		wr = wr.getLinkWith("My Patients with Potential Prescription-Renewal Needs").click();
+		wr = wr.getLinkWith("Potential Prescription-Renewals").click();
 		
 		WebTable table = (WebTable)wr.getTableStartingWith("Gandalf Stormcrow");
 		TableRow rows[] = table.getRows();

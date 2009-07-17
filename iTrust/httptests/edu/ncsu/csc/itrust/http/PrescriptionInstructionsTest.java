@@ -127,27 +127,13 @@ public class PrescriptionInstructionsTest extends iTrustHTTPTest {
 		assertEquals("iTrust - My Diagnoses", wr.getTitle());
 
 		wr = wr.getLinkWith("Echovirus(79.10)").click();
-		
-		/* If you fail here, you need to make the first column a link */
-		
-		/*NOTE: this isn't right, the first column is a link to an HCP, not the prescription information. */
-		
-	
-		System.out.println(wr.getText());
-		
-		assertTrue("First column in prescription table must be a link", 
-				wr.getLinkWith("009042407 Tetracycline") != null); 
-		
-		wr = wr.getLinkWith("009042407 Tetracycline").click();
-		
-		
-		
-		
-		WebTable wt = wr.getTableStartingWith("Prescription Information");
-		assertEquals("5mg", wt.getTableCell(2, 1).getText());
-		assertEquals("Take twice daily", wt.getTableCell(2, 3).getText());
-		
-		
+			
+		WebTable table = wr.getTableStartingWithPrefix("HCP");
+        
+		assertTrue(table.getCellAsText(1, 0).contains("Jason"));
+		assertTrue(table.getCellAsText(1, 1).contains("2"));
+		assertTrue(table.getCellAsText(2, 0).contains("Lauren"));
+		assertTrue(table.getCellAsText(2, 1).contains("1"));
 	}
 	
 	

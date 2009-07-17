@@ -4,7 +4,6 @@ import java.util.*;
 import edu.ncsu.csc.itrust.beans.DiagnosisBean;
 import edu.ncsu.csc.itrust.beans.HCPDiagnosisBean;
 import edu.ncsu.csc.itrust.beans.OfficeVisitBean;
-import edu.ncsu.csc.itrust.beans.PatientBean;
 import edu.ncsu.csc.itrust.beans.PrescriptionBean;
 import edu.ncsu.csc.itrust.beans.MedicationBean;
 import edu.ncsu.csc.itrust.beans.SurveyBean;

@@ -83,7 +83,7 @@ public class LabProceduresTest extends iTrustHTTPTest {
 		patientForm.getButtons()[1].click();
 		wr = wc.getCurrentPage();
 		// add the codes and description
-		assertEquals("iTrust - HCP Home", wr.getTitle());
+		assertEquals("iTrust - View Laboratory Procedures", wr.getTitle());
 		wr = wr.getLinkWith("Allow/Disallow Viewing").click();
 		wr = wr.getLinkWith("Transaction Log").click();
 		assertTrue(wr.getText().contains("Privacy Changed"));

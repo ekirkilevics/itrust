@@ -482,7 +482,7 @@ public class PatientDAO {
 			DBUtil.closeConnection(conn, ps);
 		}
 	}
-
+ 
 	/**
 	 * Return a list of all procedures for a given patient
 	 * 
@@ -554,7 +554,7 @@ public class PatientDAO {
 			ps = conn.prepareStatement("Select * From OVMedication,NDCodes,OfficeVisits "
 					+ "Where OfficeVisits.PatientID = ? AND OVMedication.VisitID = "
 					+ "OfficeVisits.ID AND NDCodes.Code=OVMedication.NDCode "
-					+ "ORDER BY OfficeVisits.visitDate DESC;");
+					+ "ORDER BY OfficeVisits.visitDate DESC, OVMedication.NDCode ASC;");
 			ps.setLong(1, patientID);
 			ResultSet rs = ps.executeQuery();
 			return prescriptionLoader.loadList(rs);
@@ -671,9 +671,9 @@ public class PatientDAO {
 				"ovdiagnosis.VisitID = officevisits.ID AND officevisits.PatientID = declaredhcp.PatientID " + 
 				"AND " + 
 				
-				"((ovdiagnosis.ICDCode >= ? AND ovdiagnosis.ICDCode <= ?) " + 
-				"OR (ovdiagnosis.ICDCode >= ? AND ovdiagnosis.ICDCode <= ?) " + 
-				"OR (ovdiagnosis.ICDCode >= ? AND ovdiagnosis.ICDCode <= ?)) " + 
+				"((ovdiagnosis.ICDCode >= ? AND ovdiagnosis.ICDCode < ?) " + 
+				"OR (ovdiagnosis.ICDCode >= ? AND ovdiagnosis.ICDCode < ?) " + 
+				"OR (ovdiagnosis.ICDCode >= ? AND ovdiagnosis.ICDCode < ?)) " + 
 				") " + 
 				
 				
@@ -703,13 +703,13 @@ public class PatientDAO {
 			
 			ICDCodeProperties prop = new ICDCodeProperties("../../META-INF/properties.txt");
 			ps.setFloat(2, prop.getICDForDiabetesMellitus());
-			ps.setFloat(3, prop.getICDForDiabetesMellitus()+0.99f);
+			ps.setFloat(3, prop.getICDForDiabetesMellitus()+1.0f);
 				
 			ps.setFloat(4, prop.getICDForAsthma());
-			ps.setFloat(5, prop.getICDForAsthma()+0.99f);
+			ps.setFloat(5, prop.getICDForAsthma()+1.0f);
 			
 			ps.setFloat(6, prop.getStartICDForCirculatorySystemDisease());
-			ps.setFloat(7, prop.getEndICDForCirculatorySystemDisease());
+			ps.setFloat(7, prop.getEndICDForCirculatorySystemDisease()+1.0f);
 
 			ps.setLong(8, hcpMID);
 			
