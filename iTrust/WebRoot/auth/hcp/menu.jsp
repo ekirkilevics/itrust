@@ -33,7 +33,6 @@
 	<a href="/iTrust/auth/hcp-uap/chronicDiseaseRisks.jsp">Chronic Disease Risks</a><br />
 	<a href="/iTrust/auth/hcp-uap/documentOfficeVisit.jsp">Document Office Visit</a><br />
 	<a href="/iTrust/auth/hcp-uap/showEmailHistory.jsp">Email History</a><br />
-	<a href="/iTrust/auth/hcp/epidemicGraph.jsp">Epidemic Detection</a><br />
 	<a href="/iTrust/auth/hcp/visitReminders.jsp">Office Visit Reminders</a><br />
 	<a href="/iTrust/auth/surveyResults.jsp">Satisfaction Survey Results</a><br />
 	<a href="/iTrust/auth/hcp/viewPrescriptionRenewalNeeds.jsp">Potential Prescription-Renewals</a><br />
