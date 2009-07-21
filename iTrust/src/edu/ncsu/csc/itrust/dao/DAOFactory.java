@@ -6,7 +6,6 @@ import edu.ncsu.csc.itrust.dao.mysql.AccessDAO;
 import edu.ncsu.csc.itrust.dao.mysql.AllergyDAO;
 import edu.ncsu.csc.itrust.dao.mysql.AuthDAO;
 import edu.ncsu.csc.itrust.dao.mysql.CPTCodesDAO;
-import edu.ncsu.csc.itrust.dao.mysql.EpidemicDAO;
 import edu.ncsu.csc.itrust.dao.mysql.FakeEmailDAO;
 import edu.ncsu.csc.itrust.dao.mysql.FamilyDAO;
 import edu.ncsu.csc.itrust.dao.mysql.HealthRecordsDAO;
@@ -81,10 +80,6 @@ public class DAOFactory {
 
 	public CPTCodesDAO getCPTCodesDAO() {
 		return new CPTCodesDAO(this);
-	}
-
-	public EpidemicDAO getEpidemicDAO() {
-		return new EpidemicDAO(this);
 	}
 
 	public FamilyDAO getFamilyDAO() {

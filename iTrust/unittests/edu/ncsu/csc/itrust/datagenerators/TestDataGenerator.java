@@ -66,27 +66,6 @@ public class TestDataGenerator {
 		new DBBuilder(factory).executeSQLFile(DIR + "/cptCodes.sql");
 	}
 
-	public void epidemic() throws FileNotFoundException, SQLException, IOException {
-		hospitals();
-		hcp0();
-		icd9cmCodes();
-		new DBBuilder(factory).executeSQLFile(DIR + "/epidemic.sql");
-	}
-
-	public void epidemicInfluenza() throws FileNotFoundException, SQLException, IOException {
-		hospitals();
-		hcp0();
-		icd9cmCodes();
-		new DBBuilder(factory).executeSQLFile(DIR + "/epidemicInfluenza.sql");
-	}
-
-	public void epidemicMalaria() throws FileNotFoundException, SQLException, IOException {
-		hospitals();
-		hcp0();
-		icd9cmCodes();
-		new DBBuilder(factory).executeSQLFile(DIR + "/epidemicMalaria.sql");
-	}
-
 	public void fakeEmail() throws FileNotFoundException, SQLException, IOException {
 		new DBBuilder(factory).executeSQLFile(DIR + "/fakeemail.sql");
 	}
