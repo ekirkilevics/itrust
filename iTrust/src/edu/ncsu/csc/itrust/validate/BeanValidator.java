@@ -3,7 +3,6 @@ package edu.ncsu.csc.itrust.validate;
 import edu.ncsu.csc.itrust.enums.Gender;
 import edu.ncsu.csc.itrust.exception.ErrorList;
 import edu.ncsu.csc.itrust.exception.FormValidationException;
-import edu.ncsu.csc.itrust.validate.*;
 
 
 /**

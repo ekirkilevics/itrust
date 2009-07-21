@@ -5,7 +5,6 @@ import java.sql.SQLException;
 import edu.ncsu.csc.itrust.dao.mysql.AccessDAO;
 import edu.ncsu.csc.itrust.dao.mysql.AllergyDAO;
 import edu.ncsu.csc.itrust.dao.mysql.AuthDAO;
-import edu.ncsu.csc.itrust.dao.mysql.CODDAO;
 import edu.ncsu.csc.itrust.dao.mysql.CPTCodesDAO;
 import edu.ncsu.csc.itrust.dao.mysql.EpidemicDAO;
 import edu.ncsu.csc.itrust.dao.mysql.FakeEmailDAO;
@@ -134,10 +133,6 @@ public class DAOFactory {
 
 	public VisitRemindersDAO getVisitRemindersDAO() {
 		return new VisitRemindersDAO(this);
-	}
-
-	public CODDAO getCODDAO() {
-		return new CODDAO(this);
 	}
 
 	public FakeEmailDAO getFakeEmailDAO() {

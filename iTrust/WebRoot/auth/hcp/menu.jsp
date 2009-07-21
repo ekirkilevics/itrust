@@ -30,7 +30,6 @@
 <div class="menu_category">
 	<span>Other</span><br />
 	<a href="/iTrust/auth/hcp/hcpConsultation.jsp">Consultations</a><br />
-	<a href="/iTrust/auth/hcp/codtrends.jsp">Cause of Death Trends</a><br />
 	<a href="/iTrust/auth/hcp-uap/chronicDiseaseRisks.jsp">Chronic Disease Risks</a><br />
 	<a href="/iTrust/auth/hcp-uap/documentOfficeVisit.jsp">Document Office Visit</a><br />
 	<a href="/iTrust/auth/hcp-uap/showEmailHistory.jsp">Email History</a><br />

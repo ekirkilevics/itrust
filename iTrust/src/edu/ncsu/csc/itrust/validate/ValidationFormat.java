@@ -2,7 +2,6 @@ package edu.ncsu.csc.itrust.validate;
 
 import java.util.regex.Pattern;
 import edu.ncsu.csc.itrust.exception.FormValidationException;
-import edu.ncsu.csc.itrust.validate.*;
 
 
 /**
