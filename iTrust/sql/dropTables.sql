@@ -33,7 +33,6 @@ DROP TABLE IF EXISTS PersonalImmunizations;
 DROP TABLE IF EXISTS PersonalRelations;
 DROP TABLE IF EXISTS PersonalStaticInformation;
 DROP TABLE IF EXISTS TransactionFailureAttempts;
-DROP TABLE IF EXISTS Images;
 
 DROP TABLE IF EXISTS CPTCodes;
 DROP TABLE IF EXISTS ICDCodes;

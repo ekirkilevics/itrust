@@ -16,12 +16,6 @@ CREATE TABLE Hospitals(
 	PRIMARY KEY (hospitalID)
 ) ENGINE=MyISAM;
 
-CREATE TABLE  Images (
-  `img_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `image` mediumblob,
-  PRIMARY KEY (`img_id`)
-) AUTO_INCREMENT=2 ENGINE=MyISAM;
-
 CREATE TABLE Personnel(
 	MID BIGINT unsigned auto_increment,
 	AMID BIGINT unsigned default NULL,

@@ -23,7 +23,6 @@ TRUNCATE PersonalAllergies;
 TRUNCATE PersonalHealthInformation;
 TRUNCATE PersonalRelations;
 TRUNCATE Allergies;
-TRUNCATE Images;
 TRUNCATE ICDCodes;
 
 
