@@ -17,7 +17,6 @@ public class ViewMyAccessLogActionTest extends TestCase {
 	@Override
 	protected void setUp() throws Exception {
 		TestDataGenerator gen = new TestDataGenerator();
-		gen.clearAllTables();
 		gen.patient2();
 		action = new ViewMyAccessLogAction(TestDAOFactory.getTestInstance(), 2L);
 	}

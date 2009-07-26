@@ -15,7 +15,6 @@ public class RepresentativeTest extends TestCase {
 	@Override
 	protected void setUp() throws Exception {
 		gen = new TestDataGenerator();
-		gen.clearAllTables();
 		gen.patient1();
 		gen.patient2();
 	}
@@ -27,6 +26,9 @@ public class RepresentativeTest extends TestCase {
 	}
 
 	public void testGetNoneRepresented() throws Exception {
+		gen.clearAllTables();
+		gen.patient1();
+		gen.patient2();
 		assertEquals(0, patientDAO.getRepresented(1L).size());
 	}
 
@@ -49,6 +51,7 @@ public class RepresentativeTest extends TestCase {
 	}
 
 	public void testAddExistingRepresentative() throws Exception {
+		gen.clearAllTables();
 		patientDAO.addRepresentative(1L, 2L);
 		try {
 			patientDAO.addRepresentative(1L, 2L);

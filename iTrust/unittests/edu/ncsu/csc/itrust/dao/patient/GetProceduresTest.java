@@ -14,7 +14,7 @@ public class GetProceduresTest extends TestCase {
 	@Override
 	protected void setUp() throws Exception {
 		gen = new TestDataGenerator();
-		gen.clearAllTables();
+//		gen.clearAllTables();
 		gen.cptCodes();
 		gen.patient2();
 	}

@@ -18,7 +18,6 @@ public class Type1DiabetesTest extends TestCase {
 	@Override
 	protected void setUp() throws Exception {
 		gen = new TestDataGenerator();
-		gen.clearAllTables();
 		gen.patient1();
 		gen.patient2();
 	}

@@ -17,7 +17,7 @@ public class GetPHRTest extends TestCase {
 	@Override
 	protected void setUp() throws Exception {
 		TestDataGenerator gen = new TestDataGenerator();
-		gen.clearAllTables();
+//		gen.clearAllTables();
 		gen.patient1();
 		gen.patient2();
 	}

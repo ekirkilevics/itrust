@@ -23,7 +23,6 @@ public class ChildhoodInfectionFactorTest extends TestCase {
 	protected void setUp() throws Exception {
 		factor = new ChildhoodInfectionFactor(factory, 2L, 250.3, 487);
 		gen = new TestDataGenerator();
-		gen.clearAllTables();
 		gen.hospitals();
 		gen.hcp0();
 		gen.patient2();

@@ -19,7 +19,6 @@ public class ViewReportActionTest extends TestCase {
 	@Override
 	protected void setUp() throws Exception {
 		gen = new TestDataGenerator();
-		gen.clearAllTables();
 		gen.patient2();
 	}
 

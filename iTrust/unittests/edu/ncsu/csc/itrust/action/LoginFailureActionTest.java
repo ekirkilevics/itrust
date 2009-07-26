@@ -15,7 +15,6 @@ public class LoginFailureActionTest extends TestCase {
 	@Override
 	protected void setUp() throws Exception {
 		gen = new TestDataGenerator();
-		gen.clearAllTables();
 		action = new LoginFailureAction(factory, "192.168.1.1");
 	}
 

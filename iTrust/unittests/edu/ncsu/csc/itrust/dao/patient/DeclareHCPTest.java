@@ -2,6 +2,7 @@ package edu.ncsu.csc.itrust.dao.patient;
 
 import java.util.List;
 import junit.framework.TestCase;
+import junit.framework.TestResult;
 import edu.ncsu.csc.itrust.beans.PersonnelBean;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
 import edu.ncsu.csc.itrust.dao.mysql.PatientDAO;

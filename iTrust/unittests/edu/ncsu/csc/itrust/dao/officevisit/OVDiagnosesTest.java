@@ -13,7 +13,7 @@ public class OVDiagnosesTest extends TestCase {
 	@Override
 	protected void setUp() throws Exception {
 		TestDataGenerator gen = new TestDataGenerator();
-		gen.clearAllTables();
+//		gen.clearAllTables();
 		gen.icd9cmCodes();
 		gen.officeVisit1();
 	}

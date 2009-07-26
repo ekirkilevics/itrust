@@ -1,6 +1,7 @@
 package edu.ncsu.csc.itrust.dao.patient;
 
 import junit.framework.TestCase;
+import junit.framework.TestResult;
 import edu.ncsu.csc.itrust.beans.PatientBean;
 import edu.ncsu.csc.itrust.dao.mysql.PatientDAO;
 import edu.ncsu.csc.itrust.datagenerators.TestDataGenerator;
@@ -13,9 +14,21 @@ public class AddPatientTest extends TestCase {
 
 	@Override
 	protected void setUp() throws Exception {
-		gen.clearAllTables();
+//		gen.clearAllTables();
 	}
-
+	
+	@Override
+	public TestResult run() {
+		try
+		{
+			this.gen.clearAllTables();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return super.run();
+	}
+	
 	public void testAddEmptyPatient() throws Exception {
 		long pid = patientDAO.addEmptyPatient();
 		assertEquals(" ", patientDAO.getName(pid));
@@ -31,6 +44,7 @@ public class AddPatientTest extends TestCase {
 	}
 
 	public void testInsertDeath() throws Exception {
+		gen.clearAllTables();
 		gen.patient1();
 		PatientBean p = patientDAO.getPatient(1l);
 		assertEquals("Random", p.getFirstName());

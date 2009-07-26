@@ -12,7 +12,6 @@ public class GetUserNameActionTest extends TestCase {
 
 	@Override
 	protected void setUp() throws Exception {
-		gen.clearAllTables();
 	}
 	
 	public void testCorrectFormat() throws Exception {

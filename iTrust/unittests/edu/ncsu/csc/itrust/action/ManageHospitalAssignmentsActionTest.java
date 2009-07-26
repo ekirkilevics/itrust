@@ -23,7 +23,6 @@ public class ManageHospitalAssignmentsActionTest extends TestCase {
 
 	@Override
 	protected void setUp() throws Exception {
-		gen.clearAllTables();
 		gen.hcp0();
 		gen.admin1();
 		gen.hospitals();

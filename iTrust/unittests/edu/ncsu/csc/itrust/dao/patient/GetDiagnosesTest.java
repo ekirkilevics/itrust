@@ -14,7 +14,7 @@ public class GetDiagnosesTest extends TestCase {
 	@Override
 	protected void setUp() throws Exception {
 		gen = new TestDataGenerator();
-		gen.clearAllTables();
+//		gen.clearAllTables();
 		gen.icd9cmCodes();
 		gen.patient2();
 	}

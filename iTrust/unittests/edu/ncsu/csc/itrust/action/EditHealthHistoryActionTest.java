@@ -20,7 +20,6 @@ public class EditHealthHistoryActionTest extends TestCase {
 	@Override
 	protected void setUp() throws Exception {
 		gen = new TestDataGenerator();
-		gen.clearAllTables();
 		gen.patient1();
 		gen.patient2();
 		action = new EditHealthHistoryAction(factory, 9000000000L, "2");
