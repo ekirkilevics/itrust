@@ -8,7 +8,6 @@ import edu.ncsu.csc.itrust.dao.mysql.MessageDAO;
 import edu.ncsu.csc.itrust.datagenerators.TestDataGenerator;
 import edu.ncsu.csc.itrust.exception.iTrustException;
 import edu.ncsu.csc.itrust.testutils.TestDAOFactory;
-import java.io.IOException;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.GregorianCalendar;
@@ -29,6 +28,8 @@ public class SendMessageActionTest extends TestCase {
 	protected void setUp() throws Exception {
 		super.setUp();
 		gen = new TestDataGenerator();
+		gen.clearAllTables();
+		gen.standardData();
 		
 		this.pateientId = 2L;
 		this.hcpId = 9000000000L;
@@ -38,9 +39,7 @@ public class SendMessageActionTest extends TestCase {
 		this.gCal = new GregorianCalendar();
 	}
 
-	public void testSendMessage() throws iTrustException, SQLException, IOException {
-		gen.clearAllTables();
-		gen.standardData();
+	public void testSendMessage() throws iTrustException, SQLException {
 		String body = "UNIT TEST - SendMessageActionText";
 		MessageBean mBean = new MessageBean();
 		Timestamp timestamp = new Timestamp(this.gCal.getTimeInMillis());
@@ -67,9 +66,7 @@ public class SendMessageActionTest extends TestCase {
 		assertEquals("Kelly Doctor", this.smAction.getPersonnelName(this.hcpId));
 	}
 	
-	public void testGetMyRepresentees() throws iTrustException, IOException, SQLException {
-		gen.clearAllTables();
-		gen.standardData();
+	public void testGetMyRepresentees() throws iTrustException {
 		List<PatientBean> pbList = this.smAction.getMyRepresentees();
 		//TODO Always asset what's in the list
 		assertEquals(6, pbList.size());

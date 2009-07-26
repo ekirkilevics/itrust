@@ -17,6 +17,7 @@ public class SetSecurityQuestionTest extends TestCase {
 	@Override
 	protected void setUp() throws Exception {
 		gen = new TestDataGenerator();
+		gen.clearAllTables();
 	}
 
 	public void testNotUserID() throws Exception {

@@ -17,10 +17,10 @@ public class AddSurveyTest extends TestCase {
 
 	private DAOFactory factory = TestDAOFactory.getTestInstance();
 	private SurveyDAO surveyDAO = factory.getSurveyDAO();
-	private TestDataGenerator gen = new TestDataGenerator();
 
 	
 	protected void setUp() throws Exception {
+		TestDataGenerator gen = new TestDataGenerator();
 		gen.clearAllTables();
 		gen.patient2();
 		gen.surveyResults();

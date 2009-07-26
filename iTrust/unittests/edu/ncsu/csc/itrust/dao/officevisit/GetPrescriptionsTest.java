@@ -15,7 +15,7 @@ public class GetPrescriptionsTest extends TestCase {
 	@Override
 	protected void setUp() throws Exception {
 		gen = new TestDataGenerator();
-//		gen.clearAllTables();
+		gen.clearAllTables();
 		gen.patient2();
 		gen.hcp0();
 		gen.hospitals();

@@ -16,12 +16,11 @@ import edu.ncsu.csc.itrust.testutils.TestDAOFactory;
 public class NDCodeTest extends TestCase {
 	private DAOFactory factory = TestDAOFactory.getTestInstance();
 	private NDCodesDAO ndDAO = factory.getNDCodesDAO();
-	private TestDataGenerator gen = new TestDataGenerator();
 
 	@Override
 	protected void setUp() throws Exception {
-		
-//		gen.clearAllTables();
+		TestDataGenerator gen = new TestDataGenerator();
+		gen.clearAllTables();
 		gen.ndCodes();
 	}
 
@@ -29,8 +28,6 @@ public class NDCodeTest extends TestCase {
 	// in NUMERICAL ascending order...
 	// (unless codes are switched to fixed width)
 	public void testGetAllNDCodes() throws Exception {
-		gen.clearAllTables();
-		gen.ndCodes();
 		List<MedicationBean> codes = ndDAO.getAllNDCodes();
 		assertEquals(3, codes.size());
 		assertEquals("009042407", codes.get(0).getNDCode());

@@ -3,8 +3,6 @@ package edu.ncsu.csc.itrust.action;
 import junit.framework.TestCase;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
 import edu.ncsu.csc.itrust.dao.mysql.FamilyDAO;
-import java.io.IOException;
-import java.sql.SQLException;
 import java.util.List;
 import edu.ncsu.csc.itrust.beans.AllergyBean;
 import edu.ncsu.csc.itrust.beans.Email;
@@ -25,23 +23,22 @@ public class ViewMyRecordsActionTest extends TestCase {
 	private FamilyDAO famDAO = new FamilyDAO(factory);
 	private List<FamilyMemberBean> fmbList = null;
 	private FamilyMemberBean fmBean = null;
-	private TestDataGenerator gen = new TestDataGenerator();
 	
 	private long pid = 2L;
 	private long hcpId = 9000000000L;
 
 	@Override
 	protected void setUp() throws Exception {
-		
+		TestDataGenerator gen = new TestDataGenerator();
+		gen.clearAllTables();
+		gen.standardData();
+
 		action = new ViewMyRecordsAction(factory, pid);
 		fmbList = famDAO.getParents(5);
 		fmBean = fmbList.get(0);
 	}
 
-	public void testViewMyRecords() throws Exception, IOException, SQLException {
-		gen.clearAllTables();
-		gen.standardData();
-		
+	public void testViewMyRecords() throws Exception {
 		assertEquals(pid, action.getPatient().getMID());
 		assertEquals(2, action.getAllergies().size());
 		assertEquals(9, action.getFamily().size());

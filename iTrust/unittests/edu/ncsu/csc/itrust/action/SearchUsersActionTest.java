@@ -1,7 +1,5 @@
 package edu.ncsu.csc.itrust.action;
 
-import java.io.IOException;
-import java.sql.SQLException;
 import java.util.List;
 import edu.ncsu.csc.itrust.beans.PatientBean;
 import edu.ncsu.csc.itrust.beans.PersonnelBean;
@@ -15,12 +13,11 @@ public class SearchUsersActionTest extends TestCase {
 	private TestDataGenerator gen = new TestDataGenerator();
 	private DAOFactory factory = TestDAOFactory.getTestInstance();
 	public void setUp() throws Exception {
-		
-	}
-	
-	public void testSearchForPersonnelWithName() throws IOException, SQLException{
 		gen.clearAllTables();
 		gen.standardData();
+	}
+	
+	public void testSearchForPersonnelWithName(){
 		SearchUsersAction act = new SearchUsersAction(factory, 9000000000L);
 		List<PersonnelBean> personnel = act.searchForPersonnelWithName("Kelly", "Doctor");
 		assertEquals("Kelly Doctor",personnel.get(0).getFullName());

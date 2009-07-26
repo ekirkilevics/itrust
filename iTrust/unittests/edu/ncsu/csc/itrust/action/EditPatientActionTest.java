@@ -18,6 +18,7 @@ public class EditPatientActionTest extends TestCase {
 
 	@Override
 	protected void setUp() throws Exception {
+		gen.clearAllTables();
 		gen.patient2();
 		action = new EditPatientAction(factory, 9000000000L, "2");
 	}
@@ -89,8 +90,6 @@ public class EditPatientActionTest extends TestCase {
 	}
 	
 	public void testGetPatientLogged() throws Exception {
-		gen.clearAllTables();
-		gen.patient2();
 		PatientBean patient = action.getPatient();
 		assertEquals(2L, patient.getMID());
 		List<TransactionBean> transList = factory.getTransactionDAO().getAllTransactions();

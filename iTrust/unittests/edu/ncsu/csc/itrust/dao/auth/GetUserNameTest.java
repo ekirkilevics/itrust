@@ -11,6 +11,7 @@ public class GetUserNameTest extends TestCase {
 
 	@Override
 	protected void setUp() throws Exception {
+		gen.clearAllTables();
 	}
 	
 	public void testHCP0() throws Exception {

@@ -25,8 +25,7 @@ public class LabProcHCPActionTest extends TestCase {
 	@Override
 	protected void setUp() throws Exception {
 		gen = new TestDataGenerator();
-		action = new LabProcHCPAction(factory, 9000000000L);
-//		gen.clearAllTables();
+		gen.clearAllTables();
 		gen.transactionLog();
 		gen.patient1();
 		gen.patient2();
@@ -35,10 +34,10 @@ public class LabProcHCPActionTest extends TestCase {
 		gen.hcp0();
 		gen.hcp3();
 		gen.labProcedures();
+		action = new LabProcHCPAction(factory, 9000000000L);
 	}
 
 	public void testUpdateProcedure() throws Exception {
-		
 		LabProcedureBean lp = new LabProcedureBean();
 		lp.setLoinc("10763-1");
 		lp.setCommentary("This is a routine procedure");
@@ -63,7 +62,6 @@ public class LabProcHCPActionTest extends TestCase {
 	}
 
 	public void testViewProcedure() throws Exception {
-		gen.clearAllTables();
 		LabProcedureBean lp = new LabProcedureBean();
 		lp.setLoinc("10763-1");
 		lp.setCommentary("This is a routine procedure");

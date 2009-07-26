@@ -18,6 +18,7 @@ public class UpdateLabProcListActionTest extends TestCase {
 	protected void setUp() throws Exception {
 		gen = new TestDataGenerator();
 		action = new UpdateLabProcListAction(factory, performingAdmin);
+		gen.clearAllTables();
 		gen.admin1();
 		gen.loincs();
 

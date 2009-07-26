@@ -1,6 +1,5 @@
 package edu.ncsu.csc.itrust.dao.standards;
 
-import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
@@ -17,11 +16,11 @@ import edu.ncsu.csc.itrust.testutils.TestDAOFactory;
 public class CPTCodeTest extends TestCase {
 	private DAOFactory factory = TestDAOFactory.getTestInstance();
 	private CPTCodesDAO cptDAO = factory.getCPTCodesDAO();
-	private TestDataGenerator gen = new TestDataGenerator();
 
 	@Override
 	protected void setUp() throws Exception {
-//		gen.clearAllTables();
+		TestDataGenerator gen = new TestDataGenerator();
+		gen.clearAllTables();
 		gen.cptCodes();
 	}
 
@@ -29,8 +28,6 @@ public class CPTCodeTest extends TestCase {
 	// in NUMERICAL ascending order...
 	// (unless codes are switched to fixed width)
 	public void testGetAllCPT() throws Exception {
-		gen.clearAllTables();
-		gen.cptCodes();
 		List<ProcedureBean> codes = cptDAO.getAllCPTCodes();
 		assertEquals(17, codes.size());
 		assertEquals("Injection procedure", codes.get(0).getDescription());
@@ -94,9 +91,7 @@ public class CPTCodeTest extends TestCase {
 		assertEquals("short description code", proc.getDescription());
 	}
 
-	public void testUpdateNonExistent() throws SQLException, DBException, IOException {
-		gen.clearAllTables();
-		gen.cptCodes();
+	public void testUpdateNonExistent() throws SQLException, DBException {
 		final String code = "0000F";
 		ProcedureBean proc = new ProcedureBean(code, "");
 		assertEquals(0, cptDAO.updateCode(proc));

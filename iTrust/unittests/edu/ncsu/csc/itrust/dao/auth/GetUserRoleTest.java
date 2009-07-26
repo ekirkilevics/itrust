@@ -9,6 +9,7 @@ public class GetUserRoleTest extends TestCase{
 	
 	@Override
 	protected void setUp() throws Exception {
+		gen.clearAllTables();
 	}
 	
 	public void testHCPMeganHunt() throws Exception {

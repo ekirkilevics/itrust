@@ -14,7 +14,7 @@ public class EditPatientTest extends TestCase {
 	@Override
 	protected void setUp() throws Exception {
 		TestDataGenerator gen = new TestDataGenerator();
-//		gen.clearAllTables();
+		gen.clearAllTables();
 		gen.patient2();
 	}
 
