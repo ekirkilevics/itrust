@@ -9,7 +9,6 @@ import edu.ncsu.csc.itrust.testutils.TestDAOFactory;
 
 /**
  * 
- * @author Nathaniel
  * 
  */
 public class AddLabProcedureTest extends TestCase {

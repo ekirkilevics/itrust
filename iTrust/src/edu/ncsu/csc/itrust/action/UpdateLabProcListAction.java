@@ -13,9 +13,6 @@ import edu.ncsu.csc.itrust.validate.LOINCBeanValidator;
 
 /**
  * Handles updating the LOINC Used
- * 
- * @author Derek
- * 
  */
 public class UpdateLabProcListAction {
 	private long performerID = 0;

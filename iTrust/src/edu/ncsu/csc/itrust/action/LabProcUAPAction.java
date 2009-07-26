@@ -16,9 +16,6 @@ import edu.ncsu.csc.itrust.exception.FormValidationException;
 import edu.ncsu.csc.itrust.validate.LabProcedureValidator;
 /**
  * Class for LabProcUAP.jsp.  Handles lab procedures for UAPs
- * 
- * @author Nathaniel
- *
  */
 public class LabProcUAPAction {
 	private TransactionDAO transDAO;

@@ -19,9 +19,6 @@ import edu.ncsu.csc.itrust.exception.iTrustException;
 
 /**
  * Action class for ViewMyReports.jsp.  Allows the user to see all their reports
- * 
- * @author Ted Lowery (tblowery@ncsu.edu)
- * 
  */
 public class ViewMyReportRequestsAction {
 	private long loggedInMID;

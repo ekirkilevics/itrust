@@ -11,7 +11,6 @@ import edu.ncsu.csc.itrust.exception.DBException;
 /**
  * This class is used to add patient survey data to the database.  The office visit ID is linked with the survey ID.  Once the
  * survey is added, the transaction is logged
- * @author Kate Lemanski
  *
  */
 public class SurveyAction {

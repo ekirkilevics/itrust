@@ -17,8 +17,6 @@ import edu.ncsu.csc.itrust.validate.LabProcedureValidator;
  * Action class for LabProcHCP.jsp.
  * 
  * @extends LabProcUAPAction
- * @author Derek
- * 
  */
 public class LabProcHCPAction extends LabProcUAPAction {
 	private TransactionDAO transDAO;

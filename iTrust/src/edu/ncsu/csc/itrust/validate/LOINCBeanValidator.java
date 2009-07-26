@@ -8,8 +8,6 @@ import edu.ncsu.csc.itrust.exception.FormValidationException;
 
 /**
  * Validator used to validate LOINCbean
- * @author Derek
- * 
  */
 public class LOINCBeanValidator extends BeanValidator<LOINCbean> {
 	public LOINCBeanValidator() {

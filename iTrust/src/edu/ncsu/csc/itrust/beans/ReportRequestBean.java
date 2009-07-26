@@ -5,11 +5,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import edu.ncsu.csc.itrust.Messages;
 
-/**
- * 
- * @author Ted Lowery (tblowery@ncsu.edu)
- * 
- */
 public class ReportRequestBean {
 	private long ID = 0L;
 	private long requesterMID = 0L;

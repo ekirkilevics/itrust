@@ -8,7 +8,6 @@ import edu.ncsu.csc.itrust.testutils.TestDAOFactory;
 
 /**
  * 
- * @author Derek
  * 
  */
 public class UpdateRightsTest extends TestCase {

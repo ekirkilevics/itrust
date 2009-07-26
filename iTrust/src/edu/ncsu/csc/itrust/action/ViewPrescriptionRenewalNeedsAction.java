@@ -11,8 +11,6 @@ import edu.ncsu.csc.itrust.exception.DBException;
 import edu.ncsu.csc.itrust.Messages;
 
 /*
- * @author Tyler Arehart
- * 
  * This action returns a list of patients with a special-diagnosis-history who
  * have the logged in HCP as a DHCP and whose medications are going to
  * expire within seven days. 

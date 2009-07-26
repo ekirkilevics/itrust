@@ -6,8 +6,6 @@ import edu.ncsu.csc.itrust.exception.FormValidationException;
 
 /**
  * Validator for zip code that is entered when a user searches for HCP survey results.
- * @author Kathryn
- *
  */
 public class SurveySearchValidator extends BeanValidator<SurveyResultBean>{
 

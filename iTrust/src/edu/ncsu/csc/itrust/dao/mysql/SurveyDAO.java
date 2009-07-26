@@ -11,11 +11,6 @@ import edu.ncsu.csc.itrust.beans.loaders.SurveyLoader;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
 import edu.ncsu.csc.itrust.exception.DBException;
 
-/**
- * 
- * @author Ted Lowery (tblowery@ncsu.edu)
- *
- */
 
 public class SurveyDAO {
 	private DAOFactory factory;

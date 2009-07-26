@@ -11,7 +11,6 @@ import edu.ncsu.csc.itrust.testutils.TestDAOFactory;
 
 /**
  * Tests that a survey was added correctly by adding it to the database and then retreiving the information.
- * @author Kate Lemanski
  *
  */
 public class AddSurveyTest extends TestCase {

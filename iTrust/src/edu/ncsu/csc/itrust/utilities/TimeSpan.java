@@ -4,11 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * 
- * @author tedlowery
- *
  * Utility class to compare iTrust time ranges.
- * 
  */
 
 public class TimeSpan {

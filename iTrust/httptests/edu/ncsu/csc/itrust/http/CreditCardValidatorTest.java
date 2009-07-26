@@ -11,8 +11,6 @@ import com.meterware.httpunit.WebForm;
  * Valid credit card numbers taken from http://www.darkcoding.net/credit-card-numbers/
  * They are allegedly not active numbers.
  * 
- * @author Tyler Arehart
- *
  */
 public class CreditCardValidatorTest extends iTrustHTTPTest {
 	@Override

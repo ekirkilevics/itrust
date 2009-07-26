@@ -4,8 +4,6 @@ import java.util.Locale;
 
 /** Provides a singleton for accessing the current locale of iTrust
  *  Could possibly load the country and language from a file.
- *  
- * @author Jason Clardy
  *
  */
 public class Localization {

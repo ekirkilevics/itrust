@@ -5,10 +5,6 @@ import edu.ncsu.csc.itrust.exception.FormValidationException;
 import org.apache.commons.validator.*;
 
 
-/**
- * @author viper_cobra27030
- *
- */
 public class MailValidator extends EmailValidator{
 	
 	public MailValidator(){

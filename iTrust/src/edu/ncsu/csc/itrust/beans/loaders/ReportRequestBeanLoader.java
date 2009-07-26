@@ -7,11 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 import edu.ncsu.csc.itrust.beans.ReportRequestBean;
 
-/**
- * 
- * @author Ted Lowery (tblowery@ncsu.edu)
- *
- */
 
 public class ReportRequestBeanLoader implements BeanLoader<ReportRequestBean> {
 

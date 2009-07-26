@@ -14,8 +14,6 @@ import edu.ncsu.csc.itrust.exception.DBException;
 /**
  * Used to update referrals, and fetch lists of referrals sent to and
  * from HCPs
- * 
- * @author Tyler Arehart
  *
  */
 public class ReferralDAO {

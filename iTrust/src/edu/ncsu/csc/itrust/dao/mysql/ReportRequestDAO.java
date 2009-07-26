@@ -12,11 +12,6 @@ import edu.ncsu.csc.itrust.beans.loaders.ReportRequestBeanLoader;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
 import edu.ncsu.csc.itrust.exception.DBException;
 
-/**
- * 
- * @author Ted Lowery (tblowery@ncsu.edu)
- *
- */
 
 public class ReportRequestDAO {
 	private DAOFactory factory;

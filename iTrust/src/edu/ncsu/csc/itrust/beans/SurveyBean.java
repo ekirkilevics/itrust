@@ -4,11 +4,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-/**
- * 
- * @author Ted Lowery (tblowery@ncsu.edu)
- *
- */
 public class SurveyBean {
 	private long visitID;
 	private Date surveyDate;

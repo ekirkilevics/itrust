@@ -1,6 +1,5 @@
 /**
  * Tests for AddPatientAction
- * @author Matt Mercer
  */
 
 package edu.ncsu.csc.itrust.action;
@@ -21,7 +20,6 @@ public class AddERespActionTest extends TestCase {
 	
 	/**
 	 * Sets up defaults
-	 * * @author Matt Mercer
 	 */
 	@Override
 	protected void setUp() throws Exception {
@@ -33,7 +31,6 @@ public class AddERespActionTest extends TestCase {
 	
 	/**
 	 * Tests adding a new ER
-	 * * @author Matt Mercer
 	 * @throws Exception
 	 */
 	public void testAddER() throws Exception {

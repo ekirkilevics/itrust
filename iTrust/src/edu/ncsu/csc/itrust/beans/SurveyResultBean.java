@@ -5,9 +5,6 @@ package edu.ncsu.csc.itrust.beans;
  * in addition to their specialty, hospital, and averages from survey (results range from 1-5).  This
  * beans also contains a variable that stores the percent of office visits that satisfaction results are 
  * available.
- * 
- * @author Kate Lemanski
- *
  */
 public class SurveyResultBean {
 

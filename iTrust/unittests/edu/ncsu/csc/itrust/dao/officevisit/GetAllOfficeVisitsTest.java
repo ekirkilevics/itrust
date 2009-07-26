@@ -9,7 +9,6 @@ import edu.ncsu.csc.itrust.testutils.TestDAOFactory;
 
 /**
  * 
- * @author Ted Lowery (tblowery@ncsu.edu)
  *
  */
 

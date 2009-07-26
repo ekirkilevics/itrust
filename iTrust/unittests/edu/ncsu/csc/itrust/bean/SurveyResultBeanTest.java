@@ -5,7 +5,6 @@ import edu.ncsu.csc.itrust.beans.SurveyResultBean;
 
 /**
  * 
- * @author Ted Lowery (tblowery@ncsu.edu)
  *
  */
 

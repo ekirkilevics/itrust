@@ -12,8 +12,6 @@ import edu.ncsu.csc.itrust.validate.SurveySearchValidator;
 
 /**
  * This class is used to handle retrieving survey results from the database.  It also logs the transaction.
- * @author Kate Lemanski
- *
  */
 public class ViewSurveyResultAction {
 	

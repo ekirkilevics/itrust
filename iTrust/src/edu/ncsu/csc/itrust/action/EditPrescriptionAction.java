@@ -9,11 +9,6 @@ import edu.ncsu.csc.itrust.exception.iTrustException;
 
 
 
-/**
- * 
- * @author Tyler Arehart
- * 
- */
 public class EditPrescriptionAction {
 
 	private OfficeVisitDAO ovDAO;

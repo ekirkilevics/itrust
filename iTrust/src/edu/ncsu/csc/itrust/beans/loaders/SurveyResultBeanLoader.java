@@ -7,11 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 import edu.ncsu.csc.itrust.beans.SurveyResultBean;
 
-/**
- * 
- * @author Kate Lemanski
- *
- */
 public class SurveyResultBeanLoader implements BeanLoader<SurveyResultBean> {
 
 	public List<SurveyResultBean> loadList(ResultSet rs) throws SQLException {
