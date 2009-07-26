@@ -1,5 +1,6 @@
 package edu.ncsu.csc.itrust.action;
 
+import java.io.IOException;
 import java.util.List;
 import junit.framework.TestCase;
 import edu.ncsu.csc.itrust.beans.OfficeVisitBean;
@@ -21,6 +22,8 @@ public class AddOfficeVisitActionTest extends TestCase {
 
 	public void testAddEmpty() {
 		try {
+			gen.clearAllTables();
+			gen.patient1();
 			long hcpID = 9000000000L;
 			long ovID = action.addEmptyOfficeVisit(hcpID);
 			OfficeVisitBean ov = factory.getOfficeVisitDAO().getOfficeVisit(ovID);
@@ -33,7 +36,9 @@ public class AddOfficeVisitActionTest extends TestCase {
 		}
 	}
 
-	public void testGetOfficeVisits() throws Exception {
+	public void testGetOfficeVisits() throws Exception, IOException {
+		gen.clearAllTables();
+		gen.patient1();
 		List<OfficeVisitBean> ovs = factory.getOfficeVisitDAO().getAllOfficeVisits(1);
 		List<OfficeVisitBean> actualOvs = action.getAllOfficeVisits();
 		assertEquals(ovs.size(), actualOvs.size());

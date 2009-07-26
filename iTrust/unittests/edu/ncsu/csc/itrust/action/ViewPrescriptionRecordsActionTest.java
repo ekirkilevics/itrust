@@ -18,11 +18,11 @@ public class ViewPrescriptionRecordsActionTest extends TestCase {
 	@Override
 	protected void setUp() throws Exception {
 		gen = new TestDataGenerator();
-		gen.clearAllTables();
-		gen.standardData();
 	}
 	
 	public void testGetPatient() throws Exception {
+		gen.clearAllTables();
+		gen.standardData();
 		action = new ViewPrescriptionRecordsAction(factory, 9000000000L);
 		PatientBean patient = action.getPatient(1L);
 		assertEquals("Random", patient.getFirstName());
@@ -30,6 +30,8 @@ public class ViewPrescriptionRecordsActionTest extends TestCase {
 	}
 	
 	public void testGetRepresentees() throws Exception {
+		gen.clearAllTables();
+		gen.standardData();
 		action = new ViewPrescriptionRecordsAction(factory, 2L);
 		List<PatientBean> representees = action.getRepresentees();
 		assertEquals(6, representees.size());

@@ -1,5 +1,7 @@
 package edu.ncsu.csc.itrust.action;
 
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 import junit.framework.TestCase;
 import edu.ncsu.csc.itrust.beans.forms.VisitReminderReturnForm;
@@ -16,8 +18,6 @@ public class GetVisitRemindersActionTest extends TestCase {
 
 	@Override
 	protected void setUp() throws Exception {
-		gen.clearAllTables();
-		gen.standardData();
 		action = new GetVisitRemindersAction(factory, 9000000000L);
 	}
 
@@ -27,6 +27,8 @@ public class GetVisitRemindersActionTest extends TestCase {
 	}
 
 	public void testNoSubAction() throws Exception {
+		gen.clearAllTables();
+		gen.standardData();
 		assertEquals(2, action.getVisitReminders(GetVisitRemindersAction.ReminderType.FLU_SHOT_NEEDERS).size());
 	}
 	
@@ -43,7 +45,9 @@ public class GetVisitRemindersActionTest extends TestCase {
 		}
 	}
 
-	public void testGetImmunizationNeeders() throws iTrustException, FormValidationException {
+	public void testGetImmunizationNeeders() throws iTrustException, FormValidationException, IOException, SQLException {
+		gen.clearAllTables();
+		gen.standardData();
 		List<VisitReminderReturnForm> vrList = action.getVisitReminders(GetVisitRemindersAction.ReminderType.IMMUNIZATION_NEEDERS);
 		
 		assertEquals(2, vrList.size());

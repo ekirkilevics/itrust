@@ -18,25 +18,30 @@ public class ViewMyReportRequestsActionTest extends TestCase {
 	private DAOFactory evilFactory = EvilDAOFactory.getEvilInstance();
 	private ViewMyReportRequestsAction action;
 	private FakeEmailDAO feDAO = factory.getFakeEmailDAO();
+	private TestDataGenerator gen = new TestDataGenerator();
 
 	protected void setUp() throws Exception {
-		TestDataGenerator gen = new TestDataGenerator();
-		gen.clearAllTables();
-		gen.reportRequests();
-		gen.patient2();
-		gen.hcp0();
-		gen.admin1();
-		gen.fakeEmail();
+		
+//		gen.clearAllTables();
+//		gen.reportRequests();
+//		gen.patient2();
+//		gen.hcp0();
+//		gen.admin1();
+//		gen.fakeEmail();
 
 	}
 
 	public void testGetAllReportRequests1() throws Exception {
+		gen.clearAllTables();
+		gen.reportRequests();
 		action = new ViewMyReportRequestsAction(factory, 9000000001L);
 		List<ReportRequestBean> list = action.getAllReportRequests();
 		assertEquals(7, list.size());
 	}
 
 	public void testGetReportRequests3() throws Exception {
+		gen.clearAllTables();
+		gen.reportRequests();
 		action = new ViewMyReportRequestsAction(factory, 9000000000L);
 		List<ReportRequestBean> list = action.getAllReportRequestsForRequester();
 		assertEquals(6, list.size());
