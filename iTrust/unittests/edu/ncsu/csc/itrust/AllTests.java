@@ -1,5 +1,6 @@
 package edu.ncsu.csc.itrust;
 
+import java.lang.reflect.Modifier;
 import junit.framework.Test;
 import junitx.util.DirectorySuiteBuilder;
 import junitx.util.SimpleTestFilter;
@@ -13,7 +14,8 @@ public class AllTests {
 		builder.setFilter(new SimpleTestFilter() {
 			public boolean include(Class clazz) {
 				// Ignore the HTTP tests in this suite
-				return !clazz.getPackage().getName().contains("http");
+				return !clazz.getPackage().getName().contains("http")
+						&& !Modifier.isAbstract(clazz.getModifiers());
 			}
 		});
 		return builder.suite("build/classes");
