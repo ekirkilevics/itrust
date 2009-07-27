@@ -25,8 +25,6 @@ public class AddHCPActionTest extends ActionTestWithMocks {
 	 */
 	@Override
 	protected void setUp() throws Exception {
-		long start = System.currentTimeMillis();
-
 		// Step 0. Initialize the mocks and other necessary objects.
 		super.initMocks();
 		// Step 1. Initialize any other classes we need.
