@@ -1,8 +1,6 @@
 package edu.ncsu.csc.itrust.validate;
 
 import java.util.regex.Pattern;
-import edu.ncsu.csc.itrust.exception.FormValidationException;
-
 
 /**
  * Enum with all of the validation formats that fit into a regex.
@@ -20,8 +18,8 @@ public enum ValidationFormat {
 			MID("[\\d]{1,10}",
 			"Between 1 and 10 digits"), ROLE("^(?:admin|hcp|uap|test)$",
 			"must be one of {admin, hcp, uap, test}"),
-			EMAIL("[a-zA-Z0-9@_.]{1,30}","Up to 30 alphanumeric characters and symbols . and _ @"), 
-			// ^(?=[^@]+@[^@]+(?:\\.[^@.]+)+)[a-zA-Z0-9@_.]{1,30}$
+			EMAIL("^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*((\\.[A-Za-z]{2,}){1}$)",
+					"Up to 30 alphanumeric characters and symbols . and _ @"), 
 	QUESTION("[a-zA-Z0-9?\\-'.\\s]{1,50}", "Up to 50 alphanumeric characters and symbols ?-'."),
 	ANSWER("[a-zA-Z0-9\\s]{1,30}", "Up to 30 alphanumeric characters"),
 	ADDRESS("[a-zA-Z0-9.\\s]{1,30}", "Up to 30 alphanumeric characters, and ."),
@@ -55,18 +53,6 @@ public enum ValidationFormat {
 
 	private Pattern regex;
 	private String description;
-	private MailValidator validate = new MailValidator();
-
-	public boolean EMAIL(String email){
-		try {
-			return validate.validateEmail(email);
-		} catch (FormValidationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return false;
-		}
-		
-	}
 
 	ValidationFormat(String regex, String errorMessage) {
 		this.regex = Pattern.compile(regex);

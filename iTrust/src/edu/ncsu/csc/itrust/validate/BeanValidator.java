@@ -30,19 +30,6 @@ abstract public class BeanValidator<T> {
 	protected String checkFormat(String name, String value, ValidationFormat format, boolean isNullable) {
 		 
 		String errorMessage = name + ": " + format.getDescription();
-		//Lane   March 31, 2009
-		if(name.toLowerCase().contains("email")){
-			//try{
-				if(format.EMAIL(value)){
-					return "";
-				}
-				else
-				{
-					return value;
-				}
-		
-		
-		}  //end Lane's change
 		 if (value == null || "".equals(value))
 			return isNullable ? "" : errorMessage;
 		else if (format.getRegex().matcher(value).matches())

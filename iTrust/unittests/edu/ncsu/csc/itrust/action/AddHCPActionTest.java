@@ -8,8 +8,6 @@
 
 package edu.ncsu.csc.itrust.action;
 
-import org.easymock.classextension.EasyMock;
-import org.easymock.classextension.IMocksControl;
 import edu.ncsu.csc.itrust.beans.PersonnelBean;
 import edu.ncsu.csc.itrust.enums.Role;
 import edu.ncsu.csc.itrust.enums.TransactionType;
