@@ -8,6 +8,7 @@ a {
 	font-size: 14px;
 }
 
+
 /* Formated table stuff */
 .fTable {
 	border: 1px solid black;
@@ -131,6 +132,13 @@ a {
 
 .iTrustNavlink {
 	color: #AA0000;
+	font-size: small;
+	text-decoration: none;
+}
+
+/* These links are only for testing purposes and are indicated such */
+a.iTrustTestNavlink {
+	color: #AAAA00;
 	font-size: small;
 	text-decoration: none;
 }

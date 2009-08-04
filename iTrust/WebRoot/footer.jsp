@@ -10,10 +10,10 @@
 <%
 			if( ! "true".equals(System.getProperty("itrust.production") ) ) { 
 %>
-				  <a class="iTrustNavlink" href="/iTrust/util/andystestutil.jsp">Test Data Generator</a>
-				| <a class="iTrustNavlink" href="/iTrust/util/transactionLog.jsp">Transaction Log</a>
-				| <a class="iTrustNavlink" href="/iTrust/util/displayDatabase.jsp">Display Database</a>
-				| <a class="iTrustNavlink" href="/iTrust/util/showFakeEmails.jsp">Show Fake Emails</a>
+				  <a class="iTrustTestNavlink" href="/iTrust/util/andystestutil.jsp">Test Data Generator</a>
+				| <a class="iTrustTestNavlink" href="/iTrust/util/transactionLog.jsp">Transaction Log</a>
+				| <a class="iTrustTestNavlink" href="/iTrust/util/displayDatabase.jsp">Display Database</a>
+				| <a class="iTrustTestNavlink" href="/iTrust/util/showFakeEmails.jsp">Show Fake Emails</a>
 <%
 			}
 %>
