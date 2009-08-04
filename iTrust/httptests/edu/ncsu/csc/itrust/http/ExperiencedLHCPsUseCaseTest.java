@@ -21,7 +21,6 @@ public class ExperiencedLHCPsUseCaseTest extends iTrustHTTPTest {
 		assertEquals("iTrust - My Diagnoses", wr.getTitle());
 		
 		assertTrue(wr.getText().contains("Echovirus(79.10)"));
-		assertTrue(wr.getText().contains("Disco Fever(350.00)"));
 		assertTrue(wr.getText().contains("Acute Lycanthropy(250.00)"));
 	}
 	

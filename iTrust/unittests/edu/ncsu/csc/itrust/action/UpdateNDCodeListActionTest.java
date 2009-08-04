@@ -92,6 +92,6 @@ public class UpdateNDCodeListActionTest extends TestCase {
 		MedicationBean proc = new MedicationBean(code, "shouldnt be here");
 		assertEquals("Error: Code not found.", action.updateInformation(proc));
 		assertEquals(null, factory.getNDCodesDAO().getNDCode(code));
-		assertEquals(3, factory.getNDCodesDAO().getAllNDCodes().size());
+		assertEquals(5, factory.getNDCodesDAO().getAllNDCodes().size());
 	}
 }
