@@ -145,7 +145,7 @@ public class ViewMyRecordsAction {
 	 * 
 	 * @return list of FamilyMemberBeans
 	 */
-	public List<FamilyMemberBean> getFamily() {
+	public List<FamilyMemberBean> getFamily() throws iTrustException {
 		List<FamilyMemberBean> fam = new ArrayList<FamilyMemberBean>();
 		List<FamilyMemberBean> parents = null;
 		try {
@@ -154,8 +154,7 @@ public class ViewMyRecordsAction {
 			fam.addAll(familyDAO.getSiblings(loggedInMID));
 			fam.addAll(familyDAO.getChildren(loggedInMID));
 		} catch (DBException e) {
-			// TODO what happens to the user??
-			e.printStackTrace();
+			throw new iTrustException(e.getMessage());
 		}
 		
 		if(parents != null) {
@@ -164,8 +163,7 @@ public class ViewMyRecordsAction {
 				try {
 					grandparents.addAll(familyDAO.getParents(parent.getMid()));
 				} catch (DBException e) {
-					// TODO what happens to the user??
-					e.printStackTrace();
+					throw new iTrustException(e.getMessage());
 				}
 			}
 			
@@ -183,7 +181,7 @@ public class ViewMyRecordsAction {
 	 * 
 	 * @return list of FamilyMemberBeans
 	 */
-	public List<FamilyMemberBean> getFamilyHistory() {
+	public List<FamilyMemberBean> getFamilyHistory() throws iTrustException {
 		List<FamilyMemberBean> fam = new ArrayList<FamilyMemberBean>();
 		List<FamilyMemberBean> parents = null;
 		try {
@@ -191,8 +189,7 @@ public class ViewMyRecordsAction {
 			fam.addAll(parents);
 			fam.addAll(familyDAO.getSiblings(loggedInMID));
 		} catch (DBException e) {
-			// TODO what happens to the user??
-			e.printStackTrace();
+			throw new iTrustException(e.getMessage());
 		}
 		
 		if(parents != null) {
@@ -201,8 +198,7 @@ public class ViewMyRecordsAction {
 				try {
 					grandparents.addAll(familyDAO.getParents(parent.getMid()));
 				} catch (DBException e) {
-					// TODO what happens to the user??
-					e.printStackTrace();
+					throw new iTrustException(e.getMessage());
 				}
 			}
 			

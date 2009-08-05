@@ -49,7 +49,7 @@ public class UpdateNDCodeListAction {
 						+ med.getNDCode());
 				return "Success: " + med.getNDCode() + " - " + med.getDescription() + " added";
 			} else
-				return "unexpected error"; // TODO: needs better error message
+				return "The database has become corrupt. Please contact the system administrator for assistance.";
 		} catch (DBException e) {
 			e.printStackTrace();
 			return e.getMessage();

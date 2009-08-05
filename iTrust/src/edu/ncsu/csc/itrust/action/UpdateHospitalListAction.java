@@ -49,7 +49,7 @@ public class UpdateHospitalListAction {
 						"added hospital " + hosp.getHospitalName());
 				return "Success: " + hosp.getHospitalID() + " - " + hosp.getHospitalName() + " added";
 			} else
-				return "unexpected error"; // TODO: needs better error message
+				return "The database has become corrupt. Please contact the system administrator for assistance.";
 		} catch (DBException e) {
 			e.printStackTrace();
 			return e.getMessage();

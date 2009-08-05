@@ -15,11 +15,13 @@ import edu.ncsu.csc.itrust.beans.PersonnelBean;
 import edu.ncsu.csc.itrust.beans.ReportRequestBean;
 import edu.ncsu.csc.itrust.datagenerators.TestDataGenerator;
 import edu.ncsu.csc.itrust.exception.iTrustException;
+import edu.ncsu.csc.itrust.testutils.EvilDAOFactory;
 import edu.ncsu.csc.itrust.testutils.TestDAOFactory;
 
 public class ViewMyRecordsActionTest extends TestCase {
 	private ViewMyRecordsAction action;
 	private DAOFactory factory = TestDAOFactory.getTestInstance();
+	private DAOFactory evil = EvilDAOFactory.getEvilInstance();
 	private FamilyDAO famDAO = new FamilyDAO(factory);
 	private List<FamilyMemberBean> fmbList = null;
 	private FamilyMemberBean fmBean = null;
@@ -59,6 +61,27 @@ public class ViewMyRecordsActionTest extends TestCase {
 		assertTrue(action.getFamilyMemberCOD(fmBean).contains("Diabetes"));
 		assertEquals(5, new ViewMyRecordsAction(factory, 5L).getFamilyHistory().size());
 	}
+	
+	public void testViewNonExistantRecords()  {
+		action = new ViewMyRecordsAction(evil, 0l);
+		try
+		{
+			action.getFamilyHistory();
+		}
+		catch (iTrustException e)
+		{
+			assertEquals("A database exception has occurred. Please see the log in the console for stacktrace", e.getMessage());
+		}
+		
+		try
+		{
+			action.getFamily();
+		}
+		catch (iTrustException e)
+		{
+			assertEquals("A database exception has occurred. Please see the log in the console for stacktrace", e.getMessage());
+		}
+	}
 
 	public void testRepresentPatient() throws iTrustException {
 		String StrRep = new String("3");
@@ -94,13 +117,13 @@ public class ViewMyRecordsActionTest extends TestCase {
 		assertEquals(2, abList.size());
 	}
 	
-	public void testGetFamily() {
+	public void testGetFamily() throws iTrustException {
 		List<FamilyMemberBean> fmbList = action.getFamily();
 		
 		assertEquals(9, fmbList.size());
 	}
 	
-	public void testGetFamilyHistory() {
+	public void testGetFamilyHistory() throws iTrustException {
 		List<FamilyMemberBean> fmbList = action.getFamilyHistory();
 		
 		assertEquals(5, fmbList.size());

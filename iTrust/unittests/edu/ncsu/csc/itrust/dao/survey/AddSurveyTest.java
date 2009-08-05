@@ -1,6 +1,7 @@
 package edu.ncsu.csc.itrust.dao.survey;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import junit.framework.TestCase;
 import edu.ncsu.csc.itrust.action.SurveyAction;
 import edu.ncsu.csc.itrust.beans.SurveyBean;
@@ -10,7 +11,7 @@ import edu.ncsu.csc.itrust.datagenerators.TestDataGenerator;
 import edu.ncsu.csc.itrust.testutils.TestDAOFactory;
 
 /**
- * Tests that a survey was added correctly by adding it to the database and then retreiving the information.
+ * Tests that a survey was added correctly by adding it to the database and then retrieving the information.
  *
  */
 public class AddSurveyTest extends TestCase {
@@ -28,9 +29,8 @@ public class AddSurveyTest extends TestCase {
 	
 	public void testAddSurveyData() throws Exception {
 		SurveyBean surveyBean = new SurveyBean();
-		//all this data would generally be set in the JSP
-		String date = "03/01/2008 13:30";
-		surveyBean.setSurveyDate(new SimpleDateFormat(SurveyBean.dateFormat).parse(date));
+		
+		surveyBean.setSurveyDate(new Date());
 		surveyBean.setExamRoomMinutes(30);
 		surveyBean.setTreatmentSatisfaction(1);
 		surveyBean.setVisitSatisfaction(2);
@@ -39,8 +39,8 @@ public class AddSurveyTest extends TestCase {
 		surveyAction.addSurvey(surveyBean, 903);
 		
 		SurveyBean newBean = surveyDAO.getSurveyData(903);
-		//TODO: decide what we want to do about dates, currently the dao inserts NOW as the date
-		//assertEquals(date, newBean.getSurveyDateString());
+		String dateStr = (new SimpleDateFormat(SurveyBean.dateFormat).format(new Date()));
+		assertEquals(dateStr, newBean.getSurveyDateString());
 		assertEquals(903, newBean.getVisitID());
 		assertEquals(30, newBean.getExamRoomMinutes());
 		assertEquals(1, newBean.getTreatmentSatisfaction());
@@ -61,8 +61,9 @@ public class AddSurveyTest extends TestCase {
 		surveyAction.addSurvey(surveyBean, 905);
 		
 		SurveyBean newBean = surveyDAO.getSurveyData(905);
-		//TODO: decide what we want to do about dates, currently the dao inserts NOW as the date
-		//assertEquals(date, newBean.getSurveyDateString());
+		String dateStr = (new SimpleDateFormat(SurveyBean.dateFormat).format(new Date()));
+		assertEquals(dateStr, newBean.getSurveyDateString());
+		
 		assertEquals(905, newBean.getVisitID());
 		assertEquals(33, newBean.getExamRoomMinutes());
 		assertEquals(5, newBean.getTreatmentSatisfaction());
@@ -82,8 +83,8 @@ public class AddSurveyTest extends TestCase {
 		surveyAction.addSurvey(surveyBean, 910);
 		
 		SurveyBean newBean = surveyDAO.getSurveyData(910);
-		//TODO: decide what we want to do about dates, currently the dao inserts NOW as the date
-		//assertEquals(date, newBean.getSurveyDateString());
+		String dateStr = (new SimpleDateFormat(SurveyBean.dateFormat).format(new Date()));
+		assertEquals(dateStr, newBean.getSurveyDateString());
 		assertEquals(910, newBean.getVisitID());
 		assertEquals(2, newBean.getExamRoomMinutes());
 		assertEquals(2, newBean.getTreatmentSatisfaction());

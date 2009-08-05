@@ -50,7 +50,7 @@ public class UpdateICDCodeListAction {
 						"added ICD code " + diagn.getICDCode());
 				return "Success: " + diagn.getICDCode() + " - " + diagn.getDescription() + " added";
 			} else
-				return "unexpected error"; // TODO: needs better error message
+				return "The database has become corrupt. Please contact the system administrator for assistance.";
 		} catch (DBException e) {
 			e.printStackTrace();
 			return e.getMessage();

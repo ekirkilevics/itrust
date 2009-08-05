@@ -26,13 +26,13 @@ public class ReportRequestDAOTest extends TestCase {
 		
 	}
 	
-	public void testGetAllReportRequests1() throws Exception {
+	public void testGetAllReportRequests() throws Exception {
 		List<ReportRequestBean> list = dao.getAllReportRequests();
+		assertEquals(2l, list.get(0).getPatientMID());
 		assertEquals(7, list.size());
 	}
 
-	//TODO Rename all of these methods to be actually meaningful. Shame!
-	public void testGetReportRequests2() throws Exception {
+	public void testGetReportsUnknownRequeter() throws Exception {
 		try {
 			dao.getAllReportRequestsForRequester(0);
 			fail("should have thrown an exception");
@@ -41,7 +41,7 @@ public class ReportRequestDAOTest extends TestCase {
 		}
 	}
 	
-	public void testGetReportRequests3() throws Exception {
+	public void testGetReportsCheckListRequester() throws Exception {
 		List<ReportRequestBean> list = dao.getAllReportRequestsForRequester(9000000000L);
 		assertEquals(6, list.size());
 		assertEquals(ReportRequestBean.Requested, list.get(0).getStatus());
@@ -49,7 +49,7 @@ public class ReportRequestDAOTest extends TestCase {
 		assertEquals(9000000001L, list.get(5).getApproverMID());
 	}
 	
-	public void testGetReportRequests4() throws Exception {
+	public void testGetReportsCheckListPatient() throws Exception {
 		List<ReportRequestBean> list = dao.getAllReportRequestsForPatient(2L);
 		assertEquals(4, list.size());
 		assertEquals(ReportRequestBean.Requested, list.get(0).getStatus());
@@ -57,7 +57,7 @@ public class ReportRequestDAOTest extends TestCase {
 		assertEquals(9000000001L, list.get(3).getApproverMID());
 	}
 	
-	public void testGetReportRequest1() throws Exception {
+	public void testGetReportsNullReportID() throws Exception {
 		try {
 			dao.getReportRequest(0);
 			fail("Should have thrown an exception");
@@ -66,7 +66,7 @@ public class ReportRequestDAOTest extends TestCase {
 		}
 	}
 	
-	public void testGetReportRequest2() throws Exception {
+	public void testGetSpecificReport3CheckDetails() throws Exception {
 		ReportRequestBean b = dao.getReportRequest(3);
 		assertEquals(3, b.getID());
 		assertEquals(9000000000L, b.getRequesterMID());
@@ -78,7 +78,7 @@ public class ReportRequestDAOTest extends TestCase {
 		assertEquals("Forget it", b.getComment());
 	}
 
-	public void testGetReportRequest3() throws Exception {
+	public void testGetSpecificReport4CheckDetails() throws Exception {
 		ReportRequestBean b = dao.getReportRequest(4);
 		assertEquals(4, b.getID());
 		assertEquals(9000000000L, b.getRequesterMID());
@@ -90,7 +90,7 @@ public class ReportRequestDAOTest extends TestCase {
 		assertEquals(ReportRequestBean.Viewed, b.getStatus());
 	}
 	
-	public void testInsertReport1() throws Exception {
+	public void testInsertReportFailureNullMIDs() throws Exception {
 		try {
 			dao.addReportRequest(0, 0, null);
 			fail("Should have throw exception");
@@ -99,7 +99,7 @@ public class ReportRequestDAOTest extends TestCase {
 		}
 	}
 	
-	public void testInsertReport2() throws Exception {
+	public void testAddThenRetrieveReport() throws Exception {
 		long id = dao.addReportRequest(9000000000L, 2, new SimpleDateFormat(ReportRequestBean.dateFormat).parse("06/06/2008 13:00"));
 		ReportRequestBean b2 = dao.getReportRequest(id);
 		assertEquals(9000000000L, b2.getRequesterMID());
@@ -108,7 +108,7 @@ public class ReportRequestDAOTest extends TestCase {
 		assertEquals(ReportRequestBean.Requested, b2.getStatus());
 	}
 	
-	public void testApproveReport1() throws Exception {
+	public void testApproveReportFailure() throws Exception {
 		try {
 			dao.approveReportRequest(0, 0, null);
 			fail("Should have throw exception");
@@ -117,7 +117,7 @@ public class ReportRequestDAOTest extends TestCase {
 		}
 	}
 	
-	public void testApproveReport2() throws Exception {
+	public void testAddThenApproveReport() throws Exception {
 		long id = dao.addReportRequest(9000000000L, 2, new SimpleDateFormat(ReportRequestBean.dateFormat).parse("06/06/2008 13:00"));
 		dao.approveReportRequest(id, 9000000001L, new SimpleDateFormat(ReportRequestBean.dateFormat).parse("07/07/2008 14:00"));
 		ReportRequestBean b2 = dao.getReportRequest(id);
@@ -126,7 +126,7 @@ public class ReportRequestDAOTest extends TestCase {
 		assertEquals(ReportRequestBean.Approved, b2.getStatus());
 	}
 	
-	public void testRejectReport1() throws Exception {
+	public void testRejectReportFailure() throws Exception {
 		try {
 			dao.rejectReportRequest(0, 0, null, "");
 			fail("Should have throw exception");
@@ -135,7 +135,7 @@ public class ReportRequestDAOTest extends TestCase {
 		}
 	}
 	
-	public void testRejectReport2() throws Exception {
+	public void testAddThenRejectRequest() throws Exception {
 		long id = dao.addReportRequest(9000000000L, 2, new SimpleDateFormat(ReportRequestBean.dateFormat).parse("06/06/2008 13:00"));
 		dao.rejectReportRequest(id, 9000000001L, new SimpleDateFormat(ReportRequestBean.dateFormat).parse("07/07/2008 14:00"), "You don't have the proper clearance");
 		ReportRequestBean b2 = dao.getReportRequest(id);
@@ -145,7 +145,7 @@ public class ReportRequestDAOTest extends TestCase {
 		assertEquals("You don't have the proper clearance", b2.getComment());
 	}
 	
-	public void testSetViewed1() throws Exception {
+	public void testSetViewedFailure() throws Exception {
 		try {
 			dao.setViewed(0, null);
 			fail("Should have throw exception");
@@ -154,7 +154,7 @@ public class ReportRequestDAOTest extends TestCase {
 		}
 	}
 	
-	public void testSetViewed2() throws Exception {
+	public void testAddThenSetViewed() throws Exception {
 		long id = dao.addReportRequest(9000000000L, 2, new SimpleDateFormat(ReportRequestBean.dateFormat).parse("06/06/2008 13:00"));
 		dao.approveReportRequest(id, 9000000001L, new SimpleDateFormat(ReportRequestBean.dateFormat).parse("07/07/2008 14:00"));
 		dao.setViewed(id, new SimpleDateFormat(ReportRequestBean.dateFormat).parse("08/08/2008 15:00"));

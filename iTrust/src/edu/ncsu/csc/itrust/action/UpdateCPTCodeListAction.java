@@ -49,7 +49,7 @@ public class UpdateCPTCodeListAction {
 						"added CPT code " + proc.getCPTCode());
 				return "Success: " + proc.getCPTCode() + " - " + proc.getDescription() + " added";
 			} else
-				return "unexpected error"; // TODO: needs better error message
+				return "The database has become corrupt. Please contact the system administrator for assistance.";
 		} catch (DBException e) {
 			e.printStackTrace();
 			return e.getMessage();

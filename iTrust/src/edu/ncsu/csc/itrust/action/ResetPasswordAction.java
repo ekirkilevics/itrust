@@ -191,7 +191,7 @@ public class ResetPasswordAction {
 	 */
 	private Email makeEmailApp(long mid, String role) throws DBException{
 		
-		if(role.equals("patient")){//TODO use Role.PATIENT
+		if(Role.parse(role) == Role.PATIENT){
 			PatientBean p = new PatientDAO(factory).getPatient(mid);
 			Email email = new Email();
 			email.setFrom("no-reply@itrust.com");
