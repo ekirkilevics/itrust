@@ -69,7 +69,7 @@ public class SendMessageActionTest extends TestCase {
 	public void testGetMyRepresentees() throws iTrustException {
 		List<PatientBean> pbList = this.smAction.getMyRepresentees();
 		assertEquals("Random Person", pbList.get(0).getFullName());
-		assertEquals(21636l, pbList.get(0).getAgeInDays());
+		assertEquals("05/10/1950", pbList.get(0).getDateOfBirthStr());
 		assertEquals("Care Needs", pbList.get(1).getFullName());
 		assertEquals("Baby Programmer", pbList.get(2).getFullName());
 		assertEquals("Baby A", pbList.get(3).getFullName());
