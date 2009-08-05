@@ -22,5 +22,4 @@
 	<a href="/iTrust/auth/admin/hospitalListing.jsp">Manage Hospital Listing </a><br />
 	<a href="/iTrust/auth/admin/sessionTimeout.jsp"> Change Global Session Timeout </a><br />
 	<a href="/iTrust/auth/surveyResults.jsp">Satisfaction Survey Results</a><br />
-	<a href="/iTrust/auth/admin/usingImage.jsp">Upload an Image</a><br />
 </div>
