@@ -13,7 +13,7 @@ public class PatientHTTPTest extends iTrustHTTPTest {
 	}
 	
 	public void testChangePassword() throws Exception {
-		WebConversation wc = login("1", "pw");
+		WebConversation wc = login("2", "pw");
 		WebResponse wr = wc.getCurrentPage();
 		wr = wr.getLinkWith("Logout").click();
 		wr = wr.getLinkWith("Log into iTrust").click();
@@ -31,7 +31,18 @@ public class PatientHTTPTest extends iTrustHTTPTest {
 		wf.setParameter("confirmPassword", "password2");
 		wr = wf.submit();
 		
-		//TODO still being worked on by MB :)  Synching for team purposes.
+		assertTrue(wr.getText().contains("Password changed"));
+		
+		wc = login("2", "pw");
+		wr = wc.getCurrentPage();
+		
+		assertTrue(wr.getText().contains("Login failed"));
+		
+		wc = login("2", "password2");
+		wr = wc.getCurrentPage();
+		
+		assertTrue(wr.getTitle().equals("iTrust - Patient Home"));
+		
 		
 	}
 	
