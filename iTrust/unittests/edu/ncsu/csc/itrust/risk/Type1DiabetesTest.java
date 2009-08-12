@@ -50,7 +50,7 @@ public class Type1DiabetesTest extends TestCase {
 			checker = new Type1DiabetesRisks(factory, 200L);
 			fail("exception should have been thrown");
 		} catch (NoHealthRecordsException e) {
-			assertEquals("No health records exist for this patient", e.getMessage());
+			assertEquals(NoHealthRecordsException.MESSAGE, e.getMessage());
 		}
 	}
 }
