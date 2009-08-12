@@ -12,8 +12,6 @@ public class PersonnelHTTPTest extends iTrustHTTPTest {
 	}
 	
 	public void testViewPrescriptionRecords() throws Exception {
-		gen.clearAllTables();
-		gen.standardData();
 		WebConversation wc = login("9000000000", "pw");
 		WebResponse wr = wc.getCurrentPage();
 		wr = wr.getLinkWith("All Patients").click();

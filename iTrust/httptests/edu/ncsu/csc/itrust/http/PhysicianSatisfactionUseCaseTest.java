@@ -10,6 +10,11 @@ import edu.ncsu.csc.itrust.beans.SurveyResultBean;
  * Use Case 25
  */
 public class PhysicianSatisfactionUseCaseTest extends iTrustHTTPTest {
+	
+	protected void setUp() throws Exception{
+		gen.clearAllTables();
+		gen.standardData();		
+	}
 
 	/*
 	 * 	Preconditions: Patient 2 is in the system and has authenticated successfully. 
@@ -24,9 +29,6 @@ public class PhysicianSatisfactionUseCaseTest extends iTrustHTTPTest {
 	 */
 
 	public void testSearchForHCPSurveyResults1() throws Exception {
-		gen.clearAllTables();
-		gen.standardData();
-		
 		//log in as patient
 		WebConversation wc = login("2", "pw");
 		WebResponse wr = wc.getCurrentPage();
@@ -59,8 +61,6 @@ public class PhysicianSatisfactionUseCaseTest extends iTrustHTTPTest {
 	
 	
 	public void testSearchForHCPSurveyResults2() throws Exception {
-		gen.clearAllTables();
-		gen.standardData();
 		gen.surveyResults();
 		
 		//log in as uap
@@ -99,8 +99,6 @@ public class PhysicianSatisfactionUseCaseTest extends iTrustHTTPTest {
 	
 	
 	public void testSearchForHCPSurveyResults3() throws Exception {
-		gen.clearAllTables();
-		gen.standardData();
 		gen.surveyResults();
 		
 		//log in as hcp
@@ -151,8 +149,6 @@ public class PhysicianSatisfactionUseCaseTest extends iTrustHTTPTest {
 	}
 	
 	public void testSearchByHospitalSurveyResults1() throws Exception {
-		gen.clearAllTables();
-		gen.standardData();
 		gen.surveyResults();
 		
 		//log in as patient
@@ -172,8 +168,6 @@ public class PhysicianSatisfactionUseCaseTest extends iTrustHTTPTest {
 	}
 	
 	public void testSearchByHospitalSurveyResults2() throws Exception {
-		gen.clearAllTables();
-		gen.standardData();
 		gen.surveyResults();
 		
 		//log in as uap
@@ -193,8 +187,6 @@ public class PhysicianSatisfactionUseCaseTest extends iTrustHTTPTest {
 	}
 	
 	public void testSearchByHospitalSurveyResults3() throws Exception {
-		gen.clearAllTables();
-		gen.standardData();
 		gen.surveyResults();
 		
 		//log in as hcp
@@ -214,9 +206,6 @@ public class PhysicianSatisfactionUseCaseTest extends iTrustHTTPTest {
 	}
 	
 	public void testSurveyResultsNoInput() throws Exception {
-		gen.clearAllTables();
-		gen.standardData();
-		
 		//log in as patient
 		WebConversation wc = login("2", "pw");
 		WebResponse wr = wc.getCurrentPage();
@@ -231,9 +220,6 @@ public class PhysicianSatisfactionUseCaseTest extends iTrustHTTPTest {
 	}
 
 	public void testSurveyResultsTooMuchInput() throws Exception {
-		gen.clearAllTables();
-		gen.standardData();
-		
 		//log in as patient
 		WebConversation wc = login("2", "pw");
 		WebResponse wr = wc.getCurrentPage();
@@ -251,9 +237,6 @@ public class PhysicianSatisfactionUseCaseTest extends iTrustHTTPTest {
 	}
 
 	public void testSurveyResultsZipCodeFormat1() throws Exception {
-		gen.clearAllTables();
-		gen.standardData();
-		
 		//log in as patient
 		WebConversation wc = login("2", "pw");
 		WebResponse wr = wc.getCurrentPage();
@@ -270,9 +253,6 @@ public class PhysicianSatisfactionUseCaseTest extends iTrustHTTPTest {
 	}
 
 	public void testSurveyResultsZipCodeFormat2() throws Exception {
-		gen.clearAllTables();
-		gen.standardData();
-		
 		//log in as patient
 		WebConversation wc = login("2", "pw");
 		WebResponse wr = wc.getCurrentPage();
@@ -289,9 +269,6 @@ public class PhysicianSatisfactionUseCaseTest extends iTrustHTTPTest {
 	}
 
 	public void testSurveyResultsZipCodeFormat3() throws Exception {
-		gen.clearAllTables();
-		gen.standardData();
-		
 		//log in as patient
 		WebConversation wc = login("2", "pw");
 		WebResponse wr = wc.getCurrentPage();

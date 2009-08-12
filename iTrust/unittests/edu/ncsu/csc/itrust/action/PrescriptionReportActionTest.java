@@ -23,8 +23,7 @@ public class PrescriptionReportActionTest extends TestCase {
 		gen.hcp0();
 		gen.officeVisit1();
 		gen.additionalOfficeVisits();
-		gen.patient2();
-		
+		gen.patient2();		
 	}
 
 	public void testEmptyParamMap() throws Exception {
@@ -78,8 +77,6 @@ public class PrescriptionReportActionTest extends TestCase {
 	}
 
 	public void testGetPrescriptionReports() throws Exception {
-		gen.clearAllTables();
-		gen.standardData();
 		action = new PrescriptionReportAction(factory, 9000000000L, "2");
 		List<OfficeVisitBean> officeVisits = action.getAllOfficeVisits();
 		Map params = new HashMap();

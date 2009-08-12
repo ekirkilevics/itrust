@@ -23,7 +23,6 @@ public class AddPersonnelTest extends TestCase {
 	
 	public void testAddEmptyUAP() throws Exception {
 		TestDataGenerator gen = new TestDataGenerator();
-		gen.clearAllTables();
 		gen.hcp0();
 		long mid = personnelDAO.addEmptyPersonnel(9000000000l);
 		assertEquals(" ", personnelDAO.getName(mid));

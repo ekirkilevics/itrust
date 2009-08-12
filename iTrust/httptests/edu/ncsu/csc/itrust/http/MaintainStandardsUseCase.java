@@ -10,7 +10,11 @@ import com.meterware.httpunit.WebResponse;
  */
 public class MaintainStandardsUseCase extends iTrustHTTPTest {
 
-
+	protected void setUp() throws Exception{
+		gen.clearAllTables();
+		gen.standardData();
+	}
+	
 	/*
 	 * Authenticate admin 90000000001
 	 * Admin Chooses to Edit LOINC Code 
@@ -18,9 +22,8 @@ public class MaintainStandardsUseCase extends iTrustHTTPTest {
 	 * Admin Submits	
 	 */
 	public void testAddLOINC() throws Exception {
-		gen.clearAllTables();
-		gen.admin1();
-		gen.loincs();
+		//gen.admin1();
+		//gen.loincs();
 		// login admin
 		WebConversation wc = login("9000000001", "pw");
 		WebResponse wr = wc.getCurrentPage();
@@ -51,9 +54,9 @@ public class MaintainStandardsUseCase extends iTrustHTTPTest {
 	 * Admin Submits	
 	 */
 	public void testUpdateLOINC() throws Exception {
-		gen.clearAllTables();
-		gen.admin1();
-		gen.loincs();
+		//gen.clearAllTables();
+		//gen.admin1();
+		//gen.loincs();
 		// login admin
 		WebConversation wc = login("9000000001", "pw");
 		WebResponse wr = wc.getCurrentPage();
@@ -78,8 +81,8 @@ public class MaintainStandardsUseCase extends iTrustHTTPTest {
 	}
 	
 	public void testAdminEnterNewICDCode() throws Exception {
-		gen.clearAllTables();
-		gen.standardData();
+		//gen.clearAllTables();
+		//gen.standardData();
 		
 		// login admin
 		WebConversation wc = login("9000000001", "pw");
@@ -100,8 +103,8 @@ public class MaintainStandardsUseCase extends iTrustHTTPTest {
 	}
 	
 	public void testAdminUpdateICDCode() throws Exception {
-		gen.clearAllTables();
-		gen.standardData();
+		//gen.clearAllTables();
+		//gen.standardData();
 		
 		// login admin
 		WebConversation wc = login("9000000001", "pw");
@@ -130,8 +133,8 @@ public class MaintainStandardsUseCase extends iTrustHTTPTest {
 	}
 	
 	public void testAdminUpdateICDCode2() throws Exception {
-		gen.clearAllTables();
-		gen.standardData();
+		//gen.clearAllTables();
+		//gen.standardData();
 		
 		// login admin
 		WebConversation wc = login("9000000001", "pw");

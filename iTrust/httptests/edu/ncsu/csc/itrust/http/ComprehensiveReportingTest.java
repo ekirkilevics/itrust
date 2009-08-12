@@ -7,6 +7,11 @@ import com.meterware.httpunit.WebResponse;
 
 public class ComprehensiveReportingTest extends iTrustHTTPTest {
 	
+	protected void setUp() throws Exception{
+		gen.clearAllTables();
+		gen.standardData();
+	}
+	
 	/*
 	 * An HCP 9000000000, Admin 9000000001, and Patient MID 2 have been entered into the system. 
 	 * The HCP logs in and requests a comprehensive report for patient 2. 
@@ -14,9 +19,6 @@ public class ComprehensiveReportingTest extends iTrustHTTPTest {
 	 * The HCP views the approved comprehensive patient report.
 	 */
 	public void testComprehensiveAcceptanceSuccess() throws Exception {
-		gen.clearAllTables();
-		gen.standardData();
-		
 		// The HCP logs in and requests a comprehensive report for patient 2.
 		WebConversation wc = login("9000000000", "pw");
 		WebResponse wr = wc.getCurrentPage();
@@ -56,9 +58,6 @@ public class ComprehensiveReportingTest extends iTrustHTTPTest {
 	 * The Admin logs in and rejects the new request for patient 2 with justification "You cannot access this patient!" entered.
 	 */
 	public void testComprehensiveAcceptanceRejected() throws Exception {
-		gen.clearAllTables();
-		gen.standardData();
-
 		// The HCP logs in and requests a comprehensive report for patient 2.
 		WebConversation wc = login("9000000000", "pw");
 		WebResponse wr = wc.getCurrentPage();
@@ -100,9 +99,6 @@ public class ComprehensiveReportingTest extends iTrustHTTPTest {
 	 * HCP enters patient 22. The system responds that patient 22 cannot be found.
 	 */
 	public void testHCPChoosesInvalidPatient() throws Exception {
-		gen.clearAllTables();
-		gen.standardData();
-
 		// The HCP logs in and requests a comprehensive report for patient 2.
 		WebConversation wc = login("9000000000", "pw");
 		WebResponse wr = wc.getCurrentPage();
@@ -125,10 +121,7 @@ public class ComprehensiveReportingTest extends iTrustHTTPTest {
 	 * The system responds with the name of this patient "Andy Programmer" and requests confirmation. 
 	 * The HCP realizes this is the incorrect patient and cancels the request.
 	 */
-	public void testHCPChoosesIncorrectPatient() throws Exception {
-		gen.clearAllTables();
-		gen.standardData();
-		
+	public void testHCPChoosesIncorrectPatient() throws Exception {	
 		// The HCP logs in and requests a comprehensive report for patient 2.
 		WebConversation wc = login("9000000000", "pw");
 		WebResponse wr = wc.getCurrentPage();

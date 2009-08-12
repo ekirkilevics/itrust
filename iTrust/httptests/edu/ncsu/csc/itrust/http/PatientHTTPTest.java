@@ -42,13 +42,11 @@ public class PatientHTTPTest extends iTrustHTTPTest {
 		wr = wc.getCurrentPage();
 		
 		assertTrue(wr.getTitle().equals("iTrust - Patient Home"));
-		
+
 		
 	}
 	
 	public void testViewPrescriptionRecords1() throws Exception {
-		gen.clearAllTables();
-		gen.standardData();
 		WebConversation wc = login("1", "pw");
 		WebResponse wr = wc.getCurrentPage();
 		assertEquals("iTrust - Patient Home", wr.getTitle());

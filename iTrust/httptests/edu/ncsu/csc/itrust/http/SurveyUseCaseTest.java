@@ -9,6 +9,12 @@ import com.meterware.httpunit.WebTable;
  * Use Case 24
  */
 public class SurveyUseCaseTest extends iTrustHTTPTest {
+	
+	protected void setUp() throws Exception{
+		gen.clearAllTables();
+		gen.hcp0();
+		gen.patient2();		
+	}
 
 	/*
 	 * Precondition:
@@ -27,9 +33,6 @@ public class SurveyUseCaseTest extends iTrustHTTPTest {
 	 * The survey answers are stored and the event is logged.
 	 */
 	public void testTakeSatisfactionSurveySuccess() throws Exception {
-		gen.clearAllTables();
-		gen.hcp0();
-		gen.patient2();
 		WebConversation wc = login("2", "pw");
 		WebResponse wr = wc.getCurrentPage();
 		assertEquals("iTrust - Patient Home", wr.getTitle());
@@ -77,9 +80,6 @@ public class SurveyUseCaseTest extends iTrustHTTPTest {
 	 * The survey answers are stored and the event is logged.
 	 */
 	public void testTakeSatisfactionSurveySuccess2() throws Exception{
-		gen.clearAllTables();
-		gen.hcp0();
-		gen.patient2();
 		WebConversation wc = login("2", "pw");
 		WebResponse wr = wc.getCurrentPage();
 		assertEquals("iTrust - Patient Home", wr.getTitle());
@@ -119,9 +119,6 @@ public class SurveyUseCaseTest extends iTrustHTTPTest {
 	 * Patient 2 changes his mind and decides to cancel his input.
 	 */
 	public void testTakeSatisfactionSurveyCancel() throws Exception{
-		gen.clearAllTables();
-		gen.hcp0();
-		gen.patient2();
 		WebConversation wc = login("2", "pw");
 		WebResponse wr = wc.getCurrentPage();
 		assertEquals("iTrust - Patient Home", wr.getTitle());

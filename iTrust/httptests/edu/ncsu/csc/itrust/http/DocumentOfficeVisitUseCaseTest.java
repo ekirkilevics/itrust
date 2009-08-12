@@ -9,10 +9,13 @@ import com.meterware.httpunit.WebTable;
  * Use Case 11
  */
 public class DocumentOfficeVisitUseCaseTest extends iTrustHTTPTest {
-
-	public void testAddLabProcedure() throws Exception {
+	
+	protected void setUp() throws Exception{
 		gen.clearAllTables();
 		gen.standardData();
+	}
+
+	public void testAddLabProcedure() throws Exception {
 		// login UAP
 		WebConversation wc = login("8000000009", "uappass1");
 		WebResponse wr = wc.getCurrentPage();
@@ -41,8 +44,6 @@ public class DocumentOfficeVisitUseCaseTest extends iTrustHTTPTest {
 	
 	
 	public void testRemoveLabProcedure() throws Exception {
-		gen.clearAllTables();
-		gen.standardData();
 		// login UAP
 		WebConversation wc = login("8000000009", "uappass1");
 		WebResponse wr = wc.getCurrentPage();

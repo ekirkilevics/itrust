@@ -8,6 +8,11 @@ import com.meterware.httpunit.WebTable;
  * Use Case 28
  */
 public class ViewPatientsUseCaseTest extends iTrustHTTPTest {
+	
+	protected void setUp() throws Exception{
+		gen.clearAllTables();
+		gen.standardData();		
+	}
 
 	/*
 	 * Precondition:
@@ -23,9 +28,6 @@ public class ViewPatientsUseCaseTest extends iTrustHTTPTest {
 	 * Random Person, 1247 Noname Dr Suite 106 Raleigh NC 27606, 2005-10-10.
 	 */
 	public void testViewLHCPPatients() throws Exception{
-		gen.clearAllTables();
-		gen.standardData();
-
 		WebConversation wc = login("9000000000", "pw");
 		WebResponse wr = wc.getCurrentPage();
 		assertEquals("iTrust - HCP Home", wr.getTitle());

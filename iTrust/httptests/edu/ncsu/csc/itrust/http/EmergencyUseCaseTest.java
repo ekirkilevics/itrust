@@ -5,13 +5,15 @@ import com.meterware.httpunit.WebForm;
 import com.meterware.httpunit.WebResponse;
 
 public class EmergencyUseCaseTest extends iTrustHTTPTest {
+	
+	protected void setUp() throws Exception {
+		gen.clearAllTables();
+		gen.standardData();		
+	}
 
 	/*
 	 */
 	public void testERViewEmergencyReport1() throws Exception {
-		gen.clearAllTables();
-		gen.standardData();
-		
 		// The HCP logs in and requests a comprehensive report for patient 2.
 		WebConversation wc = login("9000000006", "pw");
 		WebResponse wr = wc.getCurrentPage();
@@ -33,10 +35,7 @@ public class EmergencyUseCaseTest extends iTrustHTTPTest {
         assertTrue(wr.getText().contains("no immunizations on record"));
 	}
 	
-	public void testHCPViewEmergencyReport1() throws Exception {
-		gen.clearAllTables();
-		gen.standardData();
-		
+	public void testHCPViewEmergencyReport1() throws Exception {	
 		// The HCP logs in and requests a comprehensive report for patient 2.
 		WebConversation wc = login("9000000000", "pw");
 		WebResponse wr = wc.getCurrentPage();
@@ -58,10 +57,7 @@ public class EmergencyUseCaseTest extends iTrustHTTPTest {
         assertTrue(wr.getText().contains("no immunizations on record"));
 	}
 	
-	public void testHCPViewEmergencyReport2() throws Exception {
-		gen.clearAllTables();
-		gen.standardData();
-		
+	public void testHCPViewEmergencyReport2() throws Exception {	
 		// The HCP logs in and requests a comprehensive report for patient 2.
 		WebConversation wc = login("9000000000", "pw");
 		WebResponse wr = wc.getCurrentPage();

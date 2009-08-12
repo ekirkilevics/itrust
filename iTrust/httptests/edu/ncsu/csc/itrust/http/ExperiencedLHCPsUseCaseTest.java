@@ -7,13 +7,15 @@ import com.meterware.httpunit.WebResponse;
  * Use Case 29
  */
 public class ExperiencedLHCPsUseCaseTest extends iTrustHTTPTest {
-
-	public void testViewDiagnoses() throws Exception {
+	
+	protected void setUp() throws Exception{
 		gen.clearAllTables();
 		gen.standardData();
 		gen.patient_hcp_vists();
-		gen.hcp_diagnosis_data();
-		
+		gen.hcp_diagnosis_data();		
+	}
+
+	public void testViewDiagnoses() throws Exception {		
 		WebConversation wc = login("1", "pw");
 		WebResponse wr = wc.getCurrentPage();
 		assertEquals("iTrust - Patient Home", wr.getTitle());
@@ -25,11 +27,6 @@ public class ExperiencedLHCPsUseCaseTest extends iTrustHTTPTest {
 	}
 	
 	public void testViewDiagnosisEchoVirus() throws Exception {
-		gen.clearAllTables();
-		gen.standardData();
-		gen.patient_hcp_vists();
-		gen.hcp_diagnosis_data();
-		
 		WebConversation wc = login("1", "pw");
 		WebResponse wr = wc.getCurrentPage();
 		assertEquals("iTrust - Patient Home", wr.getTitle());
@@ -42,11 +39,6 @@ public class ExperiencedLHCPsUseCaseTest extends iTrustHTTPTest {
 	}
 	
 	public void testViewHCPDetails() throws Exception {
-		gen.clearAllTables();
-		gen.standardData();
-		gen.patient_hcp_vists();
-		gen.hcp_diagnosis_data();
-
 		WebConversation wc = login("1", "pw");
 		WebResponse wr = wc.getCurrentPage();
 		assertEquals("iTrust - Patient Home", wr.getTitle());

@@ -10,14 +10,10 @@ public class SearchUserTest extends iTrustHTTPTest{
 	
 	protected void setUp() throws Exception {
 		gen.clearAllTables();
-		gen.hcp0();
-		gen.patient1();
-		gen.patient2();
+		gen.standardData();
 	}
 	
 	public void testGetPatient() throws Exception {
-		gen.clearAllTables();
-		gen.standardData();
 		WebConversation wc = login("9000000000", "pw");
 		WebResponse wr = wc.getCurrentPage();
 		assertEquals("iTrust - HCP Home", wr.getTitle());
@@ -34,8 +30,6 @@ public class SearchUserTest extends iTrustHTTPTest{
 		assertEquals("Person", wt.getCellAsText(1, 2));
 	}
 	public void testGetPatient2() throws Exception {
-		gen.clearAllTables();
-		gen.standardData();
 		WebConversation wc = login("9000000000", "pw");
 		WebResponse wr = wc.getCurrentPage();
 		assertEquals("iTrust - HCP Home", wr.getTitle());
@@ -51,8 +45,6 @@ public class SearchUserTest extends iTrustHTTPTest{
 		assertEquals("Programmer", wt.getCellAsText(1, 2));
 	}
 	public void testGetPatient3() throws Exception {
-		gen.clearAllTables();
-		gen.standardData();
 		WebConversation wc = login("9000000000", "pw");
 		WebResponse wr = wc.getCurrentPage();
 		assertEquals("iTrust - HCP Home", wr.getTitle());

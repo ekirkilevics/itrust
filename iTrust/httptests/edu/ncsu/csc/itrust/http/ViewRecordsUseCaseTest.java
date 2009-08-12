@@ -66,10 +66,6 @@ public class ViewRecordsUseCaseTest extends iTrustHTTPTest {
 	 *   No Procedures on record
 	 */
 	public void testViewPatientOfficeVisit() throws Exception {
-		// precondition
-		gen.clearAllTables();
-		gen.patient2();
-		gen.hcp0();
 		WebConversation wc = login("2", "pw");
 		WebResponse wr = wc.getCurrentPage();
 		assertEquals("iTrust - Patient Home", wr.getTitle());
