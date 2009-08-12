@@ -13,11 +13,15 @@ import edu.ncsu.csc.itrust.testutils.TestDAOFactory;
 
 public class ViewMyAccessLogActionTest extends TestCase {
 	ViewMyAccessLogAction action;
+	private TestDataGenerator gen;
 
 	@Override
 	protected void setUp() throws Exception {
-		TestDataGenerator gen = new TestDataGenerator();
+		gen = new TestDataGenerator();
 		gen.clearAllTables();
+		gen.hcp0();
+		gen.admin1();
+		gen.patient1();
 		gen.patient2();
 		action = new ViewMyAccessLogAction(TestDAOFactory.getTestInstance(), 2L);
 	}
@@ -29,7 +33,7 @@ public class ViewMyAccessLogActionTest extends TestCase {
 	}
 	
 	public void testGetAccessesBadData() throws Exception {
-		new TestDataGenerator().transactionLog();
+		gen.transactionLog();
 		List<TransactionBean> accesses = action.getAccesses(null, null);
 		assertEquals(5, accesses.size());
 		for (TransactionBean t : accesses) {

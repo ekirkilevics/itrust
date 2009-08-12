@@ -24,6 +24,7 @@ public class ViewReportActionTest extends TestCase {
 	}
 
 	public void testGetDiagnoses() throws Exception {
+		gen.icd9cmCodes();
 		List<DiagnosisBean> list = action.getDiagnoses(2L);
 		assertEquals(6, list.size());
 		DiagnosisBean bean = list.get(0);
@@ -32,6 +33,7 @@ public class ViewReportActionTest extends TestCase {
 	}
 
 	public void testGetProcedures() throws Exception {
+		gen.cptCodes();
 		List<ProcedureBean> list = action.getProcedures(2L);
 		assertEquals(1, list.size());
 		ProcedureBean bean = list.get(0);
@@ -39,7 +41,8 @@ public class ViewReportActionTest extends TestCase {
 		assertEquals("Injection procedure", bean.getDescription());
 	}
 
-	public void testGetProscriptions() throws Exception {
+	public void testGetPrescriptions() throws Exception {
+		gen.ndCodes();
 		List<PrescriptionBean> list = action.getPrescriptions(2L);
 		assertEquals(1, list.size());
 		PrescriptionBean bean = list.get(0);
@@ -51,6 +54,7 @@ public class ViewReportActionTest extends TestCase {
 	}
 
 	public void testGetDeclaredHCPs() throws Exception {
+		gen.hcp3();
 		List<PersonnelBean> list = action.getDeclaredHCPs(2L);
 		assertEquals(1, list.size());
 	}

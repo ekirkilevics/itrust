@@ -16,6 +16,9 @@ public class FamilyHistoryFactorTest extends TestCase {
 		factor = new FamilyHistoryFactor(factory, 3L, 250.0, 251.0);
 		gen = new TestDataGenerator();
 		gen.clearAllTables();
+		gen.hospitals();
+		gen.hcp0();
+		gen.icd9cmCodes();
 		gen.family();
 	}
 

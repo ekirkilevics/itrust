@@ -17,6 +17,7 @@ public class EditPrescriptionTest extends TestCase {
 		TestDataGenerator gen = new TestDataGenerator();
 		epa = new EditPrescriptionAction(TestDAOFactory.getTestInstance());
 		gen.clearAllTables();
+		gen.ndCodes();
 		gen.hcp0();
 		gen.patient2();
 
