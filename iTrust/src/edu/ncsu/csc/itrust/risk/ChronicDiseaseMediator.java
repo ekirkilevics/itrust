@@ -25,15 +25,9 @@ public class ChronicDiseaseMediator {
 	 */
 	public ChronicDiseaseMediator(DAOFactory factory, long pid) throws DBException, NoHealthRecordsException {
 		riskCheckers = new ArrayList<RiskChecker>();
-		try {
-			riskCheckers.add(new HeartDiseaseRisks(factory, pid));
-			riskCheckers.add(new Type1DiabetesRisks(factory, pid));
-			riskCheckers.add(new Type2DiabetesRisks(factory, pid));
-		} catch (NoHealthRecordsException e) {
-			// TODO Do better handling than this, shouldn't this error be reported somewhere? 
-			//System.err doesn't show anything to the user.
-			System.err.println("No records exist, creating new ones.");
-		}
+		riskCheckers.add(new HeartDiseaseRisks(factory, pid));
+		riskCheckers.add(new Type1DiabetesRisks(factory, pid));
+		riskCheckers.add(new Type2DiabetesRisks(factory, pid));
 	}
 
 	/**
