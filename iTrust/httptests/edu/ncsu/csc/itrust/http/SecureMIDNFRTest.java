@@ -15,6 +15,7 @@ public class SecureMIDNFRTest  extends iTrustHTTPTest {
 	@Override
 	protected void setUp() throws Exception {
 		gen.clearAllTables();
+		gen.ndCodes();
 		gen.uap1();
 		gen.patient2();
 		gen.patient1();

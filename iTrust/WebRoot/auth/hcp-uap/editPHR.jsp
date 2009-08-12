@@ -85,7 +85,8 @@ List<OfficeVisitBean> officeVisits = action.getAllOfficeVisits();
 List<FamilyMemberBean> family = action.getFamily(); 
 %>
 
-<script type="text/javascript">
+
+<%@page import="edu.ncsu.csc.itrust.exception.NoHealthRecordsException"%><script type="text/javascript">
 function showRisks(){
 	document.getElementById("risks").style.display="inline";
 	document.getElementById("riskButton").style.display="none";
@@ -312,10 +313,14 @@ function showRisks(){
 				<td align="center">
 					<div id="risks" style="display: none;">
 						Patient is at risk for the following:<br />
-						<% List<RiskChecker> diseases = action.getDiseasesAtRisk();
-						  for (RiskChecker disease : diseases) { %>
-						  	<span ><%=disease.getName()%></span><br />
-						<% } %>
+						<% try{
+								List<RiskChecker> diseases = action.getDiseasesAtRisk();
+								for (RiskChecker disease : diseases) { %>
+						  			<span ><%=disease.getName()%></span><br />
+							<% }
+						   } catch (NoHealthRecordsException e) {
+							   %><%=e.getMessage()%><%
+						   } %>
 						<a style="font-size: 80%" href="chronicDiseaseRisks.jsp">More Information</a>
 					</div>
 				</td>

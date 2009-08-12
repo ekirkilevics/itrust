@@ -12,8 +12,8 @@ public class ConsultationTest extends iTrustHTTPTest {
 		gen.ndCodes();
 		gen.hospitals();
 		gen.hcp0();
-		gen.hcp1();
-		//gen.patient1();
+		gen.hcp3();
+		gen.patient1();
 		gen.patient2();
 		gen.patient5();
 		

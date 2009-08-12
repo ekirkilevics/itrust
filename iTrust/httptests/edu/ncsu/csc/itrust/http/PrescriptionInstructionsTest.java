@@ -12,6 +12,7 @@ public class PrescriptionInstructionsTest extends iTrustHTTPTest {
 	protected void setUp() throws Exception {
 		gen.clearAllTables();
 		gen.hcp0();
+		gen.ndCodes();
 		gen.patient1();
 		gen.patient2();
 		gen.patient4();

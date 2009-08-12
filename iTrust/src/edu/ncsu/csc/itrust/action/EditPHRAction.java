@@ -38,6 +38,7 @@ import edu.ncsu.csc.itrust.validate.AllergyBeanValidator;
  * 
  */
 public class EditPHRAction extends PatientBaseAction {
+	private DAOFactory factory;
 	private PatientDAO patientDAO;
 	private AllergyDAO allergyDAO;
 	private FamilyDAO familyDAO;
@@ -63,7 +64,7 @@ public class EditPHRAction extends PatientBaseAction {
 	 * @throws NoHealthRecordsException
 	 */
 	public EditPHRAction(DAOFactory factory, long loggedInMID, String pidString) throws iTrustException,
-			DBException, NoHealthRecordsException {
+			DBException {
 		super(factory, pidString);
 		this.patientDAO = factory.getPatientDAO();
 		this.allergyDAO = factory.getAllergyDAO();
@@ -73,11 +74,11 @@ public class EditPHRAction extends PatientBaseAction {
 		this.transDAO = factory.getTransactionDAO();
 		this.icdDAO = factory.getICDCodesDAO();
 		this.loggedInMID = loggedInMID;
-		this.diseaseMediator = new ChronicDiseaseMediator(factory, pid);
 		this.personnelDAO = factory.getPersonnelDAO();
 		this.HCPUAP = personnelDAO.getPersonnel(loggedInMID);
 		this.patient = patientDAO.getPatient(pid);
 		emailutil = new EmailUtil(factory);
+		this.factory = factory;
 	}
 
 	/**
@@ -202,7 +203,8 @@ public class EditPHRAction extends PatientBaseAction {
 	 * @throws iTrustException
 	 * @throws DBException
 	 */
-	public List<RiskChecker> getDiseasesAtRisk() throws iTrustException, DBException {
+	public List<RiskChecker> getDiseasesAtRisk() throws NoHealthRecordsException,iTrustException,DBException {
+		this.diseaseMediator = new ChronicDiseaseMediator(factory, pid);
 		transDAO.logTransaction(TransactionType.IDENTIFY_RISK_FACTORS, loggedInMID, pid, "Check for risk factors");
 		return diseaseMediator.getDiseaseAtRisk();
 	}

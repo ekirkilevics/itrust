@@ -149,3 +149,7 @@ VALUES
 	(1028, 1028, "90649"),
 	(1029, 1029, "90649"),
 	(1030, 1030, "90649");
+	
+INSERT INTO PersonalHealthInformation
+(PatientID,Height,Weight,Smoker,BloodPressureN,BloodPressureD,CholesterolHDL,CholesterolLDL,CholesterolTri,HCPID, AsOfDate)
+VALUES ( 5,  60,   200,   0,      190,          100,           500,             239,         290,          9000000000, '2007-06-07 20:33:58');
