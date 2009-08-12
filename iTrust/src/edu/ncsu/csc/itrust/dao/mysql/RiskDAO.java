@@ -69,7 +69,6 @@ public class RiskDAO {
 	public boolean hadChildhoodInfection(long patientID, double... icdCodes) throws DBException {
 		// Note the datediff call - this is a MySQL function that takes the difference between two
 		// dates and returns that value in terms of days. 6570 days is 18 years (not counting leap years)
-		// TODO Use a range
 		Connection conn = null;
 		PreparedStatement ps = null;
 		try {
