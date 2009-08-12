@@ -37,7 +37,7 @@ CREATE TABLE Personnel(
 	specialty varchar(40) default NULL,
 	email varchar(55)  default '', 
 	PRIMARY KEY  (MID)
-) ENGINE=MyISAM;
+) auto_increment=9000000000 ENGINE=MyISAM;
 
 CREATE TABLE Patients(
 	MID BIGINT unsigned  auto_increment, 
@@ -292,5 +292,5 @@ CREATE TABLE referrals (
 	ConsultationDetails             TEXT,
 	Status						ENUM('Pending','Finished', 'Declined'),
 	PRIMARY KEY (id)
-) ENGINE=MyISAM;
+) AUTO_INCREMENT=1 ENGINE=MyISAM;
 

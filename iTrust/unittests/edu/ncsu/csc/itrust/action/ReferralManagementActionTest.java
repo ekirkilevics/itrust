@@ -23,7 +23,6 @@ public class ReferralManagementActionTest extends TestCase {
 		gen.hcp0();
 		gen.hcp3();
 		gen.patient1();
-
 	}
 
 	public void testSend() throws Exception {
@@ -40,6 +39,7 @@ public class ReferralManagementActionTest extends TestCase {
 		List<ReferralBean> list = action.getReferralsSentFromMe();
 		
 		assertEquals(1, list.size());
+		r.setId(list.get(0).getId());//don't care about the ID - it's auto-increment
 		assertEquals(r, list.get(0));
 		
 	}
@@ -47,7 +47,6 @@ public class ReferralManagementActionTest extends TestCase {
 	public void testSendAndReceive() throws Exception {
 		action = new ReferralManagementAction(factory, hcp0);
 		ReferralBean r = new ReferralBean();
-		r.setId(1);
 		r.setSenderID(hcp0);
 		r.setReceiverID(hcp3);
 		r.setPatientID(patient1);
@@ -60,6 +59,7 @@ public class ReferralManagementActionTest extends TestCase {
 		List<ReferralBean> list = action.getReferralsSentToMe();
 		
 		assertEquals(1, list.size());
+		r.setId(list.get(0).getId());//don't care about the ID - it's auto-increment
 		assertEquals(r, list.get(0));
 		
 	}
@@ -78,6 +78,7 @@ public class ReferralManagementActionTest extends TestCase {
 		List<ReferralBean> list = action.getReferralsSentFromMe();
 		
 		assertEquals(1, list.size());
+		r.setId(list.get(0).getId());//don't care about the ID - it's auto-increment
 		assertEquals(r, list.get(0));
 		
 		r.setConsultationDetails("These are consulation details");

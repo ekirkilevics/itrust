@@ -1,4 +1,4 @@
-DELETE FROM DeclaredHCP;
+DELETE FROM DeclaredHCP /* Please use DELETE FROM and not TRUNCATE, otherwise the auto_increment start value gets wiped out */; 
 DELETE FROM FakeEmail;
 DELETE FROM GlobalVariables;
 DELETE FROM HCPAssignedHos;

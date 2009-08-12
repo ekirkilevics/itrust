@@ -85,62 +85,14 @@ public class PersonnelDAO {
 	public long addEmptyPersonnel(Role role) throws DBException, iTrustException {
 		Connection conn = null;
 		PreparedStatement ps = null;
-		ResultSet rs = null;
 		long newID;
 
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("SELECT MAX(MID) FROM Personnel WHERE MID > 8999999999");
-			rs = ps.executeQuery();
-			newID = rs.next() ? rs.getLong(1) : 8999999999l;
-
-			ps = conn.prepareStatement("INSERT INTO Personnel(MID,Role) VALUES(?,?)");
-			ps.setLong(1, ++newID);
-			ps.setString(2, role.name());
+			ps = conn.prepareStatement("INSERT INTO Personnel(Role) VALUES(?)");
+			ps.setString(1, role.name());
 			ps.executeUpdate();
-			return newID;
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new DBException(e);
-		} finally {
-			DBUtil.closeConnection(conn, ps);
-		}
-	}
-
-	/**
-	 * Add an empty personnel, and the person's boss. Returns the new MID
-	 * 
-	 * @param amid
-	 * @return
-	 * @throws DBException
-	 * @throws iTrustException
-	 */
-	public long addEmptyPersonnel(long amid) throws DBException, iTrustException {
-		Connection conn = null;
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-		String tableRole = "";
-		long newID;
-
-		try {
-			// TODO Use getLastInsert() instead
-			/* QUERY WORKS UNLESS WE RUN OUT OF UAP IDs... */
-			conn = factory.getConnection();
-			ps = conn.prepareStatement("SELECT MAX(MID) FROM Personnel WHERE MID < 9000000000");
-			rs = ps.executeQuery();
-			newID = rs.next() ? rs.getLong(1) : 7999999999l;
-			if (0 == newID)
-				newID = 7999999999l;
-			tableRole = "uap";
-
-			ps = conn.prepareStatement("INSERT INTO Personnel(MID, Role) VALUES(?, ?)");
-			ps.setLong(1, ++newID);
-			ps.setString(2, tableRole);
-			ps.executeUpdate();
-			ps = conn.prepareStatement("INSERT INTO HCPRelations(HCP, UAP) VALUES(?, ?)");
-			ps.setLong(1, amid);
-			ps.setLong(2, newID);
-			ps.executeUpdate();
+			newID = DBUtil.getLastInsert(conn);
 			return newID;
 		} catch (SQLException e) {
 			e.printStackTrace();

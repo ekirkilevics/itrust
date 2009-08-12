@@ -23,15 +23,6 @@ public class PersonnelDAOExceptionTest extends TestCase {
 		}
 	}
 
-	public void testAddEmptyPersonnelAMIDException() throws Exception {
-		try {
-			evilDAO.addEmptyPersonnel(0L);
-			fail("DBException should have been thrown");
-		} catch (DBException e) {
-			assertEquals(EvilDAOFactory.MESSAGE, e.getSQLException().getMessage());
-		}
-	}
-
 	public void testCheckPersonnelExistsException() throws Exception {
 		try {
 			evilDAO.checkPersonnelExists(0L);

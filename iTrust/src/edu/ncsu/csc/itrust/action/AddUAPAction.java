@@ -52,7 +52,7 @@ public class AddUAPAction {
 	 */
 	public long add(PersonnelBean p) throws FormValidationException, iTrustException {
 		new AddPersonnelValidator().validate(p);
-		long newMID = personnelDAO.addEmptyPersonnel(loggedInMID);
+		long newMID = personnelDAO.addEmptyPersonnel(Role.UAP);
 		p.setMID(newMID);
 		personnelDAO.editPersonnel(p);
 		String pwd = authDAO.addUser(newMID, Role.UAP, RandomPassword.getRandomPassword());
