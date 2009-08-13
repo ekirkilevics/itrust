@@ -3,6 +3,13 @@ package edu.ncsu.csc.itrust.beans.forms;
 import java.util.ArrayList;
 import edu.ncsu.csc.itrust.beans.VisitFlag;
 
+/**
+ * A form to contain data coming from reminding a user about an upcoming office visit.
+ * 
+ * A form is a bean, kinda. You could say that it's a “form” of a bean :) 
+ * Think of a form as a real-life administrative form that you would fill out to get 
+ * something done, not necessarily making sense by itself.
+ */
 public class VisitReminderReturnForm {
 
 	private long hcpID;

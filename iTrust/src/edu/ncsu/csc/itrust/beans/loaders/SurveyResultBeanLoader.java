@@ -6,7 +6,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import edu.ncsu.csc.itrust.beans.SurveyResultBean;
-
+/**
+ * A loader for SurveyResultBeans.
+ * 
+ * Loads in information to/from beans using ResultSets and PreparedStatements. Use the superclass to enforce consistency. 
+ * For details on the paradigm for a loader (and what its methods do), see {@link BeanLoader}
+ */
 public class SurveyResultBeanLoader implements BeanLoader<SurveyResultBean> {
 
 	public List<SurveyResultBean> loadList(ResultSet rs) throws SQLException {

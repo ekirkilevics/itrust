@@ -7,6 +7,12 @@ import java.util.ArrayList;
 import java.util.List;
 import edu.ncsu.csc.itrust.beans.HealthRecord;
 
+/**
+ * A loader for HealthRecords.
+ * 
+ * Loads in information to/from beans using ResultSets and PreparedStatements. Use the superclass to enforce consistency. 
+ * For details on the paradigm for a loader (and what its methods do), see {@link BeanLoader}
+ */
 public class HealthRecordsBeanLoader implements BeanLoader<HealthRecord> {
 	public List<HealthRecord> loadList(ResultSet rs) throws SQLException {
 		ArrayList<HealthRecord> list = new ArrayList<HealthRecord>();

@@ -1,5 +1,12 @@
 package edu.ncsu.csc.itrust.beans.forms;
 
+/**
+ * A form to contain data coming from editing an office visit.
+ * 
+ * A form is a bean, kinda. You could say that it's a “form” of a bean :) 
+ * Think of a form as a real-life administrative form that you would fill out to get 
+ * something done, not necessarily making sense by itself.
+ */
 public class EditOfficeVisitForm {
 	private String ovID;
 	private String hcpID;

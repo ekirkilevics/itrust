@@ -4,6 +4,14 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * A bean for storing survey data associated with an office visit.
+ * 
+ * A bean's purpose is to store data. Period. Little or no functionality is to be added to a bean 
+ * (with the exception of minor formatting such as concatenating phone numbers together). 
+ * A bean must only have Getters and Setters (Eclipse Hint: Use Source > Generate Getters and Setters… 
+ * to create these easily)
+ */
 public class SurveyBean {
 	private long visitID;
 	private Date surveyDate;

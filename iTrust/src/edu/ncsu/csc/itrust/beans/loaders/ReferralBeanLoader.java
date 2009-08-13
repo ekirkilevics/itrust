@@ -8,6 +8,12 @@ import java.util.List;
 import edu.ncsu.csc.itrust.beans.ReferralBean;
 import edu.ncsu.csc.itrust.beans.ReferralBean.ReferralStatus;
 
+/**
+ * A loader for ReferralBeans.
+ * 
+ * Loads in information to/from beans using ResultSets and PreparedStatements. Use the superclass to enforce consistency. 
+ * For details on the paradigm for a loader (and what its methods do), see {@link BeanLoader}
+ */
 public class ReferralBeanLoader implements BeanLoader<ReferralBean> {
 
 	public ReferralBeanLoader() {

@@ -2,6 +2,14 @@ package edu.ncsu.csc.itrust.beans;
 
 import java.sql.Date;
 
+/**
+ * A bean for storing data about a procedure.
+ * 
+ * A bean's purpose is to store data. Period. Little or no functionality is to be added to a bean 
+ * (with the exception of minor formatting such as concatenating phone numbers together). 
+ * A bean must only have Getters and Setters (Eclipse Hint: Use Source > Generate Getters and Setters… 
+ * to create these easily)
+ */
 public class ProcedureBean {
 	private long ovProcedureID = 0L;
 	private String CPTCode;

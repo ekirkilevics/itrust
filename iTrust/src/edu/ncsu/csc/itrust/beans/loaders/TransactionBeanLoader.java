@@ -8,6 +8,12 @@ import java.util.List;
 import edu.ncsu.csc.itrust.beans.TransactionBean;
 import edu.ncsu.csc.itrust.enums.TransactionType;
 
+/**
+ * A loader for TransactionBeans.
+ * 
+ * Loads in information to/from beans using ResultSets and PreparedStatements. Use the superclass to enforce consistency. 
+ * For details on the paradigm for a loader (and what its methods do), see {@link BeanLoader}
+ */
 public class TransactionBeanLoader implements BeanLoader<TransactionBean> {
 
 	public List<TransactionBean> loadList(ResultSet rs) throws SQLException {

@@ -1,5 +1,12 @@
 package edu.ncsu.csc.itrust.beans.forms;
 
+/**
+ * A form to contain data coming from editing a health record.
+ * 
+ * A form is a bean, kinda. You could say that it's a “form” of a bean :) 
+ * Think of a form as a real-life administrative form that you would fill out to get 
+ * something done, not necessarily making sense by itself.
+ */
 public class HealthRecordForm {
 	private String height = "0.0";
 	private String weight = "0.0";

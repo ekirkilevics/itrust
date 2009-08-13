@@ -7,7 +7,12 @@ import java.util.ArrayList;
 import java.util.List;
 import edu.ncsu.csc.itrust.beans.LabProcedureBean;
 
-
+/**
+ * A loader for LabProcedureBeans.
+ * 
+ * Loads in information to/from beans using ResultSets and PreparedStatements. Use the superclass to enforce consistency. 
+ * For details on the paradigm for a loader (and what its methods do), see {@link BeanLoader}
+ */
 public class LabProcedureBeanLoader implements BeanLoader<LabProcedureBean> {
 	
 	public List<LabProcedureBean> loadList(ResultSet rs) throws SQLException {

@@ -8,6 +8,14 @@ import edu.ncsu.csc.itrust.enums.BloodType;
 import edu.ncsu.csc.itrust.enums.Ethnicity;
 import edu.ncsu.csc.itrust.enums.Gender;
 
+/**
+ * A bean for storing data about a patient.
+ * 
+ * A bean's purpose is to store data. Period. Little or no functionality is to be added to a bean 
+ * (with the exception of minor formatting such as concatenating phone numbers together). 
+ * A bean must only have Getters and Setters (Eclipse Hint: Use Source > Generate Getters and Setters… 
+ * to create these easily)
+ */
 public class PatientBean implements Serializable {
 	private static final long serialVersionUID = -6474182977342257877L;
 	

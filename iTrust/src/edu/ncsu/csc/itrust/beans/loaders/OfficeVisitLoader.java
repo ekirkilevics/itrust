@@ -9,6 +9,12 @@ import java.util.Date;
 import java.util.List;
 import edu.ncsu.csc.itrust.beans.OfficeVisitBean;
 
+/**
+ * A loader for OfficeVisitBeans.
+ * 
+ * Loads in information to/from beans using ResultSets and PreparedStatements. Use the superclass to enforce consistency. 
+ * For details on the paradigm for a loader (and what its methods do), see {@link BeanLoader}
+ */
 public class OfficeVisitLoader implements BeanLoader<OfficeVisitBean> {
 	public List<OfficeVisitBean> loadList(ResultSet rs) throws SQLException {
 		List<OfficeVisitBean> list = new ArrayList<OfficeVisitBean>();

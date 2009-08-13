@@ -4,6 +4,14 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A bean for storing data about Fake Emails.
+ * 
+ * A bean's purpose is to store data. Period. Little or no functionality is to be added to a bean 
+ * (with the exception of minor formatting such as concatenating phone numbers together). 
+ * A bean must only have Getters and Setters (Eclipse Hint: Use Source > Generate Getters and Setters… 
+ * to create these easily)
+ */
 public class Email {
 	private List<String> toList = new ArrayList<String>();
 	private String from = "";

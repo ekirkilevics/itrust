@@ -8,6 +8,12 @@ import java.util.Arrays;
 import java.util.List;
 import edu.ncsu.csc.itrust.beans.Email;
 
+/**
+ * A loader for Fake Emails.
+ * 
+ * Loads in information to/from beans using ResultSets and PreparedStatements. Use the superclass to enforce consistency. 
+ * For details on the paradigm for a loader (and what its methods do), see {@link BeanLoader}
+ */
 public class EmailBeanLoader implements BeanLoader<Email> {
 
 	public List<Email> loadList(ResultSet rs) throws SQLException {

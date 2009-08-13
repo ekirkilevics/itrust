@@ -4,6 +4,14 @@ import edu.ncsu.csc.itrust.enums.Role;
 import java.io.Serializable;
 import java.util.List;
 
+/**
+ * A bean for storing data about a hospital employee.
+ * 
+ * A bean's purpose is to store data. Period. Little or no functionality is to be added to a bean 
+ * (with the exception of minor formatting such as concatenating phone numbers together). 
+ * A bean must only have Getters and Setters (Eclipse Hint: Use Source > Generate Getters and Setters… 
+ * to create these easily)
+ */
 public class PersonnelBean implements Serializable {
 	private static final long serialVersionUID = 6575544592646001050L;
 	

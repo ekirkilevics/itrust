@@ -7,7 +7,12 @@ import java.util.List;
 import edu.ncsu.csc.itrust.beans.SurveyBean;
 
 
-
+/**
+ * A loader for SurveyBeans.
+ * 
+ * Loads in information to/from beans using ResultSets and PreparedStatements. Use the superclass to enforce consistency. 
+ * For details on the paradigm for a loader (and what its methods do), see {@link BeanLoader}
+ */
 public class SurveyLoader implements BeanLoader<SurveyBean>{
 
 	public List<SurveyBean> loadList(ResultSet rs) throws SQLException {

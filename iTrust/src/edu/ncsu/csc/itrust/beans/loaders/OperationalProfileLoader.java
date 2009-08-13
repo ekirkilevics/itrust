@@ -7,6 +7,12 @@ import java.util.List;
 import edu.ncsu.csc.itrust.beans.OperationalProfile;
 import edu.ncsu.csc.itrust.enums.TransactionType;
 
+/**
+ * A loader for the operational profile.
+ * 
+ * Loads in information to/from beans using ResultSets and PreparedStatements. Use the superclass to enforce consistency. 
+ * For details on the paradigm for a loader (and what its methods do), see {@link BeanLoader}
+ */
 public class OperationalProfileLoader implements BeanLoader<OperationalProfile> {
 	public List<OperationalProfile> loadList(ResultSet rs) throws SQLException {
 		throw new IllegalStateException("unimplemented!");

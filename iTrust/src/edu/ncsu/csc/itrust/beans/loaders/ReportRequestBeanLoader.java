@@ -8,6 +8,12 @@ import java.util.List;
 import edu.ncsu.csc.itrust.beans.ReportRequestBean;
 
 
+/**
+ * A loader for ReportRequestBeans.
+ * 
+ * Loads in information to/from beans using ResultSets and PreparedStatements. Use the superclass to enforce consistency. 
+ * For details on the paradigm for a loader (and what its methods do), see {@link BeanLoader}
+ */
 public class ReportRequestBeanLoader implements BeanLoader<ReportRequestBean> {
 
 	public List<ReportRequestBean> loadList(ResultSet rs) throws SQLException {

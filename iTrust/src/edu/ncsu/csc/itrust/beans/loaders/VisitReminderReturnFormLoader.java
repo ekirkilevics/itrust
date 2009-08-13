@@ -7,6 +7,12 @@ import java.util.ArrayList;
 import java.util.List;
 import edu.ncsu.csc.itrust.beans.forms.VisitReminderReturnForm;
 
+/**
+ * A loader for VisitReminderReturnForms.
+ * 
+ * Loads in information to/from beans using ResultSets and PreparedStatements. Use the superclass to enforce consistency. 
+ * For details on the paradigm for a loader (and what its methods do), see {@link BeanLoader}
+ */
 public class VisitReminderReturnFormLoader implements BeanLoader<VisitReminderReturnForm> {
 
 	public List<VisitReminderReturnForm> loadList(ResultSet rs) throws SQLException {

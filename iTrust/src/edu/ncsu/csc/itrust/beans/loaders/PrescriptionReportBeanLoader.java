@@ -7,6 +7,12 @@ import java.util.ArrayList;
 import java.util.List;
 import edu.ncsu.csc.itrust.beans.PrescriptionReportBean;
 
+/**
+ * A loader for PrescriptionReportBeans.
+ * 
+ * Loads in information to/from beans using ResultSets and PreparedStatements. Use the superclass to enforce consistency. 
+ * For details on the paradigm for a loader (and what its methods do), see {@link BeanLoader}
+ */
 public class PrescriptionReportBeanLoader implements BeanLoader<PrescriptionReportBean> {
 	private PrescriptionBeanLoader presLoader;
 	private OfficeVisitLoader ovLoader;

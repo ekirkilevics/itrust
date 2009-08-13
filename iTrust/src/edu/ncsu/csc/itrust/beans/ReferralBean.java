@@ -1,8 +1,13 @@
 package edu.ncsu.csc.itrust.beans;
 
-
-
-
+/**
+ * A bean for storing data about a medical referral.
+ * 
+ * A bean's purpose is to store data. Period. Little or no functionality is to be added to a bean 
+ * (with the exception of minor formatting such as concatenating phone numbers together). 
+ * A bean must only have Getters and Setters (Eclipse Hint: Use Source > Generate Getters and Setters… 
+ * to create these easily)
+ */
 public class ReferralBean {
 	private long id = 0L;
 	private long patientID = 0L;

@@ -3,6 +3,14 @@ package edu.ncsu.csc.itrust.beans;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * A bean for storing data about Allergies.
+ * 
+ * A bean's purpose is to store data. Period. Little or no functionality is to be added to a bean 
+ * (with the exception of minor formatting such as concatenating phone numbers together). 
+ * A bean must only have Getters and Setters (Eclipse Hint: Use Source > Generate Getters and Setters… 
+ * to create these easily)
+ */
 public class AllergyBean {
 	private long id;
 	private long patientID;

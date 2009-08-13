@@ -3,6 +3,14 @@ package edu.ncsu.csc.itrust.beans;
 import java.sql.Timestamp;
 import edu.ncsu.csc.itrust.enums.TransactionType;
 
+/**
+ * A bean for storing data about a transaction that occured within iTrust.
+ * 
+ * A bean's purpose is to store data. Period. Little or no functionality is to be added to a bean 
+ * (with the exception of minor formatting such as concatenating phone numbers together). 
+ * A bean must only have Getters and Setters (Eclipse Hint: Use Source > Generate Getters and Setters… 
+ * to create these easily)
+ */
 public class TransactionBean {
 	private long transactionID;
 	private long loggedInMID;

@@ -4,6 +4,14 @@ import java.sql.Timestamp;
 
 
 
+/**
+ * A bean for storing data about a lab procedure.
+ * 
+ * A bean's purpose is to store data. Period. Little or no functionality is to be added to a bean 
+ * (with the exception of minor formatting such as concatenating phone numbers together). 
+ * A bean must only have Getters and Setters (Eclipse Hint: Use Source > Generate Getters and Setters… 
+ * to create these easily)
+ */
 public class LabProcedureBean {
 	
 	public final static String Not_Received = "NOT YET RECEIVED";

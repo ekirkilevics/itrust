@@ -7,6 +7,12 @@ import java.util.ArrayList;
 import java.util.List;
 import edu.ncsu.csc.itrust.beans.FamilyMemberBean;
 
+/**
+ * A loader for FamilyMemberBeans.
+ * 
+ * Loads in information to/from beans using ResultSets and PreparedStatements. Use the superclass to enforce consistency. 
+ * For details on the paradigm for a loader (and what its methods do), see {@link BeanLoader}
+ */
 public class FamilyBeanLoader implements BeanLoader<FamilyMemberBean> {
 	private String relation;
 
