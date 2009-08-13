@@ -13,8 +13,11 @@ import edu.ncsu.csc.itrust.validate.MedicationBeanValidator;
 /**
  * Handles updating the ND Code (Prescription) List Used by editNDCodes.jsp
  * 
- * @author laurenhayward
+ * The National Drug Code (NDC) is a universal product identifier used in the
+ * United States for drugs intended for human use.
  * 
+ * @see http://www.fda.gov/Drugs/InformationOnDrugs/ucm142438.htm
+ * @author laurenhayward
  */
 public class UpdateNDCodeListAction {
 	private long performerID = 0;

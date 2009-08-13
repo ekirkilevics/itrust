@@ -13,6 +13,11 @@ import edu.ncsu.csc.itrust.validate.LOINCBeanValidator;
 
 /**
  * Handles updating the LOINC Used
+ * 
+ * Logical Observation Identifiers Names and Codes (LOINC) is a database and universal
+ *  standard for identifying medical laboratory observations. 
+ *  
+ * @see http://loinc.org/
  */
 public class UpdateLabProcListAction {
 	private long performerID = 0;

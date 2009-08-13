@@ -13,8 +13,13 @@ import edu.ncsu.csc.itrust.validate.ProcedureBeanValidator;
 /**
  * Updates the CPT Code (Medical Procedures) List Used by editCPTProcedureCodes.jsp
  * 
+ * The CPT code set accurately describes medical, surgical, and diagnostic services 
+ * and is designed to communicate uniform information about medical services and procedures 
+ * among physicians, coders, patients, accreditation organizations, and payers for administrative, 
+ * financial, and analytical purposes.
+ *
+ * @see http://www.ama-assn.org/ama/pub/physician-resources/solutions-managing-your-practice/coding-billing-insurance/cpt/about-cpt.shtml
  * @author laurenhayward
- * 
  */
 public class UpdateCPTCodeListAction {
 	private long loggedInMID;

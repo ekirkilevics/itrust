@@ -23,6 +23,10 @@ import edu.ncsu.csc.itrust.exception.iTrustException;
  * accessed by DAOFactory (@see {@link DAOFactory}) and every DAO should have a factory - for obtaining JDBC
  * connections and/or accessing other DAOs.
  * 
+ * The National Drug Code (NDC) is a universal product identifier used in the
+ * United States for drugs intended for human use.
+ * 
+ * @see http://www.fda.gov/Drugs/InformationOnDrugs/ucm142438.htm
  * @author Andy
  * 
  */

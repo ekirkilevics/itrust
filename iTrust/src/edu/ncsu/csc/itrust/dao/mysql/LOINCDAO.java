@@ -12,6 +12,21 @@ import edu.ncsu.csc.itrust.dao.DAOFactory;
 import edu.ncsu.csc.itrust.exception.DBException;
 import edu.ncsu.csc.itrust.exception.iTrustException;
 
+/**
+ * DAO stands for Database Access Object. All DAOs are intended to be reflections of the database, that is,
+ * one DAO per table in the database (most of the time). For more complex sets of queries, extra DAOs are
+ * added. DAOs can assume that all data has been validated and is correct.
+ * 
+ * DAOs should never have setters or any other parameter to the constructor than a factory. All DAOs should be
+ * accessed by DAOFactory (@see {@link DAOFactory}) and every DAO should have a factory - for obtaining JDBC
+ * connections and/or accessing other DAOs.
+ * 
+ * Logical Observation Identifiers Names and Codes (LOINC) is a database and universal
+ *  standard for identifying medical laboratory observations. 
+ *  
+ * @see http://loinc.org/
+ * @author Ben Smith
+ */
 public class LOINCDAO {
 	private DAOFactory factory;
 	private LOINCBeanLoader LOINCLoader;

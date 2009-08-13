@@ -13,6 +13,12 @@ import edu.ncsu.csc.itrust.validate.DiagnosisBeanValidator;
 /**
  * Handles updating the ICD Code (Diagnosis) List Used by editICDCodes.jsp
  * 
+ * The International Statistical Classification of Diseases and Related Health Problems 
+ * (most commonly known by the abbreviation ICD) provides codes to classify diseases and a 
+ * wide variety of signs, symptoms, abnormal findings, complaints, social circumstances and 
+ * external causes of injury or disease. 
+ * 
+ * @see http://www.cdc.gov/nchs/icd9.htm
  * @author laurenhayward
  * 
  */
