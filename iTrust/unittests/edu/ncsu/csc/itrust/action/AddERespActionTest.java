@@ -4,10 +4,8 @@
 
 package edu.ncsu.csc.itrust.action;
 
-import java.util.List;
 import junit.framework.TestCase;
 import edu.ncsu.csc.itrust.beans.PersonnelBean;
-import edu.ncsu.csc.itrust.beans.TransactionBean;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
 import edu.ncsu.csc.itrust.datagenerators.TestDataGenerator;
 import edu.ncsu.csc.itrust.testutils.TestDAOFactory;

@@ -19,6 +19,7 @@ public class ICDCodeProperties {
 			pc = new PropertiesConfiguration(filename); //"../../META-INF/properties.txt");
 			dbm = pc.getInt("diabetes_mellitus");
 			asthma = pc.getInt("asthma");
+			@SuppressWarnings("unchecked")
 			List<String> csd = pc.getList("circulatory_system_disease");
 			csd_start = Float.parseFloat(csd.get(0));
 			csd_end = Float.parseFloat(csd.get(1))-0.01f;
