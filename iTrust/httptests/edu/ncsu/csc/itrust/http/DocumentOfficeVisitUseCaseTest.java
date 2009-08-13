@@ -70,7 +70,6 @@ public class DocumentOfficeVisitUseCaseTest extends iTrustHTTPTest {
 		assertEquals("iTrust - Document Office Visit", wr.getTitle());
 		assertTrue(wr.getText().contains("Information Updated Successfully"));
 		wt = wr.getTableStartingWith("Laboratory Procedures");
-		System.out.println(wt.getText());
 		assertTrue(wt.getText().contains("No Laboratory Procedures on record"));
 	}
 

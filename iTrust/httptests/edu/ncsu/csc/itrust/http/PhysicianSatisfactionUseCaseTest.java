@@ -232,7 +232,6 @@ public class PhysicianSatisfactionUseCaseTest extends iTrustHTTPTest {
 		form.setParameter("hcpHospitalID", "1");
 		wr = form.submit();
 		//view current page to ensure data is correct
-		System.out.println(wr.getText());
 		assertTrue(wr.getText().contains("Data for both Zip Code and Hospital ID is not allowed.  Please choose either Zip or Hospital ID."));
 	}
 
@@ -248,7 +247,6 @@ public class PhysicianSatisfactionUseCaseTest extends iTrustHTTPTest {
 		form.setParameter("hcpZip", "123");
 		wr = form.submit();
 		//view current page to ensure data is correct
-		System.out.println(wr.getText());
 		assertTrue(wr.getText().contains("Zip Code: xxxxx or xxxxx-xxxx"));
 	}
 
@@ -264,7 +262,6 @@ public class PhysicianSatisfactionUseCaseTest extends iTrustHTTPTest {
 		form.setParameter("hcpZip", "123456");
 		wr = form.submit();
 		//view current page to ensure data is correct
-		System.out.println(wr.getText());
 		assertTrue(wr.getText().contains("Zip Code: xxxxx or xxxxx-xxxx"));
 	}
 
@@ -280,7 +277,6 @@ public class PhysicianSatisfactionUseCaseTest extends iTrustHTTPTest {
 		form.setParameter("hcpZip", "abc");
 		wr = form.submit();
 		//view current page to ensure data is correct
-		System.out.println(wr.getText());
 		assertTrue(wr.getText().contains("Zip Code: xxxxx or xxxxx-xxxx"));
 	}
 	

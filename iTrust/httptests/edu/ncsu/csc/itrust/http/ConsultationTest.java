@@ -70,8 +70,6 @@ public class ConsultationTest extends iTrustHTTPTest {
 		
 		assertTrue(wr.getText().contains("View Pending Consultations"));
 		
-		//System.out.println(wr.getText());
-		
 		assertTrue(wr.getText().contains("Kelly Doctor"));
 		
 		wr = wr.getLinkWith("edit").click();

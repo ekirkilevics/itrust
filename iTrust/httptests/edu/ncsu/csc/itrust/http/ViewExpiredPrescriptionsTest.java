@@ -39,7 +39,6 @@ public class ViewExpiredPrescriptionsTest extends iTrustHTTPTest {
 		assertFalse(wr.getText().contains("9000000000"));
 		// click on a particular office visit to check medication and diagnoses
 		wr = wr.getLinkWith("Kelly Doctor").click();  // This click does not work at the moment.
-		//System.out.println(wr.getText());
 		assertTrue(wr.getText().contains("surgeon"));
 		assertTrue(wr.getText().contains("4321 My Road St"));
 		assertTrue(wr.getText().contains("CityName"));
@@ -69,7 +68,6 @@ public class ViewExpiredPrescriptionsTest extends iTrustHTTPTest {
 		assertFalse(wr.getText().contains("9900000000"));
 		// click on a particular office visit to check medication and diagnoses
 		wr = wr.getLinkWith("Tester Arehart").click();  // This click does not work at the moment.
-		//System.out.println(wr.getText());
 		assertTrue(wr.getText().contains("Neurologist"));
 		assertTrue(wr.getText().contains("2110 Thanem Circle"));
 		assertTrue(wr.getText().contains("Raleigh"));
@@ -99,7 +97,6 @@ public class ViewExpiredPrescriptionsTest extends iTrustHTTPTest {
 		assertFalse(wr.getText().contains("9900000000"));
 		// click on a particular office visit to check medication and diagnoses
 		wr = wr.getLinkWith("Kelly Doctor").click();  // This click does not work at the moment.
-		//System.out.println(wr.getText());
 		assertTrue(wr.getText().contains("surgeon"));
 		assertTrue(wr.getText().contains("4321 My Road St"));
 		assertTrue(wr.getText().contains("CityName"));
@@ -129,7 +126,6 @@ public class ViewExpiredPrescriptionsTest extends iTrustHTTPTest {
 		assertFalse(wr.getText().contains("9900000000"));
 		// click on a particular office visit to check medication and diagnoses
 		wr = wr.getLinkWith("Jimmy Incomplete").click();  // This click does not work at the moment.
-		//System.out.println(wr.getText());
 		assertFalse(wr.getText().contains("null"));
 		assertFalse(wr.getText().contains("--"));
 		assertFalse(wr.getText().contains("AK"));

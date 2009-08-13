@@ -78,7 +78,6 @@ public class EditDemographicsTest extends iTrustHTTPTest {
 		form.setParameter("zip1", "28562");
 		form.getSubmitButtons()[0].click();
 		wr = wc.getCurrentPage();
-		System.out.println(wr.getText());
 		assertTrue(wr.getText().contains("Information Successfully Updated"));
 	}
 
