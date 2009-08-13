@@ -4,12 +4,16 @@
 
 package edu.ncsu.csc.itrust.action;
 
+import java.util.List;
 import junit.framework.TestCase;
 import edu.ncsu.csc.itrust.beans.PersonnelBean;
+import edu.ncsu.csc.itrust.beans.TransactionBean;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
 import edu.ncsu.csc.itrust.datagenerators.TestDataGenerator;
 import edu.ncsu.csc.itrust.testutils.TestDAOFactory;
 import edu.ncsu.csc.itrust.enums.Role;
+import edu.ncsu.csc.itrust.enums.TransactionType;
+import static edu.ncsu.csc.itrust.testutils.JUnitiTrustUtils.assertTransactionOnly;
 
 public class AddERespActionTest extends TestCase {
 
@@ -24,8 +28,8 @@ public class AddERespActionTest extends TestCase {
 	@Override
 	protected void setUp() throws Exception {
 		gen = new TestDataGenerator();
-		gen.admin1();
-		gen.hcp0();
+		gen.clearAllTables();
+		gen.standardData();
 		action = new AddERespAction(factory, 9000000000L);
 	}
 	
@@ -40,7 +44,8 @@ public class AddERespActionTest extends TestCase {
 		person.setLastName("Medic");
 		person.setEmail("Paramedic@itrust.com");
 		long newMID = action.add(person);
-		assertEquals(person.getMID(), newMID);		
+		assertEquals(person.getMID(), newMID);
+		assertTransactionOnly(TransactionType.CREATE_DISABLE_ER, 9000000000L, newMID, "Added New ER");
 	}
 	
 }

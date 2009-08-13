@@ -37,7 +37,8 @@ public enum TransactionType {
 	UPDATE_OFFICE_VISIT(39, "Update an Office Visit"),
 	SEND_MESSAGE(40, "Send a Message"),
 	VIEW_RENEWAL_NEEDS_PATIENTS(41, "View renewal needs patients"),
-	SEND_REFERRAL(42, "Refer patient to hcp");
+	SEND_REFERRAL(42, "Refer patient to hcp"),
+	CREATE_DISABLE_ER(43, "Create/disable emergency responder");
 
 	
 	// S1, S3, S5, S7, S8, S14, S16, S19, S21, S22.

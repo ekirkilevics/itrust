@@ -61,9 +61,8 @@ public class AddERespAction {
 		personnelDAO.editPersonnel(p);
 		String pwd = authDAO.addUser(newMID, Role.ER, RandomPassword.getRandomPassword());
 		p.setPassword(pwd);
-		
-		// TODO: UC 12 needs to be updated for Emergency Responder
-		transDAO.logTransaction(TransactionType.CREATE_DISABLE_PATIENT_HCP, loggedInMID, newMID, "Added New" + p.getRole().name());
+
+		transDAO.logTransaction(TransactionType.CREATE_DISABLE_ER, loggedInMID, newMID, "Added New " + p.getRole().name());
 		return newMID;
 	}
 
