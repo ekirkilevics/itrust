@@ -1,3 +1,0 @@
-diabetes_mellitus = 10
-asthma = 15
-circulatory_system_disease = 20,30

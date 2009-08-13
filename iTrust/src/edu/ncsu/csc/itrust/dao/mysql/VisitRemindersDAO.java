@@ -13,7 +13,6 @@ import edu.ncsu.csc.itrust.beans.forms.VisitReminderReturnForm;
 import edu.ncsu.csc.itrust.beans.loaders.VisitReminderReturnFormLoader;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
 import edu.ncsu.csc.itrust.exception.DBException;
-import edu.ncsu.csc.itrust.utilities.ICDCodeProperties;
 
 /**
  * Used for queries related to patient reminders
@@ -147,20 +146,15 @@ public class VisitRemindersDAO {
 					+ " p.lastName, p.firstName, ov.PatientID ");
 
 			ps.setLong(1, hcpid);
-//			ps.setLong(2, hcpid);
 			
-			ICDCodeProperties prop = new ICDCodeProperties("../../META-INF/properties.txt");
-			ps.setFloat(2, prop.getICDForDiabetesMellitus());
-			ps.setFloat(3, prop.getICDForDiabetesMellitus()+0.99f);
+			ps.setFloat(2, 250.0f);
+			ps.setFloat(3, 250.99f);
 				
-			ps.setFloat(4, prop.getStartICDForCirculatorySystemDisease());
-			ps.setFloat(5, prop.getEndICDForCirculatorySystemDisease());
+			ps.setFloat(4, 390.0f);
+			ps.setFloat(5, 459.99f);
 				
-			ps.setFloat(6, prop.getICDForAsthma());
-			ps.setFloat(7, prop.getICDForAsthma()+0.99f);
-			
-
-
+			ps.setFloat(6, 493.0f);
+			ps.setFloat(7, 493.99f);
 			
 			rs = ps.executeQuery();
 			List<VisitReminderReturnForm> patients = new ArrayList<VisitReminderReturnForm>();

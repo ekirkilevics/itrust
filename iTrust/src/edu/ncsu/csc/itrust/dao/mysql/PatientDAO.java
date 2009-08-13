@@ -20,7 +20,6 @@ import edu.ncsu.csc.itrust.beans.loaders.ProcedureBeanLoader;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
 import edu.ncsu.csc.itrust.exception.DBException;
 import edu.ncsu.csc.itrust.exception.iTrustException;
-import edu.ncsu.csc.itrust.utilities.ICDCodeProperties;
 import edu.ncsu.csc.itrust.DateUtil;
 
 /**
@@ -701,15 +700,14 @@ public class PatientDAO {
 			
 			ps.setLong(1, hcpMID);
 			
-			ICDCodeProperties prop = new ICDCodeProperties("../../META-INF/properties.txt");
-			ps.setFloat(2, prop.getICDForDiabetesMellitus());
-			ps.setFloat(3, prop.getICDForDiabetesMellitus()+1.0f);
+			ps.setFloat(2, 250.0f);
+			ps.setFloat(3, 251.0f);
 				
-			ps.setFloat(4, prop.getICDForAsthma());
-			ps.setFloat(5, prop.getICDForAsthma()+1.0f);
+			ps.setFloat(4, 493.0f);
+			ps.setFloat(5, 494.0f);
 			
-			ps.setFloat(6, prop.getStartICDForCirculatorySystemDisease());
-			ps.setFloat(7, prop.getEndICDForCirculatorySystemDisease()+1.0f);
+			ps.setFloat(6, 390.0f);
+			ps.setFloat(7, 460.99f);
 
 			ps.setLong(8, hcpMID);
 			

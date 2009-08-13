@@ -1,3 +1,0 @@
-diabetes_mellitus = 250
-asthma = 493
-circulatory_system_disease = 390,460
