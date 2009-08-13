@@ -17,6 +17,10 @@ public class ReportRequestDAO {
 	private DAOFactory factory;
 	private ReportRequestBeanLoader loader;
 
+	/**
+	 * The typical constructor.
+	 * @param factory The {@link DAOFactory} associated with this DAO, which is used for obtaining SQL connections, etc.
+	 */
 	public ReportRequestDAO(DAOFactory factory) {
 		this.factory = factory;
 		loader = new ReportRequestBeanLoader();

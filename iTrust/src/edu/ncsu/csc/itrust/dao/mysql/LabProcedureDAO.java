@@ -11,15 +11,30 @@ import edu.ncsu.csc.itrust.beans.loaders.LabProcedureBeanLoader;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
 import edu.ncsu.csc.itrust.exception.DBException;
 
+/**
+ * A DAO for managing lab procedure codes. Database Access Object. All info coming into a DAO is already validated. 
+ * Just worry about DB stuff here. Note that all DAOs need to have a DAOFactory with which to access other 
+ * DAOs and to get connections. Also, every DAO must have a constructor with a DAOFactory as a parameter.
+ */
 public class LabProcedureDAO {
 	private DAOFactory factory;
 	private LabProcedureBeanLoader labProcedureLoader;
 
+	/**
+	 * The typical constructor.
+	 * @param factory The {@link DAOFactory} associated with this DAO, which is used for obtaining SQL connections, etc.
+	 */
 	public LabProcedureDAO(DAOFactory factory) {
 		this.factory = factory;
 		labProcedureLoader = new LabProcedureBeanLoader();
 	}
 	
+	/**
+	 * Get a list of the lab procedures associated with a given patient.
+	 * @param id The MID of the patient as a long.
+	 * @return A java.util.List of LabProcedureBeans
+	 * @throws DBException
+	 */
 	public List<LabProcedureBean> getLabProceduresForPatient(long id) throws DBException {
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -40,6 +55,12 @@ public class LabProcedureDAO {
 		}
 	}
 	
+	/**
+	 * Gets all the lab procedures for a given patient that occur within the next month.
+	 * @param id The MID of the patient as a long.
+	 * @return A java.util.List of LabProcedureBeans.
+	 * @throws DBException
+	 */
 	public List<LabProcedureBean> getLabProceduresForPatientForNextMonth(long id) throws DBException {
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -61,6 +82,12 @@ public class LabProcedureDAO {
 		}
 	}
 	
+	/**
+	 * Gets an individual lab procedure.
+	 * @param id The ID of the lab procedure.
+	 * @return A LabProcedureBean representing the procedure.
+	 * @throws DBException
+	 */
 	public LabProcedureBean getLabProcedure(long id) throws DBException {
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -81,7 +108,7 @@ public class LabProcedureDAO {
 	/**
 	 * Gets all procedures for Patient
 	 * @param mid patient id
-	 * @return
+	 * @return A java.util.List of LabProcedureBeans.
 	 * @throws DBException
 	 */
 	public List<LabProcedureBean> getAllLabProceduresDate(long mid) throws DBException {
@@ -104,9 +131,9 @@ public class LabProcedureDAO {
 	}
 	/**
 	 * This gets all the procedures for a particular patient on a particular office visit
-	 * @param mid
-	 * @param ovid
-	 * @return
+	 * @param mid The MID of the patient.
+	 * @param ovid The Office Visit ID.
+	 * @return A java.util.List of LabProcedureBeans.
 	 * @throws DBException
 	 */
 	public List<LabProcedureBean> getAllLabProceduresForDocOV(long mid, long ovid) throws DBException {
@@ -131,9 +158,9 @@ public class LabProcedureDAO {
 	
 	/**
 	 * This gets all the procedures for a particular patient on a particular office visit
-	 * @param mid
-	 * @param ovid
-	 * @return
+	 * @param mid The MID of the patient.
+	 * @param ovid The Office Visit ID.
+	 * @return A java.util.List of LabProcedureBeans
 	 * @throws DBException
 	 */
 	public List<LabProcedureBean> getAllLabProceduresForDocOV(long ovid) throws DBException {
@@ -154,11 +181,11 @@ public class LabProcedureDAO {
 		}
 	}
 	
-/**
- * this may not be needed
- * @return
- * @throws DBException
- */
+	/**
+	 * Gets all lab procedures, period.
+	 * @return A java.util.List of LabProcedureBeans.
+	 * @throws DBException
+	 */
 	public List<LabProcedureBean> getAllLabProcedures() throws DBException {
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -176,6 +203,12 @@ public class LabProcedureDAO {
 		}
 	}
 	
+	/**
+	 * Gets the lab procedures for a given LHCP that occur within the next month.
+	 * @param ovid The Office Visit ID conducted by the LHCP in question.
+	 * @return A java.util.List of LabProcedureBeans.
+	 * @throws DBException
+	 */
 	public List<LabProcedureBean> getLabProceduresForLHCPForNextMonth(long ovid) throws DBException {
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -195,6 +228,12 @@ public class LabProcedureDAO {
 		}
 	}
 	
+	/**
+	 * Inserts a lab procedure into the database.
+	 * @param b The LabProcedureBean to be inserted.
+	 * @return A long containing the ID of the newly inserted lab procedure bean.
+	 * @throws DBException
+	 */
 	public long addLabProcedure(LabProcedureBean b) throws DBException {
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -218,6 +257,12 @@ public class LabProcedureDAO {
 			DBUtil.closeConnection(conn, ps);
 		}
 	}
+	
+	/**
+	 * Updates an existing lab procedure.
+	 * @param b The LabProcedureBean representing the procedure to be updated.
+	 * @throws DBException
+	 */
 	public void updateLabProcedure(LabProcedureBean b) throws DBException {
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -239,6 +284,12 @@ public class LabProcedureDAO {
 		}
 	}
 	
+	/**
+	 * Gets all the lab procedures that correspond to a particular LOINC.
+	 * @param id The LOINC in question.
+	 * @return A java.util.List of LabProcedureBeans.
+	 * @throws DBException
+	 */
 	public List<LabProcedureBean> getAllLabProceduresLOINC(long id) throws DBException {
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -258,6 +309,11 @@ public class LabProcedureDAO {
 		}
 	}
 	
+	/**
+	 * Updates the rights of a user on a given lab procedure.
+	 * @param b The LabProcedureBean in question.
+	 * @throws DBException
+	 */
 	public void updateRights(LabProcedureBean b) throws DBException {
 		Connection conn = null;
 		PreparedStatement ps = null;

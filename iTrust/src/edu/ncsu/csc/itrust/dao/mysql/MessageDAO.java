@@ -28,6 +28,10 @@ public class MessageDAO {
 	private DAOFactory factory;
 	private MessageBeanLoader mbLoader;
 
+	/**
+	 * The typical constructor.
+	 * @param factory The {@link DAOFactory} associated with this DAO, which is used for obtaining SQL connections, etc.
+	 */
 	public MessageDAO(DAOFactory factory) {
 		this.factory = factory;
 		this.mbLoader = new MessageBeanLoader();

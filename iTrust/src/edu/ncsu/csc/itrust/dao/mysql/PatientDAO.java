@@ -45,6 +45,10 @@ public class PatientDAO {
 	private PrescriptionBeanLoader prescriptionLoader;
 	private ProcedureBeanLoader procedureLoader;
 
+	/**
+	 * The typical constructor.
+	 * @param factory The {@link DAOFactory} associated with this DAO, which is used for obtaining SQL connections, etc.
+	 */
 	public PatientDAO(DAOFactory factory) {
 		this.factory = factory;
 		this.patientLoader = new PatientLoader();

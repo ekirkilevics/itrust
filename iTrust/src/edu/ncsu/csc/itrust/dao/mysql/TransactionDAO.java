@@ -35,6 +35,10 @@ public class TransactionDAO {
 	private TransactionBeanLoader loader = new TransactionBeanLoader();
 	private OperationalProfileLoader operationalProfileLoader = new OperationalProfileLoader();
 
+	/**
+	 * The typical constructor.
+	 * @param factory The {@link DAOFactory} associated with this DAO, which is used for obtaining SQL connections, etc.
+	 */
 	public TransactionDAO(DAOFactory factory) {
 		this.factory = factory;
 	}

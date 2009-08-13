@@ -36,6 +36,10 @@ public class CPTCodesDAO {
 	private DAOFactory factory;
 	private ProcedureBeanLoader procedureBeanLoader = new ProcedureBeanLoader();
 
+	/**
+	 * The typical constructor.
+	 * @param factory The {@link DAOFactory} associated with this DAO, which is used for obtaining SQL connections, etc.
+	 */
 	public CPTCodesDAO(DAOFactory factory) {
 		this.factory = factory;
 	}
@@ -43,7 +47,7 @@ public class CPTCodesDAO {
 	/**
 	 * Returns a list of all CPT codes.
 	 * 
-	 * @return
+	 * @return A java.util.List of ProcedureBeans for the CPT codes.
 	 * @throws DBException
 	 */
 	public List<ProcedureBean> getAllCPTCodes() throws DBException {
@@ -65,7 +69,7 @@ public class CPTCodesDAO {
 	/**
 	 * Returns a list of all CPT codes.
 	 * 
-	 * @return
+	 * @return A java.util.List of all Immunization-related CPT codes.
 	 * @throws DBException
 	 */
 	public List<ProcedureBean> getImmunizationCPTCodes() throws DBException {
@@ -87,8 +91,8 @@ public class CPTCodesDAO {
 	/**
 	 * Returns a particular procedure description for a code.
 	 * 
-	 * @param code
-	 * @return
+	 * @param code The string representation of the code.
+	 * @return The textual description of the code.
 	 * @throws DBException
 	 */
 	public ProcedureBean getCPTCode(String code) throws DBException {
@@ -113,8 +117,8 @@ public class CPTCodesDAO {
 	/**
 	 * Adds a new CPT code, returns that it was added successfully
 	 * 
-	 * @param proc
-	 * @return
+	 * @param proc A ProcedureBean representing the new code information.
+	 * @return A boolean for whether the operation was successful.
 	 * @throws DBException
 	 * @throws iTrustException
 	 */
@@ -141,8 +145,8 @@ public class CPTCodesDAO {
 	/**
 	 * Change the procedure description for a particular CPT code
 	 * 
-	 * @param proc
-	 * @return
+	 * @param proc A ProcedureBean representing the new code information.
+	 * @return A boolean for whether the operation was successful.
 	 * @throws DBException
 	 */
 	public int updateCode(ProcedureBean proc) throws DBException {

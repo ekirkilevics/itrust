@@ -31,6 +31,10 @@ public class LOINCDAO {
 	private DAOFactory factory;
 	private LOINCBeanLoader LOINCLoader;
 
+	/**
+	 * The typical constructor.
+	 * @param factory The {@link DAOFactory} associated with this DAO, which is used for obtaining SQL connections, etc.
+	 */
 	public LOINCDAO(DAOFactory factory) {
 		this.factory = factory;
 		LOINCLoader = new LOINCBeanLoader();

@@ -16,6 +16,10 @@ public class SurveyDAO {
 	private DAOFactory factory;
 	private SurveyLoader surveyLoader;
 
+	/**
+	 * The typical constructor.
+	 * @param factory The {@link DAOFactory} associated with this DAO, which is used for obtaining SQL connections, etc.
+	 */
 	public SurveyDAO(DAOFactory factory) {
 		this.factory = factory;
 		this.surveyLoader = new SurveyLoader();

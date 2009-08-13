@@ -27,10 +27,20 @@ public class AllergyDAO {
 	private DAOFactory factory;
 	private AllergyBeanLoader allergyBeanLoader = new AllergyBeanLoader();
 
+	/**
+	 * The typical constructor.
+	 * @param factory The {@link DAOFactory} associated with this DAO, which is used for obtaining SQL connections, etc.
+	 */
 	public AllergyDAO(DAOFactory factory) {
 		this.factory = factory;
 	}
 
+	/**
+	 * Returns a list of patient's allergies.
+	 * @param pid A long for the MID of the patient we are looking up.
+	 * @return A java.util.List of AllergyBeans associated with this patient.
+	 * @throws DBException
+	 */
 	public List<AllergyBean> getAllergies(long pid) throws DBException {
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -48,6 +58,12 @@ public class AllergyDAO {
 		}
 	}
 
+	/**
+	 * Adds an allergy to this patient's list.
+	 * @param pid The MID of the patient whose allergy we are adding.
+	 * @param description The name of the allergen.
+	 * @throws DBException
+	 */
 	public void addAllergy(long pid, String description) throws DBException {
 		Connection conn = null;
 		PreparedStatement ps = null;

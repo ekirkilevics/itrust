@@ -29,6 +29,10 @@ public class HealthRecordsDAO {
 	private HealthRecordsBeanLoader loader = new HealthRecordsBeanLoader();
 	private DAOFactory factory;
 
+	/**
+	 * The typical constructor.
+	 * @param factory The {@link DAOFactory} associated with this DAO, which is used for obtaining SQL connections, etc.
+	 */
 	public HealthRecordsDAO(DAOFactory factory) {
 		this.factory = factory;
 	}
@@ -36,8 +40,8 @@ public class HealthRecordsDAO {
 	/**
 	 * Returns a list of all health records for a particular patient
 	 * 
-	 * @param mid
-	 * @return
+	 * @param mid The MID of the patient to look up.
+	 * @return A java.util.List of HealthRecords.
 	 * @throws DBException
 	 */
 	public List<HealthRecord> getAllHealthRecords(long mid) throws DBException {
@@ -62,8 +66,8 @@ public class HealthRecordsDAO {
 	/**
 	 * Adds a health record for a particular patient
 	 * 
-	 * @param record
-	 * @return
+	 * @param record The HealthRecord object to insert.
+	 * @return A boolean indicating whether the insert was successful.
 	 * @throws DBException
 	 */
 	public boolean add(HealthRecord record) throws DBException {

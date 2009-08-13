@@ -26,6 +26,10 @@ import edu.ncsu.csc.itrust.exception.DBException;
 public class RiskDAO {
 	private DAOFactory factory;
 
+	/**
+	 * The typical constructor.
+	 * @param factory The {@link DAOFactory} associated with this DAO, which is used for obtaining SQL connections, etc.
+	 */
 	public RiskDAO(DAOFactory factory) {
 		this.factory = factory;
 	}

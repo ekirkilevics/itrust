@@ -36,6 +36,10 @@ public class ICDCodesDAO {
 	private DAOFactory factory;
 	private DiagnosisBeanLoader diagnosisLoader = new DiagnosisBeanLoader();
 
+	/**
+	 * The typical constructor.
+	 * @param factory The {@link DAOFactory} associated with this DAO, which is used for obtaining SQL connections, etc.
+	 */
 	public ICDCodesDAO(DAOFactory factory) {
 		this.factory = factory;
 	}
@@ -43,7 +47,7 @@ public class ICDCodesDAO {
 	/**
 	 * Returns all ICD9CM codes sorted by code
 	 * 
-	 * @return
+	 * @return java.util.List of DiagnosisBeans
 	 * @throws DBException
 	 */
 	public List<DiagnosisBean> getAllICDCodes() throws DBException {
@@ -65,8 +69,8 @@ public class ICDCodesDAO {
 	/**
 	 * Returns a particular description for a given code
 	 * 
-	 * @param code
-	 * @return
+	 * @param code The String representation of the code.
+	 * @return A DiagnosisBean of the code.
 	 * @throws DBException
 	 */
 	public DiagnosisBean getICDCode(String code) throws DBException {
@@ -91,8 +95,8 @@ public class ICDCodesDAO {
 	/**
 	 * Adds an ICD9CM code. Returns whether or not the change was made.
 	 * 
-	 * @param diag
-	 * @return
+	 * @param diag The DiagnosisBean representing the changes.
+	 * @return A boolean indicating success.
 	 * @throws DBException
 	 * @throws iTrustException
 	 */
@@ -119,8 +123,8 @@ public class ICDCodesDAO {
 	/**
 	 * Changes a the description of a particular code.
 	 * 
-	 * @param diag
-	 * @return
+	 * @param diag A DiagnosisBean representing the changes.
+	 * @return A boolean indicating the number of updated rows.
 	 * @throws DBException
 	 */
 	public int updateCode(DiagnosisBean diag) throws DBException {

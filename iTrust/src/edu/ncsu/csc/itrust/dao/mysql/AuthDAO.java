@@ -29,6 +29,10 @@ public class AuthDAO {
 	public static final long LOGIN_TIMEOUT = 15 * 60 * 1000;// 15 min
 	private DAOFactory factory;
 
+	/**
+	 * The typical constructor.
+	 * @param factory The {@link DAOFactory} associated with this DAO, which is used for obtaining SQL connections, etc.
+	 */
 	public AuthDAO(DAOFactory factory) {
 		this.factory = factory;
 	}
@@ -36,12 +40,12 @@ public class AuthDAO {
 	/**
 	 * Add a particular user to the system. Does not add user-specific information (e.g. Patient or HCP).
 	 * Initially sets security question to a random set of characters, so that nobody should be able to guess
-	 * its value. The password would be
+	 * its value.
 	 * 
-	 * @param mid
-	 * @param role
-	 * @param password
-	 * @return
+	 * @param mid The user's MID as a Long.
+	 * @param role The role of the user as a Role enum {@link Role}
+	 * @param password The password for the new user.
+	 * @return A string representing the newly added randomly-generated password. 
 	 * @throws DBException
 	 */
 	public String addUser(Long mid, Role role, String password) throws DBException {
@@ -70,9 +74,9 @@ public class AuthDAO {
 	/**
 	 * Reset the security question and answer for a particular user
 	 * 
-	 * @param question
-	 * @param answer
-	 * @param mid
+	 * @param question The security question as a string.
+	 * @param answer The security answer as a string.
+	 * @param mid The MID of the user as a long.
 	 * @throws DBException
 	 */
 	public void setSecurityQuestionAnswer(String question, String answer, long mid) throws DBException {
@@ -96,8 +100,8 @@ public class AuthDAO {
 	/**
 	 * Returns the user name of a user from just the MID
 	 * 
-	 * @param mid
-	 * @return
+	 * @param mid The MID of the user to get the name of.
+	 * @return The user's name as a String.
 	 * @throws DBException
 	 * @throws iTrustException
 	 */
@@ -121,8 +125,8 @@ public class AuthDAO {
 	/**
 	 * Returns the role of a particular MID
 	 * 
-	 * @param mid
-	 * @return
+	 * @param mid The MID of the user to look up.
+	 * @return The {@link Role} of the user as an enum.
 	 * @throws DBException
 	 * @throws iTrustException
 	 */
@@ -151,8 +155,8 @@ public class AuthDAO {
 	/**
 	 * Change the password of a particular user
 	 * 
-	 * @param mid
-	 * @param password
+	 * @param mid The MID of the user whose password we are changing.
+	 * @param password The new password.
 	 * @throws DBException
 	 */
 	public void resetPassword(long mid, String password) throws DBException {
@@ -175,8 +179,8 @@ public class AuthDAO {
 	/**
 	 * Return the security question for a particular user.
 	 * 
-	 * @param mid
-	 * @return
+	 * @param mid The MID of the user we are looking up.
+	 * @return The security question of the user we are looking up.
 	 * @throws iTrustException
 	 */
 	public String getSecurityQuestion(long mid) throws iTrustException {
@@ -200,10 +204,10 @@ public class AuthDAO {
 	}
 
 	/**
-	 * Return the answer of a particular user
+	 * Return the security answer of a particular user
 	 * 
-	 * @param mid
-	 * @return
+	 * @param mid The MID of the user we are looking up.
+	 * @return The security answer as a String.
 	 * @throws iTrustException
 	 */
 	public String getSecurityAnswer(long mid) throws iTrustException {
@@ -231,7 +235,7 @@ public class AuthDAO {
 	 * the key is the user's IP address. If the user's IP address is not in the table, a row with "1" is
 	 * added.
 	 * 
-	 * @param ipAddr
+	 * @param ipAddr The IP address of the user as a String.
 	 * @throws DBException
 	 */
 	public void recordLoginFailure(String ipAddr) throws DBException {
@@ -259,7 +263,7 @@ public class AuthDAO {
 	 * table where the key is the user's IP address. If the user's IP address is not in the table, a row with
 	 * "1" is added.
 	 * 
-	 * @param ipAddr
+	 * @param ipAddr The IP address of the user as a String.
 	 * @throws DBException
 	 */
 	public void recordResetPasswordFailure(String ipAddr) throws DBException {
@@ -284,8 +288,8 @@ public class AuthDAO {
 	/**
 	 * Return the number of failures from resetting a password, given an IP address.
 	 * 
-	 * @param ipAddr
-	 * @return
+	 * @param ipAddr An IP address for the associated attempt as a String.
+	 * @return An int representing the number of failures.
 	 * @throws DBException
 	 */
 	public int getResetPasswordFailures(String ipAddr) throws DBException {
@@ -319,8 +323,8 @@ public class AuthDAO {
 	/**
 	 * Return the number of failures from login failures a password, given an IP address.
 	 * 
-	 * @param ipAddr
-	 * @return
+	 * @param ipAddr The IP address for this attempt as a String.
+	 * @return An int representing the number of failures which have occured.
 	 * @throws DBException
 	 */
 	public int getLoginFailures(String ipAddr) throws DBException {

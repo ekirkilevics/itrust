@@ -30,6 +30,10 @@ public class HospitalsDAO {
 	private DAOFactory factory;
 	private HospitalBeanLoader hospitalLoader = new HospitalBeanLoader();
 
+	/**
+	 * The typical constructor.
+	 * @param factory The {@link DAOFactory} associated with this DAO, which is used for obtaining SQL connections, etc.
+	 */
 	public HospitalsDAO(DAOFactory factory) {
 		this.factory = factory;
 	}
@@ -37,7 +41,7 @@ public class HospitalsDAO {
 	/**
 	 * Returns a list of all hospitals sorted alphabetically
 	 * 
-	 * @return
+	 * @return A java.util.List of HospitalBeans.
 	 * @throws DBException
 	 */
 	public List<HospitalBean> getAllHospitals() throws DBException {
@@ -59,8 +63,8 @@ public class HospitalsDAO {
 	/**
 	 * Returns a particular hospital given its ID
 	 * 
-	 * @param id
-	 * @return
+	 * @param id The String ID of the hospital.
+	 * @return A HospitalBean representing this hospital.
 	 * @throws DBException
 	 */
 	public HospitalBean getHospital(String id) throws DBException {
@@ -85,8 +89,8 @@ public class HospitalsDAO {
 	/**
 	 * Adds a hospital
 	 * 
-	 * @param hosp
-	 * @return
+	 * @param hosp The HospitalBean object to insert.
+	 * @return A boolean indicating whether the insertion was successful.
 	 * @throws DBException
 	 * @throws iTrustException
 	 */
@@ -112,8 +116,8 @@ public class HospitalsDAO {
 	/**
 	 * Updates a particular hospital's description. Returns the number of rows affected (should be 1)
 	 * 
-	 * @param hosp
-	 * @return
+	 * @param hosp The HospitalBean to update.
+	 * @return An int indicating the number of affected rows.
 	 * @throws DBException
 	 */
 	public int updateHospital(HospitalBean hosp) throws DBException {
@@ -137,9 +141,9 @@ public class HospitalsDAO {
 	 * Assign an HCP to a hospital. If they have already been assigned to that hospital, then an
 	 * iTrustException is thrown.
 	 * 
-	 * @param hcpID
-	 * @param hospitalID
-	 * @return
+	 * @param hcpID The HCP's MID to assign to the hospital.
+	 * @param hospitalID The ID of the hospital to assign them to.
+	 * @return A boolean indicating whether the assignment was a success.
 	 * @throws DBException
 	 * @throws iTrustException
 	 */
@@ -165,9 +169,9 @@ public class HospitalsDAO {
 	/**
 	 * Unassigns an HCP to a hospital. Returns whether or not any changes were made
 	 * 
-	 * @param hcpID
-	 * @param hospitalID
-	 * @return
+	 * @param hcpID The MID of the HCP to remove.
+	 * @param hospitalID The ID of the hospital being removed from.
+	 * @return A boolean indicating success.
 	 * @throws DBException
 	 */
 	public boolean removeHospitalAssignment(long hcpID, String hospitalID) throws DBException {
@@ -190,8 +194,8 @@ public class HospitalsDAO {
 	/**
 	 * Removes all hospital assignments for a particular HCP. Returns the number of rows affected.
 	 * 
-	 * @param hcpID
-	 * @return
+	 * @param hcpID The MID of the HCP.
+	 * @return An int representing the number of hospital assignments removed.
 	 * @throws DBException
 	 */
 	public int removeAllHospitalAssignmentsFrom(long hcpID) throws DBException {

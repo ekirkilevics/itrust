@@ -29,6 +29,10 @@ public class FamilyDAO {
 	private DAOFactory factory;
 	private FamilyBeanLoader familyBeanLoader;
 
+	/**
+	 * The typical constructor.
+	 * @param factory The {@link DAOFactory} associated with this DAO, which is used for obtaining SQL connections, etc.
+	 */
 	public FamilyDAO(DAOFactory factory) {
 		this.factory = factory;
 	}
@@ -53,7 +57,7 @@ public class FamilyDAO {
 	 * 
 	 * @param pid -
 	 *            this patient
-	 * @return
+	 * @return A java.util.list of FamilyMemberBeans.
 	 * @throws DBException
 	 */
 	public List<FamilyMemberBean> getSiblings(long pid) throws DBException {
@@ -69,7 +73,7 @@ public class FamilyDAO {
 	 * 
 	 * @param pid -
 	 *            this patient
-	 * @return
+	 * @return A java.util.List of FamilyMemberBeans.
 	 * @throws DBException
 	 */
 	public List<FamilyMemberBean> getChildren(long pid) throws DBException {
@@ -86,7 +90,7 @@ public class FamilyDAO {
 	 * @param secondParam -
 	 *            add the pid as the second parameter (the 3rd query was a little different)
 	 * 
-	 * @return
+	 * @return A java.util.List of FamilyMemberBeans.
 	 * @throws DBException
 	 */
 	private List<FamilyMemberBean> getFamilyMembers(long pid, String relation, String query,

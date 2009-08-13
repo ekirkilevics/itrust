@@ -28,6 +28,10 @@ public class FakeEmailDAO {
 	private DAOFactory factory;
 	private EmailBeanLoader emailBeanLoader = new EmailBeanLoader();
 
+	/**
+	 * The typical constructor.
+	 * @param factory The {@link DAOFactory} associated with this DAO, which is used for obtaining SQL connections, etc.
+	 */
 	public FakeEmailDAO(DAOFactory factory) {
 		this.factory = factory;
 	}
@@ -35,7 +39,7 @@ public class FakeEmailDAO {
 	/**
 	 * Return all emails that have been "sent" (inserted into the database)
 	 * 
-	 * @return
+	 * @return A java.util.List of Email objects representing fake e-mails.
 	 * @throws DBException
 	 */
 	public List<Email> getAllEmails() throws DBException {
@@ -57,7 +61,8 @@ public class FakeEmailDAO {
 	/**
 	 * Return all emails that a person has sent
 	 * 
-	 * @return
+	 * @param email The "From" email address as a string.
+	 * @return A java.util.List of fake emails.
 	 * @throws DBException
 	 */
 	public List<Email> getEmailsByPerson(String email) throws DBException {
@@ -80,7 +85,7 @@ public class FakeEmailDAO {
 	/**
 	 * "Send" an email, which just inserts it into the database.
 	 * 
-	 * @param email
+	 * @param email The Email object to insert.
 	 * @throws DBException
 	 */
 	public void sendEmailRecord(Email email) throws DBException {
@@ -102,8 +107,8 @@ public class FakeEmailDAO {
 
 	/**
 	 * Returns a list of emails that have the given string as a substring of the body
-	 * @param string
-	 * @return
+	 * @param string The string to search within the body.
+	 * @return A java.util.List of fake emails.
 	 * @throws DBException 
 	 */
 	public List<Email> getEmailWithBody(String bodySubstring) throws DBException {

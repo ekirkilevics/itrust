@@ -37,6 +37,10 @@ public class PersonnelDAO {
 	private PersonnelLoader personnelLoader;
 	private HospitalBeanLoader hospitalBeanLoader;
 
+	/**
+	 * The typical constructor.
+	 * @param factory The {@link DAOFactory} associated with this DAO, which is used for obtaining SQL connections, etc.
+	 */
 	public PersonnelDAO(DAOFactory factory) {
 		this.factory = factory;
 		personnelLoader = new PersonnelLoader();

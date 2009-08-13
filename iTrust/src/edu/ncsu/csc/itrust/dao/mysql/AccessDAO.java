@@ -26,6 +26,10 @@ import edu.ncsu.csc.itrust.exception.DBException;
 public class AccessDAO {
 	private DAOFactory factory;
 
+	/**
+	 * The typical constructor.
+	 * @param factory The {@link DAOFactory} associated with this DAO, which is used for obtaining SQL connections, etc.
+	 */
 	public AccessDAO(DAOFactory factory) {
 		this.factory = factory;
 	}
@@ -35,7 +39,7 @@ public class AccessDAO {
 	 * using the database table as a hash table. If a row in GlobalVariables does not exist, one is inserted
 	 * with the default value '20'.
 	 * 
-	 * @return
+	 * @return An int for the number of minutes.
 	 * @throws DBException
 	 */
 	public int getSessionTimeoutMins() throws DBException {
@@ -62,7 +66,7 @@ public class AccessDAO {
 	/**
 	 * Sets the number of minutes it would take for a session to timeout.
 	 * 
-	 * @param mins
+	 * @param mins An int specifying the number of minutes
 	 * @throws DBException
 	 */
 	public void setSessionTimeoutMins(int mins) throws DBException {

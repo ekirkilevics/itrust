@@ -15,6 +15,10 @@ public class SurveyResultDAO {
 	private DAOFactory factory;
 	private SurveyResultBeanLoader loader;
 	
+	/**
+	 * The typical constructor.
+	 * @param factory The {@link DAOFactory} associated with this DAO, which is used for obtaining SQL connections, etc.
+	 */
 	public SurveyResultDAO(DAOFactory factory) {
 		this.factory = factory;
 		this.loader = new SurveyResultBeanLoader();

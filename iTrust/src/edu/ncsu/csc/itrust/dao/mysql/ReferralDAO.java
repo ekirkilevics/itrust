@@ -20,6 +20,10 @@ public class ReferralDAO {
 	private DAOFactory factory;
 	private ReferralBeanLoader referralLoader;
 
+	/**
+	 * The typical constructor.
+	 * @param factory The {@link DAOFactory} associated with this DAO, which is used for obtaining SQL connections, etc.
+	 */
 	public ReferralDAO(DAOFactory factory) {
 		this.factory = factory;
 		referralLoader = new ReferralBeanLoader();

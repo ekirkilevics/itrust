@@ -46,6 +46,10 @@ public class OfficeVisitDAO {
 	private PrescriptionReportBeanLoader prescriptionReportBeanLoader = new PrescriptionReportBeanLoader();
 	private ProcedureBeanLoader procedureBeanLoader = new ProcedureBeanLoader(true);
 
+	/**
+	 * The typical constructor.
+	 * @param factory The {@link DAOFactory} associated with this DAO, which is used for obtaining SQL connections, etc.
+	 */
 	public OfficeVisitDAO(DAOFactory factory) {
 		this.factory = factory;
 	}

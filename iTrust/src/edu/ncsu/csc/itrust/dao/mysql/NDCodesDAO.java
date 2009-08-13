@@ -34,6 +34,10 @@ public class NDCodesDAO {
 	private DAOFactory factory;
 	private MedicationBeanLoader medicationLoader = new MedicationBeanLoader();
 
+	/**
+	 * The typical constructor.
+	 * @param factory The {@link DAOFactory} associated with this DAO, which is used for obtaining SQL connections, etc.
+	 */
 	public NDCodesDAO(DAOFactory factory) {
 		this.factory = factory;
 	}
