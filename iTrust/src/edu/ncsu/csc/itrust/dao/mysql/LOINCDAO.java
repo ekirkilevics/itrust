@@ -43,8 +43,7 @@ public class LOINCDAO {
 	/**
 	 * Adds a LOINC
 	 * 
-	 * @param hosp
-	 * @return
+	 * @param hosp The LOINCbean representing the new code to be added.
 	 * @throws DBException
 	 * @throws iTrustException
 	 */
@@ -73,20 +72,10 @@ public class LOINCDAO {
 	}	
 
 	/**
-	 * Gets a LOINC by LaboratoryProcedureCode
-	 * 
-	 * @param hosp
-	 * @return
-	 * @throws DBException
-	 * @throws iTrustException
-	 */
-
-	
-	/**
 	 * Returns all LOINCs associated with LaboratoryProcedureCode
 	 * 
-	 * @param visitID
-	 * @return
+	 * @param visitID The code of the Laboratory Procedure Code as a String.
+	 * @return A java.util.List of LOINCBeans matching the Laboratory Procedure Code.
 	 * @throws DBException
 	 */
 	public List<LOINCbean> getProcedures(String visitID) throws DBException {
@@ -136,26 +125,26 @@ public class LOINCDAO {
 	}
 	
 	/**
-	 * this may not be needed
-	 * @return
+	 * Returns all LOINCs as a list.
+	 * 
+	 * @return A java.util.List of LOINCbeans.
 	 * @throws DBException
 	 */
-		public List<LOINCbean> getAllLOINC() throws DBException {
-			Connection conn = null;
-			PreparedStatement ps = null;
-
+	public List<LOINCbean> getAllLOINC() throws DBException {
+		Connection conn = null;
+		PreparedStatement ps = null;
 			try {
-				conn = factory.getConnection();
-				ps = conn.prepareStatement("SELECT * FROM LOINC");
-				ResultSet rs = ps.executeQuery();
-				return LOINCLoader.loadList(rs);
-			} catch (SQLException e) {
-				e.printStackTrace();
-				throw new DBException(e);
-			} finally {
-				DBUtil.closeConnection(conn, ps);
-			}
+			conn = factory.getConnection();
+			ps = conn.prepareStatement("SELECT * FROM LOINC");
+			ResultSet rs = ps.executeQuery();
+			return LOINCLoader.loadList(rs);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DBException(e);
+		} finally {
+			DBUtil.closeConnection(conn, ps);
 		}
+	}
 
 
 }

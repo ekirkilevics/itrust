@@ -37,6 +37,12 @@ public class MessageDAO {
 		this.mbLoader = new MessageBeanLoader();
 	}
 
+	/**
+	 * Gets all the messages for a certain user MID.
+	 * @param mid The MID of the user to be looked up.
+	 * @return A java.util.List of MessageBeans.
+	 * @throws SQLException
+	 */
 	public List<MessageBean> getMessagesFor(long mid) throws SQLException {
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -53,6 +59,11 @@ public class MessageDAO {
 		return mbList;
 	}
 
+	/**
+	 * Adds a message to the database.
+	 * @param mBean A bean representing the message to be added.
+	 * @throws SQLException
+	 */
 	public void addMessage(MessageBean mBean) throws SQLException {
 		Connection conn = null;
 		PreparedStatement ps = null;

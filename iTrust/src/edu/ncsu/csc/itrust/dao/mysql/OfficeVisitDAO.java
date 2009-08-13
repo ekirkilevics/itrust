@@ -57,8 +57,8 @@ public class OfficeVisitDAO {
 	/**
 	 * Adds an visit and return its ID
 	 * 
-	 * @param ov
-	 * @return
+	 * @param ov The OfficeVisitBean to be added.
+	 * @return A long indicating the unique ID for the office visit.
 	 * @throws DBException
 	 */
 	public long add(OfficeVisitBean ov) throws DBException {
@@ -243,7 +243,7 @@ public class OfficeVisitDAO {
 	 * @return
 	 * @throws DBException
 	 */
-	public long addProcedureToOfficeVisit(String cptCode, long visitID) throws DBException {
+	public long addProcedureToOfficeVisit (String cptCode, long visitID) throws DBException {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		try {
@@ -284,11 +284,9 @@ public class OfficeVisitDAO {
 	}
 
 	/**
-	 * Adds the given CPT codes to the given office visit
-	 * 
-	 * @param cptCode
-	 * @param visitID
-	 * @return
+	 * Adds a prescription bean to the database.
+	 * @param pres The prescription bean to be added.
+	 * @return The unique ID of the newly added bean.
 	 * @throws DBException
 	 */
 	public long addPrescription(PrescriptionBean pres) throws DBException {
@@ -311,11 +309,10 @@ public class OfficeVisitDAO {
 	
 	
 	/**
-	 * Adds the given CPT codes to the given office visit
+	 * Edits an existing prescription bean.
 	 * 
-	 * @param cptCode
-	 * @param visitID
-	 * @return
+	 * @param pres The newly updated prescription bean.
+	 * @return A long indicating the ID of the newly updated prescription bean.
 	 * @throws DBException
 	 */
 	public long editPrescription(PrescriptionBean pres) throws DBException {
@@ -343,7 +340,7 @@ public class OfficeVisitDAO {
 	/**
 	 * Removes the given medication from its office visit
 	 * 
-	 * @param ovMedicationID
+	 * @param ovMedicationID The unique ID of the medication to be removed.
 	 * @throws DBException
 	 */
 	public void removePrescription(long ovMedicationID) throws DBException {
@@ -364,10 +361,9 @@ public class OfficeVisitDAO {
 
 	/**
 	 * Adds the given CPT codes to the given office visit
-	 * 
-	 * @param cptCode
-	 * @param visitID
-	 * @return
+	 * @param icd A double representing the ICD code to be added.
+	 * @param visitID The ID of the office visit we are adding the code to.
+	 * @return A long for the new ICD code's ID.
 	 * @throws DBException
 	 */
 	public long addDiagnosisToOfficeVisit(double icd, long visitID) throws DBException {
@@ -392,7 +388,7 @@ public class OfficeVisitDAO {
 	/**
 	 * Removes a particular diagnosis from its office visit
 	 * 
-	 * @param ovDiagnosisID
+	 * @param ovDiagnosisID The ID for the office visit diagnosis to be removed. 
 	 * @throws DBException
 	 */
 	public void removeDiagnosisFromOfficeVisit(long ovDiagnosisID) throws DBException {
@@ -412,11 +408,12 @@ public class OfficeVisitDAO {
 	}
 	
 	/**
-	 * Adds the given LOINC codes to the given office visit
+	 * Adds a LOINCCode to an office visit.
 	 * 
-	 * @param cptCode
-	 * @param visitID
-	 * @return
+	 * @param LOINCCode A string of the code being added.
+	 * @param visitID The ID of the office visit the code is being added to.
+	 * @param pid The patient's MID associated with this transaction.
+	 * @return The unique ID of the code that was added.
 	 * @throws DBException
 	 */
 	public long addLabProcedureToOfficeVisit(String LOINCCode, long visitID, long pid) throws DBException {
@@ -468,9 +465,9 @@ public class OfficeVisitDAO {
 	/**
 	 * Returns whether or not an office visit actually exists
 	 * 
-	 * @param ovID
-	 * @param pid
-	 * @return
+	 * @param ovID The ID of the office visit to be checked.
+	 * @param pid The MID of the patient associated with this transaction.
+	 * @return A boolean indicating its existence.
 	 * @throws DBException
 	 */
 	public boolean checkOfficeVisitExists(long ovID, long pid) throws DBException {
@@ -494,8 +491,8 @@ public class OfficeVisitDAO {
 	/**
 	 * Returns a list of all office visits for a given patient
 	 * 
-	 * @param pid
-	 * @return
+	 * @param pid The MID of the patient in question.
+	 * @return A java.util.List of OfficeVisitBeans.
 	 * @throws DBException
 	 */
 	public List<OfficeVisitBean> getAllOfficeVisits(long pid) throws DBException {
@@ -641,9 +638,9 @@ public class OfficeVisitDAO {
 	}
 	
 	/**
-	 * Returns a list of all office visits for a given patient
+	 * Gets all office visits corresponding to a particular ICD diagnosis.
 	 * 
-	 * @param mid
+	 * @param icdcode
 	 * @return
 	 * @throws DBException
 	 */

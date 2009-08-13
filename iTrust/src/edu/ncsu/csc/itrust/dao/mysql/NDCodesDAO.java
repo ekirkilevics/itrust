@@ -45,7 +45,7 @@ public class NDCodesDAO {
 	/**
 	 * Returns a list of all ND codes
 	 * 
-	 * @return
+	 * @return A java.util.List of MedicationBeans.
 	 * @throws DBException
 	 */
 	public List<MedicationBean> getAllNDCodes() throws DBException {
@@ -67,8 +67,8 @@ public class NDCodesDAO {
 	/**
 	 * Returns a particular description for a given code.
 	 * 
-	 * @param code
-	 * @return
+	 * @param code The ND code to be looked up.
+	 * @return A bean representing the Medication that was looked up.
 	 * @throws DBException
 	 */
 	public MedicationBean getNDCode(String code) throws DBException {
@@ -94,8 +94,8 @@ public class NDCodesDAO {
 	 * Adds a new ND code, returns whether or not the change was made. If the code already exists, an
 	 * iTrustException is thrown.
 	 * 
-	 * @param med
-	 * @return
+	 * @param med The medication bean to be added.
+	 * @return A boolean indicating success or failure.
 	 * @throws DBException
 	 * @throws iTrustException
 	 */
@@ -121,8 +121,8 @@ public class NDCodesDAO {
 	/**
 	 * Updates a particular code's description
 	 * 
-	 * @param med
-	 * @return
+	 * @param med A bean representing the particular medication to be updated.
+	 * @return An int representing the number of updated rows.
 	 * @throws DBException
 	 */
 	public int updateCode(MedicationBean med) throws DBException {
