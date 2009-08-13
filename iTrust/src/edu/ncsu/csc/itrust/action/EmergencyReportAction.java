@@ -40,9 +40,9 @@ public class EmergencyReportAction extends PatientBaseAction {
 	/**
 	 * The super class handles validating the pid Logs viewing of the report
 	 * 
-	 * @param factory
-	 * @param loggedInMID
-	 * @param pidString
+	 * @param factory The DAOFactory used in creating the DAOs for this action.
+	 * @param loggedInMID The MID of the user who is looking at the emergency report.
+	 * @param pidString The ID of the patient whose report is being generated.
 	 * @throws iTrustException
 	 */
 	public EmergencyReportAction(DAOFactory factory, long loggedInMID, String pidString) throws iTrustException {

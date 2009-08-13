@@ -29,8 +29,8 @@ public class LabProcHCPAction extends LabProcUAPAction {
 	/**
 	 * Sets up defaults
 	 * 
-	 * @param factory
-	 * @param loggedInMID  MID fo the logged in HCP
+	 * @param factory The DAOFactory used to create the DAOs used in this action.
+	 * @param loggedInMID  MID for the logged in HCP
 	 */
 	
 	public LabProcHCPAction(DAOFactory factory, long loggedInMID) {

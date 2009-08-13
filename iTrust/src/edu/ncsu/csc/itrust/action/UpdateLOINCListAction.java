@@ -12,14 +12,14 @@ import edu.ncsu.csc.itrust.exception.iTrustException;
 import edu.ncsu.csc.itrust.validate.LOINCBeanValidator;
 
 /**
- * Handles updating the LOINC Used
+ * Handles updating the LOINC Used.
  * 
  * Logical Observation Identifiers Names and Codes (LOINC) is a database and universal
  *  standard for identifying medical laboratory observations. 
  *  
  * @see http://loinc.org/
  */
-public class UpdateLabProcListAction {
+public class UpdateLOINCListAction {
 	private long performerID = 0;
 	private LOINCDAO lDAO;
 	private TransactionDAO transDAO;
@@ -28,10 +28,10 @@ public class UpdateLabProcListAction {
 	/**
 	 * Sets up defaults
 	 * 
-	 * @param factory
-	 * @param performerID
+	 * @param factory The DAOFactory used to create the DAOs used in this action.
+	 * @param performerID The MID of the person updating the LOINCs.
 	 */
-	public UpdateLabProcListAction(DAOFactory factory, long performerID) {
+	public UpdateLOINCListAction(DAOFactory factory, long performerID) {
 		this.performerID = performerID;
 		transDAO = factory.getTransactionDAO();
 		lDAO = factory.getLOINCDAO();

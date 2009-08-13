@@ -1,5 +1,9 @@
 package edu.ncsu.csc.itrust.exception;
 
+/**
+ * A specialized exception class for displaying iTrust error messages.
+ * This exception is handled by the default iTrust exception handler.
+ */
 public class iTrustException extends Exception {
 	private static final long serialVersionUID = 1L;
 	String message = null;

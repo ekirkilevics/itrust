@@ -26,9 +26,9 @@ public class EditRepresentativesAction extends PatientBaseAction {
 	/**
 	 * Super class validates the patient mid
 	 * 
-	 * @param factory
-	 * @param loggedInMID
-	 * @param pidString
+	 * @param factory The DAOFactory used in creating the DAOs for this action.
+	 * @param loggedInMID The MID of the patient editing his/her representatives.
+	 * @param pidString The MID of the representative in question.
 	 * @throws iTrustException
 	 */
 	public EditRepresentativesAction(DAOFactory factory, long loggedInMID, String pidString)
@@ -43,7 +43,7 @@ public class EditRepresentativesAction extends PatientBaseAction {
 	/**
 	 * Return a list of patients that pid represents
 	 * 
-	 * @param pid
+	 * @param pid The id of the personnel we are looking up representees for.
 	 * @return a list of PatientBeans
 	 * @throws iTrustException
 	 */

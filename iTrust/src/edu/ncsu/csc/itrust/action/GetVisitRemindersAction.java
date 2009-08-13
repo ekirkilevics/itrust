@@ -79,7 +79,7 @@ public class GetVisitRemindersAction {
 	/**
 	 * Set up defaults
 	 * 
-	 * @param factory
+	 * @param factory The DAOFactory used to create the DAOs used in this action.
 	 * @param loggedInMID MID of the person who is logged in
 	 * @throws iTrustException
 	 */

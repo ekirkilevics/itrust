@@ -36,6 +36,11 @@ public class EditOfficeVisitAction extends OfficeVisitBaseAction {
 	private long loggedInMID;
 	private long pid;
 
+	/**
+	 * Used to identify the subactions that can comprise an office visit action.
+	 * Subactions help direct the action's logic because sometimes multiple 
+	 * office visit actions can occur within one transaction.
+	 */
 	private enum OVSubAction {
 		ADD_DIAGNOSIS,
 		REMOVE_DIAGNOSIS,
@@ -52,10 +57,10 @@ public class EditOfficeVisitAction extends OfficeVisitBaseAction {
 	/**
 	 * Patient id and office visit id validated by super class
 	 * 
-	 * @param factory
-	 * @param loggedInMID
-	 * @param pidString
-	 * @param ovIDString
+	 * @param factory The DAOFactory to be used in creating the DAOs for this action.
+	 * @param loggedInMID The MID of the user who is authorizing this action.
+	 * @param pidString The patient who this action is performed on.
+	 * @param ovIDString The ID of the office visit in play.
 	 * @throws iTrustException
 	 */
 	public EditOfficeVisitAction(DAOFactory factory, long loggedInMID, String pidString, String ovIDString)

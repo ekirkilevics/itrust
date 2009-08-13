@@ -38,8 +38,8 @@ public class MyDiagnosisAction {
 	/**
 	 * Set up for defaults
 	 * 
-	 * @param factory
-	 * @param loggedInMID
+	 * @param factory The DAOFactory used to create the DAOs used in this action.
+	 * @param loggedInMID The MID of the user who is looking at their diagnoses.
 	 * @throws iTrustException
 	 */
 	public MyDiagnosisAction(DAOFactory factory, long loggedInMID) throws iTrustException {
@@ -159,6 +159,13 @@ public class MyDiagnosisAction {
 		return list;
 	}
 	
+	/**
+	 * Looks up all the prescriptions given by a certain HCP with the same ICD code.
+	 * @param hcpid The MID of the HCP
+	 * @param icdcode The ICD code of the prescription we are looking up.
+	 * @return A java.util.List of PrescriptionBeans made by this HCP of this ICD code.
+	 * @throws DBException
+	 */
 	public List<PrescriptionBean> getPrescriptionsByHCPAndICD(long hcpid, String icdcode) throws DBException {
 		List<PrescriptionBean> list = new ArrayList<PrescriptionBean>();
 		

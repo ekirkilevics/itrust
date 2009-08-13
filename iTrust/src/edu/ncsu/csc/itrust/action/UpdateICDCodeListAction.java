@@ -31,8 +31,8 @@ public class UpdateICDCodeListAction {
 	/**
 	 * Set up
 	 * 
-	 * @param factory
-	 * @param performerID
+	 * @param factory The DAOFactory used to create the DAOs used in this action.
+	 * @param performerID The MID of the person udpating the ICDs.
 	 */
 	public UpdateICDCodeListAction(DAOFactory factory, long performerID) {
 		this.performerID = performerID;

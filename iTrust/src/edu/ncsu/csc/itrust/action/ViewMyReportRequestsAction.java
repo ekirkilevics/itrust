@@ -30,8 +30,8 @@ public class ViewMyReportRequestsAction {
 	/**
 	 * Set up
 	 * 
-	 * @param factory
-	 * @param loggedInMID
+	 * @param factory The DAOFactory used to create the DAOs used in this action.
+	 * @param loggedInMID The MID of the person viewing their report requests.
 	 */
 	public ViewMyReportRequestsAction(DAOFactory factory, long loggedInMID) {
 		this.loggedInMID = loggedInMID;

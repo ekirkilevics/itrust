@@ -37,9 +37,9 @@ public class PrescriptionReportAction extends PatientBaseAction {
 	/**
 	 * Super class validates pidString
 	 * 
-	 * @param factory
-	 * @param loggedInMID
-	 * @param pidString
+	 * @param factory The DAOFactory used to create the DAOs used in this action.
+	 * @param loggedInMID The MID of the user who is making a prescription report.
+	 * @param pidString The MID of the patient in question.
 	 * @throws iTrustException
 	 * @throws DBException
 	 * @throws NoHealthRecordsException
@@ -91,8 +91,8 @@ public class PrescriptionReportAction extends PatientBaseAction {
 	 * Used by the JSP, passes a Map from the html form and a list of OfficeVisitBeans Returns a list of
 	 * PrescriptionReportBeans
 	 * 
-	 * @param params
-	 * @param officeVisits
+	 * @param params A java.util.HashMap containing the parameter map.
+	 * @param officeVisits A java.util.List of OfficeVisitBeans for the visits.
 	 * @return list of PrescriptionReportBeans
 	 * @throws DBException
 	 */
@@ -135,8 +135,8 @@ public class PrescriptionReportAction extends PatientBaseAction {
 	 * string that will be used to create a new url. The JSP will pull params from this url to create the
 	 * prescription report.
 	 * 
-	 * @param paramMap
-	 * @param officeVisits
+	 * @param paramMap A java.util.HashMap of the parameters.
+	 * @param officeVisits A java.util.List of OfficeVisitBeans.
 	 * @return the string that will be used in the new url
 	 * @throws FormValidationException
 	 * @throws DBException
@@ -158,7 +158,7 @@ public class PrescriptionReportAction extends PatientBaseAction {
 	 * 
 	 * @param myParams list of parameters
 	 * @param officeVisits list of office visits
-	 * @return
+	 * @return Returns a java.util.ArrayList of Integers for the given office visits.
 	 */
 	private ArrayList<Integer> checkOfficeVisits(HashMap<String, String> myParams,
 			List<OfficeVisitBean> officeVisits) {
@@ -174,7 +174,7 @@ public class PrescriptionReportAction extends PatientBaseAction {
 	 * Builds a query string for office visits
 	 * 
 	 * @param ovOffsets offsets for the office visits
-	 * @return
+	 * @return A SQL query in a Java String.
 	 */
 	private String buildQueryString(List<Integer> ovOffsets) {
 		int n = ovOffsets.size();

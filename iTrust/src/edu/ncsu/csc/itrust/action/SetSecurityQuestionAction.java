@@ -21,8 +21,8 @@ public class SetSecurityQuestionAction {
 	/**
 	 * Sets up defaults
 	 * 
-	 * @param factory
-	 * @param rLoggedInMID
+	 * @param factory The DAOFactory used to create the DAOs used in this action.
+	 * @param rLoggedInMID The MID of the user who is setting their security question.
 	 * @throws iTrustException
 	 */
 	public SetSecurityQuestionAction(DAOFactory factory, long rLoggedInMID) throws iTrustException {

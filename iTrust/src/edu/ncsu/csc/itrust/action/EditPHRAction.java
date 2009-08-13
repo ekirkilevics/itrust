@@ -56,9 +56,9 @@ public class EditPHRAction extends PatientBaseAction {
 	/**
 	 * Super class validates the patient id
 	 * 
-	 * @param factory
-	 * @param loggedInMID
-	 * @param pidString
+	 * @param factory The DAOFactory to be used in creating DAOs for this action.
+	 * @param loggedInMID The MID of the currently logged in user who is authorizing this action.
+	 * @param pidString The MID of the patient whose personal health records are being added.
 	 * @throws iTrustException
 	 * @throws DBException
 	 * @throws NoHealthRecordsException

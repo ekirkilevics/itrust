@@ -25,7 +25,7 @@ public class DeclareHCPAction {
 	/**
 	 * Sets up defaults
 	 * 
-	 * @param factory
+	 * @param factory The DAO factory to be used for generating the DAOs for this action.
 	 * @param loggedInMID
 	 *            This patient
 	 * @author Andy Meneely

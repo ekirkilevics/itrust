@@ -34,8 +34,8 @@ public class SendMessageAction {
 
 	/**
 	 * Sets up defaults
-	 * @param factory
-	 * @param loggedInMID
+	 * @param factory The DAOFactory used to create the DAOs used in this action.
+	 * @param loggedInMID The MID of the user sending the message.
 	 */
 	public SendMessageAction(DAOFactory factory, long loggedInMID) {
 		this.loggedInMID = loggedInMID;

@@ -31,7 +31,7 @@ public class ResetPasswordAction {
 
 	/**
 	 * Set up defaults
-	 * @param factory
+	 * @param factory The DAOFactory used to create the DAOs used in this action.
 	 */
 	public ResetPasswordAction(DAOFactory factory) {
 		this.authDAO = factory.getAuthDAO();
@@ -42,7 +42,7 @@ public class ResetPasswordAction {
 	/**
 	 * Checks to see if a user exists with the given mid
 	 * 
-	 * @param midString
+	 * @param midString The user's MID to check for.
 	 * @return 0 if the user does not exist, else the mid of the user as a long
 	 */
 	public long checkMID(String midString) {
@@ -61,7 +61,7 @@ public class ResetPasswordAction {
 	/**
 	 * Checks to see if the number of reset password attempts has been exceeded for the given ipAddress
 	 * 
-	 * @param ipAddress
+	 * @param ipAddress The IPv4 or IPv6 IP address as a String.
 	 * @return true if the the number of reset attempts is greater than or equal to MAX_RESET_ATTEMPTS
 	 * @throws DBException
 	 */

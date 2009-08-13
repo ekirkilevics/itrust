@@ -20,8 +20,8 @@ public class SurveyAction {
 	
 	/**
 	 * Sets up defaults
-	 * @param factory
-	 * @param loggedInMID
+	 * @param factory The DAOFactory used to create the DAOs used in this action.
+	 * @param loggedInMID The MID of the user taking the survey.
 	 */
 	public SurveyAction(DAOFactory factory, long loggedInMID) {
 		transDAO = factory.getTransactionDAO();
@@ -33,6 +33,7 @@ public class SurveyAction {
 	/**
 	 * Pass the OfficeVistBean along with SurveyBean
 	 * @param surveyBean contains data to be added to database
+	 * @param visitID The Office Visit ID corresponding to this Survey.
 	 * @throws DBException
 	 */
 	public void addSurvey(SurveyBean surveyBean, long visitID) throws DBException {

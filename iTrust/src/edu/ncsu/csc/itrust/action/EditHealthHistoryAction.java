@@ -30,9 +30,9 @@ public class EditHealthHistoryAction extends PatientBaseAction {
 	/**
 	 * The patient ID is validated by the superclass
 	 * 
-	 * @param factory
-	 * @param loggedInMID
-	 * @param pidString
+	 * @param factory The DAOFactory which will be used to generate the DAOs used for this action.
+	 * @param loggedInMID The user authorizing this action.
+	 * @param pidString The patient (or other user) who is being edited.
 	 * @throws iTrustException
 	 */
 	public EditHealthHistoryAction(DAOFactory factory, long loggedInMID, String pidString)
@@ -58,8 +58,8 @@ public class EditHealthHistoryAction extends PatientBaseAction {
 	/**
 	 * Adds a health record for the given patient
 	 * 
-	 * @param pid
-	 * @param hr
+	 * @param pid  The patient record who is being edited.
+	 * @param hr  The filled out health record form to be added.
 	 * @return message - "Information Recorded" or exception's message
 	 * @throws FormValidationException
 	 */
@@ -102,7 +102,7 @@ public class EditHealthHistoryAction extends PatientBaseAction {
 	/**
 	 * Returns a list of all HealthRecords for the given patient
 	 * 
-	 * @param pid
+	 * @param pid  The ID of the patient to look up
 	 * @return list of HealthRecords
 	 * @throws iTrustException
 	 */

@@ -27,9 +27,9 @@ public class ViewVisitedHCPsAction {
 	private ArrayList<PersonnelBean> filterList;
 	
 	/**
-	 * Set up defaults
-	 * @param factory
-	 * @param loggedInMID
+	 * Set up defaults 
+	 * @param factory The DAOFactory used to create the DAOs used in this action.
+	 * @param loggedInMID The MID of the person viewing the visited HCPs.
 	 */
 	public ViewVisitedHCPsAction(DAOFactory factory, long loggedInMID) {
 		patientMID = loggedInMID;
@@ -135,7 +135,7 @@ public class ViewVisitedHCPsAction {
 	 * Set a given HCP as undeclared
 	 * 
 	 * @param name HCP to undeclare
-	 * @return null
+	 * @return An empty string.
 	 * @throws iTrustException
 	 */
 	public String undeclareHCP(String name) throws iTrustException {
@@ -168,7 +168,7 @@ public class ViewVisitedHCPsAction {
 	 * Set a given HCP as declared
 	 * 
 	 * @param name HCP to declare
-	 * @return null
+	 * @return An empty string.
 	 * @throws iTrustException
 	 */
 	public String declareHCP(String name) throws iTrustException {

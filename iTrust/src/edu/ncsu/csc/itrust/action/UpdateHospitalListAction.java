@@ -24,8 +24,8 @@ public class UpdateHospitalListAction {
 	/**
 	 * Set up
 	 * 
-	 * @param factory
-	 * @param performerID
+	 * @param factory The DAOFactory used to create the DAOs used in this action.
+	 * @param performerID The MID of the person updating the hospitals.
 	 */
 	public UpdateHospitalListAction(DAOFactory factory, long performerID) {
 		this.hospDAO = factory.getHospitalsDAO();

@@ -26,9 +26,10 @@ public class UpdateNDCodeListAction {
 	private MedicationBeanValidator validator = new MedicationBeanValidator();
 
 	/**
+	 * Set up defaults.
 	 * 
-	 * @param factory
-	 * @param performerID
+	 * @param factory The DAOFactory used to create the DAOs used in this action.
+	 * @param performerID The MID of the user updating the ND lists.
 	 */
 	public UpdateNDCodeListAction(DAOFactory factory, long performerID) {
 		this.performerID = performerID;

@@ -32,9 +32,9 @@ public class EditPatientAction extends PatientBaseAction {
 	/**
 	 * The super class validates the patient id
 	 * 
-	 * @param factory
-	 * @param loggedInMID
-	 * @param pidString
+	 * @param factory The DAOFactory used to create the DAOs for this action.
+	 * @param loggedInMID The MID of the user who is authorizing this action.
+	 * @param pidString The MID of the patient being edited.
 	 * @throws iTrustException
 	 */
 	public EditPatientAction(DAOFactory factory, long loggedInMID, String pidString) throws iTrustException {

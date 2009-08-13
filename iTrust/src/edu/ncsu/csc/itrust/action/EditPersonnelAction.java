@@ -29,9 +29,9 @@ public class EditPersonnelAction extends PersonnelBaseAction {
 	/**
 	 * Super class validates the patient id
 	 * 
-	 * @param factory
-	 * @param loggedInMID
-	 * @param pidString
+	 * @param factory The DAOFactory used to create the DAOs for this action.
+	 * @param loggedInMID The MID of the user editing this personnel.
+	 * @param pidString The ID of the user being edited.
 	 * @throws iTrustException
 	 */
 	public EditPersonnelAction(DAOFactory factory, long loggedInMID, String pidString) throws iTrustException {

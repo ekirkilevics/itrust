@@ -24,8 +24,8 @@ public class ManageHospitalAssignmentsAction {
 	/**
 	 * Set up defaults
 	 * 
-	 * @param factory
-	 * @param loggedInMID
+	 * @param factory The DAOFactory used to create the DAOs used in this action.
+	 * @param loggedInMID The MID of the user managing hospitals.
 	 */
 	public ManageHospitalAssignmentsAction(DAOFactory factory, long loggedInMID) {
 		this.loggedInMID = loggedInMID;
@@ -75,8 +75,8 @@ public class ManageHospitalAssignmentsAction {
 	/**
 	 * Assigns the mid to the hospital
 	 * 
-	 * @param midString
-	 * @param hospitalID
+	 * @param midString The MID of the person assigned to the hospital as a String.
+	 * @param hospitalID The ID of the hospital.
 	 * @return message indicating the status of the assignment
 	 * @throws iTrustException
 	 */

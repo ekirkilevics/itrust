@@ -10,14 +10,14 @@ import edu.ncsu.csc.itrust.testutils.TestDAOFactory;
 
 public class UpdateLabProcListActionTest extends TestCase {
 	private DAOFactory factory = TestDAOFactory.getTestInstance();
-	private UpdateLabProcListAction action;
+	private UpdateLOINCListAction action;
 	private TestDataGenerator gen;
 	private static long performingAdmin = 9000000001L;
 
 	@Override
 	protected void setUp() throws Exception {
 		gen = new TestDataGenerator();
-		action = new UpdateLabProcListAction(factory, performingAdmin);
+		action = new UpdateLOINCListAction(factory, performingAdmin);
 		gen.clearAllTables();
 		gen.admin1();
 		gen.loincs();
@@ -25,7 +25,7 @@ public class UpdateLabProcListActionTest extends TestCase {
 	}
 
 	public void testEvilFactory() throws Exception {
-		action = new UpdateLabProcListAction(EvilDAOFactory.getEvilInstance(), 0l);
+		action = new UpdateLOINCListAction(EvilDAOFactory.getEvilInstance(), 0l);
 		String code = "28473-7";
 		String com = "Poison Ivy";
 		String kop = "VOL";

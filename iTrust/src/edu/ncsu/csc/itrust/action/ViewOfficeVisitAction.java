@@ -27,8 +27,8 @@ public class ViewOfficeVisitAction extends OfficeVisitBaseAction {
 	/**
 	 * Super class handles validating the loggedInMid and ovIDString
 	 * 
-	 * @param factory
-	 * @param loggedInMID
+	 * @param factory The DAOFactory used to create the DAOs used in this action.
+	 * @param loggedInMID The MID of the person viewing their office visits. 
 	 * @param ovIDString
 	 *            The unique identifier of the office visit as a String.
 	 * @throws iTrustException
@@ -43,8 +43,8 @@ public class ViewOfficeVisitAction extends OfficeVisitBaseAction {
 	/**
 	 * Super class handles validating the pidString and ovIDString. Usually used for representing a patient.
 	 * 
-	 * @param factory
-	 * @param repPIDString
+	 * @param factory The DAOFactory used to create the DAOs used in this action.
+	 * @param repPIDString The MID of the representative viewing the records.
 	 * @param ovIDString
 	 *            The unique identifier of the office visit as a String.
 	 * @throws iTrustException

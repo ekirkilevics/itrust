@@ -20,6 +20,11 @@ public class ViewSurveyResultAction {
 	private SurveySearchValidator validator;
 	long loggedInMID;
 	
+	/**
+	 * Set up defaults.
+	 * @param factory The DAOFactory used to create the DAOs used in this action.
+	 * @param loggedInMID The MID of the person retrieving survey results.
+	 */
 	public ViewSurveyResultAction(DAOFactory factory, long loggedInMID) {
 		transDAO = factory.getTransactionDAO();
 		surveyResultDAO = factory.getSurveyResultDAO();
@@ -27,6 +32,13 @@ public class ViewSurveyResultAction {
 		validator = new SurveySearchValidator();
 	}
 	
+	/**
+	 * Retrieves survey results for a whole hospital.
+	 * @param bean The SurveyResultBean containing the survey result specs.
+	 * @return A java.util.List of Survey Results.
+	 * @throws iTrustException
+	 * @throws FormValidationException
+	 */
 	public List<SurveyResultBean> getSurveyResultsForHospital(SurveyResultBean bean) throws iTrustException, FormValidationException {
 		
 		transDAO.logTransaction(TransactionType.View_HCP_SURVEY_RESULTS, loggedInMID, 0, "searched results by HCP hospital ID");	
@@ -36,6 +48,13 @@ public class ViewSurveyResultAction {
 		
 	}
 	
+	/**
+	 * Retrieves survey results for a given zip code.
+	 * @param bean The SurveyResultBean containing the survey result specs.
+	 * @return A java.util.List of Survey Results.
+	 * @throws iTrustException
+	 * @throws FormValidationException
+	 */
 	public List<SurveyResultBean> getSurveyResultsForZip(SurveyResultBean bean) throws iTrustException, FormValidationException {
 		
 		validator.validate(bean);

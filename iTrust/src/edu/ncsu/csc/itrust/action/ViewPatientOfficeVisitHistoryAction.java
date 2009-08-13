@@ -32,8 +32,8 @@ public class ViewPatientOfficeVisitHistoryAction {
 
 	/**
 	 * Set up defaults
-	 * @param factory
-	 * @param loggedInMID
+	 * @param factory The DAOFactory used to create the DAOs used in this action.
+	 * @param loggedInMID The MID of the person viewing the office visits.
 	 */
 	public ViewPatientOfficeVisitHistoryAction(DAOFactory factory, long loggedInMID) {
 		this.loggedInMID = loggedInMID;
@@ -92,7 +92,7 @@ public class ViewPatientOfficeVisitHistoryAction {
 	 * Checks to see if a patient is in the list of  visits
 	 * @param pb patient to check
 	 * @param date date of the visit
-	 * @return
+	 * @return True if the patient is in the list of visits.
 	 */
 	private boolean PatientInList(PatientBean pb, String date) {
 		Iterator<PatientVisitBean> it = visits.iterator();

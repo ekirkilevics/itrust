@@ -15,7 +15,7 @@ public class GetUserNameAction {
 	/**
 	 * Set up defaults
 	 * 
-	 * @param factory
+	 * @param factory The DAOFactory used for creating the DAOs for this action.
 	 */
 	public GetUserNameAction(DAOFactory factory) {
 		this.factory = factory;
@@ -24,7 +24,7 @@ public class GetUserNameAction {
 	/**
 	 * Returns the person's name that matches the inputMID param
 	 * 
-	 * @param inputMID
+	 * @param inputMID The MID to look up.
 	 * @return the person's name
 	 * @throws DBException
 	 * @throws iTrustException

@@ -8,7 +8,10 @@ import edu.ncsu.csc.itrust.exception.DBException;
 import edu.ncsu.csc.itrust.exception.iTrustException;
 
 
-
+/**
+ * Edits a patient's prescription information.  Used by hcp-uap/editPrescription.jsp
+ * @author Ben Smith
+ */
 public class EditPrescriptionAction {
 
 	private OfficeVisitDAO ovDAO;

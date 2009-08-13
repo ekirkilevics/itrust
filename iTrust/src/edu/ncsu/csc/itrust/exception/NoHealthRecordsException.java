@@ -1,5 +1,10 @@
 package edu.ncsu.csc.itrust.exception;
 
+/**
+ * This error message is thrown when checking for health risk indicators and the
+ * patient has had no health records entered.  It is a separate case than an iTrustException
+ * because the error handling is slightly different. 
+ */
 public class NoHealthRecordsException extends iTrustException {
 
 	public static final String MESSAGE = "The patient did not have any health records recorded. "

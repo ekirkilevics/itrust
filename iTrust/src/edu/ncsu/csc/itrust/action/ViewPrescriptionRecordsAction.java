@@ -32,8 +32,8 @@ public class ViewPrescriptionRecordsAction {
 	/**
 	 * Set up defaults
 	 * 
-	 * @param factory
-	 * @param loggedInMID
+	 * @param factory The DAOFactory used to create the DAOs used in this action.
+	 * @param loggedInMID The MID of the person viewing prescription records.
 	 */
 	public ViewPrescriptionRecordsAction(DAOFactory factory, long loggedInMID) {
 		this.emailer = new EmailUtil(factory);

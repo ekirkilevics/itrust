@@ -24,8 +24,8 @@ public class ViewMyAccessLogAction {
 	/**
 	 * Set up
 	 * 
-	 * @param factory
-	 * @param loggedInMID
+	 * @param factory The DAOFactory used to create the DAOs used in this action.
+	 * @param loggedInMID The MID of the person retrieving the logs.
 	 */
 	public ViewMyAccessLogAction(DAOFactory factory, long loggedInMID) {
 		this.loggedInMID = loggedInMID;
@@ -67,8 +67,8 @@ public class ViewMyAccessLogAction {
 	 * Returns the date of the first Transaction in the list passed as a param if the list is not empty
 	 * otherwise, returns today's date
 	 * 
-	 * @param accesses
-	 * @return
+	 * @param accesses A java.util.List of TransactionBeans for the accesses.
+	 * @return A String representing the date of the first transaction.
 	 */
 	public String getDefaultStart(List<TransactionBean> accesses) {
 		String startDate = "";
@@ -85,8 +85,8 @@ public class ViewMyAccessLogAction {
 	 * Returns the date of the last Transaction in the list passed as a param if the list is not empty
 	 * otherwise, returns today's date
 	 * 
-	 * @param accesses
-	 * @return
+	 * @param accesses A java.util.List of TransactionBeans storing the access. 
+	 * @return A String representation of the date of the last transaction.
 	 */
 	public String getDefaultEnd(List<TransactionBean> accesses) {
 		String endDate = "";

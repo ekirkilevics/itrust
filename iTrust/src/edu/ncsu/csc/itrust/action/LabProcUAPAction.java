@@ -26,7 +26,7 @@ public class LabProcUAPAction {
 
 /**
  * Setup 
- * @param factory
+ * @param factory The DAOFactory used to create the DAOs used in this action.
  * @param loggedInMID UAP who is logged in
  */
 	public LabProcUAPAction(DAOFactory factory, long loggedInMID) {

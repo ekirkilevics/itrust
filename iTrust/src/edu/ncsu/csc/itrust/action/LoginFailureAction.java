@@ -27,8 +27,8 @@ public class LoginFailureAction {
 
 	/**
 	 * Set up defaults
-	 * @param factory
-	 * @param ipAddr
+	 * @param factory The DAOFactory used to create the DAOs used in this action.
+	 * @param ipAddr The IP address of the user making the login attempt.
 	 */
 	public LoginFailureAction(DAOFactory factory, String ipAddr) {
 		this.authDAO = factory.getAuthDAO();

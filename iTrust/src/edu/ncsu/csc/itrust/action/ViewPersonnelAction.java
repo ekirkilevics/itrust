@@ -26,8 +26,8 @@ public class ViewPersonnelAction {
 	/**
 	 * Set up defaults
 	 * 
-	 * @param factory
-	 * @param loggedInMID
+	 * @param factory The DAOFactory used to create the DAOs used in this action.
+	 * @param loggedInMID The MID of the person retrieving personnel beans.
 	 */
 	public ViewPersonnelAction(DAOFactory factory, long loggedInMID) {
 		this.emailDAO = factory.getFakeEmailDAO();
@@ -63,7 +63,7 @@ public class ViewPersonnelAction {
 	/**
 	 * Returns a PatientBean for the currently logged in personnel
 	 * 
-	 * @return
+	 * @return The PatientBean
 	 * @throws iTrustException
 	 */
 	public List<Email> getEmailHistory() throws iTrustException {
