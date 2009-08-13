@@ -1,5 +1,6 @@
 package edu.ncsu.csc.itrust.beans;
 
+import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -7,7 +8,9 @@ import edu.ncsu.csc.itrust.enums.BloodType;
 import edu.ncsu.csc.itrust.enums.Ethnicity;
 import edu.ncsu.csc.itrust.enums.Gender;
 
-public class PatientBean {
+public class PatientBean implements Serializable {
+	private static final long serialVersionUID = -6474182977342257877L;
+	
 	private long MID = 0;
 	private String firstName = "";
 	private String lastName = "";

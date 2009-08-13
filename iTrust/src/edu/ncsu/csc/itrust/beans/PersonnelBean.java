@@ -1,9 +1,12 @@
 package edu.ncsu.csc.itrust.beans;
 
 import edu.ncsu.csc.itrust.enums.Role;
+import java.io.Serializable;
 import java.util.List;
 
-public class PersonnelBean {
+public class PersonnelBean implements Serializable {
+	private static final long serialVersionUID = 6575544592646001050L;
+	
 	private long MID = 0;
 	private long AMID = 0;
 	private Role role;

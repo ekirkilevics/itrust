@@ -8,7 +8,6 @@ import java.util.Vector;
 import java.util.List;
 import edu.ncsu.csc.itrust.DBUtil;
 import edu.ncsu.csc.itrust.beans.HospitalBean;
-//import edu.ncsu.csc.itrust.beans.PatientBean;
 import edu.ncsu.csc.itrust.beans.PersonnelBean;
 import edu.ncsu.csc.itrust.beans.PrescriptionBean;
 import edu.ncsu.csc.itrust.beans.loaders.HospitalBeanLoader;
