@@ -25,15 +25,15 @@ import edu.ncsu.csc.itrust.dao.mysql.SurveyDAO;
 import edu.ncsu.csc.itrust.dao.mysql.SurveyResultDAO;
 import edu.ncsu.csc.itrust.dao.mysql.TransactionDAO;
 import edu.ncsu.csc.itrust.dao.mysql.VisitRemindersDAO;
+import edu.ncsu.csc.itrust.testutils.EvilDAOFactory;
+import edu.ncsu.csc.itrust.testutils.TestDAOFactory;
 
 /**
- * The central mediator for all Database Access Objects. This class currently follows a "tripleton" pattern.
- * There can only be three instances of DAOFactory. The production instance uses the database connection pool
+ * The central mediator for all Database Access Objects. The production instance uses the database connection pool
  * provided by Tomcat (so use the production instance when doing stuff from JSPs in the "real code"). Both the
  * production and the test instance parses the context.xml file to get the JDBC connection.
  * 
- * The EvilTestInstance is used to test exception handling throughout the system. When a connection is
- * requested, the EvilTestConnection Driver will instead throw an SQL exception with a custom message.
+ * Also, @see {@link EvilDAOFactory} and @see {@link TestDAOFactory}.
  * 
  * Any DAO that is added to the system should be added in this class, in the same way that all other DAOs are.
  * 
@@ -42,7 +42,6 @@ import edu.ncsu.csc.itrust.dao.mysql.VisitRemindersDAO;
  */
 public class DAOFactory {
 	private static DAOFactory productionInstance = null;
-	private static DAOFactory testInstance = null;
 	private IConnectionDriver driver;
 
 	/**
@@ -53,15 +52,6 @@ public class DAOFactory {
 		if (productionInstance == null)
 			productionInstance = new DAOFactory();
 		return productionInstance;
-	}
-	
-	/**
-	 * @return A test instance of the DAOFactory, to be used by JUnit and other testing harnesses.
-	 */
-	public static DAOFactory getTestInstance() {
-		if (testInstance == null)
-			testInstance = new DAOFactory();
-		return testInstance;
 	}
 
 	protected DAOFactory() {
