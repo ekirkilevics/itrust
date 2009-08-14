@@ -5,6 +5,7 @@ import edu.ncsu.csc.itrust.enums.Gender;
 
 /**
  * Checks if the patient's gender matches the given at-risk one.
+ * See {@link PatientRiskFactor} for details on what each method typically does.
  * 
  * @author Andy
  * 

@@ -13,6 +13,12 @@ import edu.ncsu.csc.itrust.exception.FormValidationException;
  * 
  */
 public class SecurityQAValidator extends BeanValidator<SecurityQA> {
+	/**
+	 * Performs the act of validating the bean in question, which varies depending on the
+	 * type of validator.  If the validation does not succeed, a {@link FormValidationException} is thrown.
+	 * 
+	 * @param p A bean of the type to be validated.
+	 */
 	@Override
 	public void validate(SecurityQA bean) throws FormValidationException {
 		ErrorList errorList = new ErrorList();

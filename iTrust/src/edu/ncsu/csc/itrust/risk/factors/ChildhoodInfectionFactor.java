@@ -5,6 +5,7 @@ import edu.ncsu.csc.itrust.exception.DBException;
 
 /**
  * Checks if the patient had the given diagnoses during childhood.
+ * See {@link PatientRiskFactor} for details on what each method typically does.
  * 
  * @author Andy
  * 

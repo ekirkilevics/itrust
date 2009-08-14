@@ -8,6 +8,10 @@ public class iTrustException extends Exception {
 	private static final long serialVersionUID = 1L;
 	String message = null;
 
+	/**
+	 * The typical constructor.
+	 * @param message A message to be displayed to the screen.
+	 */
 	public iTrustException(String message) {
 		this.message = message;
 	}

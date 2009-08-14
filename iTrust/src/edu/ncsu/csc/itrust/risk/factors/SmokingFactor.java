@@ -5,6 +5,7 @@ import edu.ncsu.csc.itrust.exception.DBException;
 
 /**
  * Risk factor delegates to the DAO to see if a patient has ever smoked in their life
+ * See {@link PatientRiskFactor} for details on what each method typically does.
  * 
  * @author Andy
  * 

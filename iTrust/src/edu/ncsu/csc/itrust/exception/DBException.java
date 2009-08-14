@@ -20,6 +20,9 @@ public class DBException extends iTrustException {
 		this.sqlException = e;
 	}
 
+	/**
+	 * @return The SQL Exception that was responsible for this error.
+	 */
 	public SQLException getSQLException() {
 		return sqlException;
 	}

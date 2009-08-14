@@ -10,9 +10,18 @@ import edu.ncsu.csc.itrust.exception.FormValidationException;
  * Validator used to validate LOINCbean
  */
 public class LOINCBeanValidator extends BeanValidator<LOINCbean> {
+	/**
+	 * The default constructor.
+	 */
 	public LOINCBeanValidator() {
 	}
 
+	/**
+	 * Performs the act of validating the bean in question, which varies depending on the
+	 * type of validator.  If the validation does not succeed, a {@link FormValidationException} is thrown.
+	 * 
+	 * @param p A bean of the type to be validated.
+	 */
 	@Override
 	public void validate(LOINCbean m) throws FormValidationException {
 		ErrorList errorList = new ErrorList();

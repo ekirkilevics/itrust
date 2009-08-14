@@ -22,7 +22,7 @@ import edu.ncsu.csc.itrust.risk.factors.WeightFactor;
 
 /**
  * Checks to see if the given patient is at risk for Heart Disease
- * 
+ * For details on what each method does, see {@link RiskChecker}
  * @author Andy
  * 
  */

@@ -45,12 +45,19 @@ public class DAOFactory {
 	private static DAOFactory testInstance = null;
 	private IConnectionDriver driver;
 
+	/**
+	 * 
+	 * @return A production instance of the DAOFactory, to be used in deployment (by Tomcat).
+	 */
 	public static DAOFactory getProductionInstance() {
 		if (productionInstance == null)
 			productionInstance = new DAOFactory();
 		return productionInstance;
 	}
 	
+	/**
+	 * @return A test instance of the DAOFactory, to be used by JUnit and other testing harnesses.
+	 */
 	public static DAOFactory getTestInstance() {
 		if (testInstance == null)
 			testInstance = new DAOFactory();

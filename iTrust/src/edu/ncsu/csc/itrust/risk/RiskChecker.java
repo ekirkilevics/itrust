@@ -37,10 +37,19 @@ abstract public class RiskChecker {
 		patient = factory.getPatientDAO().getPatient(patientID);
 	}
 
+	/**
+	 * @return The name of the disease being checked.
+	 */
 	abstract public String getName();
 
+	/**
+	 * @return A java.util.List of the risk factors increasing this patients disease risk.
+	 */
 	abstract protected List<PatientRiskFactor> getDiseaseRiskFactors();
 
+	/**
+	 * @return A boolean indicating whether the patient is at increased risk.
+	 */
 	abstract public boolean qualifiesForDisease();
 
 	/**
@@ -65,6 +74,9 @@ abstract public class RiskChecker {
 		return false; // both an else from qualifies or NOT over the threshold
 	}
 
+	/**
+	 * @return A java.util.List of patient risk factors associated with this disease.
+	 */
 	public List<PatientRiskFactor> getPatientRiskFactors() {
 		List<PatientRiskFactor> patientRiskFactors = new ArrayList<PatientRiskFactor>();
 		List<PatientRiskFactor> diseaseRiskFactors = getDiseaseRiskFactors();

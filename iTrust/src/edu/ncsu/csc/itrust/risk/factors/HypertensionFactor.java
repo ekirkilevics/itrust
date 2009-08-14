@@ -4,6 +4,7 @@ import edu.ncsu.csc.itrust.beans.HealthRecord;
 
 /**
  * Checks if the patient's blood pressure is above a given threshold.
+ * See {@link PatientRiskFactor} for details on what each method typically does.
  * 
  * @author Andy
  * 

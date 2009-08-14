@@ -12,7 +12,8 @@ import edu.ncsu.csc.itrust.risk.factors.FamilyHistoryFactor;
 import edu.ncsu.csc.itrust.risk.factors.PatientRiskFactor;
 
 /**
- * Checks to see if the given patient is at risk for Type 1 Diabetes
+ * Checks to see if the given patient is at risk for Type 1 Diabetes.
+ * For details on what each method does, see {@link RiskChecker}
  * 
  * @author Andy
  * 

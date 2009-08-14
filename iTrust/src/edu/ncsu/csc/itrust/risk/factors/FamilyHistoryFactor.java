@@ -5,6 +5,7 @@ import edu.ncsu.csc.itrust.exception.DBException;
 
 /**
  * Checks if a patient has a family history of a given diagnosis range. Delegates straight to the DAO.
+ * See {@link PatientRiskFactor} for details on what each method typically does.
  * 
  * @author Andy
  * 

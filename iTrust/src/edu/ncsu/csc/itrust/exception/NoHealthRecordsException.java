@@ -12,6 +12,9 @@ public class NoHealthRecordsException extends iTrustException {
 
 	private static final long serialVersionUID = 7082694071460355325L;
 
+	/**
+	 * The default constructor, which just passes a pre-specified message to an iTrustException.
+	 */
 	public NoHealthRecordsException() {
 		super(MESSAGE);
 	}

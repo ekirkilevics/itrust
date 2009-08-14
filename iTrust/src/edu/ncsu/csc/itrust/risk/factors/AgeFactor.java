@@ -4,9 +4,8 @@ import edu.ncsu.csc.itrust.beans.PatientBean;
 
 /**
  * The risk factor associated with checking if a person is over a particular age
- * 
+ * See {@link PatientRiskFactor} for details on what each method typically does.
  * @author Andy
- * 
  */
 public class AgeFactor extends PatientRiskFactor {
 	private PatientBean patient;

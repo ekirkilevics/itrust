@@ -1,5 +1,9 @@
 package edu.ncsu.csc.itrust.enums;
 
+/**
+ * The iTrust user roles: Patient, ER, HCP, UAP, Administrator and Tester.
+ * Consult the requirements for the contextual meanings of these individual choices.
+ */
 public enum Role {
 	PATIENT("patient", "Patients"), 
 	ER("er", "Personnel"), 

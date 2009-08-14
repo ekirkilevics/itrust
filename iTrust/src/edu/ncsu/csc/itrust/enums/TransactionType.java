@@ -1,5 +1,8 @@
 package edu.ncsu.csc.itrust.enums;
 
+/**
+ * All of the possible transaction types, in no particular order, used in producing the operational profile.
+ */
 public enum TransactionType {
 	ENTER_EDIT_DEMOGRAPHICS(1, "Enter/Edit patient/personnel demographics"),
 	DECLARE_HCP(2, "View HCP / Change designation"),

@@ -6,6 +6,10 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Takes a parameter map and creates a bean from that map of the appropriate type.
+ * @param <T> The type to be returned from the appropriate parameter map.
+ */
 public class BeanBuilder<T> {
 	/**
 	 * The code here is not obvious, but this method should not need rewriting unless a bug is found

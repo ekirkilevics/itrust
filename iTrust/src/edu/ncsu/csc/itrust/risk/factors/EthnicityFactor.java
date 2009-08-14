@@ -5,6 +5,7 @@ import edu.ncsu.csc.itrust.enums.Ethnicity;
 
 /**
  * Checks if the ethnicity of a patient matches the one at risk
+ * See {@link PatientRiskFactor} for details on what each method typically does.
  * 
  * @author Andy
  * 

@@ -1,7 +1,7 @@
 package edu.ncsu.csc.itrust.enums;
 
 /**
- * All of our wonderful states
+ * All of our wonderful states.
  * 
  * @author Andy
  * 

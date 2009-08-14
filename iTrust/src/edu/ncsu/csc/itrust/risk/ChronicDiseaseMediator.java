@@ -18,8 +18,8 @@ public class ChronicDiseaseMediator {
 	/**
 	 * Given a factory and patient ID, and sets up a list of all risk checkers
 	 * 
-	 * @param factory
-	 * @param pid
+	 * @param factory The DAOFactory to be used in creating the necessary DAOs to perform the checks.
+	 * @param pid The MID of the patient in question.
 	 * @throws DBException
 	 * @throws NoHealthRecordsException
 	 */
@@ -31,9 +31,7 @@ public class ChronicDiseaseMediator {
 	}
 
 	/**
-	 * Returns a list of diseases that this patient is at risk for
-	 * 
-	 * @return
+	 * @return A list of diseases that this patient is at risk for
 	 */
 	public List<RiskChecker> getDiseaseAtRisk() {
 		List<RiskChecker> diseases = new ArrayList<RiskChecker>();

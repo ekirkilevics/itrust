@@ -19,7 +19,8 @@ import edu.ncsu.csc.itrust.risk.factors.PriorDiagnosisFactor;
 import edu.ncsu.csc.itrust.risk.factors.WeightFactor;
 
 /**
- * Checks to see if the given patient is at risk for Type II Diabetes
+ * Checks to see if the given patient is at risk for Type II Diabetes.
+ * For details on what each method does, see {@link RiskChecker}
  * 
  * @author Andy
  * 

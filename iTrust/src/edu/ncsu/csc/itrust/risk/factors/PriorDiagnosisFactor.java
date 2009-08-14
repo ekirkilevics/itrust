@@ -5,6 +5,7 @@ import edu.ncsu.csc.itrust.exception.DBException;
 
 /**
  * Checks for prior diagnoses by delegatin to the DAO
+ * See {@link PatientRiskFactor} for details on what each method typically does.
  * 
  * @author Andy
  * 

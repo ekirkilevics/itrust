@@ -4,6 +4,7 @@ import edu.ncsu.csc.itrust.beans.HealthRecord;
 
 /**
  * Checks the patient's body mass index over the given threshold
+ * See {@link PatientRiskFactor} for details on what each method typically does.
  * 
  * @author Andy
  * 

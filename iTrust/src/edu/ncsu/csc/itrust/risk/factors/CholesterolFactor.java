@@ -4,6 +4,7 @@ import edu.ncsu.csc.itrust.beans.HealthRecord;
 
 /**
  * Checks if cholesterol is over a given threshold for a given patient
+ * See {@link PatientRiskFactor} for details on what each method typically does.
  * 
  * @author Andy
  * 
