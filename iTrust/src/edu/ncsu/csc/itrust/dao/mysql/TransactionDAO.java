@@ -68,8 +68,8 @@ public class TransactionDAO {
 	/**
 	 * Log a transaction, just giving it the person who is logged in and the type
 	 * 
-	 * @param type
-	 * @param loggedInMID
+	 * @param type The {@link TransactionType} enum representing the type this transaction is.
+	 * @param loggedInMID The MID of the user who is logged in.
 	 * @throws DBException
 	 */
 	public void logTransaction(TransactionType type, long loggedInMID) throws DBException {
@@ -80,10 +80,10 @@ public class TransactionDAO {
 	 * Log a transaction, with all of the info. The meaning of secondaryMID and addedInfo changes depending on
 	 * the transaction type.
 	 * 
-	 * @param type
-	 * @param loggedInMID
-	 * @param secondaryMID
-	 * @param addedInfo
+	 * @param type The {@link TransactionType} enum representing the type this transaction is.
+	 * @param loggedInMID The MID of the user who is logged in.
+	 * @param secondaryMID Typically, the MID of the user who is being acted upon.
+	 * @param addedInfo A note about a subtransaction, or specifics of this transaction (for posterity).
 	 * @throws DBException
 	 */
 	public void logTransaction(TransactionType type, long loggedInMID, long secondaryMID, String addedInfo)
@@ -110,8 +110,8 @@ public class TransactionDAO {
 	/**
 	 * Return a list of all transactions in which an HCP accessed the given patient's record
 	 * 
-	 * @param patientID
-	 * @return
+	 * @param patientID The MID of the patient in question.
+	 * @return A java.util.List of transactions.
 	 * @throws DBException
 	 */
 	public List<TransactionBean> getAllRecordAccesses(long patientID) throws DBException {
@@ -137,10 +137,10 @@ public class TransactionDAO {
 	/**
 	 * Return a list of all transactions in which an HCP accessed the given patient's record, within the dates
 	 * 
-	 * @param patientID
-	 * @param lower
-	 * @param upper
-	 * @return
+	 * @param patientID The MID of the patient in question.
+	 * @param lower The starting date as a java.util.Date
+	 * @param upper The ending date as a java.util.Date
+	 * @return A java.util.List of transactions.
 	 * @throws DBException
 	 */
 	public List<TransactionBean> getRecordAccesses(long patientID, Date lower, Date upper) throws DBException {
@@ -170,7 +170,7 @@ public class TransactionDAO {
 	/**
 	 * Returns the operation profile
 	 * 
-	 * @return
+	 * @return The OperationalProfile as a bean.
 	 * @throws DBException
 	 */
 	public OperationalProfile getOperationalProfile() throws DBException {

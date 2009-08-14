@@ -40,10 +40,10 @@ public class RiskDAO {
 	 * even though it executes one query per family member. If this method gets slow, then you will need to
 	 * refactor. Otherwise, let's just keep it simple...
 	 * 
-	 * @param patientID
-	 * @param icdLower
-	 * @param icdUpper
-	 * @return
+	 * @param patientID The MID of the patient in question.
+	 * @param icdLower A double of the lower bound for the codes.
+	 * @param icdUpper A double of the upper bound for the codes.
+	 * @return A boolean indicating whether a family member had a match in this range.
 	 * @throws DBException
 	 */
 	public boolean hasFamilyHistory(long patientID, double icdLower, double icdUpper) throws DBException {
@@ -65,9 +65,9 @@ public class RiskDAO {
 	/**
 	 * Returns whether or not a patient had a childhood infection for the exact, given ICD codes.
 	 * 
-	 * @param patientID
-	 * @param icdCodes
-	 * @return
+	 * @param patientID The MID of the patient in question.
+	 * @param icdCodes A parameter list of the ICD codes to match.
+	 * @return A boolean indicating whether this patient had all the listed ICD codes.
 	 * @throws DBException
 	 */
 	public boolean hadChildhoodInfection(long patientID, double... icdCodes) throws DBException {
@@ -106,10 +106,10 @@ public class RiskDAO {
 	}
 
 	/**
-	 * Returns if the patient has every smoked in their life
+	 * Returns if the patient has ever smoked in their life
 	 * 
-	 * @param patientID
-	 * @return
+	 * @param patientID The MID of the patient in question.
+	 * @return A boolean indicating whether the patient smoked.
 	 * @throws DBException
 	 */
 	public boolean hasSmoked(long patientID) throws DBException {
@@ -132,10 +132,10 @@ public class RiskDAO {
 	/**
 	 * Returns if a patient has ever been diagnosed with the given ICD code, in the range [lower,upper)
 	 * 
-	 * @param patientID
-	 * @param lowerICDCode
-	 * @param upperICDCode
-	 * @return
+	 * @param patientID The MID of the patient in question.
+	 * @param lowerICDCode A double of the lower ICD code.
+	 * @param upperICDCode A double of the upper ICD code.
+	 * @return A boolean indicating whether there was a match in the given range.
 	 * @throws DBException
 	 */
 	public boolean hadPriorDiagnoses(long patientID, double lowerICDCode, double upperICDCode)

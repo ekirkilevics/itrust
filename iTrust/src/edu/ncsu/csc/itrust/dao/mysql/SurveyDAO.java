@@ -11,7 +11,17 @@ import edu.ncsu.csc.itrust.beans.loaders.SurveyLoader;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
 import edu.ncsu.csc.itrust.exception.DBException;
 
-
+/**
+ * A DAO for handling all Survey data.
+ * 
+ * DAO stands for Database Access Object. All DAOs are intended to be reflections of the database, that is,
+ * one DAO per table in the database (most of the time). For more complex sets of queries, extra DAOs are
+ * added. DAOs can assume that all data has been validated and is correct.
+ * 
+ * DAOs should never have setters or any other parameter to the constructor than a factory. All DAOs should be
+ * accessed by DAOFactory (@see {@link DAOFactory}) and every DAO should have a factory - for obtaining JDBC
+ * connections and/or accessing other DAOs.
+ */
 public class SurveyDAO {
 	private DAOFactory factory;
 	private SurveyLoader surveyLoader;
@@ -27,8 +37,8 @@ public class SurveyDAO {
 	
 	/**
 	 * Insert survey data into database.
-	 * @param surveyBean
-	 * @return
+	 * @param surveyBean The Bean representing the user's responses which will be inserted.
+	 * @param date The date the survey was completed.
 	 */
 	public void addCompletedSurvey(SurveyBean surveyBean, Date date) throws DBException {
 		Connection conn = null;
@@ -76,8 +86,8 @@ public class SurveyDAO {
 	 * Gets survey data from the database by the office visit id. Creates an instance of an
 	 * SurveyBean with data and returns it.
 	 * 
-	 * @param id
-	 * @return
+	 * @param id The unique ID of the survey in question.
+	 * @return A bean containing the SurveyBean.
 	 * @throws DBException
 	 */
 	public SurveyBean getSurveyData(long id) throws DBException {
@@ -104,7 +114,8 @@ public class SurveyDAO {
 	/**
 	 * Has this survey been completed?
 	 * 
-	 * @return boolean
+	 * @param visitID The unique ID of the office visit we are wondering about.
+	 * @return boolean indicating whether this survey is completed.
 	 * @throws DBException
 	 */
 	public boolean isSurveyCompleted(long visitID) throws DBException {

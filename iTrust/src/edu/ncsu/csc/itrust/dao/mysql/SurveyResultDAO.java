@@ -10,7 +10,17 @@ import edu.ncsu.csc.itrust.beans.loaders.SurveyResultBeanLoader;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
 import edu.ncsu.csc.itrust.exception.DBException;
 
-
+/**
+ * A DAO for handling all Survey results.
+ * 
+ * DAO stands for Database Access Object. All DAOs are intended to be reflections of the database, that is,
+ * one DAO per table in the database (most of the time). For more complex sets of queries, extra DAOs are
+ * added. DAOs can assume that all data has been validated and is correct.
+ * 
+ * DAOs should never have setters or any other parameter to the constructor than a factory. All DAOs should be
+ * accessed by DAOFactory (@see {@link DAOFactory}) and every DAO should have a factory - for obtaining JDBC
+ * connections and/or accessing other DAOs.
+ */
 public class SurveyResultDAO {
 	private DAOFactory factory;
 	private SurveyResultBeanLoader loader;
@@ -24,6 +34,14 @@ public class SurveyResultDAO {
 		this.loader = new SurveyResultBeanLoader();
 	}
 	
+	/**
+	 * Returns all the survey results in the database that correspond to a particular zip code.
+	 * 
+	 * @param zip The zipcode we are interested in as a String.
+	 * @param specialty The specialty we are interested in as a String.
+	 * @return A java.util.List of SurveyResultBeans.
+	 * @throws DBException
+	 */
 	public List<SurveyResultBean> getSurveyResultsForZip(String zip, String specialty) throws DBException {
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -67,6 +85,14 @@ public class SurveyResultDAO {
 		}
 	}
 	
+	/**
+	 * Returns all the survey data associated with a given hospital and a certain specialty.
+	 * 
+	 * @param hospitalID The unique ID of the iTrust hospital we are querying about.
+	 * @param specialty A string representing the specialty we are interested in.
+	 * @return A java.util.List of SurveyResultBeans.
+	 * @throws DBException
+	 */
 	public List<SurveyResultBean> getSurveyResultsForHospital(String hospitalID, String specialty) throws DBException {
 		Connection conn = null;
 		PreparedStatement ps = null;

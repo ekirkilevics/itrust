@@ -50,8 +50,8 @@ public class PersonnelDAO {
 	/**
 	 * Returns the name for a given MID
 	 * 
-	 * @param mid
-	 * @return
+	 * @param mid The MID of the personnel in question.
+	 * @return A String representing the name of the personnel.
 	 * @throws iTrustException
 	 * @throws DBException
 	 */
@@ -81,7 +81,8 @@ public class PersonnelDAO {
 	/**
 	 * Adds an empty personnel, and returns the MID.
 	 * 
-	 * @return
+	 * @return A long indicating the new MID.
+	 * @param role A {@link Role} enum indicating the personnel's specific role.
 	 * @throws DBException
 	 * @throws iTrustException
 	 */
@@ -105,6 +106,13 @@ public class PersonnelDAO {
 		}
 	}
 
+	/**
+	 * Retrieves a PersonnelBean with all of the specific information for a given employee.
+	 * 
+	 * @param mid The MID of the personnel in question.
+	 * @return A PersonnelBean representing the employee.
+	 * @throws DBException
+	 */
 	public PersonnelBean getPersonnel(long mid) throws DBException {
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -125,6 +133,12 @@ public class PersonnelDAO {
 		}
 	}
 
+	/**
+	 * Updates the demographics for a personnel.
+	 * 
+	 * @param p The personnel bean with the updated information.
+	 * @throws DBException
+	 */
 	public void editPersonnel(PersonnelBean p) throws DBException {
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -144,6 +158,13 @@ public class PersonnelDAO {
 		}
 	}
 
+	/**
+	 * Indicates whether a certain personnel is in the database.
+	 * 
+	 * @param pid The MID of the personnel in question.
+	 * @return A boolean indicating whether this personnel exists.
+	 * @throws DBException
+	 */
 	public boolean checkPersonnelExists(long pid) throws DBException {
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -161,6 +182,13 @@ public class PersonnelDAO {
 		}
 	}
 
+	/**
+	 * Returns all of the hospitals this LHCP is associated with.
+	 * 
+	 * @param mid The MID of the personnel in question.
+	 * @return A java.util.List of HospitalBeans.
+	 * @throws DBException
+	 */
 	public List<HospitalBean> getHospitals(long mid) throws DBException {
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -179,6 +207,12 @@ public class PersonnelDAO {
 		}
 	}
 	
+	/**
+	 * Returns all personnel in the database.
+	 * 
+	 * @return A java.util.List of personnel.
+	 * @throws DBException
+	 */
 	public List<PersonnelBean> getAllPersonnel() throws DBException {
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -195,6 +229,13 @@ public class PersonnelDAO {
 		}
 	}
 
+	/**
+	 * Returns a list of UAPs who work for this LHCP.
+	 * 
+	 * @param hcpid The MID of the personnel in question.
+	 * @return A java.util.List of UAPs.
+	 * @throws DBException
+	 */
 	public List<PersonnelBean> getUAPsForHCP(long hcpid) throws DBException {
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -212,6 +253,14 @@ public class PersonnelDAO {
 		}
 	}
 	
+	/**
+	 * Given a prescription that has been given, this method returns all the information for the
+	 * doctor who authorized that prescription.
+	 * 
+	 * @param prescription The PrescriptionBean describing the prescription in question.
+	 * @return The PersonnelBean describing the doctor who authorized it.
+	 * @throws DBException
+	 */
 	public PersonnelBean getPrescribingDoctor(PrescriptionBean prescription) throws DBException {
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -230,8 +279,12 @@ public class PersonnelDAO {
 	}
 	
 	/**
-	 * Searches for personnel with given name
+	 * Matches all personnel who have names LIKE (as in SQL) the first and last names passed in.
 	 * 
+	 * @param first The first name to be searched for.
+	 * @param last The last name to be searched for.
+	 * @return A java.util.List of personnel who match these names.
+	 * @throws DBException
 	 */
 	public List<PersonnelBean> searchForPersonnelWithName(String first, String last) throws DBException {
 		Connection conn = null;

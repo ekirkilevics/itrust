@@ -40,9 +40,10 @@ public class VisitRemindersDAO {
 	}
 
 	/**
-	 * Returns a list of patients 
+	 * Returns a list of patients associated with a given HCP.
 	 * 
-	 * @return
+	 * @param hcpid The MID of the HCP in question.
+	 * @return A java.util.List of Visit Reminder Forms.
 	 */
 	public List<VisitReminderReturnForm> getPatients(long hcpid) throws DBException {
 		
@@ -100,12 +101,13 @@ public class VisitRemindersDAO {
 
 
 	/**
-	 * Returns a list of patients who need a visit. This means:
+	 * Returns a list of patients who need a visit for this HCP. This means:
 	 * 
 	 * Alive patient, no office visit for > 1 yr, diagnosed: - Diabetes: 250.xx - Asthma: 493.xx -
 	 * Circulatory-System Disease: [ 390.00 , 459.99 ]
 	 * 
-	 * @return
+	 * @param hcpid The MID of the HCP in question.
+	 * @return A java.util.List of visit reminders.
 	 */
 	public List<VisitReminderReturnForm> getDiagnosedVisitNeeders(long hcpid) throws DBException {
 		Connection conn = null;
@@ -190,10 +192,9 @@ public class VisitRemindersDAO {
 	 * people - a: people who haven't had a flu shot yet this year and need one - b: people who missed last
 	 * year's flu shot and need a check-up
 	 * 
-	 * @return
-	 * @param hcpid
-	 * @param patientBirthday
-	 * @return
+	 * @return A java.util.List of Visit Reminder Forms.
+	 * @param hcpid The MID of the HCP in question.
+	 * @param patientBirthday The birthday of the patient in question.
 	 * @throws DBException
 	 */
 	public List<VisitReminderReturnForm> getFluShotDelinquents(long hcpid) throws DBException {

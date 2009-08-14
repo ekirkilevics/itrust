@@ -90,7 +90,7 @@ public class OfficeVisitDAO {
 	/**
 	 * Updates the information in a particular office visit.
 	 * 
-	 * @param ov
+	 * @param ov The Office Visit bean representing the changes.
 	 * @throws DBException
 	 */
 	public void update(OfficeVisitBean ov) throws DBException {
@@ -114,8 +114,8 @@ public class OfficeVisitDAO {
 	/**
 	 * Returns a particular office visit given an ID
 	 * 
-	 * @param visitID
-	 * @return
+	 * @param visitID The unique ID of the office visit.
+	 * @return An OfficeVisitBean with the specifics for that office visit.
 	 * @throws DBException
 	 */
 	public OfficeVisitBean getOfficeVisit(long visitID) throws DBException {
@@ -156,8 +156,8 @@ public class OfficeVisitDAO {
 	/**
 	 * Returns all of the procedures associated with the given office visit
 	 * 
-	 * @param visitID
-	 * @return
+	 * @param visitID The unique ID of the office visit.
+	 * @return A java.util.List of procedures.
 	 * @throws DBException
 	 */
 	public List<ProcedureBean> getProcedures(long visitID) throws DBException {
@@ -188,8 +188,8 @@ public class OfficeVisitDAO {
 	/**
 	 * Returns all of the prescriptions associated with the given office visit
 	 * 
-	 * @param visitID
-	 * @return
+	 * @param visitID The ID of the office visit.
+	 * @return A java.util.List of prescriptions.
 	 * @throws DBException
 	 */
 	public List<PrescriptionBean> getPrescriptions(long visitID) throws DBException {
@@ -213,8 +213,8 @@ public class OfficeVisitDAO {
 	/**
 	 * Returns all of the diagnoses associated with the given office visit
 	 * 
-	 * @param visitID
-	 * @return
+	 * @param visitID The unique ID of the office visit.
+	 * @return A java.util.List of diagnoses.
 	 * @throws DBException
 	 */
 	public List<DiagnosisBean> getDiagnoses(long visitID) throws DBException {
@@ -264,7 +264,7 @@ public class OfficeVisitDAO {
 	/**
 	 * Removes the given procedure from its office visit
 	 * 
-	 * @param ovProcedureID
+	 * @param ovProcedureID The unique ID of the office visit procedure.
 	 * @throws DBException
 	 */
 	public void removeProcedureFromOfficeVisit(long ovProcedureID) throws DBException {
@@ -441,9 +441,9 @@ public class OfficeVisitDAO {
 	}
 
 	/**
-	 * Removes the given procedure from its office visit
+	 * Removes a given lab procedure.
 	 * 
-	 * @param ovProcedureID
+	 * @param labProcedureID The unique ID of the lab procedure.
 	 * @throws DBException
 	 */
 	public void removeLabProcedureFromOfficeVisit(long labProcedureID) throws DBException {
@@ -516,8 +516,8 @@ public class OfficeVisitDAO {
 	/**
 	 * Returns a list of all office visits for a given patient
 	 * 
-	 * @param mid
-	 * @return
+	 * @param mid The MID of the LHCP you are looking up.
+	 * @return A java.util.List of Office Visits.
 	 * @throws DBException
 	 */
 	public List<OfficeVisitBean> getAllOfficeVisitsForLHCP(long mid) throws DBException {
@@ -542,8 +542,8 @@ public class OfficeVisitDAO {
 	/**
 	 * Returns a list of all office visits for a given patient
 	 * 
-	 * @param pid
-	 * @return
+	 * @param pid The MID of the patient.
+	 * @return A java.util.List of Office Visits.
 	 * @throws DBException
 	 */
 	public List<OfficeVisitBean> getOfficeVisitsWithNoSurvey(long pid) throws DBException {
@@ -569,9 +569,9 @@ public class OfficeVisitDAO {
 	 * patient ID. The patient ID is necessary in case the office visit IDs are for different patients (the
 	 * disambiguation is for security reasons).
 	 * 
-	 * @param ovIDs
-	 * @param patientID
-	 * @return
+	 * @param ovIDs A java.util.List of Longs for the office visits.
+	 * @param patientID A long representing the MID of the patient in question.
+	 * @return A java.util.List of prescription reports.
 	 * @throws DBException
 	 */
 	public List<PrescriptionReportBean> getPrescriptionReports(List<Long> ovIDs, long patientID)
@@ -640,8 +640,8 @@ public class OfficeVisitDAO {
 	/**
 	 * Gets all office visits corresponding to a particular ICD diagnosis.
 	 * 
-	 * @param icdcode
-	 * @return
+	 * @param icdcode A string represnting the ICD diagnosis to look up.
+	 * @return A java.util.List of Office visits.
 	 * @throws DBException
 	 */
 	public List<OfficeVisitBean> getAllOfficeVisitsForDiagnosis(String icdcode) throws DBException {

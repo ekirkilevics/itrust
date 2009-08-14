@@ -61,8 +61,8 @@ public class PatientDAO {
 	/**
 	 * Returns the name for the given MID
 	 * 
-	 * @param mid
-	 * @return
+	 * @param mid The MID of the patient in question.
+	 * @return A String representing the patient's first name and last name.
 	 * @throws iTrustException
 	 * @throws DBException
 	 */
@@ -91,9 +91,9 @@ public class PatientDAO {
 	/**
 	 * Returns the role of a particular patient - why is this in PatientDAO? It should be in AuthDAO
 	 * 
-	 * @param mid
-	 * @param role
-	 * @return
+	 * @param mid The MID of the patient in question.
+	 * @param role A String representing the role of the patient.
+	 * @return A String representing the patient's role.
 	 * @throws iTrustException
 	 * @throws DBException
 	 */
@@ -123,7 +123,7 @@ public class PatientDAO {
 	/**
 	 * Adds an empty patient to the table, returns the new MID
 	 * 
-	 * @return
+	 * @return The MID of the patient as a long.
 	 * @throws DBException
 	 */
 	public long addEmptyPatient() throws DBException {
@@ -145,8 +145,8 @@ public class PatientDAO {
 	/**
 	 * Returns the patient's information for a given ID
 	 * 
-	 * @param mid
-	 * @return
+	 * @param mid The MID of the patient to retrieve.
+	 * @return A PatientBean representing the patient.
 	 * @throws DBException
 	 */
 	public PatientBean getPatient(long mid) throws DBException {
@@ -173,7 +173,7 @@ public class PatientDAO {
 	/**
 	 * Updates a patient's information for the given MID
 	 * 
-	 * @param p
+	 * @param p The patient bean representing the new information for the patient.
 	 * @throws DBException
 	 */
 	public void editPatient(PatientBean p) throws DBException {
@@ -201,8 +201,8 @@ public class PatientDAO {
 	/**
 	 * Returns whether or not the patient exists
 	 * 
-	 * @param pid
-	 * @return
+	 * @param pid The MID of the patient in question.
+	 * @return A boolean indicating whether the patient exists.
 	 * @throws DBException
 	 */
 	public boolean checkPatientExists(long pid) throws DBException {
@@ -225,8 +225,8 @@ public class PatientDAO {
 	/**
 	 * Returns a list of HCPs who are declared by the given patient
 	 * 
-	 * @param pid
-	 * @return
+	 * @param pid The MID of the patient in question.
+	 * @return A java.util.List of Personnel Beans.
 	 * @throws DBException
 	 */
 	public List<PersonnelBean> getDeclaredHCPs(long pid) throws DBException {
@@ -251,9 +251,9 @@ public class PatientDAO {
 	/**
 	 * Declares an HCP for a particular patient
 	 * 
-	 * @param pid
-	 * @param hcpID
-	 * @return
+	 * @param pid The MID of the patient in question.
+	 * @param hcpID The HCP's MID.
+	 * @return A boolean as to whether the insertion was successful.
 	 * @throws DBException
 	 * @throws iTrustException
 	 */
@@ -279,9 +279,9 @@ public class PatientDAO {
 	/**
 	 * Undeclare an HCP for a given patient
 	 * 
-	 * @param pid
-	 * @param hcpID
-	 * @return
+	 * @param pid The MID of the patient in question.
+	 * @param hcpID The MID of the HCP in question.
+	 * @return A boolean indicating whether the action was successful.
 	 * @throws DBException
 	 */
 	public boolean undeclareHCP(long pid, long hcpID) throws DBException {
@@ -304,8 +304,8 @@ public class PatientDAO {
 	/**
 	 * Check if a patient has declared the given HCP
 	 * 
-	 * @param pid
-	 * @param hcpid
+	 * @param pid The MID of the patient in question as a long.
+	 * @param hcpid The MID of the HCP in question as a long.
 	 * @return
 	 * @throws DBException
 	 */
@@ -329,8 +329,8 @@ public class PatientDAO {
 	/**
 	 * Return a list of patients that the given patient represents
 	 * 
-	 * @param pid
-	 * @return List<PatientBean>
+	 * @param pid The MID of the patient in question.
+	 * @return A java.util.List of PatientBeans
 	 * @throws DBException
 	 */
 	public List<PatientBean> getRepresented(long pid) throws DBException {
@@ -354,8 +354,8 @@ public class PatientDAO {
 	/**
 	 * Return a list of patients that the given patient is represented by
 	 * 
-	 * @param pid
-	 * @return List<PatientBean>
+	 * @param pid The MID of the patient in question.
+	 * @return A java.util.List of PatientBeans.
 	 * @throws DBException
 	 */
 	public List<PatientBean> getRepresenting(long pid) throws DBException {
@@ -379,9 +379,9 @@ public class PatientDAO {
 	/**
 	 * Check if the given representer represents the representee
 	 * 
-	 * @param representer
-	 * @param representee
-	 * @return
+	 * @param representer The MID of the representer in question.
+	 * @param representee The MID of the representee in question.
+	 * @return A boolean indicating whether represenation is in place.
 	 * @throws DBException
 	 */
 	public boolean represents(long representer, long representee) throws DBException {
@@ -406,9 +406,9 @@ public class PatientDAO {
 	/**
 	 * Assign a representer to the representee
 	 * 
-	 * @param representer
-	 * @param representee
-	 * @return
+	 * @param representer The MID of the representer as a long.
+	 * @param representee The MID of the representee as a long.
+	 * @return A boolean as to whether the insertion was correct.
 	 * @throws DBException
 	 * @throws iTrustException
 	 */
@@ -436,9 +436,9 @@ public class PatientDAO {
 	/**
 	 * Unassign the representation
 	 * 
-	 * @param representer
-	 * @param representee
-	 * @return
+	 * @param representer The MID of the representer in question.
+	 * @param representee The MID of the representee in question.
+	 * @return A boolean indicating whether the unassignment was sucessful.
 	 * @throws DBException
 	 */
 	public boolean removeRepresentative(long representer, long representee) throws DBException {
@@ -462,8 +462,8 @@ public class PatientDAO {
 	/**
 	 * Return a list of all diagnoses for a given patient
 	 * 
-	 * @param pid
-	 * @return
+	 * @param pid The MID of the patient in question.
+	 * @return A java.util.List of Diagnoses.
 	 * @throws DBException
 	 */
 	public List<DiagnosisBean> getDiagnoses(long pid) throws DBException {
@@ -489,8 +489,8 @@ public class PatientDAO {
 	/**
 	 * Return a list of all procedures for a given patient
 	 * 
-	 * @param pid
-	 * @return
+	 * @param pid The MID of the patient in question.
+	 * @return A java.util.List of all the procedures.
 	 * @throws DBException
 	 */
 	public List<ProcedureBean> getProcedures(long pid) throws DBException {
@@ -516,8 +516,8 @@ public class PatientDAO {
 	/**
 	 * Return a list of all immunization procedures for a given patient
 	 * 
-	 * @param pid
-	 * @return
+	 * @param pid The MID of the patient in question.
+	 * @return A java.util.List of the procedures.
 	 * @throws DBException
 	 */
 	public List<ProcedureBean> getImmunizationProcedures(long pid) throws DBException {
@@ -544,8 +544,8 @@ public class PatientDAO {
 	/**
 	 * Return a list of all prescriptions for a patient
 	 * 
-	 * @param patientID
-	 * @return
+	 * @param patientID The MID of the patient in question.
+	 * @return A java.util.List of prescriptions.
 	 * @throws DBException
 	 */
 	public List<PrescriptionBean> getPrescriptions(long patientID) throws DBException {
@@ -572,8 +572,8 @@ public class PatientDAO {
 	/**
 	 * Return a list of prescriptions which are currently prescribed for a patient
 	 * 
-	 * @param patientID
-	 * @return
+	 * @param patientID The MID of the patient in question.
+	 * @return A java.util.List of prescription beans.
 	 * @throws DBException
 	 */
 	public List<PrescriptionBean> getCurrentPrescriptions(long patientID) throws DBException {
@@ -602,8 +602,8 @@ public class PatientDAO {
 	/**
 	 * Return a list of prescriptions which are expired prescription for a patient
 	 * 
-	 * @param patientID
-	 * @return
+	 * @param patientID The MID of the patient in question.
+	 * @return A java.util.List of prescriptions.
 	 * @throws DBException
 	 **/
 	 
@@ -629,6 +629,12 @@ public class PatientDAO {
 		}
 	}
 	
+	/**
+	 * Lists every patient in the database.
+	 * 
+	 * @return A java.util.List of PatientBeans representing the patients.
+	 * @throws DBException
+	 */
 	public List<PatientBean> getAllPatients() throws DBException {
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -725,8 +731,13 @@ public class PatientDAO {
 		}
 	}
 	
-	/** Searches for patients with a given name
+	/**
+	 * Returns all patients with names "LIKE" (as in SQL) the passed in parameters.
 	 * 
+	 * @param first The patient's first name.
+	 * @param last The patient's last name.
+	 * @return A java.util.List of PatientBeans.
+	 * @throws DBException
 	 */
 	public List<PatientBean> searchForPatientsWithName(String first, String last) throws DBException {
 		Connection conn = null;
