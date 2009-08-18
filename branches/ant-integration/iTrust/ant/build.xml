@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="all" name="iTrust">
+	<!-- This is very experimental so far. Below is a list of what we'd like to do with this build script -->
+
+	<!-- TODO: Do an automatic SVN UPDATE to get the latest version -->
+	<!-- TODO: Check the MySQL version - or should that be a unit test?-->
+	<!-- TODO: Rebuild the database schema -->
+	<!-- TODO: Run the unit tests as a suite from AllTests.java (which runs the DBBuilder, so don't 
+				worry about that) allow option of spitting out HTML report-->
+	<!-- TODO: Compile and package the system as a WAR file -->
+	<!-- TODO: Deploy iTrust on a given server using Tomcat manager -->
+	<!-- TODO: Run the http tests (with AllHTTPTests), allow option of spitting out HTML report -->
+
+	<!-- TODO: Output the javadoc (use the javadoc-style.css - it's got WolfPack colors!) -->
+	<!-- TODO: Output the code coverage -->
+	<!-- TODO: Output static analysis?? That would be nice but I don't know how to do it -->
+
+	<!-- TODO: Write a hook script or a Cruise Control build script to set up all of the HTML/XML results -->
+
+	<!-- TODO: Comment this build file to smitherenes. And then comment the smitherenes. 
+			Maybe split up big tasks into separate build files. Is that "the ant way" or just keep them all together?? -->
+	<!-- TODO: Customize the "iTrust Ant Build.launch" so that we can debug/test the build script within Eclipse-->
+	<!-- TODO: Write a tutorial on Ant once we've learned how to do all this -->
+	<!-- TODO: Figure out how to set up a build server and maybe make it workable for all teams? Cruise Control is the best integration of what we've got -->
+
+	<target name="all">
+		<echo message="This build file does nothing...yet!">
+		</echo>
+	</target>
+
+	<!-- Eclipse generated this for me - it doesn't really work -->
+	<target name="javadoc">
+		<javadoc access="public" author="true" classpath="../testing-libs/xmlParserAPIs.jar;D:\apache-tomcat-5.5.27\common\lib\naming-resources.jar;D:\apache-tomcat-5.5.27\common\lib\servlet-api.jar;../testing-libs/js.jar;../WebRoot/WEB-INF/lib/jcommon-1.0.10.jar;../WebRoot/WEB-INF/lib/commons-lang-2.4.jar;D:\apache-tomcat-5.5.27\common\lib\jasper-runtime.jar;D:\eclipse-jee-galileo-win32\eclipse\plugins\org.junit_3.8.2.v20090203-1005\junit.jar;../WebRoot/WEB-INF/lib/commons-email-1.1.jar;../WebRoot/WEB-INF/lib/commons-logging-1.0.4.jar;../testing-libs/httpunit.jar;../WebRoot/WEB-INF/lib/commons-validator-1.3.1.jar;../WebRoot/WEB-INF/lib/commons-digester-1.6.jar;../testing-libs/easymockclassextension.jar;../WebRoot/WEB-INF/lib/activation.jar;D:\apache-tomcat-5.5.27\common\lib\jasper-compiler.jar;../WebRoot/WEB-INF/lib/commons-io-1.3.2.jar;D:\apache-tomcat-5.5.27\common\lib\commons-el.jar;../testing-libs/easymock.jar;../testing-libs/junit-addons-1.4.jar;../WebRoot/WEB-INF/lib/commons-configuration-1.6.jar;../WebRoot/WEB-INF/lib/commons-discovery-0.2.jar;D:\apache-tomcat-5.5.27\common\lib\jasper-compiler-jdt.jar;../WebRoot/WEB-INF/lib/commons-collections-3.2.1.jar;D:\apache-tomcat-5.5.27\common\lib\naming-factory.jar;../testing-libs/cglib-nodep-2.2.jar;D:\apache-tomcat-5.5.27\common\lib\mysql-connector-java-5.1.7-bin.jar;D:\apache-tomcat-5.5.27\common\lib\naming-factory-dbcp.jar;D:\apache-tomcat-5.5.27\common\lib\jsp-api.jar;../WebRoot/WEB-INF/lib/jaxrpc.jar;../WebRoot/WEB-INF/lib/oro-2.0.8.jar;../WebRoot/WEB-INF/lib/commons-fileupload-1.2.1.jar;../testing-libs/Tidy.jar" destdir="../doc" doctitle="iTrust Javadoc" nodeprecated="false" nodeprecatedlist="false" noindex="false" nonavbar="false" notree="false" packagenames="edu.ncsu.csc.itrust.dao.officevisit,edu.ncsu.csc.itrust.action,edu.ncsu.csc.itrust.dao.auth,edu.ncsu.csc.itrust.enums,edu.ncsu.csc.itrust.serverutils,edu.ncsu.csc.itrust.exception,edu.ncsu.csc.itrust.risk,edu.ncsu.csc.itrust.validate,edu.ncsu.csc.itrust.tags,edu.ncsu.csc.itrust.http,edu.ncsu.csc.itrust.dao,edu.ncsu.csc.itrust.datagenerators,edu.ncsu.csc.itrust.risk.factors,edu.ncsu.csc.itrust.dao.transaction,edu.ncsu.csc.itrust.dao.surveyresults,edu.ncsu.csc.itrust.dao.fakeemail,edu.ncsu.csc.itrust.dao.standards,edu.ncsu.csc.itrust.dao.LOINC,edu.ncsu.csc.itrust.dao.mysql,edu.ncsu.csc.itrust.dao.phr,edu.ncsu.csc.itrust.dao.hospital,edu.ncsu.csc.itrust.bean,edu.ncsu.csc.itrust.dao.visitreminders,edu.ncsu.csc.itrust.dao.allergies,edu.ncsu.csc.itrust.action.base,edu.ncsu.csc.itrust.server,edu.ncsu.csc.itrust.validate.bean,edu.ncsu.csc.itrust.dao.survey,edu.ncsu.csc.itrust.dao.family,edu.ncsu.csc.itrust.dao.personnel,edu.ncsu.csc.itrust.dao.access,edu.ncsu.csc.itrust.validate.regex,edu.ncsu.csc.itrust.dao.patient,edu.ncsu.csc.itrust.beans,edu.ncsu.csc.itrust.db,edu.ncsu.csc.itrust.dao.risk,edu.ncsu.csc.itrust.beans.forms,edu.ncsu.csc.itrust.testutils,edu.ncsu.csc.itrust.beans.loaders,edu.ncsu.csc.itrust.dao.labprocedure,edu.ncsu.csc.itrust.dao.reportrequest" source="1.5" sourcefiles="../src/edu/ncsu/csc/itrust/DateUtil.java,../src/edu/ncsu/csc/itrust/Messages.java,../unittests/edu/ncsu/csc/itrust/ErrorListTest.java,../unittests/edu/ncsu/csc/itrust/ParameterUtilTest.java,../unittests/edu/ncsu/csc/itrust/DBBuilder.java,../src/edu/ncsu/csc/itrust/ParameterUtil.java,../unittests/edu/ncsu/csc/itrust/BeanBuilderTest.java,../src/edu/ncsu/csc/itrust/DBUtil.java,../src/edu/ncsu/csc/itrust/EmailUtil.java,../src/edu/ncsu/csc/itrust/Localization.java,../unittests/edu/ncsu/csc/itrust/DateUtilTest.java,../unittests/edu/ncsu/csc/itrust/HtmlEncoderTest.java,../unittests/edu/ncsu/csc/itrust/EmailUtilTest.java,../unittests/edu/ncsu/csc/itrust/MessagesTest.java,../unittests/edu/ncsu/csc/itrust/AllTests.java,../src/edu/ncsu/csc/itrust/BeanBuilder.java,../src/edu/ncsu/csc/itrust/RandomPassword.java,../src/edu/ncsu/csc/itrust/HtmlEncoder.java,../unittests/edu/ncsu/csc/itrust/LocalizationTest.java" sourcepath="../src;../httptests;../unittests" splitindex="true" use="true" version="true" />
+	</target>
+</project>
