@@ -14,8 +14,6 @@ import edu.ncsu.csc.itrust.validate.DrugInteractionValidator;
 /**
  * Used by EditDrugInteraction.jsp to edit and get information about drug interactions.
  * 
- * @author Juliane Foster
- * 
  */
 public class DrugInteractionAction {
 	private DrugInteractionDAO drugDAO;

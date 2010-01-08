@@ -7,8 +7,6 @@ import edu.ncsu.csc.itrust.exception.FormValidationException;
 /**
  * Validates an adverse event bean, from {@link AdverseEventAction}
  * 
- * @authors Alicia Bieringer, Tim Glasson
- * 
  */
 public class AdverseEventValidator extends BeanValidator<AdverseEventBean> {
 	/**

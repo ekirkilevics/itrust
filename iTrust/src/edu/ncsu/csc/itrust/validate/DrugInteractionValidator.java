@@ -7,8 +7,6 @@ import edu.ncsu.csc.itrust.exception.FormValidationException;
 /**
  * Validates a drug interaction bean, from {@link DrugInteractionAction}
  * 
- * @author Juliane Foster
- * 
  */
 public class DrugInteractionValidator extends BeanValidator<DrugInteractionBean> {
 	/**

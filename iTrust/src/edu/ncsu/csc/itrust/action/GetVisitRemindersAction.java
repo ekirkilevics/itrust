@@ -126,7 +126,6 @@ public class GetVisitRemindersAction {
 	 * @param mid the HCP whose patients are being checked
 	 * @return a list of all the people who need immunizations--done in a visit reminder
 	 * @throws iTrustException
-	 * @author Matt Mercer
 	 */
 
 	private List<VisitReminderReturnForm> getImmunizationNeeders(long mid) throws iTrustException {
@@ -155,7 +154,6 @@ public class GetVisitRemindersAction {
 	 * 
 	 * @param pid patient to be checked
 	 * @return patient list of those lacking immunizations according to the schedule
-	 * @author Matt Mercer
 	 */
 	private String checkImmunizations(long pid) throws iTrustException {
 		

@@ -18,9 +18,6 @@ import edu.ncsu.csc.itrust.validate.AddPersonnelValidator;
  * 
  * Very similar to {@link AddOfficeVisitAction} and {@link AddPatientAction}
  * 
- * @author Tim Glasson
- * @author Alicia Bieringer
- * 
  */
 public class AddPHAAction {
 	private PersonnelDAO personnelDAO;

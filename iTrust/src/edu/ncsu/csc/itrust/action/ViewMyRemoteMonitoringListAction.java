@@ -17,8 +17,6 @@ import edu.ncsu.csc.itrust.exception.iTrustException;
 /**
  * Handles retrieving the patient data for a certain HCP as used by viewTelemedicineData.jsp
  * 
- * @author Troy Muma
- * 
  */
 public class ViewMyRemoteMonitoringListAction {
 	private RemoteMonitoringDAO rmDAO;

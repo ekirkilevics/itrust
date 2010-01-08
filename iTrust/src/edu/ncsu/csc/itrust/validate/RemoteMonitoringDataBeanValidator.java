@@ -8,8 +8,6 @@ import edu.ncsu.csc.itrust.exception.FormValidationException;
 /**
  * Validator used to validate adding new remote monitoring data in {@link AddRemoteMonitoringDataAction}
  * 
- * @author Troy Muma
- * 
  */
 public class RemoteMonitoringDataBeanValidator extends BeanValidator<RemoteMonitoringDataBean> {
 	/**

@@ -26,8 +26,6 @@ import edu.ncsu.csc.itrust.exception.iTrustException;
  * accessed by DAOFactory (@see {@link DAOFactory}) and every DAO should have a factory - for obtaining JDBC
  * connections and/or accessing other DAOs.
  * 
- * @author Troy Muma
- * 
  */
 public class RemoteMonitoringDAO {
 	private DAOFactory factory;

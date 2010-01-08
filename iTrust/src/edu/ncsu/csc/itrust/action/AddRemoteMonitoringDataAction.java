@@ -14,8 +14,6 @@ import edu.ncsu.csc.itrust.validate.RemoteMonitoringDataBeanValidator;
 /**
  * Handles adding remote monitoring patient data to the database
  * 
- * @author Troy Muma
- * 
  */
 public class AddRemoteMonitoringDataAction {
 	private RemoteMonitoringDataBeanValidator validator = new RemoteMonitoringDataBeanValidator();

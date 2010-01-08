@@ -1,8 +1,6 @@
 package edu.ncsu.csc.itrust.action;
 /**
  * Used for the patient to report adverse events.
- * @author Tim Glasson
- * @author Alicia Bieringer
  */
 import java.sql.SQLException;
 import java.util.ArrayList;

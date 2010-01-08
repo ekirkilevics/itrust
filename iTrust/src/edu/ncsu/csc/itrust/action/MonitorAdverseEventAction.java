@@ -2,8 +2,6 @@ package edu.ncsu.csc.itrust.action;
 
 /**
  * Used by PHAs to view the reported adverse events
- * @author Tim Glasson
- * @author Alicia Bieringer
  */
 import java.sql.SQLException;
 import java.text.ParseException;

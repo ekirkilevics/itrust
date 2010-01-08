@@ -13,8 +13,6 @@ import edu.ncsu.csc.itrust.exception.iTrustException;
 /**
  * Handles changes (adds and removes) to the monitoring list for a certain HCP.
  * 
- * @author Troy Muma
- * 
  */
 public class EditMonitoringListAction {
 	private RemoteMonitoringDAO rmDAO;
