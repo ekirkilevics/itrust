@@ -2,7 +2,6 @@ package edu.ncsu.csc.itrust.http;
 
 import com.meterware.httpunit.WebConversation;
 import com.meterware.httpunit.WebResponse;
-import com.meterware.httpunit.WebTable;
 
 public class ConsultationTest extends iTrustHTTPTest {
 	@Override
