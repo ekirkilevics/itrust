@@ -22,24 +22,6 @@ public class CPTDAOExceptionTest extends TestCase {
 		}
 	}
 
-	public void testGetAllCodesException() throws Exception {
-		try {
-			evilDAO.getAllCPTCodes();
-			fail("DBException should have been thrown");
-		} catch (DBException e) {
-			assertEquals(EvilDAOFactory.MESSAGE, e.getSQLException().getMessage());
-		}
-	}
-
-	public void testGetException() throws Exception {
-		try {
-			evilDAO.getCPTCode("");
-			fail("DBException should have been thrown");
-		} catch (DBException e) {
-			assertEquals(EvilDAOFactory.MESSAGE, e.getSQLException().getMessage());
-		}
-	}
-
 	public void testUpdateCodeException() throws Exception {
 		try {
 			evilDAO.updateCode(new ProcedureBean());

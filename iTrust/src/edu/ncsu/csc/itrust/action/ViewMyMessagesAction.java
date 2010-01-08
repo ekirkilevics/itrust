@@ -52,8 +52,11 @@ public class ViewMyMessagesAction {
 	 * @return the patient's name
 	 * @throws iTrustException
 	 */
-	public String getPatientName(long mid) throws iTrustException {
-		return patientDAO.getName(mid);
+	public String getName(long mid) throws iTrustException {
+		if(mid < 7000000000L)
+			return patientDAO.getName(mid);
+		else
+			return personnelDAO.getName(mid);
 	}
 	
 	/**

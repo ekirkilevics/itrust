@@ -25,9 +25,12 @@ public class EditPersonnelTest extends TestCase {
 	public void testEditPersonnel2() throws Exception {
 		PersonnelBean p = personnelDAO.getPersonnel(8000000009l);
 		p.setFirstName("Person1");
+		p.setEmail("blah@blah.com");
 		personnelDAO.editPersonnel(p);
+		p = personnelDAO.getPersonnel(8000000009l);
 		assertEquals("Person1", p.getFirstName());
 		assertEquals("LastUAP", p.getLastName());
+		assertEquals("blah@blah.com", p.getEmail());
 	}
 
 	public void testGetNonExistentPersonnel() throws Exception {

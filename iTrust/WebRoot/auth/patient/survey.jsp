@@ -3,6 +3,7 @@
 <%@page import="edu.ncsu.csc.itrust.beans.SurveyBean"%>
 <%@page import="edu.ncsu.csc.itrust.action.SurveyAction"%>
 <%@page import="edu.ncsu.csc.itrust.BeanBuilder"%>
+<%@page import="edu.ncsu.csc.itrust.exception.iTrustException"%>
 <%@page errorPage="/auth/exceptionHandler.jsp"%>
 
 <%@taglib uri="/WEB-INF/tags.tld" prefix="itrust"%>
@@ -22,6 +23,7 @@ long visitID = 0;
 //get office visit ID from previous JSP
 String visitIDStr = request.getParameter("ovID");
 String visitDateStr = request.getParameter("ovDate");
+
 
 if(visitIDStr != null && !visitIDStr.equals("")) {
 	try {
@@ -81,9 +83,12 @@ if(formIsFilled) {
     	//add survey data
     	action.addSurvey(surveyBean, visitID);
 		response.sendRedirect("viewMyRecords.jsp?message=Survey%20Successfully%20Submitted");
+		
      } catch(Exception e) {
     	%><span ><%=e.getMessage()%></span><%
     }
+} else{
+	if(visitDateStr.contains("<")) throw new iTrustException("Illegal parameter for ovDate.");
 }
 
 

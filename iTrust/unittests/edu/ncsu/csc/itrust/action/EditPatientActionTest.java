@@ -9,7 +9,9 @@ import edu.ncsu.csc.itrust.dao.mysql.PatientDAO;
 import edu.ncsu.csc.itrust.datagenerators.TestDataGenerator;
 import edu.ncsu.csc.itrust.enums.TransactionType;
 import edu.ncsu.csc.itrust.exception.iTrustException;
+import edu.ncsu.csc.itrust.exception.FormValidationException;
 import edu.ncsu.csc.itrust.testutils.TestDAOFactory;
+
 
 public class EditPatientActionTest extends TestCase {
 	private DAOFactory factory = TestDAOFactory.getTestInstance();
@@ -69,6 +71,31 @@ public class EditPatientActionTest extends TestCase {
 		assertEquals("79.1", pb2.getCauseOfDeath());
 		assertEquals("01/03/2006", pb2.getDateOfDeathStr());
 
+	}
+	
+	public void testInvalidDates() throws Exception {
+		gen.patient3();
+		action = new EditPatientAction(factory, 3L, "3");
+		PatientDAO po = TestDAOFactory.getTestInstance().getPatientDAO();
+		PatientBean pb = po.getPatient(3l);
+		try {
+			pb.setCauseOfDeath("79.1");
+			pb.setDateOfDeathStr("01/03/2050");
+			action.updateInformation(pb);
+			fail("exception should have been thrown on invalid date of death");
+		}catch (FormValidationException e){
+			//test passes, exception should have been thrown
+		}
+		
+		try {
+			pb.setDateOfBirthStr("01/03/2050");
+			action.updateInformation(pb);
+			fail("exception should have been thrown on invalid date of birth");
+		}catch (FormValidationException e){
+			//test passes, exception should have been thrown
+		}
+		
+		
 	}
 
 	public void testWrongFormat() throws Exception {

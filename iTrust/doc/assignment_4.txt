@@ -1,0 +1,38 @@
+SQL Additions: RemoteMonitoringData and RemoteMonitoringLists tables added to createTables.sql.
+For the test data, we added remoteMonitoring1, 2, and 3.sql in order to implement the scenarios
+in the UC34 acceptance test plan.  remoteMonitoring1 is for the test case addPatientsToMonitor. remoteMonitoring2
+is for test cases removePatientsToMonitor and reportPatientStatus. remoteMonitoring3 is for test case 
+viewMonitoringList. The RemoteMonitoringLists database table is cleared and/or filled as required by 
+preconditions.
+
+The following blackbox tests were added both under the HCP tab: AddAndRemovePatientsToMonitor and 
+ViewMonitoringList. These correspond to testAddPatientsToMonitor, removePatientsToMonitor, and viewMonitoringList
+in TelemonitoringUseCaseTest.java.
+
+The following classes were added:
+-edu.ncsu.csc.itrust.action.AddRemoteMonitoringDataAction.java
+-edu.ncsu.csc.itrust.action.EditMonitoringListAction.java
+-edu.ncsu.csc.itrust.action.ViewMyRemoteMonitoringListAction.java
+-edu.ncsu.csc.itrust.breans.RemoteMonitoringDataBean.java
+-edu.ncsu.csc.itrust.beans.loaders.RemoteMonitoringDataBeanLoader.java
+-edu.ncsu.csc.itrust.dao.mysql.RemoteMonitoringDAO.java
+-edu.ncsu.csc.itrust.validate.RemoteMonitoringDataBeanValidator.java
+
+JSPs added:
+-WebRoot/auth/hcp/monitorPatients.jsp
+-WebRoot/auth/editPatientList.jsp
+-WebRoot/auth/patient/addTelemedicineData.jsp
+
+UnitTests:
+-edu.ncsu.csc.itrust.action.AddRemoteMonitoringDataActionTest.java
+-edu.ncsu.csc.itrust.action.EditMonitoringListActionTest.java
+-edu.ncsu.csc.itrust.action.ViewMyRemoteMonitoringListActionTest.java
+-edu.ncsu.csc.itrust.dao.remotemonitoring Package with
+	-PatientDataTest.java
+	-PatientListTest.java
+
+One "design decision" I made was regarding the timestamps when the HCP views a list of the patients he or she
+is monitoring. The acceptance test made it seem like times should appear with no seconds and AM & PM, however, 
+following the pattern in the rest of iTrust, I decided to leave these in military time with a second count.
+The requirements for UC34 say a "timestamp" should be displayed so to me, converting the timestamp automatically
+to text is the best interpretation of this requirement. My tests reflect this assumption.

@@ -44,7 +44,7 @@ public class OfficeVisitDAOExceptionTest extends TestCase {
 
 	public void testAddProcToOVException() throws Exception {
 		try {
-			evilDAO.addProcedureToOfficeVisit("", 0L);
+			evilDAO.addProcedureToOfficeVisit("", 0L, "");
 			fail("DBException should have been thrown");
 		} catch (DBException e) {
 			assertEquals(EvilDAOFactory.MESSAGE, e.getSQLException().getMessage());

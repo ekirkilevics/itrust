@@ -36,10 +36,12 @@ try {
 		else if (request.isUserInRole("admin")) {
 			userRole = "admin";
 		}
+		else if (request.isUserInRole("pha")) {
+			userRole = "pha";
+		}
 		else if (request.isUserInRole("tester")) {
 			userRole = "tester";
 		}
-		
 		session.setAttribute("userRole", userRole);
 	}
 	

@@ -45,10 +45,17 @@ pageTitle = "iTrust - Maintain CPT Codes";
 			: "#00CCCC";
 %>
 <script type="text/javascript">
+
 function fillUpdate(code) {
 	document.getElementById("code").value = code;
 	document.getElementById("description").value = unescape(document.getElementById("UPD" + code).value);
 	document.getElementById("oldDescrip").value = unescape(document.getElementById("UPD" + code).value);
+	if ("immunization" == document.getElementById("CLASS"+code).value) {
+		document.getElementById("attribute").checked = "checked";
+	}
+	else {
+		document.getElementById("attribute").checked = "";
+	}
 }
 </script>
 
@@ -73,7 +80,7 @@ function fillUpdate(code) {
 	<tr>
 		<td><input type="text" name="code" id="code" size="5" maxlength="5" /></td>
 		<td><input type="text" name="description" id="description" size="60" maxlength="256" /></td>
-		<td><input type="checkbox" name="attribute" id="attribute" <%=(null != attribute)?"checked=\"checked\"":"" %>/></td> 
+		<td><input type="checkbox" name="attribute" id="attribute" value="yes"/></td> 
 	</tr>
 </table>
 <input type="submit" name="add" value="Add Code" />
@@ -95,15 +102,18 @@ function fillUpdate(code) {
 		String tempCode = "";
 		String tempDescrip = "";
 		String escapedDescrip = "";
+		String tempClass = "";
 		for (ProcedureBean codeEntry : codeList) {
 			tempCode = codeEntry.getCPTCode();
 			tempDescrip = codeEntry.getDescription();
+			tempClass = codeEntry.getAttribute();
 			escapedDescrip = URLEncoder.encode(tempDescrip, "UTF-8").replaceAll("\\+", "%20");
 	%>
 		<tr>
 			<td><%=tempCode %></td>
 			<td><a href="javascript:void(0)" onclick="fillUpdate('<%=tempCode %>')"><%=HtmlEncoder.encode(tempDescrip)%></a>
 				<input type="hidden" id="UPD<%=tempCode %>"	name="UPD<%=tempCode %>" value="<%=escapedDescrip %>" />
+				<input type="hidden" id="CLASS<%=tempCode%>" name="CLASS<%=tempCode%>" value="<%=tempClass%>" />		
 			</td>
 			<td><%=("immunization".equals(codeEntry.getAttribute()))?"Yes":"No"%></td>
 		</tr>

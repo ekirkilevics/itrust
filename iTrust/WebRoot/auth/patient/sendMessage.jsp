@@ -2,6 +2,7 @@
 <%@page import="edu.ncsu.csc.itrust.beans.MessageBean"%>
 <%@page import="edu.ncsu.csc.itrust.beans.PatientBean"%>
 <%@page import="edu.ncsu.csc.itrust.beans.PersonnelBean"%>
+<%@page import="edu.ncsu.csc.itrust.exception.FormValidationException"%>
 <%@page import="java.util.List"%>
 
 <%@taglib uri="/WEB-INF/tags.tld" prefix="itrust" %>
@@ -22,6 +23,7 @@
 	int representeeIndex = -1;
 	int repDLHCPIndex = -1;
 	if (request.getParameter("sendMessage") != null && request.getParameter("sendMessage").equals("Send")) {
+		try {
 		MessageBean message = new MessageBean();
 		message.setFrom(loggedInMID.longValue());
 		message.setTo(((PersonnelBean)session.getAttribute("dlhcp")).getMID());
@@ -29,6 +31,11 @@
 		action.sendMessage(message);
 		session.removeAttribute("dlhcp");
 		response.sendRedirect("home.jsp");
+		} catch (FormValidationException e){
+			%>
+			<div align=center><span class="iTrustError"><%=e.getMessage()%></span></div>
+			<%
+		}
 	}
 	
 	if (request.getParameter("selectDLHCP") != null && request.getParameter("selectDLHCP").equals("Select")) {

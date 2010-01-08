@@ -2,7 +2,6 @@ package edu.ncsu.csc.itrust.action;
 
 import java.util.List;
 import edu.ncsu.csc.itrust.beans.PatientBean;
-import edu.ncsu.csc.itrust.beans.PersonnelBean;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
 import edu.ncsu.csc.itrust.testutils.TestDAOFactory;
 import junit.framework.TestCase;
@@ -17,14 +16,6 @@ public class SearchUsersActionTest extends TestCase {
 		gen.standardData();
 	}
 	
-	public void testSearchForPersonnelWithName(){
-		SearchUsersAction act = new SearchUsersAction(factory, 9000000000L);
-		List<PersonnelBean> personnel = act.searchForPersonnelWithName("Kelly", "Doctor");
-		assertEquals("Kelly Doctor",personnel.get(0).getFullName());
-		
-		
-	}
-
 	public void testSearchForPatientsWithName(){
 		SearchUsersAction act = new SearchUsersAction(factory, 9000000000L);
 		List<PatientBean> patients = act.searchForPatientsWithName("Random", "Person");

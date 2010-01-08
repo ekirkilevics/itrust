@@ -1,0 +1,73 @@
+Iteration 2:
+
+Added edu.ncsu.csc.itrust.http.CreateHCPTest.testEditHospitalAssignments() for the Fix.
+
+UC 35
+--------------
+.sql
+	CreateTables.sql
+	-Added AdverseEvents table
+	-Added a column for HCPID to OVProcedure
+	
+	DropTables.sql
+	-Added the dropping of AdverseEvents
+
+.java:
+	Modified EditOfficeVisitAction to include the method checkAddSubAction() to sometimes report the HCP
+	
+	Added ReportAdverseEventAction
+	
+	Added AdverseEventBean
+	Modified ProcedureBean to include hcpid (may be redundant)
+	
+	Added AdverseEventBeanLoader
+	
+	Modified DAOFactory to include AdverseEventBeanLoader
+	
+	Added AdverseEventDAO
+	Modified OfficeVisitDAO to add the HCPID into the table
+	
+.jsp
+	Added reportAdverseEvent
+	Modified viewMyRecords to include the report link
+	Modified viewPrescriptionRecords to include the textbox on whether to report
+	
+UC35 TEST
+---------
+Added ovMed.sql
+Added ovImmune.sql
+Edited TestDataGenerator to be able to generate ovMed.sql and ovImmune.sql
+Added reportAdversePrescriptionEventTest http unit test.
+Added reportAdverseImmuneEventTest http unit test.
+Added ProcedureBeanTest JUnit test.
+Added HCPLinkBeanTest junit test.
+
+Iteration 3:
+
+
+UC36
+--------------
+.sql
+	CreateTables.sql
+	-Edited AdverseEvents table
+	
+.jsp
+	Added monitorAdverseEvents
+	Added adverseEventDetails
+	
+UC36 TEST
+---------
+Added adverseEvent1.sql
+Added adverseEvent2.sql
+Added adverseEvent3.sql
+Edited TestDataGenerator to include new sql files
+Added MonitorAdverseEventTest.java to http unit test
+
+
+
+
+EXTRA CREDIT
+-----------
+Edited LoginFailureAction.java for EC #2 to log transaction
+Edited TransactionType.java to add login failure as a transaction type
+	

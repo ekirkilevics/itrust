@@ -114,7 +114,7 @@ public class TransactionDAO {
 	 * @return A java.util.List of transactions.
 	 * @throws DBException
 	 */
-	public List<TransactionBean> getAllRecordAccesses(long patientID) throws DBException {
+	public List<TransactionBean> getAllRecordAccesses(long patientID, boolean getByRole) throws DBException {
 		Connection conn = null;
 		PreparedStatement ps = null;
 
@@ -125,7 +125,12 @@ public class TransactionDAO {
 							+ "IN(" + TransactionType.patientViewableStr + ") ORDER BY timeLogged DESC");
 			ps.setLong(1, patientID);
 			ResultSet rs = ps.executeQuery();
-			return loader.loadList(rs);
+			List<TransactionBean> tbList = loader.loadList(rs);
+
+			tbList = addAndSortRoles(tbList, patientID, getByRole);
+			
+			return tbList;
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new DBException(e);
@@ -143,7 +148,7 @@ public class TransactionDAO {
 	 * @return A java.util.List of transactions.
 	 * @throws DBException
 	 */
-	public List<TransactionBean> getRecordAccesses(long patientID, Date lower, Date upper) throws DBException {
+	public List<TransactionBean> getRecordAccesses(long patientID, Date lower, Date upper, boolean getByRole) throws DBException {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		try {
@@ -158,7 +163,11 @@ public class TransactionDAO {
 			// add 1 day's worth to include the upper
 			ps.setTimestamp(3, new Timestamp(upper.getTime() + 1000L * 60L * 60 * 24L));
 			ResultSet rs = ps.executeQuery();
-			return loader.loadList(rs);
+			List<TransactionBean> tbList = loader.loadList(rs);
+
+			tbList = addAndSortRoles(tbList, patientID, getByRole);
+			
+			return tbList;
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new DBException(e);
@@ -191,4 +200,87 @@ public class TransactionDAO {
 			DBUtil.closeConnection(conn, ps);
 		}
 	}
+	
+	private List<TransactionBean> addAndSortRoles(List<TransactionBean> tbList, long patientID, boolean sortByRole) throws DBException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		
+		try {
+			conn = factory.getConnection();
+			
+			for(TransactionBean t : tbList) {
+				
+				ps = conn
+						.prepareStatement("SELECT Role FROM Users WHERE MID=?");
+				ps.setLong(1, t.getLoggedInMID());
+				ResultSet rs = ps.executeQuery();
+				String role = "";
+				if(rs.next())
+					role = rs.getString("Role");
+				if(role.equals("er"))
+					role = "Emergency Responder";
+				else if(role.equals("uap"))
+					role = "UAP";
+				else if(role.equals("hcp")) {
+					role = "LHCP";
+					ps = conn
+							.prepareStatement("SELECT PatientID FROM DeclaredHCP WHERE HCPID=?");
+					ps.setLong(1, t.getLoggedInMID());
+					ResultSet rs2 = ps.executeQuery();
+					while(rs2.next()) {
+						if (rs2.getLong("PatientID") == patientID){
+							role = "DLHCP";
+							break;
+						}
+					}
+				}
+				else if(role.equals("patient")){
+					role = "Patient";
+					ps = conn
+							.prepareStatement("SELECT representeeMID FROM Representatives WHERE representerMID=?");
+					ps.setLong(1, t.getLoggedInMID());
+					ResultSet rs2 = ps.executeQuery();
+					while(rs2.next()) {
+						if (rs2.getLong("representeeMID") == patientID){
+							role = "Personal Health Representative";
+							break;
+						}
+					}
+				}
+					
+				t.setRole(role);
+				
+			}
+			
+			if(sortByRole){
+				TransactionBean[] array = new TransactionBean[tbList.size()];
+				array[0] = tbList.get(0);
+				TransactionBean t;
+				for(int i = 1; i < tbList.size(); i++) {
+					t = tbList.get(i);
+					String role = t.getRole();
+					int j = 0;
+					while(array[j] != null && role.compareToIgnoreCase(array[j].getRole()) >= 0)
+						j++;
+					for(int k = i; k > j; k--) {
+						array[k] = array[k-1];
+					}
+					array[j] = t;
+				}
+				int size = tbList.size();
+				for(int i = 0; i < size; i++)
+					tbList.set(i, array[i]);
+				
+			}
+		
+			return tbList;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DBException(e);
+		} finally {
+			DBUtil.closeConnection(conn, ps);
+		}
+	}
+	
+	
 }

@@ -2,6 +2,7 @@ package edu.ncsu.csc.itrust.http;
 
 import com.meterware.httpunit.WebConversation;
 import com.meterware.httpunit.WebForm;
+import com.meterware.httpunit.WebLink;
 import com.meterware.httpunit.WebResponse;
 
 public class CreateHCPTest extends iTrustHTTPTest {
@@ -60,4 +61,39 @@ public class CreateHCPTest extends iTrustHTTPTest {
 		wr = wc.getCurrentPage();
 		assertTrue(wr.getText().contains("Information Successfully Updated"));
 	}
+	public void testEditHospitalAssignments() throws Exception {
+		gen.clearAllTables();
+		gen.standardData();
+		// login admin
+		WebConversation wc = login("9000000001", "pw");
+		WebResponse wr = wc.getCurrentPage();
+		assertEquals("iTrust - Admin Home", wr.getTitle());
+		// click on Edit HCP Assignment to Hospital
+		wr = wr.getLinkWith("Edit HCP Assignment to Hospital").click();
+		assertEquals("iTrust - Please Select a Personnel", wr.getTitle());
+		wr.getForms()[1].setParameter("FIRST_NAME","Kelly");
+		wr.getForms()[1].setParameter("LAST_NAME","Doctor");
+		wr.getForms()[1].getButtons()[1].click();
+		wr = wc.getCurrentPage();
+		wr.getForms()[2].getButtons()[0].click();
+		wr = wc.getCurrentPage();
+		// assign hospital
+		assertEquals("iTrust - Hospital Staffing Assignments", wr.getTitle());
+		WebLink[] weblinks = wr.getLinks();
+		for(int i = 0; i < weblinks.length; i++) {
+			if(weblinks[i].getText().equals("Assign")) {
+				wr = weblinks[i].click();
+				assertTrue(wr.getText().contains("HCP has been assigned"));
+				break;
+			}
+		}
+		for(int i = 0; i < weblinks.length; i++) {
+			if(weblinks[i].getText().equals("Unassign")) {
+				wr = weblinks[i].click();
+				assertTrue(wr.getText().contains("HCP has been unassigned"));
+				break;
+			}
+		}
+	}
+	
 }

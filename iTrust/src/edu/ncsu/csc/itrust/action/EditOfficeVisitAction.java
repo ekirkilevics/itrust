@@ -1,17 +1,30 @@
 package edu.ncsu.csc.itrust.action;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import edu.ncsu.csc.itrust.action.base.OfficeVisitBaseAction;
+import edu.ncsu.csc.itrust.beans.Email;
 import edu.ncsu.csc.itrust.beans.HospitalBean;
 import edu.ncsu.csc.itrust.beans.LabProcedureBean;
 import edu.ncsu.csc.itrust.beans.MedicationBean;
 import edu.ncsu.csc.itrust.beans.OfficeVisitBean;
 import edu.ncsu.csc.itrust.beans.PrescriptionBean;
+import edu.ncsu.csc.itrust.beans.PatientBean;
+import edu.ncsu.csc.itrust.beans.DrugInteractionBean;
+import edu.ncsu.csc.itrust.beans.AllergyBean;
+import edu.ncsu.csc.itrust.beans.PrescriptionReportBean;
 import edu.ncsu.csc.itrust.beans.forms.EditOfficeVisitForm;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
+import edu.ncsu.csc.itrust.dao.mysql.AllergyDAO;
+import edu.ncsu.csc.itrust.dao.mysql.DrugInteractionDAO;
 import edu.ncsu.csc.itrust.dao.mysql.HospitalsDAO;
 import edu.ncsu.csc.itrust.dao.mysql.LabProcedureDAO;
+import edu.ncsu.csc.itrust.dao.mysql.NDCodesDAO;
 import edu.ncsu.csc.itrust.dao.mysql.OfficeVisitDAO;
+import edu.ncsu.csc.itrust.dao.mysql.PatientDAO;
 import edu.ncsu.csc.itrust.dao.mysql.PersonnelDAO;
 import edu.ncsu.csc.itrust.dao.mysql.TransactionDAO;
 import edu.ncsu.csc.itrust.enums.TransactionType;
@@ -33,6 +46,10 @@ public class EditOfficeVisitAction extends OfficeVisitBaseAction {
 	private OfficeVisitDAO ovDAO;
 	private LabProcedureDAO lpDAO;
 	private TransactionDAO transDAO;
+	private DrugInteractionDAO drugDAO;
+	private AllergyDAO allergyDAO;
+	private PatientDAO patDAO;
+	private NDCodesDAO ndcDAO;
 	private long loggedInMID;
 	private long pid;
 
@@ -72,6 +89,10 @@ public class EditOfficeVisitAction extends OfficeVisitBaseAction {
 		this.hospitalDAO = factory.getHospitalsDAO();
 		this.lpDAO = factory.getLabProcedureDAO();
 		this.transDAO = factory.getTransactionDAO();
+		this.drugDAO = factory.getDrugInteractionDAO();
+		this.allergyDAO = factory.getAllergyDAO();
+		this.ndcDAO = factory.getNDCodesDAO();
+		this.patDAO = factory.getPatientDAO();
 		this.loggedInMID = loggedInMID;
 	}
 
@@ -143,7 +164,7 @@ public class EditOfficeVisitAction extends OfficeVisitBaseAction {
 		try {
 			checkAddSubAction(OVSubAction.ADD_DIAGNOSIS, form.getAddDiagID(), ovID, null);
 			checkAddSubAction(OVSubAction.ADD_PROCEDURE, form.getAddProcID(), ovID, null);
-			checkAddSubAction(OVSubAction.ADD_IMMUNIZATION, form.getAddImmunizationID(), ovID, null);
+			checkAddSubAction(OVSubAction.ADD_IMMUNIZATION, form.getAddImmunizationID(), ovID, null, form.getHcpID());
 			checkAddSubAction(OVSubAction.ADD_LAB_PROCEDURE, form.getAddLabProcID(), ovID, null);
 			checkAddPrescription(form, ovID);
 			checkRemoveSubAction(OVSubAction.REMOVE_DIAGNOSIS, form.getRemoveDiagID());
@@ -160,6 +181,101 @@ public class EditOfficeVisitAction extends OfficeVisitBaseAction {
 			return e.getMessage();
 		}
 	}
+	
+	public String hasInteraction(String drug, String pid, String startdate, String enddate) throws iTrustException{
+		String response = "";
+		try {
+
+			SimpleDateFormat original = new SimpleDateFormat("MM/dd/yyyy");
+			SimpleDateFormat needed = new SimpleDateFormat("yyyy/MM/dd");
+			
+			Date start = original.parse(startdate);
+			startdate = needed.format(start);
+			Date end = original.parse(enddate);
+			enddate = needed.format(end);
+			
+			
+			startdate = startdate.replaceAll("/", "-");
+			enddate = enddate.replaceAll("/", "-");
+			List<PrescriptionReportBean> prBeanList = ovDAO.getPrescriptionReportsByDate(Long.parseLong(pid), startdate, enddate);
+			List<DrugInteractionBean> dBeanList = drugDAO.getInteractions(drug);
+			for (PrescriptionReportBean prBean : prBeanList){
+				String presDrug = prBean.getPrescription().getMedication().getNDCode();
+				for (DrugInteractionBean dBean : dBeanList){
+					String intDrug1 = dBean.getFirstDrug();
+					String intDrug2 = dBean.getSecondDrug();
+					
+					if (presDrug.equals(intDrug1) && drug.equals(intDrug2)){
+						response += "Currently Prescribed: " + prBean.getPrescription().getMedication().getDescription() + 
+						". Start Date: " + prBean.getPrescription().getStartDateStr() 
+						+ ", End Date: " + prBean.getPrescription().getEndDateStr() + ". ";
+						response += "Interactions: " + prBean.getPrescription().getMedication().getDescription() + " - " + ndcDAO.getNDCode((dBean.getSecondDrug())).getDescription() + ". ";
+						response += "Description: " + dBean.getDescription() + "  ";
+					} else if (presDrug.equals(intDrug2) && drug.equals(intDrug1)){
+						response += "Currently Prescribed: " + prBean.getPrescription().getMedication().getDescription() + ". Start Date: " + prBean.getPrescription().getStartDateStr() 
+						+ ", End Date: " + prBean.getPrescription().getEndDateStr() + ". ";
+						response += "Interactions: " + prBean.getPrescription().getMedication().getDescription() + " - " + ndcDAO.getNDCode(dBean.getFirstDrug()).getDescription() + ". ";
+						response += "Description: " + dBean.getDescription() + "  ";
+					}
+				}
+			}
+
+		} catch (DBException e){
+			e.printStackTrace();
+			throw new iTrustException(e.getMessage());
+		} catch (ParseException e){
+			e.printStackTrace();
+			throw new iTrustException(e.getMessage());
+		}
+		return response;
+	}
+	
+	public String  isAllergyOnList(String patMID, String ndcode) throws iTrustException{
+		String response = "";
+		try {
+			List<AllergyBean> allergyList = allergyDAO.getAllergies(Long.parseLong(patMID));
+			if (allergyList.isEmpty()) return response;
+			MedicationBean medBean = ndcDAO.getNDCode(ndcode);
+			if(medBean == null) return response;
+			String newDrug = medBean.getDescription();
+			for (AllergyBean allergyBean : allergyList){
+				String currentAllerDrug = allergyBean.getDescription();
+				//Allergy: Aspirin. First Found: 12/20/2008. 
+				if (newDrug.equals(currentAllerDrug)){
+					response += "Allergy: " + newDrug + ". First Found: " + allergyBean.getFirstFoundStr();
+				}
+			}
+		} catch (DBException e){
+			e.printStackTrace();
+			throw new iTrustException(e.getMessage());
+		}
+		return response;
+	}
+	
+	/**
+	 * 
+	 * Sends e-mail regarding the prescribed dangerous drug.
+	 * 
+	 * @param hcpID HCP the prescription is made by
+	 * @param patID ID of the patient prescription is for
+	 * @param problem The allergy and/or interaction that is the problem
+	 * @return the sent e-mail
+	 * @throws DBException
+	 */	
+	public Email makeEmailApp(long hcpID, String patID, String problem) throws DBException, iTrustException {
+		PatientBean p = patDAO.getPatient(Long.parseLong(patID));
+		String hcpName = personnelDAO.getName(hcpID);
+		Email email = new Email();
+		email.setFrom("no-reply@itrust.com");
+		email.setToList(Arrays.asList(p.getEmail()));
+		email.setSubject("HCP has prescribed you a potentially dangerous medication");
+		email.setBody(String
+				.format(
+					"%s has prescribed a medication that you are allergic to or that has a known interaction with a drug you are currently taking. %s",
+					hcpName, problem));
+		return email;
+	}
+	
 /**
  * Adds a prescription to an office visit
  * 
@@ -182,7 +298,7 @@ public class EditOfficeVisitAction extends OfficeVisitBaseAction {
 			med.setNDCode(form.getAddMedID());
 			pres.setMedication(med);
 			pres.setVisitID(ovID);
-			transDAO.logTransaction(TransactionType.ADD_PRESCRIPTION, loggedInMID, pid, "EditOffceVisit - Add prescription");
+			transDAO.logTransaction(TransactionType.ADD_PRESCRIPTION, loggedInMID, pid, "EditOffceVisit - Add prescription - " + pres.getMedication().getNDCode());
 			ovDAO.addPrescription(pres);
 		}
 	}
@@ -230,7 +346,7 @@ public class EditOfficeVisitAction extends OfficeVisitBaseAction {
 				break;
 			case ADD_IMMUNIZATION:
 			case ADD_PROCEDURE:
-				ovDAO.addProcedureToOfficeVisit(code, visitID);
+				ovDAO.addProcedureToOfficeVisit(code, visitID, "");
 				break;
 			case ADD_LAB_PROCEDURE:
 				ovDAO.addLabProcedureToOfficeVisit(code, visitID, pid);
@@ -241,6 +357,16 @@ public class EditOfficeVisitAction extends OfficeVisitBaseAction {
 			return true;
 		}
 	}
+	
+	private boolean checkAddSubAction(OVSubAction action, String code, long visitID, String dateOfDeath, String hcpid)
+	throws DBException, iTrustException {
+		if (code == null || "".equals(code)) {
+			return false;
+		} else {
+			ovDAO.addProcedureToOfficeVisit(code, visitID, hcpid);
+			return true;
+		}
+	 }
 	
 	/**
 	 * Removes an action from an office visit

@@ -5,7 +5,7 @@ import edu.ncsu.csc.itrust.exception.FormValidationException;
 import org.apache.commons.validator.*;
 
 
-public class MailValidator extends EmailValidator{
+public class MailValidator extends EmailValidator {
 	/**
 	 * The default constructor.
 	 */
@@ -24,6 +24,7 @@ public class MailValidator extends EmailValidator{
 		return val.isValid(email);
 		
 	}
+	
 
 }
  

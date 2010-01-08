@@ -1,12 +1,14 @@
 package edu.ncsu.csc.itrust.action;
 
-import junit.framework.TestCase;
-import edu.ncsu.csc.itrust.dao.DAOFactory;
 import java.util.List;
-import edu.ncsu.csc.itrust.datagenerators.TestDataGenerator;
-import edu.ncsu.csc.itrust.testutils.TestDAOFactory;
+import junit.framework.TestCase;
 import edu.ncsu.csc.itrust.beans.ReferralBean;
 import edu.ncsu.csc.itrust.beans.ReferralBean.ReferralStatus;
+import edu.ncsu.csc.itrust.dao.DAOFactory;
+import edu.ncsu.csc.itrust.datagenerators.TestDataGenerator;
+import edu.ncsu.csc.itrust.exception.DBException;
+import edu.ncsu.csc.itrust.testutils.EvilDAOFactory;
+import edu.ncsu.csc.itrust.testutils.TestDAOFactory;
 
 public class ReferralManagementActionTest extends TestCase {
 	private ReferralManagementAction action;
@@ -91,6 +93,23 @@ public class ReferralManagementActionTest extends TestCase {
 		assertEquals(1, list.size());
 		assertEquals("These are consulation details", list.get(0).getConsultationDetails());
 		assertEquals(ReferralStatus.Finished, list.get(0).getStatus());
+		
+		action = new ReferralManagementAction(EvilDAOFactory.getEvilInstance(), 0l);
+		
+
+		try {
+			action.getReferralsSentFromMe();
+			fail();
+		} catch (DBException e) {
+			
+		}
+		
+		try {
+			action.getReferralsSentToMe();
+			fail();
+		} catch (DBException e) {
+			
+		}
 	}
 	
 }

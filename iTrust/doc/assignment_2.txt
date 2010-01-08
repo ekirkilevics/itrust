@@ -1,0 +1,22 @@
+README
+
+Bug #1:		Used HttpUnit test already present in iTrust, edu.ncsu.csc.itrust.http.MaintainStandardsUseCase.testUpdateLOINC()
+			Test fails with original code due to JSP compilation exception.
+			After correcting error in /iTrust/WebRoot/auth/admin/editLOINCCodes.jsp, test passes.
+						
+Bug #2:		Extended existing JUnit test, edu.ncsu.csc.itrust.dao.personnel.EditPersonnelTest.testEditPersonnel2()
+			to modify a personnel's email address and check the value stored in the database.
+			Test fails with original code due to new email not being stored in the database.
+			After correcting error in edu.ncsu.csc.itrust.beans.loaders.PersonnelLoader.loadParameters(PreparedStatement, PersonnelBean),
+			test passes.
+			
+Bug #3:		No test case added, as checkboxes are hard to check.
+			Code fixed in /iTrust/WebRoot/auth/admin/editCPTProcedureCodes.jsp
+			Fix verified by manual testing of editCPT page.
+			
+Bug #4:		Added JUnit test case at edu.ncsu.csc.itrust.action.EditPatientActionTest.testInvalidDates()
+			Test fails with original code due to no validation for future dates.
+			After adding a conditional in edu.ncsu.csc.itrust.validate.PatientValidator.validate(PatientBean), test passes.
+			
+			Added HttpUnit test: edu.ncsu.csc.itrust.http.PersonalHealthRecordsUseCaseTest.testInvalidPatientDates()
+			To test that useful error message reaches GUI when user enters an invalid future date. 

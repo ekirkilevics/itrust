@@ -39,7 +39,7 @@ public class DocumentOfficeVisitUseCaseTest extends iTrustHTTPTest {
 		form.getSubmitButton("addLP").click();
 		wr = wc.getCurrentPage();
 		assertEquals("iTrust - Document Office Visit", wr.getTitle());
-		assertTrue(wr.getText().contains("Information Updated Successfully"));
+		assertTrue(wr.getText().contains("Information Successfully Updated"));
 	}
 	
 	
@@ -68,7 +68,7 @@ public class DocumentOfficeVisitUseCaseTest extends iTrustHTTPTest {
 		wt = wr.getTableStartingWith("Laboratory Procedures");
 		wr = wt.getTableCell(2, 5).getLinkWith("Remove").click();
 		assertEquals("iTrust - Document Office Visit", wr.getTitle());
-		assertTrue(wr.getText().contains("Information Updated Successfully"));
+		assertTrue(wr.getText().contains("Information Successfully Updated"));
 		wt = wr.getTableStartingWith("Laboratory Procedures");
 		assertTrue(wt.getText().contains("No Laboratory Procedures on record"));
 	}

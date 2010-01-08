@@ -31,7 +31,7 @@ pageTitle = "iTrust - View My Messages";
 <%		int index = 0; %>
 <%		for(MessageBean message : messages) { %>
 		<tr>
-			<td><%= action.getPatientName(message.getFrom()) %></td>
+			<td><%= action.getName(message.getFrom()) %></td>
 			<td><%= message.getBody() %></td>
 			<td><%= message.getSentDate() %></td>
 			<td><a href="reply.jsp?msg=<%= index %>">Reply</a></td>

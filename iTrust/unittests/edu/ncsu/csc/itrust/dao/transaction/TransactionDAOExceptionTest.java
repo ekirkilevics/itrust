@@ -16,7 +16,7 @@ public class TransactionDAOExceptionTest extends TestCase {
 
 	public void testGetAllAccessException() throws Exception {
 		try {
-			evilDAO.getAllRecordAccesses(0L);
+			evilDAO.getAllRecordAccesses(0L, false);
 			fail("DBException should have been thrown");
 		} catch (DBException e) {
 			assertEquals(EvilDAOFactory.MESSAGE, e.getSQLException().getMessage());
@@ -34,7 +34,7 @@ public class TransactionDAOExceptionTest extends TestCase {
 
 	public void testRecordAccessesException() throws Exception {
 		try {
-			evilDAO.getRecordAccesses(0L, new Date(), new Date());
+			evilDAO.getRecordAccesses(0L, new Date(), new Date(), false);
 			fail("DBException should have been thrown");
 		} catch (DBException e) {
 			assertEquals(EvilDAOFactory.MESSAGE, e.getSQLException().getMessage());

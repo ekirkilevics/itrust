@@ -2,6 +2,7 @@ package edu.ncsu.csc.itrust.action;
 
 import java.util.List;
 import junit.framework.TestCase;
+import edu.ncsu.csc.itrust.beans.Email;
 import edu.ncsu.csc.itrust.beans.HospitalBean;
 import edu.ncsu.csc.itrust.beans.OfficeVisitBean;
 import edu.ncsu.csc.itrust.beans.forms.EditOfficeVisitForm;
@@ -120,5 +121,50 @@ public class EditOfficeVisitActionTest extends TestCase {
 		frm.setAddDiagID("35");
 		frm.setRemoveDiagID("35");
 		action.updateInformation(frm);
+	}
+	
+	public void testNoAllergyPrescribe() throws FormValidationException, Exception {
+		gen.patient2();
+		gen.officeVisit2();
+		assertTrue(action.hasInteraction("081096", "2","2009/9/22","2009/9/22")=="");
+		
+	}
+
+	public void testInteraction() throws FormValidationException, Exception {
+		gen.officeVisit3();
+		gen.ndCodes1();
+		gen.drugInteractions3();
+		String test = action.hasInteraction("619580501", "1","11/11/2009","11/11/2009");
+		System.out.println("Test: " + test);
+		assertFalse(action.hasInteraction("619580501", "1","9/22/2009","10/11/2009")=="");
+		
+	}
+	
+	public void testMakeEmailApp() throws FormValidationException, Exception {
+		gen.patient2();
+		gen.hcp0();
+		Email testEmail = action.makeEmailApp(9000000000L, "2", "You are allergic.");
+		assertEquals("no-reply@itrust.com",testEmail.getFrom());
+		assertEquals("andy.programmer@gmail.com",testEmail.getToListStr());	
+		assertEquals("HCP has prescribed you a potentially dangerous medication",testEmail.getSubject());
+		assertEquals("Kelly Doctor has prescribed a medication that you are allergic to or that has a known interaction with a drug you are currently taking. You are allergic.",testEmail.getBody());
+	}
+	
+	public void testIsAllergyOnList()  throws Exception {
+		gen.patient2();
+		assertEquals("Allergy: Penicillin. First Found: 06/04/2007", action.isAllergyOnList("2", "664662530"));
+	}
+	
+	public void testIsAllergyOnListWithBadPatientID()  throws Exception {
+		gen.patient2();
+		try{
+			action.isAllergyOnList("2", "4");
+			action.isAllergyOnList("a", "4");
+			fail("Patient does not follow long format!!!!");
+		}catch(Exception e){
+			//Should get in here
+		}
+		
+		
 	}
 }

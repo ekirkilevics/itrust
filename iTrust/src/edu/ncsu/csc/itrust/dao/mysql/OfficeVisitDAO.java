@@ -243,14 +243,15 @@ public class OfficeVisitDAO {
 	 * @return
 	 * @throws DBException
 	 */
-	public long addProcedureToOfficeVisit (String cptCode, long visitID) throws DBException {
+	public long addProcedureToOfficeVisit (String cptCode, long visitID, String hcpid) throws DBException {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("INSERT INTO OVProcedure (CPTCode,VisitID) VALUES (?,?)");
+			ps = conn.prepareStatement("INSERT INTO OVProcedure (CPTCode,VisitID,HCPID) VALUES (?,?,?)");
 			ps.setString(1, cptCode);
 			ps.setLong(2, visitID);
+			ps.setString(3, hcpid);
 			ps.executeUpdate();
 			return DBUtil.getLastInsert(conn);
 		} catch (SQLException e) {
@@ -556,6 +557,45 @@ public class OfficeVisitDAO {
 			ps.setLong(1, pid);
 			ResultSet rs = ps.executeQuery();
 			return officeVisitLoader.loadList(rs);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DBException(e);
+		} finally {
+			DBUtil.closeConnection(conn, ps);
+		}
+	}
+
+	/**
+	 * Returns a list of information related to prescription reports given all of the office visits and the
+	 * patient ID. The patient ID is necessary in case the office visit IDs are for different patients (the
+	 * disambiguation is for security reasons).
+	 * 
+	 * @param ovIDs A java.util.List of Longs for the office visits.
+	 * @param patientID A long representing the MID of the patient in question.
+	 * @return A java.util.List of prescription reports.
+	 * @throws DBException
+	 */
+	public List<PrescriptionReportBean> getPrescriptionReportsByDate(long patientID, String startDate, String endDate)
+			throws DBException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		try {
+			conn = factory.getConnection();
+			ps = conn.prepareStatement("SELECT * FROM NDCodes, OVMedication, OfficeVisits "
+					+ "WHERE NDCodes.Code=OVMedication.NDCode AND OVMedication.VisitID=OfficeVisits.ID "
+					+ "AND PatientID=? AND ((DATE(?) < OVMedication.EndDate AND DATE(?) > OVMedication.StartDate)"
+					+ "OR (DATE(?) > OVMedication.StartDate  AND DATE(?) < OVMedication.EndDate ) OR "
+					+ "(DATE(?) <= OVMedication.StartDate AND DATE(?) >= OVMedication.StartDate)) "
+					+ "ORDER BY VisitDate DESC");
+			ps.setLong(1, patientID);
+			ps.setString(2, startDate);
+			ps.setString(3, startDate);
+			ps.setString(4, endDate);
+			ps.setString(5, endDate);
+			ps.setString(6, startDate);
+			ps.setString(7, endDate);
+			ResultSet rs = ps.executeQuery();
+			return prescriptionReportBeanLoader.loadList(rs);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new DBException(e);

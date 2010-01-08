@@ -115,27 +115,27 @@ public class ReportRequestDAO {
 		}
 	}
 	
-	/**
-	 * Returns every report request in the database.
-	 * @return A java.util.List of report requests.
-	 * @throws DBException
-	 */
-	public List<ReportRequestBean> getAllReportRequests() throws DBException {
-		Connection conn = null;
-		PreparedStatement ps = null;
-
-		try {
-			conn = factory.getConnection();
-			ps = conn.prepareStatement("SELECT * FROM ReportRequests");
-			ResultSet rs = ps.executeQuery();
-			return loader.loadList(rs);
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new DBException(e);
-		} finally {
-			DBUtil.closeConnection(conn, ps);
-		}
-	}
+//	/**
+//	 * Returns every report request in the database.
+//	 * @return A java.util.List of report requests.
+//	 * @throws DBException
+//	 */
+//	public List<ReportRequestBean> getAllReportRequests() throws DBException {
+//		Connection conn = null;
+//		PreparedStatement ps = null;
+//
+//		try {
+//			conn = factory.getConnection();
+//			ps = conn.prepareStatement("SELECT * FROM ReportRequests");
+//			ResultSet rs = ps.executeQuery();
+//			return loader.loadList(rs);
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//			throw new DBException(e);
+//		} finally {
+//			DBUtil.closeConnection(conn, ps);
+//		}
+//	}
 	
 	/**
 	 * Adds a request for a report.
@@ -166,61 +166,61 @@ public class ReportRequestDAO {
 		}
 	}
 	
-	/**
-	 * Sets the status of a request to 'Approved'
-	 * 
-	 * @param ID The unique ID of the report.
-	 * @param approverMID The MID of the person approving the request.
-	 * @param date The date the approval was made.
-	 * @throws DBException
-	 */
-	public void approveReportRequest(long ID, long approverMID, Date date) throws DBException {
-		Connection conn = null;
-		PreparedStatement ps = null;
-		try {
-			if (ID == 0L) throw new SQLException("ID cannot be null");
-			conn = factory.getConnection();
-			ps = conn.prepareStatement("UPDATE ReportRequests set ApproverMID = ?, ApprovedDate = ?, Status = 'Approved' where ID = ?");
-			ps.setLong(1, approverMID);
-			ps.setTimestamp(2, new java.sql.Timestamp(date.getTime()));
-			ps.setLong(3, ID);
-			ps.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new DBException(e);
-		} finally {
-			DBUtil.closeConnection(conn, ps);
-		}
-	}
-
-	/**
-	 * Sets the status of a report request to 'Rejected'
-	 * 
-	 * @param ID The unique ID of the request in question.
-	 * @param approverMID The MID of the rejecter in question.
-	 * @param date The date the rejection was made.
-	 * @param comment A comment describing why the request was rejected.
-	 * @throws DBException
-	 */
-	public void rejectReportRequest(long ID, long approverMID, Date date, String comment) throws DBException {
-		Connection conn = null;
-		PreparedStatement ps = null;
-		try {
-			if (ID == 0L) throw new SQLException("ID cannot be null");
-			conn = factory.getConnection();
-			ps = conn.prepareStatement("UPDATE ReportRequests set ApproverMID = ?, ApprovedDate = ?, Status = 'Rejected', comment = ? where ID = ?");
-			ps.setLong(1, approverMID);
-			ps.setTimestamp(2, new java.sql.Timestamp(date.getTime()));
-			ps.setString(3, comment);
-			ps.setLong(4, ID);
-			ps.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new DBException(e);
-		} finally {
-			DBUtil.closeConnection(conn, ps);
-		}
-	}
+//	/**
+//	 * Sets the status of a request to 'Approved'
+//	 * 
+//	 * @param ID The unique ID of the report.
+//	 * @param approverMID The MID of the person approving the request.
+//	 * @param date The date the approval was made.
+//	 * @throws DBException
+//	 */
+//	public void approveReportRequest(long ID, long approverMID, Date date) throws DBException {
+//		Connection conn = null;
+//		PreparedStatement ps = null;
+//		try {
+//			if (ID == 0L) throw new SQLException("ID cannot be null");
+//			conn = factory.getConnection();
+//			ps = conn.prepareStatement("UPDATE ReportRequests set ApproverMID = ?, ApprovedDate = ?, Status = 'Approved' where ID = ?");
+//			ps.setLong(1, approverMID);
+//			ps.setTimestamp(2, new java.sql.Timestamp(date.getTime()));
+//			ps.setLong(3, ID);
+//			ps.executeUpdate();
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//			throw new DBException(e);
+//		} finally {
+//			DBUtil.closeConnection(conn, ps);
+//		}
+//	}
+//
+//	/**
+//	 * Sets the status of a report request to 'Rejected'
+//	 * 
+//	 * @param ID The unique ID of the request in question.
+//	 * @param approverMID The MID of the rejecter in question.
+//	 * @param date The date the rejection was made.
+//	 * @param comment A comment describing why the request was rejected.
+//	 * @throws DBException
+//	 */
+//	public void rejectReportRequest(long ID, long approverMID, Date date, String comment) throws DBException {
+//		Connection conn = null;
+//		PreparedStatement ps = null;
+//		try {
+//			if (ID == 0L) throw new SQLException("ID cannot be null");
+//			conn = factory.getConnection();
+//			ps = conn.prepareStatement("UPDATE ReportRequests set ApproverMID = ?, ApprovedDate = ?, Status = 'Rejected', comment = ? where ID = ?");
+//			ps.setLong(1, approverMID);
+//			ps.setTimestamp(2, new java.sql.Timestamp(date.getTime()));
+//			ps.setString(3, comment);
+//			ps.setLong(4, ID);
+//			ps.executeUpdate();
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//			throw new DBException(e);
+//		} finally {
+//			DBUtil.closeConnection(conn, ps);
+//		}
+//	}
 	
 	/**
 	 * Sets the status of a report request to 'Viewed'

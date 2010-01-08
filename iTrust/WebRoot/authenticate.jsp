@@ -1,7 +1,6 @@
 <%@page import="edu.ncsu.csc.itrust.DBUtil"%>
 
 <%
-		
 if(!DBUtil.canObtainProductionInstance()){
 	response.sendError(HttpServletResponse.SC_SERVICE_UNAVAILABLE);
 }

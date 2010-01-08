@@ -5,6 +5,7 @@ import edu.ncsu.csc.itrust.beans.PatientBean;
 import edu.ncsu.csc.itrust.exception.ErrorList;
 import edu.ncsu.csc.itrust.exception.FormValidationException;
 import org.apache.commons.validator.CreditCardValidator;
+import java.util.Date;
 
 /**
  * Validates a patient bean, from {@link EditPatientAction}
@@ -37,9 +38,19 @@ public class PatientValidator extends BeanValidator<PatientBean> {
 		try {
 			if (p.getDateOfDeath().before(p.getDateOfBirth()))
 				errorList.addIfNotNull("Death date cannot be before birth date!");
+			if( p.getDateOfDeath().after(new Date())){
+				errorList.addIfNotNull("Death date cannot be in the future!");
+			}
+			if( p.getDateOfBirth().after(new Date())){
+				errorList.addIfNotNull("Birth date cannot be in the future!");
+			}
 		} catch (NullPointerException e) {
 			// ignore this
 		}
+		
+		
+		
+			
 		boolean deathCauseNull = (null == p.getDateOfDeathStr() || p.getDateOfDeathStr().equals(""));
 		errorList.addIfNotNull(checkFormat("Cause of Death", p.getCauseOfDeath(), ValidationFormat.ICD9CM,
 				deathCauseNull));

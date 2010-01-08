@@ -88,7 +88,9 @@ public class AccessDAO {
 	}
 
 	private void insertDefaultTimeout(Connection conn, int mins) throws SQLException {
-		conn.createStatement().executeUpdate(
-				"INSERT INTO GlobalVariables(Name,Value) VALUES ('Timeout', '" + mins + " ')");
+		PreparedStatement ps = null;
+		ps = conn.prepareStatement("INSERT INTO GlobalVariables(Name,Value) VALUES ('Timeout', ?)");
+		ps.setInt(1, mins);
+		ps.executeUpdate();
 	}
 }

@@ -17,6 +17,10 @@
 	<a href="/iTrust/auth/patient/sendMessage.jsp">Send a Message</a><br />
 </div>
 <div class="menu_category">
+	<span>Telemedicine</span><br />
+	<a href="/iTrust/auth/patient/addTelemedicineData.jsp">Report Status</a><br />
+</div>
+<div class="menu_category">
 	<span>Other</span><br />
 	<a href="/iTrust/auth/surveyResults.jsp">Satisfaction Survey Results</a><br />
 	<a href="/iTrust/auth/patient/showEmailHistory.jsp">Show Email History</a><br />

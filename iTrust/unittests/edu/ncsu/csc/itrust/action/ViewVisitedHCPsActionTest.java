@@ -51,4 +51,11 @@ public class ViewVisitedHCPsActionTest extends TestCase {
 			assertEquals("Lauren Frankenstein", bean.getFullName());
 		}
 	}
+	
+	public void testDeclareAndUndeclareHCP() throws Exception {
+		action.declareHCP("Kelly Doctor");
+		assertEquals(true, action.checkDeclared(9000000000L));
+		action.undeclareHCP("Kelly Doctor");
+		assertEquals(false, action.checkDeclared(9000000000L));
+	}
 }

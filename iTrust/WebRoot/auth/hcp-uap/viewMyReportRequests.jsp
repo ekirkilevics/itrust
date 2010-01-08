@@ -48,40 +48,27 @@ List<ReportRequestBean> list = action.getAllReportRequestsForRequester();
 	<tr class="subHeader">
     		<td>ID</td>
    			<td>Patient</td>
-  			<td>Approver</td>
   			<td>Requested Date</td>
-  			<td>Approved Date</td>
   			<td>Viewed Date</td>
   			<td>Status</td>
-  			<td>Comment</td>
   			<td>Action</td>
   	</tr>
  <%
  		List<PatientBean> patients = new ArrayList<PatientBean>();
  		PatientBean patient;
  		PersonnelBean personnel;
- 		String approver;
  		int index = 0;
  		for (ReportRequestBean bean:list) { 
  			patient = patientDAO.getPatient(bean.getPatientMID());
  			patients.add(patient);
- 			if (bean.getApproverMID() == 0L) {
- 				approver = "";
- 			} else {
- 				personnel = personnelDAO.getPersonnel(bean.getApproverMID());
- 				approver = personnel.getFullName();
- 			}
  %>
 			<tr>
 				<td ><%=bean.getID()%></td>
 				<td ><%=patient.getFullName()%></td>
-				<td ><%=approver%></td>
 				<td ><%=bean.getRequestedDateString()%></td>
-				<td ><%=bean.getApprovedDateString()%></td>
 				<td ><%=bean.getViewedDateString()%></td>
 				<td ><%=bean.getStatus()%></td>
-				<td ><%=bean.getComment() == null ? "" : bean.getComment()%></td>
-				<td ><%if(bean.getStatus().equals(ReportRequestBean.Approved)){%><a href="viewReport.jsp?patient=<%=index%>&requestID=<%=bean.getID()%>" targert="_blank">View</a><%}else{%>&nbsp;<%} %></td>
+				<td ><a href="viewReport.jsp?patient=<%=index%>&requestID=<%=bean.getID()%>">View</a></td>
 			</tr>
 <%			index ++;
 		} 

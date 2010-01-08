@@ -51,6 +51,7 @@ if (formIsFilled) {
 			<span class="iTrustError"><% e.printHTML(pageContext.getOut()); %></span>
 		</div>
 <%
+	personnelForm = prodDAO.getPersonnelDAO().getPersonnel(pid);
 	}
 }
 else {

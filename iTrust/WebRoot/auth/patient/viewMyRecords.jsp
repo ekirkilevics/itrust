@@ -413,12 +413,13 @@ if (request.getParameter("message") != null) {
 <br />
 <table class="fTable" align="center">
 	<tr>
-		<th colspan="3">Immunizations</th>
+		<th colspan="4">Immunizations</th>
 	</tr>
 	<tr class="subHeader">
   		<td>CPT Code</th>
 	 	<td>Description</th>
    		<td>Date Received</th>
+   		<td>Adverse Event</th>
   	</tr>
 <%
 boolean hasNoData = true;
@@ -429,18 +430,25 @@ for (OfficeVisitBean ov: officeVisits) {
 			hasNoData=false;
 %>
 	<tr>
-		<td><%=proc.getCPTCode() %></td>
+		<td><%=proc.getCPTCode()%></td>
 		<td><%=proc.getDescription() %></td>
-		<td><%=proc.getDate() %></td>	
-	</tr>
+		<td><%=proc.getDate() %></td>
+		<td>
+		<%
+			Date date = new Date();
+			date.setYear(date.getYear()-1);
+			if(proc.getDate().after(date)){
+		%>
+		<a href="reportAdverseEvent.jsp?presID=<%=proc.getDescription()%>&HCPMID=<%=ov.getHcpID() %>&code=<%=proc.getCPTCode()%>">Report</a>	
+	
 <%
-		}
+		}%></td></tr><% }
 	}
 }
 if(hasNoData) {
 %>
 	<tr>
-		<td colspan=3 align=center>
+		<td colspan=4 align=center>
 			No Data
 		</td>
 	</tr>

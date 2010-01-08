@@ -2,6 +2,7 @@
 	<span>Add</span><br />
 	<a href="/iTrust/auth/admin/addHCP.jsp">Add HCP</a><br />
 	<a href="/iTrust/auth/admin/addER.jsp">Add ER</a><br />
+	<a href="/iTrust/auth/admin/addPHA.jsp">Add PHA</a><br />
 </div>
 <div class="menu_category">
 	<span>Edit</span><br />
@@ -12,10 +13,6 @@
 	<a href="/iTrust/auth/admin/editLOINCCodes.jsp">Edit LOINC Codes </a><br />
 	<a href="/iTrust/auth/staff/editPersonnel.jsp"> Edit Personnel </a><br />
 	<a href="/iTrust/auth/staff/editMyDemographics.jsp"> Edit My Demographics </a><br />
-</div>
-<div class="menu_category">
-	<span>Report</span><br />
-	<a href="/iTrust/auth/admin/viewAllReportRequests.jsp"> View All Report Requests </a><br />
 </div>
 <div class="menu_category">
 	<span>Other</span><br />

@@ -35,6 +35,9 @@ public enum ValidationFormat {
 	HOSPITAL_ID("[\\d]{1,10}", "Between 1 and 10 digits"),
 	HOSPITAL_NAME("[0-9a-zA-Z' .]{1,30}", "Between 1 and 30 alphanumerics, space, ', and ."),
 	ND_CODE_DESCRIPTION("[a-zA-Z0-9\\s]{1,100}", "Up to 100 characters, letters, numbers, and a space"),
+	DRUG_INT_COMMENTS("[a-zA-Z0-9.\\-',!;:()?\\s]{1,500}", "Up to 500 alphanumeric characters and .-',!;:()?"),
+	EMAILS("[a-zA-Z0-9.\\-',!;:()?\\s]{1,500}", "Up to 500 alphanumeric characters and .-',!;:()?"),
+	ADVERSE_EVENT_COMMENTS("[a-zA-Z0-9.\\-',!;:()?\\s]{1,2000}", "Up to 2000 alphanumeric characters and .-',!;:()?"),
 	ICD_CODE_DESCRIPTION("[a-zA-Z0-9\\s]{1,30}", "Up to 30 characters, letters, numbers, and a space"),
 	CPT_CODE_DESCRIPTION("[a-zA-Z0-9\\s]{1,30}", "Up to 30 characters, letters, numbers, and a space"),
 	ALLERGY_DESCRIPTION("[a-zA-Z0-9\\s]{1,30}", "Up to 30 characters, letters, numbers, and a space"),
@@ -49,7 +52,10 @@ public enum ValidationFormat {
 	LOINC_ITEM("[a-zA-Z0-9\\s]{1,100}", "Up to 100 characters, letters, numbers, and a space"),
 	COMMENTS("[a-zA-Z0-9.\\s]{1,500}", "Up to 500 alphanumeric characters"),
 	LAB_STATUS("(NOT YET RECEIVED)|(PENDING)|(COMPLETED)", "Only NOT YET RECEIVED, PENDING, or COMPLETED"),
-	LAB_RIGHTS("(ALLOWED)|(RESTRICTED)", "Only ALLOWED, or RESTRICTED");
+	LAB_RIGHTS("(ALLOWED)|(RESTRICTED)", "Only ALLOWED, or RESTRICTED"),
+	SYSTOLIC_BLOOD_PRESSURE("^([4-9][0-9]|1[0-9][0-9]|2[0-3][0-9]|240)$", "Must be between 40 and 240"),
+	DIASTOLIC_BLOOD_PRESSURE("^([4-9][0-9]|1[0-4][0-9]|150)$", "Must be between 40 and 150"),
+	GLUCOSE_LEVEL("^([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|250)$", "Must be between 0 and 250");
 
 	private Pattern regex;
 	private String description;

@@ -19,7 +19,7 @@ public class OVProceduresTest extends TestCase{
 	}
 	public void testAddRemoveOneOVProcedure() throws Exception {
 		assertEquals("no current procedures on office vist 1", 0, ovDAO.getProcedures(1).size());
-		long ovPID = ovDAO.addProcedureToOfficeVisit("1270F", 1);
+		long ovPID = ovDAO.addProcedureToOfficeVisit("1270F", 1, "");
 		List<ProcedureBean> procs = ovDAO.getProcedures(1);
 		assertEquals("now there's 1", 1, procs.size());
 		assertEquals("test the description", "Injection procedure",procs.get(0).getDescription());

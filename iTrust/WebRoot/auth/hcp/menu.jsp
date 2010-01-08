@@ -28,6 +28,11 @@
 	<a href="/iTrust/auth/hcp-er/emergencyReport.jsp">Emergency Patient Report</a><br />
 </div>
 <div class="menu_category">
+	<span>Telemedicine</span><br />
+	<a href="/iTrust/auth/hcp/editPatientList.jsp">Edit Patient List</a><br />
+	<a href="/iTrust/auth/hcp/monitorPatients.jsp">Monitor Patients</a><br />
+</div>
+<div class="menu_category">
 	<span>Other</span><br />
 	<a href="/iTrust/auth/hcp/hcpConsultation.jsp">Consultations</a><br />
 	<a href="/iTrust/auth/hcp-uap/chronicDiseaseRisks.jsp">Chronic Disease Risks</a><br />

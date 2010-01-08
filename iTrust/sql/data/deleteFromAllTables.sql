@@ -17,6 +17,7 @@ DELETE FROM ReportRequests;
 DELETE FROM Representatives;
 DELETE FROM ResetPasswordFailures;
 DELETE FROM TransactionLog;
+DELETE FROM AdverseEvents;
 
 
 DELETE FROM PersonalAllergies;
@@ -29,7 +30,11 @@ DELETE FROM ICDCodes;
 DELETE FROM Personnel;
 DELETE FROM Hospitals;
 DELETE FROM NDCodes;
+DELETE FROM druginteractions;
 
 DELETE FROM CPTCodes;
 DELETE FROM Patients;
 DELETE FROM Users;
+
+DELETE FROM RemoteMonitoringData;
+DELETE FROM RemoteMonitoringLists;

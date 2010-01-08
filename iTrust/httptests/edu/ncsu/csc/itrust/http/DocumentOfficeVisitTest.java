@@ -46,9 +46,9 @@ public class DocumentOfficeVisitTest extends iTrustHTTPTest {
 		form = wr.getForms()[0];
 		form.setParameter("visitDate", "11/21/2005");
 		form.setParameter("notes", "I like diet-coke");
-		form.getButtons()[1].click();
+		form.getButtonWithID("update").click();
 		wr = wc.getCurrentPage();
-		assertTrue(wr.getText().contains("Information Updated Successfully"));
+		assertTrue(wr.getText().contains("Information Successfully Updated"));
 	}
 
 	/*
@@ -86,7 +86,7 @@ public class DocumentOfficeVisitTest extends iTrustHTTPTest {
 		form.setParameter("notes", "Great Patient!");
 		form.getButtons()[1].click();
 		wr = wc.getCurrentPage();
-		assertTrue(wr.getText().contains("Information Updated Successfully"));
+		assertTrue(wr.getText().contains("Information Successfully Updated"));
 	}
 
 	/*

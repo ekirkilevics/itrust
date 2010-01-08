@@ -6,6 +6,7 @@
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Date"%>
 
+<%@page import="edu.ncsu.csc.itrust.EmailUtil"%>
 <%@page import="edu.ncsu.csc.itrust.beans.OfficeVisitBean"%>
 <%@page import="edu.ncsu.csc.itrust.beans.LabProcedureBean"%>
 <%@page import="edu.ncsu.csc.itrust.beans.LOINCbean"%>
@@ -44,20 +45,38 @@ pageTitle = "iTrust - Document Office Visit";
 	//}
 	
     EditOfficeVisitAction action = new EditOfficeVisitAction(prodDAO, loggedInMID, pidString, ovIDString);
-    
 	long ovID = action.getOvID();
 	OfficeVisitBean visit = action.getOfficeVisit();
 	String confirm = "";
-	if ("true".equals(request.getParameter("formIsFilled"))) {		
+	String warning = "";
+	if (request.getParameter("startDate") != null && request.getParameter("endDate") != null){
+		warning = action.hasInteraction(request.getParameter("addMedID"), pidString, request.getParameter("startDate"), request.getParameter("endDate"));
+	}
+		warning += action.isAllergyOnList(pidString,request.getParameter("addMedID"));
+	
+	if ("true".equals(request.getParameter("formIsFilled"))) {
 		EditOfficeVisitForm form = new BeanBuilder<EditOfficeVisitForm>().build(request.getParameterMap(), new EditOfficeVisitForm());
-		form.setHcpID("" + visit.getHcpID());
-		form.setPatientID("" + visit.getPatientID());
-		try {
-			confirm = action.updateInformation(form);
-		}
-		catch (FormValidationException e) {
-			e.printHTML(pageContext.getOut());
-			confirm = "Input not valid";
+		if ("".equals(warning) || "true".equals(request.getParameter("checkPresc"))){			
+			if ("true".equals(request.getParameter("checkPresc"))){
+				form.setAddMedID(request.getParameter("testMed"));
+				form.setStartDate(request.getParameter("medStart"));
+				form.setDosage(request.getParameter("medDos"));
+				form.setEndDate(request.getParameter("medEnd"));
+				form.setInstructions(request.getParameter("medInst"));
+				String problem = action.hasInteraction(request.getParameter("testMed"), pidString, request.getParameter("medStart"), request.getParameter("medEnd"));
+				problem += action.isAllergyOnList(pidString,request.getParameter("testMed"));
+				new EmailUtil(prodDAO).sendEmail(action.makeEmailApp(loggedInMID,pidString,problem));
+			}
+			
+			form.setHcpID("" + visit.getHcpID());
+			form.setPatientID("" + visit.getPatientID());
+			try {
+				confirm = action.updateInformation(form);
+			}
+			catch (FormValidationException e) {
+				e.printHTML(pageContext.getOut());
+				confirm = "Input not valid";
+			}
 		}
 	}
 	OfficeVisitBean ov = action.getOfficeVisit();
@@ -68,8 +87,10 @@ pageTitle = "iTrust - Document Office Visit";
 <div align=center>
 <%
 if (!"".equals(confirm)) {
-	if ("success".equals(confirm)) { %>
-		<span class="iTrustMessage">Information Updated Successfully</span>
+	if (request.getParameter("checkPresc").equals("false")){ %>
+		<span class="iTrustMessage">Operation Canceled</span>
+	<% } else if ("success".equals(confirm)) { %>
+		<span class="iTrustMessage">Information Successfully Updated</span>
 <%	}
 	else { %>
 		<span class="iTrustError"><%=confirm%></span>		
@@ -84,6 +105,46 @@ if (!"".equals(confirm)) {
 		document.getElementById(type).value = value;
 		document.forms[0].submit();
 	}
+
+	function setVar(){
+		var medID = document.getElementById("addMedID");
+		var medIDindex = medID.options.selectedIndex;
+		var medIDtxt = medID.options[medIDindex].value;
+		var medDostxt = document.getElementById("dosage").value;
+		var medStarttxt = document.getElementById("startDate").value;
+		var medEndtxt = document.getElementById("endDate").value;
+		var medInsttxt = document.getElementById("instructions").value;
+		document.getElementById("testMed").value = medIDtxt;
+		document.getElementById("medDos").value = medDostxt;
+		document.getElementById("medStart").value = medStarttxt;
+		document.getElementById("medEnd").value = medEndtxt;
+		document.getElementById("medInst").value = medInsttxt;
+		document.forms[0].submit();
+	}
+
+	function presCont(){
+		document.getElementById("checkPresc").value = "true";
+		document.forms[0].submit();
+	}
+
+	function presCanc(){
+		var medID = document.getElementById("addMedID");
+		var medIDindex = medID.options.selectedIndex;
+		var medIDtxt = medID.options[medIDindex].value;
+		var medDostxt = document.getElementById("dosage").value;
+		var medStarttxt = document.getElementById("startDate").value;
+		var medEndtxt = document.getElementById("endDate").value;
+		var medInsttxt = document.getElementById("instructions").value;
+
+		document.getElementById("testMed").value = "";
+		document.getElementById("medDos").value = "";
+		document.getElementById("medStart").value = "";
+		document.getElementById("medEnd").value = "";
+		document.getElementById("medInst").value = "";
+		document.getElementById("checkPresc").value = "false";
+		document.forms[0].submit();
+	}
+	
 </script>
 
 <form action="editOfficeVisit.jsp" method="post" id="mainForm">
@@ -94,6 +155,12 @@ if (!"".equals(confirm)) {
 	<input type="hidden" id="removeProcID" name="removeProcID" value="" />
 	<input type="hidden" id="removeImmunizationID" name="removeImmunizationID" value="" />
 	<input type="hidden" id="removeLabProcID" name="removeLabProcID" value="" />
+	<input type="hidden" id="checkPresc" name="checkPresc" value="" />
+	<input type="hidden" id="testMed" name="testMed" value=<%=request.getParameter("testMed") %> />
+	<input type="hidden" id="medDos" name="medDos" value=<%=request.getParameter("medDos") %> />
+	<input type="hidden" id="medStart" name="medStart" value=<%=request.getParameter("medStart") %> />
+	<input type="hidden" id="medEnd" name="medEnd" value=<%=request.getParameter("medEnd") %> />
+	<input type="hidden" id="medInst" name="medInst" value=<%=request.getParameter("medInst") %> />
 
 <div align=center>
 <table class="fTable" align="center">
@@ -127,7 +194,7 @@ if (!"".equals(confirm)) {
 	</tr>
 </table>
 <br />
-<input type="submit" name="update" value="Update" >
+<input type="submit" name="update" id="update" value="Update" >
 </div>
 <br /><br />
 <div align=center>
@@ -163,35 +230,46 @@ if (!"".equals(confirm)) {
 	</tr>
 	 <tr>
 	 	<td align=center>
-	 		<select name="addMedID" style="font-size:10px;">
+	 		<select name="addMedID" id="addMedID" style="font-size:10px;">
 	 			<option value=""> -- Please Select a Medication -- </option>
 	 			<%for(MedicationBean med : prodDAO.getNDCodesDAO().getAllNDCodes()){%>
-		 			<option value="<%=med.getNDCode()%>"><%=med.getNDCode()%> - <%=med.getDescription()%></option>			 			
+		 			<option value="<%=med.getNDCode()%>"><%=med.getNDCode()%> - <%=med.getDescription()%></option>
+		 						 			
 	 			<%}%>
 	 		</select>
 	 	</td>
 	 	<td align=center>
-	 		<input type="text" name="dosage" maxlength="6" style="width: 50px;"> mg
+	 		<input type="text" name="dosage" id="dosage" maxlength="6" style="width: 50px;"> mg
 	 	</td>
 	 	<td align=center colspan=2>
-	 		<input type="text" name="startDate" style="width: 80px;" 
+	 		<input type="text" name="startDate" id="startDate" style="width: 80px;" 
 	 			onclick="displayDatePicker('startDate');" 
 	 			onselect="displayDatePicker('startDate');"
 	 			value="<%=new SimpleDateFormat("MM/dd/yyyy").format(new Date())%>"> 
 	 		to 
-			<input type="text" name="endDate" style="width: 80px;"
+			<input type="text" name="endDate" id="endDate" style="width: 80px;"
 				onclick="displayDatePicker('endDate');" 
 	 			onselect="displayDatePicker('endDate');"
 	 			value="<%=new SimpleDateFormat("MM/dd/yyyy").format(new Date())%>">
 	 	</td>
 	 	<td align=center>
-	 		<input type="text" name="instructions" value="-- Instructions --" maxlength=500>
+	 		<input type="text" name="instructions" id="instructions" value="-- Instructions --" maxlength=500>
 	 	</td>
 	 	<td>
-		 	<input type="submit" value="Add Prescription">
+		 	<input type="button" id="addprescription" onclick="setVar()" value="Add Prescription">
 	 	</td>
 	 </tr>
 </table>
+<%
+if (!("".equals(warning) )){ %>
+<br/>
+	<div style="background-color:yellow;color:black" align="center"><%=warning %></div>
+	<div style="background-color:yellow" align="center"><input type="button" onclick="presCont()" value="Continue" name="continue" id="continue"/>
+	<input type="button" onclick="location.href='/iTrust/auth/hcp-uap/editPHR.jsp'" value="Cancel" name="cancel" id="cancel"/>
+	</div><BR>
+<%}; %>
+
+
 </div>
 <br /><br />
 <div align=center>

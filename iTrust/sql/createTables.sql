@@ -1,7 +1,7 @@
 CREATE TABLE Users(
 	MID                 BIGINT unsigned,
 	Password            VARCHAR(20),
-	Role                enum('patient','admin','hcp','uap','er','tester') NOT NULL DEFAULT 'admin',
+	Role                enum('patient','admin','hcp','uap','er','tester','pha') NOT NULL DEFAULT 'admin',
 	sQuestion           VARCHAR(100) DEFAULT '', 
 	sAnswer             VARCHAR(30) DEFAULT '',
 
@@ -19,7 +19,7 @@ CREATE TABLE Hospitals(
 CREATE TABLE Personnel(
 	MID BIGINT unsigned auto_increment,
 	AMID BIGINT unsigned default NULL,
-	role enum('admin','hcp','uap','er','tester') NOT NULL default 'admin',
+	role enum('admin','hcp','uap','er','tester','pha') NOT NULL default 'admin',
 	enabled tinyint(1) unsigned NOT NULL default '0',
 	lastName varchar(20) NOT NULL default '',
 	firstName varchar(20) NOT NULL default '',
@@ -116,6 +116,13 @@ CREATE TABLE NDCodes(
 	PRIMARY KEY  (Code)
 ) ENGINE=MyISAM;
 
+CREATE TABLE DrugInteractions(
+	FirstDrug varchar(9) NOT NULL,
+	SecondDrug varchar(9) NOT NULL,
+	Description varchar(100) NOT NULL,
+	PRIMARY KEY  (FirstDrug,SecondDrug)
+) ENGINE=MyISAM;
+
 CREATE TABLE TransactionLog(
 	transactionID int(10) unsigned NOT NULL auto_increment, 
 	loggedInMID BIGINT unsigned NOT NULL DEFAULT '0', 
@@ -195,7 +202,8 @@ CREATE TABLE Allergies(
 CREATE TABLE OVProcedure(
 	ID INT(10) auto_increment primary key,
 	VisitID INT( 10 ) unsigned NOT NULL COMMENT 'ID of the Office Visit',
-	CPTCode VARCHAR( 5 ) NOT NULL COMMENT 'CPTCode of the procedure'
+	CPTCode VARCHAR( 5 ) NOT NULL COMMENT 'CPTCode of the procedure',
+	HCPID VARCHAR( 10 ) NOT NULL DEFAULT ''
 ) ENGINE=MyISAM;
 
 CREATE TABLE OVMedication (
@@ -226,7 +234,7 @@ CREATE TABLE FakeEmail(
 	ToAddr VARCHAR(100),
 	FromAddr VARCHAR(100),
 	Subject VARCHAR(500),
-	Body VARCHAR(1000),
+	Body VARCHAR(2000),
 	AddedDate timestamp NOT NULL default CURRENT_TIMESTAMP
 ) ENGINE=MyISAM;
 
@@ -294,3 +302,31 @@ CREATE TABLE referrals (
 	PRIMARY KEY (id)
 ) AUTO_INCREMENT=1 ENGINE=MyISAM;
 
+CREATE TABLE RemoteMonitoringData (
+	id          INT UNSIGNED AUTO_INCREMENT,
+	PatientID          BIGINT UNSIGNED NOT NULL,
+	systolicBloodPressure int(10) SIGNED default -1,
+	diastolicBloodPressure int(10) SIGNED default -1,
+	glucoseLevel int(10) SIGNED default -1,
+	timeLogged timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
+	ReporterRole		TEXT,
+	ReporterID          BIGINT UNSIGNED NOT NULL,
+	PRIMARY KEY (id)
+) AUTO_INCREMENT=1 ENGINE=MyISAM;
+
+CREATE TABLE RemoteMonitoringLists (
+	PatientMID BIGINT unsigned default 0, 
+	HCPMID BIGINT unsigned default 0,
+	PRIMARY KEY  (PatientMID,HCPMID)
+) ENGINE=MyISAM;
+
+CREATE TABLE AdverseEvents (
+	id INT UNSIGNED AUTO_INCREMENT primary key,
+	Status VARCHAR(10),
+	PatientMID BIGINT unsigned default 0,
+	PresImmu VARCHAR(50),
+	Code VARCHAR(20),
+	Comment VARCHAR(2000),
+	Prescriber BIGINT unsigned default 0,
+	TimeLogged timestamp NOT NULL default CURRENT_TIMESTAMP
+) ENGINE=MyISAM;

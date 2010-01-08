@@ -31,8 +31,10 @@ if( ! "true".equals(System.getProperty("itrust.production") ) ) {
 	| <a class="iTrustTestNavlink" href="/iTrust/j_security_check?j_username=9000000000&j_password=pw">HCP</a>
 	| <a class="iTrustTestNavlink" href="/iTrust/j_security_check?j_username=8000000009&j_password=uappass1">UAP</a>
 	| <a class="iTrustTestNavlink" href="/iTrust/j_security_check?j_username=9000000006&j_password=pw">ER</a>
+	| <a class="iTrustTestNavlink" href="/iTrust/j_security_check?j_username=7000000001&j_password=pw">PHA</a>
 	| <a class="iTrustTestNavlink" href="/iTrust/j_security_check?j_username=9000000001&j_password=pw">Admin</a>
 	| <a class="iTrustTestNavlink" href="/iTrust/j_security_check?j_username=9999999999&j_password=pw">Tester</a>
+	
 <% 
 } 
 %>

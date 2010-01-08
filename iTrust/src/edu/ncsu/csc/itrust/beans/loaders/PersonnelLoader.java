@@ -59,7 +59,7 @@ public class PersonnelLoader implements BeanLoader<PersonnelBean> {
 		ps.setString(i++, p.getZip());
 		ps.setString(i++, p.getZip1());
 		ps.setString(i++, p.getZip2());
-		ps.setString(i++, p.getSpecialty());
+		//ps.setString(i++, p.getSpecialty());
 		ps.setString(i++, p.getEmail());
 		return ps;
 	}

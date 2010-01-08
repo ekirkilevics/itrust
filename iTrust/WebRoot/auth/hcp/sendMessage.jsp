@@ -4,6 +4,7 @@
 <%@page import="edu.ncsu.csc.itrust.beans.MessageBean"%>
 <%@page import="edu.ncsu.csc.itrust.dao.mysql.PatientDAO"%>
 <%@page import="edu.ncsu.csc.itrust.exception.iTrustException"%>
+<%@page import="edu.ncsu.csc.itrust.exception.FormValidationException"%>
 
 <%@include file="/global.jsp" %>
 
@@ -42,9 +43,16 @@ pageTitle = "iTrust - Send a Message";
 			message.setBody(request.getParameter("messageBody"));
 			message.setFrom(loggedInMID);
 			message.setTo(patientID);
+			try {
 			action.sendMessage(message);
 			session.removeAttribute("pid");
 			response.sendRedirect("home.jsp");
+
+			} catch (FormValidationException e){
+			%>
+			<div align=center><span class="iTrustError"><%=e.getMessage()%></span></div>
+			<%	
+			}
 		}
 %>
 

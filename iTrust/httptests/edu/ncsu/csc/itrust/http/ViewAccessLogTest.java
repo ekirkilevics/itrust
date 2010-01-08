@@ -17,6 +17,8 @@ public class ViewAccessLogTest extends iTrustHTTPTest {
 		gen.patient1();
 		gen.patient4();
 		gen.hcp0();
+		gen.hcp3();
+		gen.er4();
 	}
 
 	/*
@@ -103,5 +105,55 @@ public class ViewAccessLogTest extends iTrustHTTPTest {
 		assertEquals("iTrust - Patient Home", wr.getTitle());
 		wr = wr.getLinkWith("Access Log").click();
 		assertFalse(wr.getText().contains("Exception"));
+	}
+	
+	public void testViewAccessLogByDate() throws Exception {
+		gen.transactionLog2();
+		WebConversation wc = login("2", "pw");
+		WebResponse wr = wc.getCurrentPage();
+		assertEquals("iTrust - Patient Home", wr.getTitle());
+		wr = wr.getLinkWith("Access Log").click();
+		assertFalse(wr.getText().contains("Exception"));
+
+		WebForm form = wr.getForms()[0];
+		form.setParameter("startDate", "03/01/2008");
+		form.setParameter("endDate", "12/01/2008");
+		form.getSubmitButtons()[0].click();
+		
+		wr = wr.getLinkWith("Date").click();
+		WebTable table = wr.getTableStartingWithPrefix("Date");
+		assertTrue(table.getCellAsText(1, 3).contains("22"));
+		assertTrue(table.getCellAsText(2, 3).contains("39"));
+		assertTrue(table.getCellAsText(3, 3).contains("19"));
+		assertTrue(table.getCellAsText(4, 3).contains("14"));
+		
+	}
+	
+	public void testViewAccessLogByRole() throws Exception {
+		gen.transactionLog3();
+		WebConversation wc = login("1", "pw");
+		WebResponse wr = wc.getCurrentPage();
+		assertEquals("iTrust - Patient Home", wr.getTitle());
+		wr = wr.getLinkWith("Access Log").click();
+		assertFalse(wr.getText().contains("Exception"));
+
+		WebForm form = wr.getForms()[0];
+		form.setParameter("startDate", "02/01/2008");
+		form.setParameter("endDate", "09/22/2009");
+		form.getSubmitButtons()[0].click();
+		form.getScriptableObject().setParameterValue( "sortBy", "role" ); 
+		wr = form.submit();
+		
+		WebTable table = wr.getTableStartingWithPrefix("Date");
+		assertTrue(table.getCellAsText(1, 2).contains("DLHCP"));
+		assertTrue(table.getCellAsText(2, 2).contains("DLHCP"));
+		assertTrue(table.getCellAsText(3, 2).contains("Emergency Responder"));
+		assertTrue(table.getCellAsText(4, 2).contains("LHCP"));
+		assertTrue(table.getCellAsText(5, 2).contains("LHCP"));
+		assertTrue(table.getCellAsText(6, 2).contains("LHCP"));
+		assertTrue(table.getCellAsText(7, 2).contains("Personal Health Representative"));
+		assertTrue(table.getCellAsText(8, 2).contains("UAP"));
+		assertTrue(table.getCellAsText(9, 2).contains("UAP"));
+		
 	}
 }

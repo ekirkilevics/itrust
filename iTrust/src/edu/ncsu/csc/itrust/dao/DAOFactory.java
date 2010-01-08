@@ -3,9 +3,11 @@ package edu.ncsu.csc.itrust.dao;
 import java.sql.Connection;
 import java.sql.SQLException;
 import edu.ncsu.csc.itrust.dao.mysql.AccessDAO;
+import edu.ncsu.csc.itrust.dao.mysql.AdverseEventDAO;
 import edu.ncsu.csc.itrust.dao.mysql.AllergyDAO;
 import edu.ncsu.csc.itrust.dao.mysql.AuthDAO;
 import edu.ncsu.csc.itrust.dao.mysql.CPTCodesDAO;
+import edu.ncsu.csc.itrust.dao.mysql.DrugInteractionDAO;
 import edu.ncsu.csc.itrust.dao.mysql.FakeEmailDAO;
 import edu.ncsu.csc.itrust.dao.mysql.FamilyDAO;
 import edu.ncsu.csc.itrust.dao.mysql.HealthRecordsDAO;
@@ -19,6 +21,7 @@ import edu.ncsu.csc.itrust.dao.mysql.OfficeVisitDAO;
 import edu.ncsu.csc.itrust.dao.mysql.PatientDAO;
 import edu.ncsu.csc.itrust.dao.mysql.PersonnelDAO;
 import edu.ncsu.csc.itrust.dao.mysql.ReferralDAO;
+import edu.ncsu.csc.itrust.dao.mysql.RemoteMonitoringDAO;
 import edu.ncsu.csc.itrust.dao.mysql.ReportRequestDAO;
 import edu.ncsu.csc.itrust.dao.mysql.RiskDAO;
 import edu.ncsu.csc.itrust.dao.mysql.SurveyDAO;
@@ -76,6 +79,10 @@ public class DAOFactory {
 
 	public CPTCodesDAO getCPTCodesDAO() {
 		return new CPTCodesDAO(this);
+	}
+	
+	public DrugInteractionDAO getDrugInteractionDAO() {
+		return new DrugInteractionDAO(this);
 	}
 
 	public FamilyDAO getFamilyDAO() {
@@ -152,6 +159,14 @@ public class DAOFactory {
 	
 	public MessageDAO getMessageDAO() {
 		return new MessageDAO(this);
+	}
+	
+	public AdverseEventDAO getAdverseEventDAO() {
+		return new AdverseEventDAO(this);
+	}
+	
+	public RemoteMonitoringDAO getRemoteMonitoringDAO() {
+		return new RemoteMonitoringDAO(this);
 	}
 	
 }

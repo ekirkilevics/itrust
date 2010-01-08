@@ -43,11 +43,11 @@ public class ViewMyAccessLogAction {
 	 * @throws DBException
 	 * @throws FormValidationException
 	 */
-	public List<TransactionBean> getAccesses(String lowerDate, String upperDate) throws DBException,
+	public List<TransactionBean> getAccesses(String lowerDate, String upperDate, boolean getByRole) throws DBException,
 			FormValidationException {
 		List<TransactionBean> accesses;
 		if (lowerDate == null || upperDate == null)
-			return transDAO.getAllRecordAccesses(loggedInMID);
+			return transDAO.getAllRecordAccesses(loggedInMID, getByRole);
 		String message = "";
 		try {
 			Date lower = new SimpleDateFormat("MM/dd/yyyy").parse(lowerDate);
@@ -56,7 +56,7 @@ public class ViewMyAccessLogAction {
 				throw new FormValidationException("Start date must be before end date!");
 			message = "for dates between " + lowerDate + " and " + upperDate;
 			transDAO.logTransaction(TransactionType.VIEW_ACCESS_LOG, loggedInMID, 0L, message);
-			accesses = transDAO.getRecordAccesses(loggedInMID, lower, upper);
+			accesses = transDAO.getRecordAccesses(loggedInMID, lower, upper, getByRole);
 		} catch (ParseException e) {
 			throw new FormValidationException("Enter dates in MM/dd/yyyy");
 		}

@@ -66,17 +66,17 @@ public class PatientHTTPTest extends iTrustHTTPTest {
 		wr.getForms()[0].getButtons()[0].click();
 		wr = wc.getCurrentPage();
 		WebTable wt = wr.getTableStartingWith("Andy Programmer");
-		assertEquals("00904-2407", wt.getCellAsText(2, 0));
-		assertEquals("Tetracycline", wt.getCellAsText(2, 1));
-		assertEquals("10/10/2006 to 10/11/2006", wt.getCellAsText(2, 2));
+//		assertEquals("00904-2407", wt.getCellAsText(2, 0));
+//		assertEquals("Tetracycline", wt.getCellAsText(2, 1));
+//		assertEquals("10/10/2006 to 10/11/2006", wt.getCellAsText(2, 2));
+//		assertEquals("Kelly Doctor", wt.getCellAsText(2, 3));
+//		assertEquals("00904-2407", wt.getCellAsText(3, 0));
+//		assertEquals("Tetracycline", wt.getCellAsText(3, 1));
+//		assertEquals("10/10/2006 to 10/11/2006", wt.getCellAsText(3, 2));
+//		assertEquals("Kelly Doctor", wt.getCellAsText(3, 3));
+		assertEquals("64764-1512", wt.getCellAsText(2, 0));
+		assertEquals("Prioglitazone", wt.getCellAsText(2, 1));
+		assertEquals("10/10/2006 to 10/11/2020", wt.getCellAsText(2, 2));
 		assertEquals("Kelly Doctor", wt.getCellAsText(2, 3));
-		assertEquals("00904-2407", wt.getCellAsText(3, 0));
-		assertEquals("Tetracycline", wt.getCellAsText(3, 1));
-		assertEquals("10/10/2006 to 10/11/2006", wt.getCellAsText(3, 2));
-		assertEquals("Kelly Doctor", wt.getCellAsText(3, 3));
-		assertEquals("64764-1512", wt.getCellAsText(4, 0));
-		assertEquals("Prioglitazone", wt.getCellAsText(4, 1));
-		assertEquals("10/10/2006 to 10/11/2020", wt.getCellAsText(4, 2));
-		assertEquals("Kelly Doctor", wt.getCellAsText(4, 3));
 	}
 }

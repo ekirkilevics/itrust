@@ -93,6 +93,9 @@
 						else if (userRole.equals("er")) {
 							%><%@include file="/auth/er/menu.jsp"%><%
 						}
+						else if (userRole.equals("pha")) {
+							%><%@include file="/auth/pha/menu.jsp"%><%
+						}
 						else if (userRole.equals("admin")) {
 							%><%@include file="/auth/admin/menu.jsp"%><%
 						}

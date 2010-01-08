@@ -15,7 +15,9 @@ import edu.ncsu.csc.itrust.dao.mysql.PersonnelDAO;
 import edu.ncsu.csc.itrust.dao.mysql.TransactionDAO;
 import edu.ncsu.csc.itrust.enums.TransactionType;
 import edu.ncsu.csc.itrust.exception.DBException;
+import edu.ncsu.csc.itrust.exception.FormValidationException;
 import edu.ncsu.csc.itrust.exception.iTrustException;
+import edu.ncsu.csc.itrust.validate.EMailValidator;
 
 
 /**
@@ -30,6 +32,7 @@ public class SendMessageAction {
 	private PersonnelDAO personnelDAO;
 	private MessageDAO messageDAO;
 	private TransactionDAO transactionDAO;
+	private EMailValidator emailVal;
 
 
 	/**
@@ -44,6 +47,7 @@ public class SendMessageAction {
 		this.emailer = new EmailUtil(factory);
 		this.messageDAO = factory.getMessageDAO();
 		this.transactionDAO = factory.getTransactionDAO();
+		this.emailVal = new EMailValidator();
 	}
 	
 	/**
@@ -53,7 +57,8 @@ public class SendMessageAction {
 	 * @throws iTrustException
 	 * @throws SQLException
 	 */
-	public void sendMessage(MessageBean mBean) throws iTrustException, SQLException {
+	public void sendMessage(MessageBean mBean) throws iTrustException, SQLException, FormValidationException {
+		emailVal.validate(mBean);
 		messageDAO.addMessage(mBean);
 		
 		Email email = new Email();
@@ -61,20 +66,40 @@ public class SendMessageAction {
 		String fromEmail;
 		email.setFrom("noreply@itrust.com");
 		List<String> toList = new ArrayList<String>();
-		if (8999999999L < mBean.getFrom()) {
+		if (8999999999L < mBean.getFrom() && 8999999999L < mBean.getTo()){
 			PersonnelBean sender = personnelDAO.getPersonnel(loggedInMID);
-			PatientBean receiver = patientDAO.getPatient(mBean.getTo());
-
-			toList.add(receiver.getEmail());
-			senderName = sender.getFullName();
-			fromEmail = sender.getEmail();
-		} else {
-			PatientBean sender = patientDAO.getPatient(loggedInMID);
 			PersonnelBean receiver = personnelDAO.getPersonnel(mBean.getTo());
 			
 			toList.add(receiver.getEmail());
 			senderName = sender.getFullName();
 			fromEmail = sender.getEmail();
+		}else{
+			if (6999999999L < mBean.getFrom()) {
+				PersonnelBean sender = personnelDAO.getPersonnel(loggedInMID);
+				
+				if (6999999999L < mBean.getTo()) {
+					PersonnelBean receiver = personnelDAO.getPersonnel(mBean.getTo());
+					toList.add(receiver.getEmail());
+				} else {
+					PatientBean receiver = patientDAO.getPatient(mBean.getTo());
+					toList.add(receiver.getEmail());
+				}
+				senderName = sender.getFullName();
+				fromEmail = sender.getEmail();
+				
+			} else {
+				PatientBean sender = patientDAO.getPatient(loggedInMID);
+				
+				if (6999999999L < mBean.getTo()) {
+					PersonnelBean receiver = personnelDAO.getPersonnel(mBean.getTo());
+					toList.add(receiver.getEmail());
+				} else {
+					PatientBean receiver = patientDAO.getPatient(mBean.getTo());
+					toList.add(receiver.getEmail());
+				}
+				senderName = sender.getFullName();
+				fromEmail = sender.getEmail();
+			}
 		}
 		email.setToList(toList);
 		email.setFrom(fromEmail);

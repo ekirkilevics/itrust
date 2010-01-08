@@ -58,6 +58,8 @@
 		<role-name>hcp</role-name>
 	</security-role>
 	<security-role>
+		<role-name>pha</role-name></security-role>
+	<security-role>
 		<role-name>er</role-name>
 	</security-role>
 	<security-role>
@@ -110,6 +112,7 @@
 			<role-name>hcp</role-name>
 			<role-name>er</role-name>
 			<role-name>tester</role-name>
+			<role-name>pha</role-name>
 		</auth-constraint>
 	</security-constraint>
 
@@ -232,6 +235,13 @@
 			<role-name>patient</role-name>
 		</auth-constraint>
 	</security-constraint>
+	<security-constraint>
+		<display-name>PHA Only</display-name>
+		<web-resource-collection>
+			<web-resource-name>Only PHAs are allowed</web-resource-name>
+			<url-pattern>/auth/pha/*</url-pattern></web-resource-collection>
+		<auth-constraint>
+			<role-name>pha</role-name></auth-constraint></security-constraint>
 
 	<security-constraint>
 		<display-name>Tester Only</display-name>

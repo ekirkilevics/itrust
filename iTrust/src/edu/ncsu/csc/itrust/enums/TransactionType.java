@@ -41,12 +41,18 @@ public enum TransactionType {
 	SEND_MESSAGE(40, "Send a Message"),
 	VIEW_RENEWAL_NEEDS_PATIENTS(41, "View renewal needs patients"),
 	SEND_REFERRAL(42, "Refer patient to hcp"),
-	CREATE_DISABLE_ER(43, "Create/disable emergency responder");
+	CREATE_DISABLE_ER(43, "Create/disable emergency responder"),
+	TELEMEDICINE_MONITORING(45, "Telemedicine monitoring"),
+	CREATE_DISABLE_PHA(47, "Create/disable public health agent"),
+	DRUG_INTERACTION(48, "Drug Interaction"),
+	ADVERSE_EVENT(49, "Adverse Event Report"),
+	LOGIN_FAILURE(50, "Login Failure");
+
 
 	
 	// S1, S3, S5, S7, S8, S14, S16, S19, S21, S22.
-	public static final String patientViewableStr = "1,3,5,7,8,14,16,19,21,22";
-	public static final int[] patientViewable = { 1, 3, 5, 7, 8, 14, 16, 19, 21, 22 };
+	public static final String patientViewableStr = "1,3,5,7,8,14,16,19,21,22,30,39,45";
+	public static final int[] patientViewable = { 1, 3, 5, 7, 8, 14, 16, 19, 21, 22, 30, 39, 45 };
 
 	private TransactionType(int code, String description) {
 		this.code = code;

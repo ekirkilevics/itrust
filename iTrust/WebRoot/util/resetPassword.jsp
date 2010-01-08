@@ -45,6 +45,7 @@
 				<option value="hcp">HCP</option>
 				<option value="uap">UAP</option>
 				<option value="er">ER</option>
+				<option value="pha">PHA</option>
 			</select>
 		</td>
 	</tr>

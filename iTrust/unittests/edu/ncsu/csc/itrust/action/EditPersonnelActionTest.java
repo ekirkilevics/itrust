@@ -37,11 +37,6 @@ public class EditPersonnelActionTest extends TestCase {
 		}
 	}
 
-	public void testDoesExist() throws Exception {
-		gen.hcp0();
-		personnelEditor = new EditPersonnelAction(factory, 9000000000L, "9000000000");
-	}
-	
 	public void testNull() throws Exception {
 		try {
 			gen.hcp0();

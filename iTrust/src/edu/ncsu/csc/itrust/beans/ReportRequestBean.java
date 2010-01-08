@@ -17,18 +17,18 @@ public class ReportRequestBean {
 	private long ID = 0L;
 	private long requesterMID = 0L;
 	private long patientMID = 0L;
-	private long approverMID = 0L;
+//	private long approverMID = 0L;
 	private Date requestedDate;
-	private Date approvedDate;
+//	private Date approvedDate;
 	private Date viewedDate;
 	private String status = ""; //$NON-NLS-1$
-	private String comment = ""; //$NON-NLS-1$
+//	private String comment = ""; //$NON-NLS-1$
 
 	public final static String dateFormat = "MM/dd/yyyy HH:mm"; //$NON-NLS-1$
 
 	public final static String Requested = Messages.getString("ReportRequestBean.requested"); //$NON-NLS-1$
-	public final static String Approved = Messages.getString("ReportRequestBean.approved"); //$NON-NLS-1$
-	public final static String Rejected = Messages.getString("ReportRequestBean.rejected"); //$NON-NLS-1$
+//	public final static String Approved = Messages.getString("ReportRequestBean.approved"); //$NON-NLS-1$
+//	public final static String Rejected = Messages.getString("ReportRequestBean.rejected"); //$NON-NLS-1$
 	public final static String Viewed = Messages.getString("ReportRequestBean.viewed"); //$NON-NLS-1$
 
 	public ReportRequestBean() {
@@ -58,13 +58,13 @@ public class ReportRequestBean {
 		return patientMID;
 	}
 
-	public void setApproverMID(long approverMID) {
-		this.approverMID = approverMID;
-	}
-
-	public long getApproverMID() {
-		return approverMID;
-	}
+//	public void setApproverMID(long approverMID) {
+//		this.approverMID = approverMID;
+//	}
+//
+//	public long getApproverMID() {
+//		return approverMID;
+//	}
 
 	public void setRequestedDate(Date requestedDate) {
 		this.requestedDate = (requestedDate == null ? null : (Date) requestedDate.clone());
@@ -88,27 +88,27 @@ public class ReportRequestBean {
 		return new SimpleDateFormat(dateFormat).format(requestedDate);
 	}
 
-	public void setApprovedDate(Date approvedDate) {
-		this.approvedDate = (approvedDate == null ? null : (Date) approvedDate.clone());
-	}
-
-	public void setApprovedDateString(String s) {
-		try {
-			setApprovedDate(new SimpleDateFormat(dateFormat).parse(s));
-		} catch (ParseException ex) {
-			System.out.println(ex.getMessage());
-		}
-	}
-
-	public Date getApprovedDate() {
-		return (approvedDate == null ? null : (Date) approvedDate.clone());
-	}
-
-	public String getApprovedDateString() {
-		if (approvedDate == null)
-			return ""; //$NON-NLS-1$
-		return new SimpleDateFormat(dateFormat).format(approvedDate);
-	}
+//	public void setApprovedDate(Date approvedDate) {
+//		this.approvedDate = (approvedDate == null ? null : (Date) approvedDate.clone());
+//	}
+//
+//	public void setApprovedDateString(String s) {
+//		try {
+//			setApprovedDate(new SimpleDateFormat(dateFormat).parse(s));
+//		} catch (ParseException ex) {
+//			System.out.println(ex.getMessage());
+//		}
+//	}
+//
+//	public Date getApprovedDate() {
+//		return (approvedDate == null ? null : (Date) approvedDate.clone());
+//	}
+//
+//	public String getApprovedDateString() {
+//		if (approvedDate == null)
+//			return ""; //$NON-NLS-1$
+//		return new SimpleDateFormat(dateFormat).format(approvedDate);
+//	}
 
 	public void setViewedDate(Date viewedDate) {
 		this.viewedDate = (viewedDate == null ? null : (Date) viewedDate.clone());
@@ -142,11 +142,11 @@ public class ReportRequestBean {
 		return status;
 	}
 
-	public void setComment(String comment) {
-		this.comment = comment;
-	}
-
-	public String getComment() {
-		return comment;
-	}
+//	public void setComment(String comment) {
+//		this.comment = comment;
+//	}
+//
+//	public String getComment() {
+//		return comment;
+//	}
 }

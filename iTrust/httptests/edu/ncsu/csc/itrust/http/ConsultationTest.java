@@ -70,22 +70,7 @@ public class ConsultationTest extends iTrustHTTPTest {
 		
 		assertTrue(wr.getText().contains("View Pending Consultations"));
 		
-		assertTrue(wr.getText().contains("Kelly Doctor"));
-		
-		wr = wr.getLinkWith("edit").click();
-		
-		assertTrue(wr.getText().contains("Referral Details:"));
-		
-		WebTable wt = wr.getTableStartingWith("Patient:");
-		
-		assertEquals("Baby Programmer", wt.getCellAsText(0, 1));
-		assertEquals("Kelly Doctor", wt.getCellAsText(1, 1));
-		assertEquals("Gandalf Stormcrow", wt.getCellAsText(2, 1));
-		
-		
-		assertTrue(wr.getText().contains("Test1"));
-		
-		
+		assertTrue(wr.getText().contains("Kelly Doctor"));	
 	}
 	
 	
@@ -130,34 +115,6 @@ public void testSubmitAndEditConsultation() throws Exception {
 		assertTrue(wr.getText().contains("View Pending Consultations"));
 		
 		assertTrue(wr.getText().contains("Baby Programmer (5)"));
-		
-		wr = wr.getLinkWith("edit").click();
-		
-		WebTable wt = wr.getTableStartingWith("Patient:");
-		
-		assertEquals("Baby Programmer", wt.getCellAsText(0, 1));
-		assertEquals("Kelly Doctor", wt.getCellAsText(1, 1));
-		assertEquals("Gandalf Stormcrow", wt.getCellAsText(2, 1));
-		
-		
-		wr.getForms()[0].setParameter("refDetails", "Test2");
-		wr = wr.getForms()[0].submit();
-		
-		assertTrue(wr.getText().contains("Consultation updated"));
-
-		
-		
-		
-		
-		wr = wr.getLinkWith("Consultations").click();
-		wr.getForms()[0].getButtons()[1].click();
-		wr = wc.getCurrentPage();
-		wr = wr.getLinkWith("edit").click();
-		
-		assertTrue(wr.getText().contains("Test2"));
-		
-		
-		
 	}
 
 
@@ -213,24 +170,7 @@ public void testSubmitAndEditConsultation() throws Exception {
 		assertTrue(wr.getText().contains("View Pending Consultations"));
 		
 		assertTrue(wr.getText().contains("Baby Programmer (5)"));
-		
-		wr = wr.getLinkWith("edit").click();
-		
-		WebTable wt = wr.getTableStartingWith("Patient:");
-		
-		assertEquals("Baby Programmer", wt.getCellAsText(0, 1));
-		assertEquals("Kelly Doctor", wt.getCellAsText(1, 1));
-		assertEquals("Gandalf Stormcrow", wt.getCellAsText(2, 1));
-		
-		
-		wr.getForms()[0].setParameter("consDetails", "TestConsultation");
-		wr.getForms()[0].setParameter("status", "Finished");
-		wr = wr.getForms()[0].submit();
-		
-		assertTrue(wr.getText().contains("Consultation updated"));
-	
-		
-		
+			
 		/*
 		 * Time to review the consultation.
 		 */
@@ -249,14 +189,7 @@ public void testSubmitAndEditConsultation() throws Exception {
 		
 		wr = wc.getCurrentPage();
 		
-		assertTrue(wr.getText().contains("Finished"));
-		
-		wr = wr.getLinkWith("edit").click();
-		
-		assertTrue(wr.getText().contains("TestConsultation"));
-		
-		
-		
+		assertTrue(wr.getText().contains("Pending"));		
 	}
 	
 	

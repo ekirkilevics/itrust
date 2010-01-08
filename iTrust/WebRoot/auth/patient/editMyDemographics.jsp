@@ -51,6 +51,7 @@
 			<span class="iTrustError"><%=e.getMessage() %></span>
 		</div>
 <%
+		p = action.getPatient();
 		}
 	} else {
 		p = action.getPatient();

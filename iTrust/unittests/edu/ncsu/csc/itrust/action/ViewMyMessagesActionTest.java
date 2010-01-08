@@ -36,7 +36,7 @@ public class ViewMyMessagesActionTest extends TestCase {
 	}
 
 	public void testGetPatientName() throws iTrustException {
-		assertEquals("Andy Programmer", action.getPatientName(this.mid));
+		assertEquals("Andy Programmer", action.getName(this.mid));
 	}
 	
 	public void testGetPersonnelName() throws iTrustException {

@@ -36,7 +36,7 @@ public class ImmunizationUseCasesTest extends iTrustHTTPTest {
 			if ("Patient Information".equals(t.getCellAsText(0, 0))) {
 				if ("Bowser Koopa".equals(t.getCellAsText(1, 1))) {
 					//assertEquals("Bowser", t.getCellAsText(2, 1));
-					assertEquals("Needs Immunization:    90371 Hepatitis B (birth) 90681 Rotavirus (6 weeks) 90696 Diphtheria, Tetanus, Pertussis (6 weeks) 90645 Haemophilus influenzae (6 weeks) 90669 Pneumococcal (6 weeks) 90712 Poliovirus (6 weeks)",
+					assertEquals("Needs Immunization:    90371 Hepatitis B (birth) 90681 Rotavirus (6 weeks) 90696 Diphtheria, Tetanus, Pertussis (6 weeks) 90645 Haemophilus influenzae (6 weeks) 90669 Pneumococcal (6 weeks) 90712 Poliovirus (6 weeks) 90707 Measles, Mumps, Rubekka (12 months) 90396 Varicella (12 months) 90633 Hepatits A (12 months)",
 								t.getCellAsText(3, 1));
 					check = true;
 				}

@@ -6,6 +6,7 @@ import edu.ncsu.csc.itrust.beans.PersonnelBean;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
 import edu.ncsu.csc.itrust.dao.mysql.MessageDAO;
 import edu.ncsu.csc.itrust.datagenerators.TestDataGenerator;
+import edu.ncsu.csc.itrust.exception.FormValidationException;
 import edu.ncsu.csc.itrust.exception.iTrustException;
 import edu.ncsu.csc.itrust.testutils.TestDAOFactory;
 import java.sql.SQLException;
@@ -39,7 +40,7 @@ public class SendMessageActionTest extends TestCase {
 		this.gCal = new GregorianCalendar();
 	}
 
-	public void testSendMessage() throws iTrustException, SQLException {
+	public void testSendMessage() throws iTrustException, SQLException, FormValidationException {
 		String body = "UNIT TEST - SendMessageActionText";
 		MessageBean mBean = new MessageBean();
 		Timestamp timestamp = new Timestamp(this.gCal.getTimeInMillis());

@@ -1,0 +1,235 @@
+UC 2 & FIX
+-----------------
+SQL changes:
+
+	CreateTables.sql
+	-Users added pha type
+	-Personnel added pha type
+	
+	created pha0.sql (test data)
+
+Java changes
+
+	Role.java
+	- added the role of pha
+	
+	TestDataGenerator.java
+	- added pha0()
+	
+	AuthDAO.java
+	- Added functionality for PHA.
+	
+	TransactionType.java
+	-Added the new transaction type: CREATE_DISABLE_PHA (#47)
+	
+	New Classes: AddPHAAction.java
+
+
+Webroot Changes:
+
+	added pha/home.jsp
+
+	loginMenu.jsp
+	-include the PHA test login link
+
+	forwardUser.jsp 
+	-Esited to include the pha redirect.
+
+	Global.jsp
+	-include PHA.
+
+	web.xml
+	-Added authentication for the new PHA role
+
+	admin/menu.jsp
+	Added add PHA
+
+	Added addPHA.jsp
+
+HTTP Unit
+-Added CreatePHATest.java
+-Added edu.ncsu.csc.itrust.http.CreateHCPTest.testEditHospitalAssignments() for the Fix.
+
+UC34
+-------------------
+New files
+
+New JSPs:
+- getPatientMonitorList.jsp
+- addTelemedicineData.jsp
+
+New sql:
+- remoteMonitoringUAP.sql
+
+Modified files:
+- createTables.sql - Made changes to the RemoteMonitoringData table that holds information 
+    about reported physiological statistics to support the addition of a reporter role string 
+    (case manager, self-reported, orpatient representative) and a reporter MID.
+
+- TelemonitoringUseCaseTest.java
+	- added four new tests for UAP
+	- testRepresentativeReportPatientStatus() to test patient representative
+
+- AddRemoteMonitoringDataAction.java
+	- added ability to add glucose and/or Blood Pressure
+	- added logic to get the role of the person entering data for a patient
+	- Made changes to the addRemoteMonitoringData method that make reporting of reporter 
+	  role and reporter ID possible.
+
+- RemoteMonitoringDAO.java
+	- added ability to store glucose and/or Blood Pressure data
+	- added functionality previously omitted that prevents a patient from having 
+	  more than 10 entries of their telemedicine data in a single day.
+	- added validation to ensure that a patient representative represents
+	  the patient they're trying to add data for. This should prevent cross-site scripting
+	- Made changes to storePatientData method that allow the insertion of the reporter role 
+	  string and the reporter ID to the RemoteMonitoringData database.  Added new method to 
+	  get all reported medical data about a patient within a date range (getPatientDataByDate).
+
+- ViewMyRemoteMonitoringListAction.java - Added a method to get all reported medical
+    data about a patient within a date range (getPatientDataByDate).
+
+- RemoteMonitoringDataBean.java - Added in the new reporter role and reporter MID data
+    fields with their getters and setters.
+
+- WebRoot.auth.patient.addTelemedicineData.jsp
+	- edited to allow a patient representative to enter data for their patients
+
+- editPatientList.jsp (WebRoot/auth/hcp) - Copy of this server page for only the HCP.
+
+- monitorPatient.jsp (WebRoot/auth/hcp) - Copy of this server page for only the HCP.  Edited 
+    to include a new Reporter column that contains the name of the person that reported that 
+	data.  The name of the patient with their MID is also now a link to the page with 
+	additional information.
+
+- menu.jsp (WebRoot/auth/hcp) - Changed the Telemedicine links to use the copies of
+    those server pages in the /auth/hcp folder.
+	
+- viewAdditionalInfo.jsp (WebRoot/auth/hcp) - This JSP provides additional information
+  about a patient from the ViewMyRemoteMonitoringListAction class, the PatientBean class, and 
+  the PatientDAO.  This data can be requested from the monitorPatient JSP by an HCP monitoring 
+  a given patient.
+ 
+- RemoteMonitoringDataBeanLoader.java - Changes made to load the new ReporterRole and
+  ReporterID columns from the RemoteMonitoringData database.
+	
+Selenium Test:
+- TelemonitoringUseCaseTest.java - The testViewAdditionalInformation test is testing
+  code with javascript that the httpunit framework cannot test.  I wrote a Selenium test 
+  named testViewAdditionalInformation.html that performs this acceptance test.  Run the 
+  httpunit test first to correctly fill the database,then run the selenium test.
+
+UC 35 & 36
+--------------------------------------
+UC 35:
+.sql
+	CreateTables.sql
+	-Added AdverseEvents table
+	-Added a column for HCPID to OVProcedure
+	
+	DropTables.sql
+	-Added the dropping of AdverseEvents
+
+.java:
+	Modified EditOfficeVisitAction to include the method checkAddSubAction() to sometimes report the HCP
+	
+	Added ReportAdverseEventAction
+	
+	Added AdverseEventBean
+	Modified ProcedureBean to include hcpid (may be redundant)
+	
+	Added AdverseEventBeanLoader
+	
+	Modified DAOFactory to include AdverseEventBeanLoader
+	
+	Added AdverseEventDAO
+	Modified OfficeVisitDAO to add the HCPID into the table
+	
+.jsp
+	Added reportAdverseEvent
+	Modified viewMyRecords to include the report link
+	Modified viewPrescriptionRecords to include the textbox on whether to report
+
+UC35 TEST:
+	Added ovMed.sql
+	Added ovImmune.sql
+	Edited TestDataGenerator to be able to generate ovMed.sql and ovImmune.sql
+	Added reportAdversePrescriptionEventTest http unit test.
+	Added reportAdverseImmuneEventTest http unit test.
+	Added ProcedureBeanTest JUnit test.
+	Added HCPLinkBeanTest junit test.
+
+UC 36:
+.sql
+	-CreateTables.sql
+	-Edited AdverseEvents table
+	
+.jsp
+	Added monitorAdverseEvents
+	Added adverseEventDetails
+
+UC36 TEST:
+Added adverseEvent1.sql
+Added adverseEvent2.sql
+Added adverseEvent3.sql
+Edited TestDataGenerator to include new sql files
+Added MonitorAdverseEventTest.java to http unit test
+
+UC 37 & 38
+--------------------------------------
+File Changes/Additions:
+- DAOFactory.java - Added necessary getDAO method to create instances of the new 
+  DrugInteractionDAO.
+- DrugInteractionDAO.java - Created the methods to report an interaction, delete an interaction,
+  and get a list of all the interactions associated with a given drug.
+- TestDataGenerator.java - Added methods to generate test data from new SQL files.
+- deleteFromAllTables.sql - Added in delete information for the druginteractions table.
+- EditOfficeVisitAction.java - Added a method to test if a patient is allergic to a given 
+  prescription.  Also added a method to send an email to a patient that has been prescribed 
+  a prescription with a known interaction or allergy.
+- DrugInteractionAction.java
+- DrugInteractionBean.java
+- DrugInteractionBeanLoader.java
+- DrugInteractionValidator.java
+- TransactionType.java
+	- added DRUG_INTERACTION type
+- OfficeVisitDAO.java
+	- added getPrescriptionReportsByDate method
+- EditOfficeVisitAction.java
+	- added hasInteraction method
+
+Testing Information:
+Unit Testing Files:
+- DrugInteractionDAOTest.java - Tests DrugInteractionDAO to over 80 percent coverage.  
+  Tests the basic functionality in addition to the making sure duplicate entries are 
+  not allowed.
+- DrugInteractionActionTest.java
+- EditOfficeVisitActionTest.java
+
+Data Files:
+ndCodes1.sql - Adds needed drugs to the ndcodes table for recordDrugInteraction acceptance test.
+ndCodes2.sql - Adds needed drugs to the ndcodes table for deleteDrugInteraction acceptance test.
+drugInteractions.sql - Adds needed drug interaction to the druginteractions table for deleteDrugInteraction 
+  acceptance test.
+- drugInteractions2.sql
+- drugInteractions3.sql
+- ov2.sql
+- ov3.sql
+- ov4.sql
+ 
+Extra Credit
+--------------------------------------
+- getPersonnelID.jsp (WebRoot/auth) - Fixed the first text box so that you could enter an MID 
+  and click on Select Personnel to find that user's record. (#6)
+- survey.jsp (WebRoot/auth/patient) - Fixed the ability to url manipulate an attack on this 
+  page via the ovDate parameter. (#3)
+- Edited LoginFailureAction.java for EC #2 to log transaction (#2)
+- Edited TransactionType.java to add login failure as a transaction type (#2)
+- Edited login.jsp in WebRoot to add reCAPTCHA to the site, this handles unlocking the page 
+  once a user has failed to login three times in a row (#1 security)
+- Added method to AuthDAO to reset the login failures for an IP addr to 0 (#1 security)
+- We did all extra credit except for the requirements inspection.
+- Edited AccessDAO.java to fix prepared statements (#7)
+- Edited editMyDemographics.jsp to fix scripting attack (#4)
+- added eMailValidator to validated e-mail messages (#5)
+- wrote paper on HIPAA and iTrust (PRIVACY) and added to doc section

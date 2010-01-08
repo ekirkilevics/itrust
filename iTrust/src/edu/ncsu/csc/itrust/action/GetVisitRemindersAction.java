@@ -133,7 +133,7 @@ public class GetVisitRemindersAction {
 		
 		List<VisitReminderReturnForm> formList;
 		List<VisitReminderReturnForm> needList = new ArrayList<VisitReminderReturnForm>();
-		String reason = null;
+		String reason = "";
 		// Get list of patients that designate this HCP
 		formList = visitReminderDAO.getPatients(mid);
 		
@@ -159,7 +159,7 @@ public class GetVisitRemindersAction {
 	 */
 	private String checkImmunizations(long pid) throws iTrustException {
 		
-		String reason = new String();
+		String reason = "";
 		List<ProcedureBean> procs = patientDAO.getProcedures(pid);
 		PatientBean patient = patientDAO.getPatient(pid);
 		long patientAge = patient.getAgeInWeeks();

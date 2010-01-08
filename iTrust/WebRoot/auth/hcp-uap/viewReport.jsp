@@ -48,8 +48,6 @@ try {
 	patientMID = Long.parseLong(pidString);
 	requestID = Integer.parseInt(rrString);
 	reportRequest = rAction.getReportRequest(requestID);
-	if (reportRequest.getStatus().equals("Viewed")) throw new Exception("Error: You can only view a report one time.");
-	if (!reportRequest.getStatus().equals(ReportRequestBean.Approved)) throw new Exception("Error: Unable to view report, status must be 'Approved'");
 	rAction.setViewed(requestID);
 	reportRequest = rAction.getReportRequest(requestID);
 
@@ -385,24 +383,6 @@ List<PersonnelBean> hcps = viewAction.getDeclaredHCPs(patientMID);
 </table>
 <br />
 <br />
-<table>
-		<tr><td>
-		This report was requested by 
-		<%=viewAction.getPersonnel(reportRequest.getRequesterMID()).getFullName()%>
-		on <%=reportRequest.getRequestedDateString()%>
-		</td></tr>
-		<tr><td>
-		This report was approved by 
-		<%=viewAction.getPersonnel(reportRequest.getApproverMID()).getFullName()%>
-		on <%=reportRequest.getApprovedDateString()%>
-		</td></tr>
-		<tr><td>
-		This report was viewed by
-		<%=viewAction.getPersonnel(loggedInMID.longValue()).getFullName()%>
-		on <%=reportRequest.getViewedDateString()%>
-	</td>
-</tr>
-</table>
 
 <%} catch (Exception ex) {
 	%><%=ex.getClass()+", " %><%=ex.getCause()+", " %><%=ex.getMessage() %><%

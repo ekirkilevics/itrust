@@ -18,6 +18,15 @@ public class TransactionBean {
 	private TransactionType tranactionType;
 	private Timestamp timeLogged;
 	private String addedInfo;
+	private String role;
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
 
 	public String getAddedInfo() {
 		return addedInfo;

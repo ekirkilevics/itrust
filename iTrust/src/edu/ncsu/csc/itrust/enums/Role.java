@@ -1,7 +1,7 @@
 package edu.ncsu.csc.itrust.enums;
 
 /**
- * The iTrust user roles: Patient, ER, HCP, UAP, Administrator and Tester.
+ * The iTrust user roles: Patient, ER, HCP, UAP, PHA, Administrator and Tester.
  * Consult the requirements for the contextual meanings of these individual choices.
  */
 public enum Role {
@@ -10,6 +10,7 @@ public enum Role {
 	HCP("hcp", "Personnel"), 
 	UAP("uap", "Personnel"), 
 	ADMIN("admin", "Personnel"),
+	PHA("pha", "Personnel"),
 	TESTER("tester", "");
 	
 	private String userRolesString;

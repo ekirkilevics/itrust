@@ -18,17 +18,19 @@ public class OperationalProfileTest extends TestCase {
 		gen = new TestDataGenerator();
 		gen.clearAllTables();
 		gen.operationalProfile();
+		gen.tester();
 	}
 
 	public void testGetOperationalProfile() throws Exception {
 		OperationalProfile op = transDAO.getOperationalProfile();
-		Integer[] totalCounts =     {0, 1, 2, 2, 4, 5, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 2, 1, 1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		Integer[] patientCounts =   {0, 1, 2, 1, 2, 0, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 2, 1, 1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		Integer[] personnelCounts = {0, 0, 0, 1, 2, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		Integer[] totalCounts =     {0, 1, 2, 2, 4, 5, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 2, 1, 1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		Integer[] patientCounts =   {0, 1, 2, 1, 2, 0, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 2, 1, 1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		Integer[] personnelCounts = {0, 0, 0, 1, 2, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 		assertEquals(34, op.getNumTotalTransactions());
 		assertEquals(26, op.getNumPatientTransactions());
 		assertEquals(8, op.getNumPersonnelTransactions());
 		for (TransactionType type : TransactionType.values()) {
+			System.out.println("Code: " + type.getCode());
 			assertEquals("for type " + type.getDescription() + "(" + type.getCode() + ")", totalCounts[type.getCode()],
 					op.getTotalCount().get(type));
 		}

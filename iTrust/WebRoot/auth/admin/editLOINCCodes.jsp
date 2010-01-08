@@ -3,7 +3,8 @@
 <%@page import="java.util.List"%>
 <%@page import="edu.ncsu.csc.itrust.dao.DAOFactory"%>
 <%@page import="edu.ncsu.csc.itrust.beans.LOINCbean"%>
-<%@page import="edu.ncsu.csc.itrust.action.UpdateLabProcListAction"%>
+<%--@page import="edu.ncsu.csc.itrust.action.UpdateLabProcListAction"--%>
+<%@page import="edu.ncsu.csc.itrust.action.UpdateLOINCListAction"%> 
 <%@page import="edu.ncsu.csc.itrust.exception.FormValidationException"%>
 
 <%@include file="/global.jsp" %>
@@ -17,8 +18,10 @@ pageTitle = "iTrust - Maintain LOINC Codes";
 <%
 	String headerMessage = "Viewing Current LOINC Codes";
 	
-UpdateLabProcListAction icdUpdater =
-		new UpdateLabProcListAction(prodDAO, loggedInMID.longValue());
+/*UpdateLabProcListAction icdUpdater =
+		new UpdateLabProcListAction(prodDAO, loggedInMID.longValue());*/
+UpdateLOINCListAction icdUpdater =
+		new UpdateLOINCListAction(prodDAO, loggedInMID.longValue());		
 	
 	if (request.getParameter("add") != null || request.getParameter("update") != null) {
 		try {

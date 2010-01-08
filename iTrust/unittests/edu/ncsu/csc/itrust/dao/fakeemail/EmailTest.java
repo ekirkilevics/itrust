@@ -30,7 +30,8 @@ public class EmailTest extends TestCase {
 	}
 
 	public void testListEmailsByPerson() throws Exception {
-		List<Email> emails = factory.getFakeEmailDAO().getEmailsByPerson("gstormcrow@iTrust.org");
+		String email = "gstormcrow@iTrust.org";
+		List<Email> emails = factory.getFakeEmailDAO().getEmailsByPerson(email);
 		assertEquals(2, emails.size());
 		assertEquals("this is an email", emails.get(0).getSubject());
 		assertEquals("this is another email", emails.get(1).getSubject());

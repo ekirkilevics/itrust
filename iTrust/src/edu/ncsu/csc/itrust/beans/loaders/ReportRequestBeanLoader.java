@@ -29,12 +29,9 @@ public class ReportRequestBeanLoader implements BeanLoader<ReportRequestBean> {
 		b.setID(rs.getLong("ID"));
 		b.setRequesterMID(rs.getLong("RequesterMID"));
 		b.setPatientMID(rs.getLong("PatientMID"));
-		b.setApproverMID(rs.getLong("ApproverMID"));
 		b.setRequestedDate(rs.getTimestamp("RequestedDate"));
-		b.setApprovedDate(rs.getTimestamp("ApprovedDate"));
 		b.setViewedDate(rs.getTimestamp("ViewedDate"));
 		b.setStatus(rs.getString("Status"));
-		b.setComment(rs.getString("Comment"));
 		return b;
 	}
 

@@ -15,6 +15,11 @@
 	<a href="/iTrust/auth/hcp-uap/LabProcUAP.jsp">View Laboratory Procedures</a><br />
 </div>
 <div class="menu_category">
+	<span>Telemedicine</span><br />
+	<a href="/iTrust/auth/hcp-uap/editPatientList.jsp">Edit Patient List</a><br />
+	<a href="/iTrust/auth/uap/addTelemedicineData.jsp">Report Status</a><br />
+</div>
+<div class="menu_category">
 	<span>Other</span><br />
 	<a href="/iTrust/auth/hcp-uap/documentOfficeVisit.jsp">Document Office Visit</a><br />			
 	<a href="/iTrust/auth/hcp-uap/chronicDiseaseRisks.jsp">Chronic Disease Risks</a><br />

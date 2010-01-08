@@ -34,6 +34,10 @@ if(request.getUserPrincipal() != null) {
 		response.sendRedirect("er/home.jsp");
 		return;	
 	}
+	else if (request.isUserInRole("pha")) {
+		response.sendRedirect("pha/home.jsp");
+		return;
+	}
 	else if (request.isUserInRole("admin")) {
 		response.sendRedirect("admin/home.jsp");
 		return;

@@ -34,8 +34,9 @@ public class MessageBean {
 		this.to = to;
 	}
 	
-	public long getMessageId() {
-		return this.id;
+	public long getMessageId()
+	{
+		return id;
 	}
 	
 	public void setMessageId(long id) {

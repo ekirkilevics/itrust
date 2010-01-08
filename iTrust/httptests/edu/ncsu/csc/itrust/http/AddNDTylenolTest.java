@@ -33,7 +33,7 @@ public class AddNDTylenolTest extends iTrustHTTPTest {
 		form.setParameter("code1", "55154");
 		form.setParameter("code2", "1922");
 		form.setParameter("description", "Tylenol Tablets");
-		form.getSubmitButtons()[0].click();
+		form.getSubmitButtons()[1].click();
 		wr = wc.getCurrentPage();
 		// verify change
 		assertTrue(wr.getURL().toString().contains("auth/admin/editNDCodes.jsp"));

@@ -16,15 +16,17 @@ pageTitle = "iTrust - Hospital Staffing Assignments";
 <%@include file="/header.jsp" %>
 
 <%
-	/* Require a Personnel ID first */
 	String pidString = (String)session.getAttribute("mid");
+	/* Require a Personnel ID first */
+
 	if (null == pidString || "".equals(pidString)){ 
-	   	response.sendRedirect("../getPersonnelID.jsp?forward=admin/hospitalAssignments.jsp");
-	   	return;
+  	 	response.sendRedirect("../getPersonnelID.jsp?forward=admin/hospitalAssignments.jsp");
+ 	  	return;
 	}
 	else {
-		session.removeAttribute("mid");
+		//session.removeAttribute("mid");
 	}
+
 
 	
 	/* Bad patient ID gets you booted to error page */
@@ -48,6 +50,7 @@ pageTitle = "iTrust - Hospital Staffing Assignments";
 		hosAssignManager.removeHCPAssignmentToHospital(pid + "", request.getParameter("id"));
 		%><span >HCP has been unassigned. <%=request.getParameter("id") %><br /></span><%
 	}
+	
 	
 %>
 <br />
@@ -96,6 +99,7 @@ pageTitle = "iTrust - Hospital Staffing Assignments";
 		tempID = "";
 		tempName = "";
 		escapedName = "";
+		
 		for (HospitalBean assigned : availableList) {
 			tempID = assigned.getHospitalID();
 			tempName = assigned.getHospitalName();
@@ -103,7 +107,7 @@ pageTitle = "iTrust - Hospital Staffing Assignments";
 		%><tr>
 			<td><%=tempID %></td>
 			<td><%=HtmlEncoder.encode(tempName) %></td>
-			<td><a href="hospitalAssignments.jsp?pid=<%=pidString %>&id=<%=tempID %>&action=assgn">Assign</a></td>
+			<td><a href="hospitalAssignments.jsp?pid=<%=pidString%>&id=<%=tempID%>&action=assgn">Assign</a></td>
 		</tr>
 		<%} %>
 	</table>

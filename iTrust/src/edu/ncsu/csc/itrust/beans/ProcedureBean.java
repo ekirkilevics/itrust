@@ -11,11 +11,13 @@ import java.sql.Date;
  * to create these easily)
  */
 public class ProcedureBean {
+
 	private long ovProcedureID = 0L;
 	private String CPTCode;
 	private String description;
 	private String attribute;
 	private Date date;
+	private String hcpid;
 
 	public ProcedureBean() {
 	}
@@ -33,6 +35,13 @@ public class ProcedureBean {
 		CPTCode = code;
 		this.description = description;
 		this.attribute = attribute;
+	}
+	
+	public ProcedureBean(String code, String description, String attribute, String hcpid) {
+		CPTCode = code;
+		this.description = description;
+		this.attribute = attribute;
+		this.hcpid = hcpid;
 	}
 	
 	/**
@@ -60,7 +69,19 @@ public class ProcedureBean {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	
+	/**
+	 * Gets the HCP ID of the HCP administering the immunization
+	 * @return String
+	 */
+	public String getHcpid() {
+		return hcpid;
+	}
 
+	public void setHcpid(String hcpid) {
+		this.hcpid = hcpid;
+	}
+		
 	/**
 	 * Gets the CPT attribute, used to determine if this is an immunization
 	 * @return String

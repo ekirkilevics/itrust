@@ -85,6 +85,10 @@ DELETE FROM Allergies WHERE PatientID = 2;
 INSERT INTO Allergies(PatientID,Description, FirstFound) 
 	VALUES (2, 'Pollen', '2007-06-05 20:33:58'),
 	       (2, 'Penicillin', '2007-06-04 20:33:58');
+	       
+INSERT INTO NDCodes(Code, Description) VALUES
+('664662530','Penicillin')
+ON DUPLICATE KEY UPDATE Code = Code;
 
 DELETE FROM PersonalHealthInformation WHERE PatientID = 2;
 INSERT INTO PersonalHealthInformation

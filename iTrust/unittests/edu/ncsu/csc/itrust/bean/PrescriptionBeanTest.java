@@ -24,5 +24,6 @@ public class PrescriptionBeanTest extends TestCase {
 		pres2.setEndDateStr("2010/05/19");
 		pres2.setVisitID(1L);
 		assertEquals(pres2, pres);
+		assertEquals("2010/05/19",pres2.getEndDateStr());
 	}
 }

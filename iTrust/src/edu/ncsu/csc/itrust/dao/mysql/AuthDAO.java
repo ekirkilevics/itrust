@@ -109,6 +109,7 @@ public class AuthDAO {
 		Role role = getUserRole(mid);
 		switch (role) {
 			case HCP:
+			case PHA:
 			case ADMIN:
 			case UAP:
 			case ER:
@@ -245,7 +246,10 @@ public class AuthDAO {
 			conn = factory.getConnection();
 			ps = conn
 					.prepareStatement("UPDATE LoginFailures SET FailureCount=FailureCount+1, lastFailure=CURRENT_TIMESTAMP WHERE IPAddress=?");
+					//.prepareStatement("INSERT INTO LoginFailures VALUES(?,?,?)");
 			ps.setString(1, ipAddr);
+			//ps.setInt(2, failures);
+			//ps.setDate(3, Calendar.getInstance().getTime());
 			int numUpdated = ps.executeUpdate();
 			if (numUpdated == 0) // if there wasn't an empty row to begin with
 				insertLoginFailureRow(ipAddr, 1, conn);// now they have a row AND a strike against
@@ -379,7 +383,24 @@ public class AuthDAO {
 		ps.setString(1, ipAddr);
 		ps.executeUpdate();
 	}
-
+	
+	public void resetLoginFailuresToZero(String ipAddr) throws DBException, SQLException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		try{
+			conn = factory.getConnection();
+			ps = conn
+					.prepareStatement("UPDATE LoginFailures SET failureCount=0 WHERE IPAddress=?");
+			ps.setString(1, ipAddr);
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DBException(e);
+		} finally {
+			DBUtil.closeConnection(conn, ps);
+		}
+	}
+	
 	private void updateResetFailuresToZero(String ipAddr, Connection conn) throws DBException, SQLException {
 		PreparedStatement ps = conn
 				.prepareStatement("UPDATE ResetPasswordFailures SET failureCount=0 WHERE IPAddress=?");

@@ -31,7 +31,7 @@ if(lastName == null)
 	<tr>
 		<td><b>Personnel:</b></td>
 		<td style="width: 150px; border: 1px solid Gray;">
-			<input name="UID_PERSONNELID" value="" type="hidden">
+			<input name="UID_PERSONNELID" value="" type="text">
 			<span id="NAME_PERSONNELID" name="NAME_PERSONNELID">Not specified</span>
 		</td>
 		<td>

@@ -42,12 +42,23 @@ List<PersonnelBean> personnelList = new ArrayList<PersonnelBean>();
 int personnel_counter = 0;
 %>
 
+<%
+
+if(request.getParameter("rep") != null && request.getParameter("rep").equals("1")){
+%>
+<div align=center>
+				<span class="iTrustMessage"><%="Adverse Event Successfully Reported"%></span>
+</div>
+<%} %>
+
 
 <div id="Header">
 <h1>Welcome <%=prodDAO.getAuthDAO().getUserName(Long.valueOf(request.getUserPrincipal().getName()))%>!</h1>
 </div>
 
 <div id="Content" align="left">
+
+
 
 <h3>Announcements</h3>
 <i>New features in iTrust</i>
@@ -205,7 +216,7 @@ Date today = new Date();
 Date earlier = new Date();
 earlier.setDate(today.getDate() - 90);
 
-List<TransactionBean> transactions = transDAO.getRecordAccesses(patient.getMID(), earlier, today);
+List<TransactionBean> transactions = transDAO.getRecordAccesses(patient.getMID(), earlier, today, false);
 
 if (transactions.size() > 0) {
 %>
