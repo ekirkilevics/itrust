@@ -98,7 +98,7 @@ public class ViewOfficeVisitAction extends OfficeVisitBaseAction {
 	 * @throws iTrustException
 	 */
 	public String getHCPName(long hcpID) throws iTrustException {
-		String name = new String();
+		String name = null;
 		try {
 			name = personnelDAO.getName(hcpID);
 		} catch (iTrustException e) {

@@ -18,7 +18,7 @@ public class ChildhoodInfectionFactor extends PatientRiskFactor {
 	public ChildhoodInfectionFactor(DAOFactory factory, long mid, double... icdCodes) {
 		this.factory = factory;
 		this.patientID = mid;
-		this.icdCodes = icdCodes;
+		this.icdCodes = icdCodes.clone();
 	}
 
 	public String getDescription() {

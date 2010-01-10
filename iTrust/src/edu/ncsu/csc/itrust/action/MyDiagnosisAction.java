@@ -1,5 +1,6 @@
 package edu.ncsu.csc.itrust.action;
 
+import java.io.Serializable;
 import java.util.*;
 import edu.ncsu.csc.itrust.beans.DiagnosisBean;
 import edu.ncsu.csc.itrust.beans.HCPDiagnosisBean;
@@ -186,8 +187,10 @@ public class MyDiagnosisAction {
 	 * Checks to see what HCP has had the most experience with a diagnosis
 	 *
 	 */
-	static class HCPDiagnosisBeanComparator implements Comparator<HCPDiagnosisBean> {
+	static class HCPDiagnosisBeanComparator implements Comparator<HCPDiagnosisBean>, Serializable {
 		
+		private static final long serialVersionUID = -6328390386684022934L;
+
 		/**
 		 * Compares one HCP with another
 		 * 

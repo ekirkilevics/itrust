@@ -91,7 +91,7 @@ public class ViewVisitedHCPsAction {
 				visitBean = new HCPVisitBean();
 				visitBean.setHCPMID(hcp.getMID());
 				visitBean.setHCPName(hcp.getFullName());
-				visitBean.setOVDate(new String());
+				visitBean.setOVDate("");
 				visitBean.setHCPSpecialty(hcp.getSpecialty());
 				visitBean.setHCPAddr(new String(hcp.getStreetAddress1() +" "+ hcp.getStreetAddress2() +" "+ hcp.getCity() +", "+ hcp.getState() +" "+ hcp.getZip()));
 				visitBean.setDesignated(true);
@@ -161,7 +161,7 @@ public class ViewVisitedHCPsAction {
 			visits.remove(remove);
 		}
 				
-		return new String("");
+		return "";
 	}
 	
 	/**
@@ -185,7 +185,6 @@ public class ViewVisitedHCPsAction {
 		}
 		
 		if (!match) {
-			try {
 				List<PersonnelBean> doclist = docDAO.getAllPersonnel();
 				for (PersonnelBean ele: doclist) {
 					if (0 == name.compareTo(ele.getFullName())) {
@@ -193,24 +192,22 @@ public class ViewVisitedHCPsAction {
 						visitBean = new HCPVisitBean();
 						visitBean.setHCPMID(ele.getMID());
 						visitBean.setHCPName(ele.getFullName());
-						visitBean.setOVDate(new String());
+						visitBean.setOVDate("");
 						visitBean.setHCPSpecialty(ele.getSpecialty());
-						visitBean.setHCPAddr(new String(ele.getStreetAddress1() +" "+ ele.getStreetAddress2() +" "+ ele.getCity() +", "+ ele.getState() +" "+ ele.getZip()));
+						visitBean.setHCPAddr(ele.getStreetAddress1() +" "+ ele.getStreetAddress2() +" "+ ele.getCity() +", "+ ele.getState() +" "+ ele.getZip());
+						
 						visitBean.setDesignated(true);
 				
-						Long mid = new Long(ele.getMID());
+						Long mid = Long.valueOf(ele.getMID());
 						if (!patientDAO.checkDeclaredHCP(patientMID, mid)) {
 							declareAction.declareHCP(mid.toString());
 							visits.add(visitBean);
 						}
 					}
 				}
-			}
-			catch (Exception e) {
-				
-			}
+			
 		}
-		return new String("");
+		return "";
 	}
 	
 	/**

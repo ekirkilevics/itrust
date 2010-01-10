@@ -17,10 +17,10 @@ public class HCPVisitBean {
 	private long hcpMID;
 	
 	public HCPVisitBean() {
-		HCPName = new String();
-		HCPSpecialty = new String();
-		HCPAddr = new String();
-		OVDate = new String();
+		HCPName = "";
+		HCPSpecialty = "";
+		HCPAddr = "";
+		OVDate = "";
 		
 	}
 	

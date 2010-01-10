@@ -74,7 +74,7 @@ if (prescription == null) {%>
 		try {
 			prescription.setDosage(Integer.parseInt(request.getParameter("dosage")));
 			prescription.setInstructions(request.getParameter("instructions"));
-			prescriptionAction.EditPrescription(prescription);
+			prescriptionAction.editPrescription(prescription);
 			%> 
 			<table align=center border=1 class="fTable">
 			<tr>

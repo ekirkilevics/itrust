@@ -69,7 +69,7 @@ public class DrugInteractionActionTest extends TestCase {
 		try {
 		String response = action.reportInteraction("548684985", "081096", "May potentiate the risk of bleeding in patients.");
 		assertSame(response, "Interaction recorded successfully");
-		response = action.reportInteraction("548684985", "081096", "May possibly potentiate the risk of bleeding in patients.");
+		action.reportInteraction("548684985", "081096", "May possibly potentiate the risk of bleeding in patients.");
 		} catch (iTrustException e){
 		assertSame(e.getMessage(), "Error: Interaction between these drugs already exists.");
 		}

@@ -19,18 +19,13 @@ public class AddOfficeVisitActionTest extends TestCase {
 		action = new AddOfficeVisitAction(factory, "1");
 	}
 
-	public void testAddEmpty() {
-		try {
+	public void testAddEmpty() throws Exception {
 			long hcpID = 9000000000L;
 			long ovID = action.addEmptyOfficeVisit(hcpID);
 			OfficeVisitBean ov = factory.getOfficeVisitDAO().getOfficeVisit(ovID);
 			assertEquals(hcpID, ov.getHcpID());
 			assertEquals(1, ov.getPatientID());
 			assertEquals(new OfficeVisitBean().getVisitDateStr(), ov.getVisitDateStr());
-		} 
-		catch (Exception e) {
-			
-		}
 	}
 
 	public void testGetOfficeVisits() throws Exception {

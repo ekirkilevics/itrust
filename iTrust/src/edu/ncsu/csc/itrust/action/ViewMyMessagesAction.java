@@ -1,7 +1,6 @@
 package edu.ncsu.csc.itrust.action;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import edu.ncsu.csc.itrust.beans.MessageBean;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
@@ -40,9 +39,8 @@ public class ViewMyMessagesAction {
 	 * @throws SQLException
 	 */
 	public List<MessageBean> getAllMyMessages() throws SQLException {
-		List<MessageBean> messages = new ArrayList<MessageBean>();
-		messages = messageDAO.getMessagesFor(loggedInMID);
-		return messages;
+		
+		return messageDAO.getMessagesFor(loggedInMID);
 	}
 	
 	/**

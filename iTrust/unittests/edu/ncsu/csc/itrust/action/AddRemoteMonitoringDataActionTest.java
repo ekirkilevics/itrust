@@ -102,7 +102,6 @@ public class AddRemoteMonitoringDataActionTest extends TestCase {
 		} catch(FormValidationException e) {
 			
 		}
-		try {
 			action.addRemoteMonitoringData(100, 80, 100);
 			action.addRemoteMonitoringData(100, 80, 100);
 			action.addRemoteMonitoringData(100, 80, 100);
@@ -113,9 +112,7 @@ public class AddRemoteMonitoringDataActionTest extends TestCase {
 			action.addRemoteMonitoringData(100, 80, 100);
 			action.addRemoteMonitoringData(100, 80, 100);
 			action.addRemoteMonitoringData(100, 80, 100);
-		} catch(Exception e) {
-			fail();
-		}
+		
 		try {
 			action.addRemoteMonitoringData(100, 80, 100);
 			fail(); //Should throw an exception - 11 entries.

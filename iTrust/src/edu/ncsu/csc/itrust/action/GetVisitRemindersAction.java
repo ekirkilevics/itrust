@@ -320,7 +320,7 @@ public class GetVisitRemindersAction {
 	 */
 	public static String testHPV(int count, long patientAge, long time) {
 	
-		String reason = new String();
+		String reason = "";
 		long weeks = (Calendar.getInstance().getTimeInMillis() - time) / (1000 * 60 * 60 * 24 * 7);
 		
 		if (0 == count) {
@@ -349,7 +349,7 @@ public class GetVisitRemindersAction {
 	 */
 	public static String testHepA(int count, long patientAge, long time) {
 		
-		String reason = new String();
+		String reason = "";
 		long weeks = (Calendar.getInstance().getTimeInMillis() - time) / (1000 * 60 * 60 * 24 * 7);
 		
 		if (0 == count) {
@@ -374,7 +374,7 @@ public class GetVisitRemindersAction {
 	 */
 	public static String testVaricella(int count, long patientAge, long time) {
 		
-		String reason = new String();
+		String reason = "";
 		long weeks = (Calendar.getInstance().getTimeInMillis() - time) / (1000 * 60 * 60 * 24 * 7);
 		
 		if (0 == count) {
@@ -399,7 +399,7 @@ public class GetVisitRemindersAction {
 	 */
 	public static String testMeasles(int count, long patientAge, long time) {
 		
-		String reason = new String();
+		String reason = "";
 		long weeks = (Calendar.getInstance().getTimeInMillis() - time) / (1000 * 60 * 60 * 24 * 7);
 		
 		if (0 == count) {
@@ -424,7 +424,7 @@ public class GetVisitRemindersAction {
 	 */
 	public static String testPolio(int count, long patientAge, long time) {
 		
-		String reason = new String();
+		String reason = "";
 		long weeks = (Calendar.getInstance().getTimeInMillis() - time) / (1000 * 60 * 60 * 24 * 7);
 		
 		if (0 == count) {
@@ -453,7 +453,7 @@ public class GetVisitRemindersAction {
 	 */
 	public static String testPneumo(int count, long patientAge, long time, long firstDoseTime) {
 		
-		String reason = new String();
+		String reason = "";
 		long weeks = (Calendar.getInstance().getTimeInMillis() - time) / (1000 * 60 * 60 * 24 * 7);
 		long ageFirst = patientAge - (firstDoseTime / (1000 * 60 * 60 * 24 * 7)); 
 		
@@ -488,7 +488,7 @@ public class GetVisitRemindersAction {
 	 */
 	public static String testHaemoFlu(int count, long patientAge, long time, long firstDoseTime) {
 		
-		String reason = new String();
+		String reason = "";
 		long weeks = (Calendar.getInstance().getTimeInMillis() - time) / (1000 * 60 * 60 * 24 * 7);
 		long ageFirst = patientAge - (firstDoseTime / (1000 * 60 * 60 * 24 * 7)); 
 			
@@ -520,7 +520,7 @@ public class GetVisitRemindersAction {
 	 */
 	public static String testDipTet(int count, long patientAge, long time) {
 		
-		String reason = new String();
+		String reason = "";
 		long weeks = (Calendar.getInstance().getTimeInMillis() - time) / (1000 * 60 * 60 * 24 * 7);
 		
 		if (0 == count) {
@@ -562,7 +562,7 @@ public class GetVisitRemindersAction {
 	
 	public static String testRotaVirus(int count, long patientAge, long time) {
 	
-		String reason = new String();
+		String reason = "";
 		long weeks = (Calendar.getInstance().getTimeInMillis() - time) / (1000 * 60 * 60 * 24 * 7);
 		
 		if (0 == count) {
@@ -592,7 +592,7 @@ public class GetVisitRemindersAction {
 	 */
 	public static String testHepB(int count, long patientAge, long time) {
 		
-		String reason = new String();
+		String reason = "";
 		long weeks = (Calendar.getInstance().getTimeInMillis() - time) / (1000 * 60 * 60 * 24 * 7);
 		
 		if (0 == count) {

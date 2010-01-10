@@ -18,16 +18,11 @@ public class AddOfficeVisitTest extends TestCase {
 		gen.officeVisit1();
 	}
 
-	public void testAddNewOfficeVisit() {
-		try {
-			OfficeVisitBean ovPut = new OfficeVisitBean();
-			long newOVID = ovDAO.add(ovPut);
-			OfficeVisitBean ovGet = ovDAO.getOfficeVisit(newOVID);
-			assertEquals(newOVID, ovGet.getVisitID());
-		} 
-		catch (Exception e) {
-			
-		}
+	public void testAddNewOfficeVisit() throws Exception {
+		OfficeVisitBean ovPut = new OfficeVisitBean();
+		long newOVID = ovDAO.add(ovPut);
+		OfficeVisitBean ovGet = ovDAO.getOfficeVisit(newOVID);
+		assertEquals(newOVID, ovGet.getVisitID());
 	}
 
 	public void testGetOfficeVisit() {

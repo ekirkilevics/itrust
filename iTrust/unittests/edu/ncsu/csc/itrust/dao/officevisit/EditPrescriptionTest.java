@@ -29,7 +29,7 @@ public class EditPrescriptionTest extends TestCase {
 		
 		pres.setInstructions("Take thrice daily");
 		
-		epa.EditPrescription(pres);
+		epa.editPrescription(pres);
 		
 		pres.setInstructions("fail");
 		
@@ -44,7 +44,7 @@ public class EditPrescriptionTest extends TestCase {
 		
 		pres.setDosage(10);
 		
-		epa.EditPrescription(pres);
+		epa.editPrescription(pres);
 		
 		pres.setDosage(1);
 		
@@ -60,7 +60,7 @@ public class EditPrescriptionTest extends TestCase {
 		pres.setDosage(6001);
 		pres.setVisitID(11);
 		
-		epa.EditPrescription(pres);
+		epa.editPrescription(pres);
 		
 		
 		pres = ovDAO.getPrescriptions(11).get(0);

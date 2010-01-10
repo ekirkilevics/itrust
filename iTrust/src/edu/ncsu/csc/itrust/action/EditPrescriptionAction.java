@@ -35,7 +35,7 @@ public class EditPrescriptionAction {
 	 * @param pres The prescription bean that has been changed.
 	 * @throws DBException
 	 */
-	public void EditPrescription(PrescriptionBean pres) throws DBException {
+	public void editPrescription(PrescriptionBean pres) throws DBException {
 		
 		ovDAO.editPrescription(pres);
 	}
