@@ -27,7 +27,6 @@ if( ! "true".equals(System.getProperty("itrust.production") ) ) {
 	<!-- This section is for testing purposes only!! -->
 	  <a class="iTrustTestNavlink" href="/iTrust/j_security_check?j_username=1&j_password=pw">Patient 1</a>
 	| <a class="iTrustTestNavlink" href="/iTrust/j_security_check?j_username=2&j_password=pw">Patient 2</a>
-	| <a class="iTrustTestNavlink" href="/iTrust/j_security_check?j_username=99&j_password=pw">Patient 9</a>
 	| <a class="iTrustTestNavlink" href="/iTrust/j_security_check?j_username=9000000000&j_password=pw">HCP</a>
 	| <a class="iTrustTestNavlink" href="/iTrust/j_security_check?j_username=8000000009&j_password=uappass1">UAP</a>
 	| <a class="iTrustTestNavlink" href="/iTrust/j_security_check?j_username=9000000006&j_password=pw">ER</a>
