@@ -78,14 +78,4 @@ public class GetPrescriptionsTest extends TestCase {
 		List<PrescriptionReportBean> prescriptions = ovDAO.getPrescriptionReports(ovIDs, 1L); // injection!
 		assertEquals(0, prescriptions.size());
 	}
-	
-	public void testGetPrescriptionbsByDate() throws Exception {
-		gen.clearAllTables();
-		gen.patient1();
-		gen.officeVisit3();
-		gen.ndCodes1();
-		gen.drugInteractions3();
-		List<PrescriptionReportBean> list = ovDAO.getPrescriptionReportsByDate(1L, "2009-10-20", "2009-10-15");
-
-	}
 }
