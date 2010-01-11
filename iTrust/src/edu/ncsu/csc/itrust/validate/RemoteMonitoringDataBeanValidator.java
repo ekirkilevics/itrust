@@ -32,9 +32,6 @@ public class RemoteMonitoringDataBeanValidator extends BeanValidator<RemoteMonit
 		errorList.addIfNotNull(checkFormat("Glucose Level", "" + m.getGlucoseLevel(),
 				ValidationFormat.GLUCOSE_LEVEL, false));
 		if (errorList.hasErrors()){
-			System.out.println(m.getGlucoseLevel());
-			System.out.println(m.getSystolicBloodPressure());
-			System.out.println(m.getDiastolicBloodPressure());
 			throw new FormValidationException(errorList);
 		}
 	}

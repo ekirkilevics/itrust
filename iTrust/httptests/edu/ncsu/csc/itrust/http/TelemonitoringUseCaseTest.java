@@ -138,7 +138,6 @@ public class TelemonitoringUseCaseTest extends iTrustHTTPTest {
 		assertEquals("iTrust - HCP Home", wr.getTitle());
 		wr = wr.getLinkWith("Monitor Patients").click();
 		assertEquals("iTrust - Monitor Patients", wr.getTitle());
-		System.out.println(wr.getTitle());
 		//Choose the additional information page for patient 1 and validate contents
 		wr = wr.getLinkWith("Random Person").click();
 		WebForm form = wr.getForms()[0];

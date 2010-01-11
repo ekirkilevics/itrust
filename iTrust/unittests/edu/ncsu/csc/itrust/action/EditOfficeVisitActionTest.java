@@ -135,7 +135,6 @@ public class EditOfficeVisitActionTest extends TestCase {
 		gen.ndCodes1();
 		gen.drugInteractions3();
 		String test = action.hasInteraction("619580501", "1","11/11/2009","11/11/2009");
-		System.out.println("Test: " + test);
 		assertFalse(action.hasInteraction("619580501", "1","9/22/2009","10/11/2009")=="");
 		
 	}

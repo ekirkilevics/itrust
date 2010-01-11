@@ -156,12 +156,6 @@ public List<AdverseEventBean> getReportsFor(long mid) throws SQLException {
 
 		List<AdverseEventBean> aeList = aeLoader.loadList(rs);
 
-		/**
-		 * Test code for later
-		System.out.println("Start: " + new Timestamp(beginning.getTime()));
-		System.out.println("End: " + new Timestamp(ending.getTime() + 1000L * 60L * 60 * 24L));
-		System.out.println("returned list:");
-		System.out.println("--------------");*/
 		DBUtil.closeConnection(conn, ps);
 		return aeList;
 	}
@@ -183,15 +177,6 @@ public List<AdverseEventBean> getReportsFor(long mid) throws SQLException {
 
 		List<AdverseEventBean> aeList = aeLoader.loadList(rs);
 
-		/**
-		 * Test code for later
-		System.out.println("Start: " + new Timestamp(beginning.getTime()));
-		System.out.println("End: " + new Timestamp(ending.getTime() + 1000L * 60L * 60 * 24L));
-		System.out.println("returned list:");
-		System.out.println("--------------");*/
-		for(AdverseEventBean bean : aeList){
-			System.out.println("-"+bean.getDrug() + ": " + bean.getDate());
-		}
 		DBUtil.closeConnection(conn, ps);
 		return aeList;
 	}

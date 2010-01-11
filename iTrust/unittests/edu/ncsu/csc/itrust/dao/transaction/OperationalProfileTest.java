@@ -30,7 +30,6 @@ public class OperationalProfileTest extends TestCase {
 		assertEquals(26, op.getNumPatientTransactions());
 		assertEquals(8, op.getNumPersonnelTransactions());
 		for (TransactionType type : TransactionType.values()) {
-			System.out.println("Code: " + type.getCode());
 			assertEquals("for type " + type.getDescription() + "(" + type.getCode() + ")", totalCounts[type.getCode()],
 					op.getTotalCount().get(type));
 		}

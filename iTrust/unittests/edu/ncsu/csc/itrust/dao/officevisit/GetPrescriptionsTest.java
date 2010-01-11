@@ -86,7 +86,6 @@ public class GetPrescriptionsTest extends TestCase {
 		gen.ndCodes1();
 		gen.drugInteractions3();
 		List<PrescriptionReportBean> list = ovDAO.getPrescriptionReportsByDate(1L, "2009-10-20", "2009-10-15");
-		System.out.println(list.size());
 
 	}
 }

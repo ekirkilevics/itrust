@@ -49,7 +49,6 @@ public class DrugInteractionDAO {
 	public List<DrugInteractionBean> getInteractions(String drugCode) throws DBException {
 		Connection conn = null;
 		PreparedStatement ps = null;
-		System.out.println("Drug code is: " + drugCode);
 		try {
 			conn = factory.getConnection();
 			ps = conn.prepareStatement("SELECT * FROM druginteractions WHERE FirstDrug = ? OR SecondDrug = ?");
@@ -80,9 +79,7 @@ public class DrugInteractionDAO {
 		if(firstDrug.equals(secondDrug)) throw new iTrustException("Drug cannot interact with itself.");
 		
 		List<DrugInteractionBean> currentIntsDrug2 = getInteractions(secondDrug);
-		System.out.println("" + currentIntsDrug2.size());
 		for(DrugInteractionBean dib : currentIntsDrug2){
-			System.out.println(dib.getFirstDrug() + "  " + dib.getSecondDrug());
 			if(dib.getSecondDrug().equals(firstDrug)){
 				throw new iTrustException("Error: Interaction between these drugs already exists.");
 			}
