@@ -374,7 +374,6 @@ public class TestDataGenerator {
 		patient6();
 		patient7();
 		patient8();
-		patient9();
 
 		patient20();
 		patient21();
