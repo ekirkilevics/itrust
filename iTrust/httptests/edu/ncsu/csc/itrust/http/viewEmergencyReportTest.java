@@ -37,8 +37,6 @@ public class viewEmergencyReportTest extends iTrustHTTPTest {
         assertTrue(wr.getText().contains("Darryl Thompson"));
 
         wr = wr.getLinkWith("Logout").click();
-        assertTrue(wr.getText().contains("Goodbye"));
-        wr = wr.getLinkWith("Log into iTrust").click();
         assertTrue(wr.getText().contains("Welcome to iTrust"));
         
         wc = login("9900000000", "pw");

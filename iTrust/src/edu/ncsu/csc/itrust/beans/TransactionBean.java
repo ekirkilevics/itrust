@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 import edu.ncsu.csc.itrust.enums.TransactionType;
 
 /**
- * A bean for storing data about a transaction that occured within iTrust.
+ * A bean for storing data about a transaction that occurred within iTrust.
  * 
  * A bean's purpose is to store data. Period. Little or no functionality is to be added to a bean 
  * (with the exception of minor formatting such as concatenating phone numbers together). 
@@ -15,7 +15,7 @@ public class TransactionBean {
 	private long transactionID;
 	private long loggedInMID;
 	private long secondaryMID;
-	private TransactionType tranactionType;
+	private TransactionType transactionType;
 	private Timestamp timeLogged;
 	private String addedInfo;
 	private String role;
@@ -60,12 +60,12 @@ public class TransactionBean {
 		this.timeLogged = timeLogged;
 	}
 
-	public TransactionType getTranactionType() {
-		return tranactionType;
+	public TransactionType getTransactionType() {
+		return transactionType;
 	}
 
-	public void setTranactionType(TransactionType tranactionType) {
-		this.tranactionType = tranactionType;
+	public void setTransactionType(TransactionType tranactionType) {
+		this.transactionType = tranactionType;
 	}
 
 	public long getTransactionID() {

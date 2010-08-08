@@ -28,9 +28,11 @@
 		message.setFrom(loggedInMID.longValue());
 		message.setTo(((PersonnelBean)session.getAttribute("dlhcp")).getMID());
 		message.setBody(request.getParameter("messageBody"));
+		message.setSubject(request.getParameter("subject"));
+		message.setRead(0);
 		action.sendMessage(message);
 		session.removeAttribute("dlhcp");
-		response.sendRedirect("home.jsp");
+		response.sendRedirect("messageOutbox.jsp");
 		} catch (FormValidationException e){
 			%>
 			<div align=center><span class="iTrustError"><%=e.getMessage()%></span></div>
@@ -47,7 +49,7 @@
 		if (request.getParameter("representee") != null && !request.getParameter("representee").equals("-1")) representeeIndex = Integer.parseInt(request.getParameter("representee"));
 	}
 %>
-<div align="center">
+<div align="left">
 <form id="mainForm" method="get" action="sendMessage.jsp">
 	<h2>Send a Message</h2>
 <% if (dlhcpIndex == -1 && representeeIndex == -1) { %>
@@ -93,6 +95,8 @@
 		session.setAttribute("dlhcp", dlhcp);
 %>
 	<h4>To <%= dlhcp.getFullName() %></h4>
+	<span>Subject: </span><input type="text" name="subject" size="50" /><br /><br />
+	<span>Message: </span><br />
 	<textarea name="messageBody" cols="100" rows="10"></textarea><br />
 	<br />
 	<input type="submit" value="Send" name="sendMessage"/>
@@ -105,6 +109,8 @@
 		PatientBean representee = representees.get(representeeIndex);
 %>
 	<h4>To <%= dlhcp.getFullName() %> on Behalf of <%= representee.getFullName() %></h4>
+	<span>Subject: </span><input type="text" name="subject" size="50" /><br /><br />
+	<span>Message: </span><br />
 	<textarea name="messageBody" cols="100" rows="10"></textarea><br />
 	<br />
 	<input type="submit" value="Send" name="sendMessage"/>

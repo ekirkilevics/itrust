@@ -8,7 +8,7 @@ INSERT INTO TransactionLog(loggedInMID, secondaryMID, transactionCode, timeLogge
                            (8000000009, 1, 30,'2008-12-03 12:02:00','Entered/edited laboratory procedures'),
                            (9000000003, 1, 14,'2008-04-05 15:12:00','Identified risk factors of chronic diseases'),
                            (8000000009, 1, 14,'2008-07-06 08:34:00','Identified risk factors of chronic diseases'),
-                           (9000000000, 1, 14,'2009-06-15 13:15:00','Identified risk factors of chronic diseases'),
+                           (9000000000, 1, 14,'2008-06-15 13:15:00','Identified risk factors of chronic diseases'),
                            (9000000000, 1, 39,'2008-12-01 11:30:00','Updated office visit');
 
 DELETE FROM Representatives where representeeMID = '1';

@@ -152,8 +152,7 @@ public class MonitorAdverseEventTest extends iTrustHTTPTest {
 		assertTrue(wt.getRowCount() == 7);
 		// view bar chart
 		form = wr.getForms()[0];
-		form.getButtons()[0].click();
-		wr = wc.getOpenWindows()[1].getCurrentPage();
-		assertEquals("Adverse Event Reports By Month", wr.getTitle());
+		wr = wr.getLinkWith("View Chart").click();
+		assertTrue(wr.getText().contains("src=\"/iTrust/charts/"));
 	}
 }

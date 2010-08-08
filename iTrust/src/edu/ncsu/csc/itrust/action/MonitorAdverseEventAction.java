@@ -121,6 +121,8 @@ public class MonitorAdverseEventAction {
 		String body = "An adverse event for " + aeBean.getDrug() + " perscribed to " + patientDAO.getName(Long.parseLong(aeBean.getMID())) +" with description: (" + aeBean.getDescription()+ ") was removed.";
 		mBeanOne.setTo(Long.parseLong(aeBean.getMID()));
 		mBeanTwo.setTo(HCPMID);
+		mBeanOne.setSubject("Subject");
+		mBeanTwo.setSubject("Subject");
 		mBeanOne.setBody(body);
 		mBeanTwo.setBody(body);
 		mBeanOne.setFrom(loggedInMID);

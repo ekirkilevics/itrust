@@ -50,16 +50,6 @@ public class LabProceduresTest extends iTrustHTTPTest {
 		// check log
 		wr = wr.getLinkWith("Transaction Log").click();
 		assertTrue(wr.getText().contains("UAP updated procedure id: "));
-
-		// email should be sent (UC 27)
-		wr = wr.getLinkWith("Back to iTrust").click();
-		wr = wr.getLinkWith("Display Database").click();
-		assertTrue(wr.getText().contains("Your Lab Procedure (10763-1)"));
-		assertTrue(wr.getText().contains("has a new updated status of PENDING. Log on to iTrust"));
-
-		// Call a few other tests
-		hcpLabProc();
-		patientViewLabResults();
 	}
 
 	/*

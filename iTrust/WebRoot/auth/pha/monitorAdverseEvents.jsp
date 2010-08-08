@@ -20,12 +20,6 @@ function showBarChart(id) {
 	id = id.substring(5, id.indexOf("button"));
 	window.open("barchart.jsp?id=" + id, "barchart", "width=300, height=300, resizable=yes");
 }
-
-function getDetails(number) {
-	document.getElementsByName("eventNumber")[0].value = number;
-	document.forms[0].submit();
-}
-
 </script>
 
 <%
@@ -117,12 +111,12 @@ if(prescriptionImmunization != "") {
 				%>
 				<td><%=event.getDate() %></td>
 				<td>
-				<a href="javascript:void(0)" onclick="getDetails(<%=i %>)">Get Details</a></td>
+				<a href="adverseEventDetails.jsp?eventNumber=<%=i %>">Get Details</a></td>
 				<%
 				if(codeCount == 1) {
 					%>
 					<td id="chart<%=currentCode %>" rowspan="1">
-					<input type="button" value="View Chart" id="chart<%=currentCode %>button" onclick="showBarChart(this.id)" />
+					<a href="adverseEventChart.jsp?code=<%=currentCode %>">View Chart</a>
 					</td>
 					<%
 				}

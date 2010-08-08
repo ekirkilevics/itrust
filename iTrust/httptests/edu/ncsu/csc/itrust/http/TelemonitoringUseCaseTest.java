@@ -287,10 +287,8 @@ public class TelemonitoringUseCaseTest extends iTrustHTTPTest {
 
 		//logout
 		wr = wr.getLinkWith("Logout").click();
-		assertTrue(wr.getText().contains("Goodbye FirstUAP LastUAP"));
 		
 		//log back in
-		wr = wr.getLinkWith("Log into iTrust").click();
 		WebConversation wcHCP = login("9000000000", "pw");
 		wr = wcHCP.getCurrentPage();
 		assertEquals("iTrust - HCP Home", wr.getTitle());

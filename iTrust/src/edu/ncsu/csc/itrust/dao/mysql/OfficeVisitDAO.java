@@ -709,9 +709,8 @@ public class OfficeVisitDAO {
 			rs = null;
 			
 			for (DiagnosisBean bean: diags) {
-				ps = conn.prepareStatement("SELECT * FROM officevisits ov WHERE ov.ID=? and ov.visitDate >= ?");
+				ps = conn.prepareStatement("SELECT * FROM officevisits ov WHERE ov.ID=?");
 				ps.setInt(1, (int)bean.getVisitID());
-				ps.setDate(2, new java.sql.Date(System.currentTimeMillis() - 94608000000L));
 				rs = ps.executeQuery();
 				
 				if (rs.next()) {

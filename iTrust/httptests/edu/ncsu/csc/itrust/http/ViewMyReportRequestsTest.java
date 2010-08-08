@@ -23,9 +23,9 @@ public class ViewMyReportRequestsTest extends iTrustHTTPTest {
 		assertFalse(wr.getText().contains("Exception"));
 		wr = wr.getLinkWith("Add a new Report Request").click();
 		
-		WebForm form = wr.getForms()[0];
-		form.setParameter("UID_PATIENTID", "2");
-		form.getSubmitButtons()[0].click();
+		WebForm patientForm = wr.getForms()[0];
+		patientForm.getScriptableObject().setParameterValue("UID_PATIENTID", "2");
+		patientForm.getButtons()[1].click();
 		wr = wc.getCurrentPage();
 
 		WebTable table = wr.getTableStartingWithPrefix("Report Requests");

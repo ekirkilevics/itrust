@@ -137,6 +137,24 @@ public class PHIRecordTest extends iTrustHTTPTest {
 		assertTrue(wr.getText().contains("Patient has had related diagnoses"));
 		assertTrue(wr.getText().contains("Patient has a family history of this disease"));
 	}
+	
+	public void testNoHealthRecordException() throws Exception{
+		// login hcp
+		WebConversation wc = login("9000000000", "pw");
+		WebResponse wr = wc.getCurrentPage();
+		assertEquals("iTrust - HCP Home", wr.getTitle());
+		// click Chronic Disease Risks
+		wr = wr.getLinkWith("Chronic Disease Risks").click();
+		assertEquals(ADDRESS + "auth/getPatientID.jsp?forward=hcp-uap/chronicDiseaseRisks.jsp", wr.getURL().toString());
+		// choose patient 2
+		WebForm patientForm = wr.getForms()[0];
+		patientForm.getScriptableObject().setParameterValue("UID_PATIENTID", "4");
+		patientForm.getButtons()[1].click();
+		wr = wc.getCurrentPage();
+		assertEquals(ADDRESS + "auth/hcp-uap/chronicDiseaseRisks.jsp", wr.getURL().toString());
+		// make sure the correct factors for heart disease are displayed
+		assertTrue(wr.getText().contains("No Data"));
+	}
 
 	/*
 	 * Choose Add Patient option.

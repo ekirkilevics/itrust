@@ -47,6 +47,7 @@ public class SendMessageActionTest extends TestCase {
 		
 		mBean.setFrom(this.pateientId);
 		mBean.setTo(this.hcpId);
+		mBean.setSubject(body);
 		mBean.setSentDate(timestamp);
 		mBean.setBody(body);
 		
@@ -54,7 +55,7 @@ public class SendMessageActionTest extends TestCase {
 		
 		List<MessageBean> mbList = this.messageDAO.getMessagesFor(this.hcpId);
 		
-		assertEquals(1, mbList.size());
+		assertEquals(15, mbList.size());
 		MessageBean mBeanDB = mbList.get(0);
 		assertEquals(body, mBeanDB.getBody());
 	}
@@ -81,7 +82,11 @@ public class SendMessageActionTest extends TestCase {
 	
 	public void testGetMyDLHCPs() throws iTrustException {
 		List<PersonnelBean> pbList = this.smAction.getDLHCPsFor(this.pateientId);
-		
+		assertEquals(1, pbList.size());
+	}
+	
+	public void testGetMyDLHCPs2() throws iTrustException {
+		List<PersonnelBean> pbList = this.smAction.getMyDLHCPs();
 		assertEquals(1, pbList.size());
 	}
 	

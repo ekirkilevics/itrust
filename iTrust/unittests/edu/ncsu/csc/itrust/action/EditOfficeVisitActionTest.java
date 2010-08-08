@@ -100,6 +100,15 @@ public class EditOfficeVisitActionTest extends TestCase {
 		frm.setAddDiagID("79.3");
 		action.updateInformation(frm);
 	}
+	
+	public void testUpdateInformationSemicolon() throws FormValidationException {
+		EditOfficeVisitForm frm = new EditOfficeVisitForm();
+		frm.setHcpID("9000000000");
+		frm.setPatientID("1");
+		frm.setVisitDate("05/02/2001");
+		frm.setNotes("semicolon test ;");
+		action.updateInformation(frm);
+	}
 
 	public void testCheckAddPrescription() throws FormValidationException {
 		EditOfficeVisitForm frm = new EditOfficeVisitForm();

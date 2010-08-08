@@ -15,8 +15,10 @@ public class MessageBean {
 	private long from;
 	private long id;
 	private long parentMsgId;
+	private String subject;
 	private String body;
 	private Timestamp timestamp;
+	private int read;
 	
 	/**
 	 * Gets the MIDs of the recipients for this Message
@@ -66,6 +68,22 @@ public class MessageBean {
 	public void setFrom(long from) {
 		this.from = from;
 	}
+	
+	/**
+	 * Gets the subject of this message
+	 * @return
+	 */
+	public String getSubject() {
+		return subject;
+	}
+	
+	/**
+	 * Sets the subject of this message
+	 * @param subject
+	 */
+	public void setSubject(String subject) {
+		this.subject = subject;
+	}
 
 	/**
 	 * Gets the body of this message
@@ -97,6 +115,22 @@ public class MessageBean {
 	 */
 	public void setSentDate(Timestamp timestamp) {
 		this.timestamp = timestamp;
+	}
+	
+	/**
+	 * Gets read for this message
+	 * @return
+	 */
+	public int getRead() {
+		return this.read;
+	}
+
+	/**
+	 * Sets read for this message
+	 * @param read
+	 */
+	public void setRead(int read) {
+		this.read = read;
 	}
 
 }

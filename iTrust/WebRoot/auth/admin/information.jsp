@@ -10,14 +10,14 @@
 </div>
 
 <div align="center">
-<table>
+<table width="165">
 	<tr>
 		<td>Name: </td>
 		<td><%=personnelb.getFullName()%></td>
 	</tr>
 	<tr>
 		<td>Location: </td>
-		<td><%=personnelb.getCity() + ", " + personnelb.getState()%></td>
+		<td>Somewhere</td>
 	</tr>
 </table>
 </div>

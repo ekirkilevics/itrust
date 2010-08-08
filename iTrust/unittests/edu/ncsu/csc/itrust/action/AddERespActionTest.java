@@ -36,6 +36,7 @@ public class AddERespActionTest extends TestCase {
 	 * @throws Exception
 	 */
 	public void testAddER() throws Exception {
+		gen.clearAllTables();
 		PersonnelBean person = new PersonnelBean();
 		person.setRole(Role.ER);
 		person.setFirstName("Para");

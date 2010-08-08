@@ -59,4 +59,17 @@ public class EditPersonnelActionTest extends TestCase {
 		assertEquals("second line", j.getStreetAddress2());
 	}
 	
+	public void testEditMessageFilter() throws Exception {
+		gen.uap1();
+		personnelEditor = new EditPersonnelAction(factory, 8000000009L, "8000000009");
+		PersonnelBean j = factory.getPersonnelDAO().getPersonnel(8000000009L);
+		String testFilter = "Andy Programmer,,,,,";
+		
+		personnelEditor.editMessageFilter(testFilter);
+		
+		j = factory.getPersonnelDAO().getPersonnel(8000000009L);
+		assertEquals(testFilter, j.getMessageFilter());
+		
+	}
+	
 }

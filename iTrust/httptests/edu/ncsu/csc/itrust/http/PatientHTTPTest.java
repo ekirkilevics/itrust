@@ -16,7 +16,6 @@ public class PatientHTTPTest extends iTrustHTTPTest {
 		WebConversation wc = login("2", "pw");
 		WebResponse wr = wc.getCurrentPage();
 		wr = wr.getLinkWith("Logout").click();
-		wr = wr.getLinkWith("Log into iTrust").click();
 		assertEquals("iTrust - Login", wr.getTitle());
 		wr = wr.getLinkWith("Reset Password").click();
 

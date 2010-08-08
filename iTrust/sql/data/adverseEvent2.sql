@@ -26,5 +26,5 @@ INSERT INTO AdverseEvents(
 	Prescriber,
 	TimeLogged
 )
-VALUES (0, '', 1, 'Hepatitis B', '90371', 'A rash began spreading outward from the injection spot', 
+VALUES (0, 'Active', 1, 'Hepatitis B', '90371', 'A rash began spreading outward from the injection spot', 
 	9000000000, '2009-05-19 08:34:00');

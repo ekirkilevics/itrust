@@ -121,6 +121,6 @@ public class EditPatientActionTest extends TestCase {
 		assertEquals(2L, patient.getMID());
 		List<TransactionBean> transList = factory.getTransactionDAO().getAllTransactions();
 		assertEquals(1, transList.size());
-		assertEquals(TransactionType.ENTER_EDIT_DEMOGRAPHICS, transList.get(0).getTranactionType());
+		assertEquals(TransactionType.ENTER_EDIT_DEMOGRAPHICS, transList.get(0).getTransactionType());
 	}
 }

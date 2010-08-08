@@ -70,6 +70,7 @@ public class PatientLoader implements BeanLoader<PatientBean> {
 		p.setTopicalNotes(rs.getString("TopicalNotes"));
 		p.setCreditCardType(rs.getString("CreditCardType"));
 		p.setCreditCardNumber(rs.getString("CreditCardNumber"));
+		p.setMessageFilter(rs.getString("MessageFilter"));
 		return p;
 	}
 
@@ -132,6 +133,7 @@ public class PatientLoader implements BeanLoader<PatientBean> {
 		ps.setString(i++, p.getTopicalNotes());
 		ps.setString(i++, p.getCreditCardType());
 		ps.setString(i++, p.getCreditCardNumber());
+		ps.setString(i++, p.getMessageFilter());
 		return ps;
 	}
 }

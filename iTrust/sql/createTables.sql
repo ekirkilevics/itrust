@@ -35,7 +35,8 @@ CREATE TABLE Personnel(
     phone2 varchar(3) default '',
     phone3 varchar(4) default '',
 	specialty varchar(40) default NULL,
-	email varchar(55)  default '', 
+	email varchar(55)  default '',
+	MessageFilter varchar(60) default '',
 	PRIMARY KEY  (MID)
 ) auto_increment=9000000000 ENGINE=MyISAM;
 
@@ -79,6 +80,7 @@ CREATE TABLE Patients(
 	TopicalNotes VARCHAR(200) default '',
 	CreditCardType VARCHAR(20) default '',
 	CreditCardNumber VARCHAR(19) default '',
+	MessageFilter varchar(60) default '',
 	PRIMARY KEY (MID)
 ) ENGINE=MyISAM;
 
@@ -288,7 +290,24 @@ CREATE TABLE message (
 	to_id               BIGINT UNSIGNED NOT NULL,
 	sent_date           DATETIME NOT NULL,
 	message             TEXT,
+	subject				TEXT,
+	been_read			INT UNSIGNED,
 	PRIMARY KEY (message_id)
+) ENGINE=MyISAM;
+
+CREATE TABLE Appointment (
+	appt_id				INT UNSIGNED AUTO_INCREMENT primary key,
+	doctor_id           BIGINT UNSIGNED NOT NULL,
+	patient_id          BIGINT UNSIGNED NOT NULL,
+	sched_date          DATETIME NOT NULL,
+	appt_type           VARCHAR(30) NOT NULL,
+	comment				TEXT
+) ENGINE=MyISAM;
+
+CREATE TABLE AppointmentType (
+	apptType_id			INT UNSIGNED AUTO_INCREMENT primary key,
+	appt_type           VARCHAR(30) NOT NULL,
+	duration			INT UNSIGNED NOT NULL
 ) ENGINE=MyISAM;
 
 CREATE TABLE referrals (
@@ -322,7 +341,7 @@ CREATE TABLE RemoteMonitoringLists (
 
 CREATE TABLE AdverseEvents (
 	id INT UNSIGNED AUTO_INCREMENT primary key,
-	Status VARCHAR(10),
+	Status VARCHAR(10) default "Active",
 	PatientMID BIGINT unsigned default 0,
 	PresImmu VARCHAR(50),
 	Code VARCHAR(20),

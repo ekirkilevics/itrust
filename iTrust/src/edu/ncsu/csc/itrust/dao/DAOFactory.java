@@ -5,6 +5,8 @@ import java.sql.SQLException;
 import edu.ncsu.csc.itrust.dao.mysql.AccessDAO;
 import edu.ncsu.csc.itrust.dao.mysql.AdverseEventDAO;
 import edu.ncsu.csc.itrust.dao.mysql.AllergyDAO;
+import edu.ncsu.csc.itrust.dao.mysql.ApptDAO;
+import edu.ncsu.csc.itrust.dao.mysql.ApptTypeDAO;
 import edu.ncsu.csc.itrust.dao.mysql.AuthDAO;
 import edu.ncsu.csc.itrust.dao.mysql.CPTCodesDAO;
 import edu.ncsu.csc.itrust.dao.mysql.DrugInteractionDAO;
@@ -71,6 +73,14 @@ public class DAOFactory {
 
 	public AllergyDAO getAllergyDAO() {
 		return new AllergyDAO(this);
+	}
+	
+	public ApptDAO getApptDAO() {
+		return new ApptDAO(this);
+	}
+	
+	public ApptTypeDAO getApptTypeDAO() {
+		return new ApptTypeDAO(this);
 	}
 
 	public AuthDAO getAuthDAO() {

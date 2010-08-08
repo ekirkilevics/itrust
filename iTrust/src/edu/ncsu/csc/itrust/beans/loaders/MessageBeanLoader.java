@@ -23,11 +23,13 @@ public class MessageBeanLoader implements BeanLoader<MessageBean> {
 	}
 
 	public PreparedStatement loadParameters(PreparedStatement ps, MessageBean message) throws SQLException {
-			ps.setLong(1, message.getFrom());
-			ps.setLong(2, message.getTo());
-			ps.setString(3, message.getBody());			
+		ps.setLong(1, message.getFrom());
+		ps.setLong(2, message.getTo());
+		ps.setString(3, message.getBody());
+		ps.setString(4, message.getSubject());
+		ps.setInt(5, message.getRead());
 		if (message.getParentMessageId() != 0L) {
-			ps.setString(4, message.getBody());
+				ps.setLong(6, message.getParentMessageId());
 		}
 		return ps;
 	}
@@ -37,8 +39,11 @@ public class MessageBeanLoader implements BeanLoader<MessageBean> {
 		message.setMessageId(rs.getLong("message_id"));
 		message.setFrom(rs.getLong("from_id"));
 		message.setTo(rs.getLong("to_id"));
+		message.setSubject(rs.getString("subject"));
 		message.setBody(rs.getString("message"));
 		message.setSentDate(rs.getTimestamp("sent_date"));
+		message.setRead(rs.getInt("been_read"));
+		message.setParentMessageId(rs.getLong("parent_msg_id"));
 		return message;
 	}
 

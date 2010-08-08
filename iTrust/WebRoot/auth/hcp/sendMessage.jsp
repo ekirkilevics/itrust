@@ -41,12 +41,14 @@ pageTitle = "iTrust - Send a Message";
 			String body = request.getParameter("messageBody");
 			MessageBean message = new MessageBean();
 			message.setBody(request.getParameter("messageBody"));
+			message.setSubject(request.getParameter("subject"));
+			message.setRead(0);
 			message.setFrom(loggedInMID);
 			message.setTo(patientID);
 			try {
 			action.sendMessage(message);
 			session.removeAttribute("pid");
-			response.sendRedirect("home.jsp");
+			response.sendRedirect("messageOutbox.jsp");
 
 			} catch (FormValidationException e){
 			%>
@@ -56,10 +58,12 @@ pageTitle = "iTrust - Send a Message";
 		}
 %>
 
-<div align=center>
+<div align="left">
 	<h2>Send a Message</h2>
 	<h4>to <%= action.getPatientName(patientID) %> (<a href="/iTrust/auth/getPatientID.jsp?forward=hcp/sendMessage.jsp">someone else</a>):</h4>
 	<form id="mainForm" method="post" action="sendMessage.jsp">
+		<span>Subject: </span><input type="text" name="subject" size="50" /><br /><br />
+		<span>Message: </span><br />
 		<textarea name="messageBody" cols="100" rows="10"></textarea><br />
 		<br />
 		<input type="submit" value="Send" name="sendMessage"/>

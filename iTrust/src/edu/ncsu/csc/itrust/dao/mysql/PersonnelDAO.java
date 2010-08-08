@@ -145,10 +145,10 @@ public class PersonnelDAO {
 		try {
 			conn = factory.getConnection();
 			ps = conn.prepareStatement("UPDATE Personnel SET AMID=?,firstName=?,lastName=?,"
-					+ "phone1=?,phone2=?,phone3=?, address1=?,address2=?,city=?, state=?, zip=?, zip1=?, zip2=?, email=?"
+					+ "phone1=?,phone2=?,phone3=?, address1=?,address2=?,city=?, state=?, zip=?, zip1=?, zip2=?, email=?, MessageFilter=?"
 					+ " WHERE MID=?");
 			personnelLoader.loadParameters(ps, p);
-			ps.setLong(15, p.getMID());
+			ps.setLong(16, p.getMID());
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -206,6 +206,8 @@ public class PersonnelDAO {
 			DBUtil.closeConnection(conn, ps);
 		}
 	}
+	
+	
 	
 	/**
 	 * Returns all personnel in the database.

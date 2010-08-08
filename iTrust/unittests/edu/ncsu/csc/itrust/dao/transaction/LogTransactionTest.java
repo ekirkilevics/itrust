@@ -24,7 +24,7 @@ public class LogTransactionTest extends TestCase {
 		assertEquals(8, list.size());
 		// that last one inserted should be last because it was backdated
 		assertEquals(1L, list.get(3).getLoggedInMID());
-		assertEquals(TransactionType.VIEW_ACCESS_LOG, list.get(3).getTranactionType());
+		assertEquals(TransactionType.VIEW_ACCESS_LOG, list.get(3).getTransactionType());
 	}
 	
 	public void testLogSimple() throws Exception {
@@ -34,7 +34,7 @@ public class LogTransactionTest extends TestCase {
 		assertEquals(9000000000L, list.get(0).getLoggedInMID());
 		assertEquals(0L, list.get(0).getSecondaryMID());
 		assertEquals("", list.get(0).getAddedInfo());
-		assertEquals(TransactionType.PATIENT_REMINDERS, list.get(0).getTranactionType());
+		assertEquals(TransactionType.PATIENT_REMINDERS, list.get(0).getTransactionType());
 	}
 	
 	public void testLogFull() throws Exception {
@@ -44,7 +44,7 @@ public class LogTransactionTest extends TestCase {
 		assertEquals(9000000000L, list.get(0).getLoggedInMID());
 		assertEquals(1L, list.get(0).getSecondaryMID());
 		assertEquals("added information", list.get(0).getAddedInfo());
-		assertEquals(TransactionType.DOCUMENT_OFFICE_VISIT, list.get(0).getTranactionType());
+		assertEquals(TransactionType.DOCUMENT_OFFICE_VISIT, list.get(0).getTransactionType());
 	}
 	
 	/**

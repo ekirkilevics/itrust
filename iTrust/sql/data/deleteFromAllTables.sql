@@ -19,6 +19,8 @@ DELETE FROM ResetPasswordFailures;
 DELETE FROM TransactionLog;
 DELETE FROM AdverseEvents;
 
+DELETE FROM Appointment;
+DELETE FROM AppointmentType;
 
 DELETE FROM PersonalAllergies;
 DELETE FROM PersonalHealthInformation;

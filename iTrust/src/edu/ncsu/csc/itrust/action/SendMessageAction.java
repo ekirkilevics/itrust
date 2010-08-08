@@ -18,6 +18,7 @@ import edu.ncsu.csc.itrust.exception.DBException;
 import edu.ncsu.csc.itrust.exception.FormValidationException;
 import edu.ncsu.csc.itrust.exception.iTrustException;
 import edu.ncsu.csc.itrust.validate.EMailValidator;
+import edu.ncsu.csc.itrust.validate.MessageValidator;
 
 
 /**
@@ -33,6 +34,7 @@ public class SendMessageAction {
 	private MessageDAO messageDAO;
 	private TransactionDAO transactionDAO;
 	private EMailValidator emailVal;
+	private MessageValidator messVal;
 
 
 	/**
@@ -48,6 +50,7 @@ public class SendMessageAction {
 		this.messageDAO = factory.getMessageDAO();
 		this.transactionDAO = factory.getTransactionDAO();
 		this.emailVal = new EMailValidator();
+		this.messVal = new MessageValidator();
 	}
 	
 	/**
@@ -58,6 +61,7 @@ public class SendMessageAction {
 	 * @throws SQLException
 	 */
 	public void sendMessage(MessageBean mBean) throws iTrustException, SQLException, FormValidationException {
+		messVal.validate(mBean);
 		emailVal.validate(mBean);
 		messageDAO.addMessage(mBean);
 		

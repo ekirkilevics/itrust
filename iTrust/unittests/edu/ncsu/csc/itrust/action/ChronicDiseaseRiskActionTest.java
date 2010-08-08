@@ -27,7 +27,7 @@ public class ChronicDiseaseRiskActionTest extends TestCase {
 		assertEquals(2, atRisk.size());
 		List<TransactionBean> transList = factory.getTransactionDAO().getAllTransactions();
 		assertEquals(1, transList.size());
-		assertEquals(TransactionType.IDENTIFY_RISK_FACTORS,transList.get(0).getTranactionType());
+		assertEquals(TransactionType.IDENTIFY_RISK_FACTORS,transList.get(0).getTransactionType());
 		assertEquals(2L,transList.get(0).getLoggedInMID());
 		assertEquals("",transList.get(0).getAddedInfo());
 		

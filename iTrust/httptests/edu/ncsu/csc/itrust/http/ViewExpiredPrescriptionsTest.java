@@ -127,7 +127,6 @@ public class ViewExpiredPrescriptionsTest extends iTrustHTTPTest {
 		// click on a particular office visit to check medication and diagnoses
 		wr = wr.getLinkWith("Jimmy Incomplete").click();  // This click does not work at the moment.
 		assertFalse(wr.getText().contains("null"));
-		assertFalse(wr.getText().contains("--"));
 		assertFalse(wr.getText().contains("AK"));
 		assertFalse(wr.getText().contains("9990000000"));
 	}

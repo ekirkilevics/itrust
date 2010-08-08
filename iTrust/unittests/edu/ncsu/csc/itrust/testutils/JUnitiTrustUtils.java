@@ -23,7 +23,7 @@ public class JUnitiTrustUtils {
 
 	private static void assertTransaction(TransactionType transType, long loggedInMID, long secondaryMID,
 			String addedInfo, TransactionBean trans) {
-		assertEquals(transType, trans.getTranactionType());
+		assertEquals(transType, trans.getTransactionType());
 		assertEquals(loggedInMID, trans.getLoggedInMID());
 		assertEquals(secondaryMID, trans.getSecondaryMID());
 		assertEquals(addedInfo, trans.getAddedInfo());

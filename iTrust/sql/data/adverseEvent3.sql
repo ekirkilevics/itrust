@@ -36,12 +36,12 @@ INSERT INTO AdverseEvents(
 	Prescriber,
 	TimeLogged
 )
-VALUES (0, '', 2, 'Hepatitis B', '90371', 'A rash began spreading outward from the injection spot', 
+VALUES (0, 'Active', 2, 'Hepatitis B', '90371', 'A rash began spreading outward from the injection spot', 
 	9000000000, '2009-05-19 08:34:00'),
-	(0, '', 1, 'Hepatitis B', '90371', 'I have a rash around the shot area', 
+	(0, 'Active', 1, 'Hepatitis B', '90371', 'I have a rash around the shot area', 
 	9000000000, '2009-02-19 06:01:00'),
-	(0, '', 10, 'Hepatitis B', '90371', 'I have skin irritation from the immunization', 
+	(0, 'Active', 10, 'Hepatitis B', '90371', 'I have skin irritation from the immunization', 
 	9000000000, '2009-05-07 14:37:00'),
-	(0, '', 3, 'Hepatitis B', '90371', 'I am in pain', 9000000000, '2008-12-31 22:00:00'),
-	(0, '', 13, 'Hepatitis B', '90371', 'A rash a rash a rash', 9000000000, '2009-01-01 08:16:00'),
-	(0, '', 4, 'Hepatitis B', '90371', 'Ouch', 9000000000, '2009-01-18 13:51:00');
+	(0, 'Active', 3, 'Hepatitis B', '90371', 'I am in pain', 9000000000, '2008-12-31 22:00:00'),
+	(0, 'Active', 13, 'Hepatitis B', '90371', 'A rash a rash a rash', 9000000000, '2009-01-01 08:16:00'),
+	(0, 'Active', 4, 'Hepatitis B', '90371', 'Ouch', 9000000000, '2009-01-18 13:51:00');

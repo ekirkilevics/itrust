@@ -27,6 +27,7 @@ List<PatientBean> representees = action.getRepresentees();
 boolean showMine = false;
 boolean showOther = false;
 boolean adEvent = false;
+boolean showAdverseButton = false;
 	
 	if (request.getParameter("mine") != null && request.getParameter("mine").equals("View Current")) showMine = true;
 	if (request.getParameter("other") != null && request.getParameter("other").equals("View")) showOther = true;
@@ -139,6 +140,7 @@ boolean adEvent = false;
 		</tr>
 <%			
 			int a = 0;
+			showAdverseButton = true;
 			for (PrescriptionBean prescription : prescriptions) {
 				Date date = new Date();
 				date.setYear(date.getYear()-1);
@@ -162,6 +164,9 @@ boolean adEvent = false;
 			<%a++;%>
 			
 		</tr>
+
+	
+	
 <%			
 			}}
 		}
@@ -203,16 +208,17 @@ boolean adEvent = false;
 		}
 	} 
 %>
-	</table>	
+	</table>
+		
 	<br />
 	<%
-	if (showMine) {
+	if (showMine && showAdverseButton) {
 		session.setAttribute("beanlist", LinkList);
-	%>
-
-	<input type="submit" name="adevent" value="Report Adverse Events"></input>
-	</form>
-	<%} %>
+		%>
+		<input type="submit" name="adevent" value="Report Adverse Events"></input>
+		</form>
+		<%
+	} %>
 </div>
 
 <%@include file="/footer.jsp"%>

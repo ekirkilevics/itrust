@@ -46,7 +46,11 @@ public enum TransactionType {
 	CREATE_DISABLE_PHA(47, "Create/disable public health agent"),
 	DRUG_INTERACTION(48, "Drug Interaction"),
 	ADVERSE_EVENT(49, "Adverse Event Report"),
-	LOGIN_FAILURE(50, "Login Failure");
+	LOGIN_FAILURE(50, "Login Failure"),
+	UPDATE_APPT_TYPE(51, "Update an Appointment Type"),
+	ADD_APPT_TYPE(52, "Add an Appointment Type"),
+	ADD_APPT(53, "Appointment Added"),
+	SEND_REMINDERS(54, "Reminders Sent");
 
 
 	

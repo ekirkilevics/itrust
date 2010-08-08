@@ -90,5 +90,5 @@ to recover the password.</div>
 <input type="submit" style="font-size: 16pt; font-weight: bold;" value="Add patient">
 </form>
 <br />
-
+</div>
 <%@include file="/footer.jsp" %>

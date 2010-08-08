@@ -15,42 +15,35 @@ pageTitle = "iTrust - Reply";
 <%
 	SendMessageAction action = new SendMessageAction(prodDAO, loggedInMID);
 	MessageBean original = null;
-	if (request.getParameter("msg") != null) {
-		String msgParameter = request.getParameter("msg");
-		int msgIndex = 0;
-		try {
-			msgIndex = Integer.parseInt(msgParameter);
-		} catch (NumberFormatException nfe) {
-			response.sendRedirect("viewMyMessages.jsp");
-		}
-		List<MessageBean> messages = null; 
-		if (session.getAttribute("messages") != null) {
-			messages = (List<MessageBean>) session.getAttribute("messages");
-		} else {
-			response.sendRedirect("viewMyMessages.jsp");
-		}
-		original = messages.get(msgIndex);
-		session.removeAttribute("messages");
+	
+	if (session.getAttribute("message") != null) {
+		original = (MessageBean)session.getAttribute("message");
 		session.setAttribute("original", original);
+		session.removeAttribute("message");
 	} else if (request.getParameter("messageBody") != null) {
 		if (session.getAttribute("original") != null) {
-			original = (MessageBean) session.getAttribute("original");
-			MessageBean message = new MessageBean();
-			message.setBody(request.getParameter("messageBody"));
-			message.setFrom(loggedInMID);
-			message.setTo(original.getFrom());
-			action.sendMessage(message);
-			session.removeAttribute("original");
-			response.sendRedirect("home.jsp");
-		} else {
-			response.sendRedirect("viewMyMessages.jsp");
-		}
+			original = (MessageBean)session.getAttribute("original");
+			MessageBean messageNew = new MessageBean();
+			messageNew.setBody(request.getParameter("messageBody"));
+			messageNew.setFrom(loggedInMID);
+			messageNew.setTo(original.getFrom());
+			messageNew.setSubject(request.getParameter("subject"));
+			messageNew.setRead(0);
+			messageNew.setParentMessageId(original.getMessageId());
+			action.sendMessage(messageNew);
+			response.sendRedirect("messageInbox.jsp");
+		} 
+	} else {
+		response.sendRedirect("messageInbox.jsp");
 	}
+	
 %>
 
 	<h2>Reply</h2>
 	<h4>to a message from <%= action.getPatientName(original.getFrom()) %>:</h4>
-	<form method="post" action="reply.jsp">
+	<form id="mainForm" method="post" action="reply.jsp">
+		<span>Subject: </span><input type="text" name="subject" size="50" value="RE: <%= original.getSubject() %>" /><br /><br />
+		<span>Message: </span><br />
 		<textarea name="messageBody" cols="100" rows="10"></textarea><br />
 		<br />
 		<input type="submit" value="Send" name="sendMessage"/>

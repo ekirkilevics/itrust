@@ -12,6 +12,8 @@ import edu.ncsu.csc.itrust.DBUtil;
 import edu.ncsu.csc.itrust.beans.AdverseEventBean;
 import edu.ncsu.csc.itrust.beans.loaders.AdverseEventBeanLoader;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
+import edu.ncsu.csc.itrust.exception.DBException;
+import edu.ncsu.csc.itrust.exception.iTrustException;
 import java.sql.Timestamp;
 
 /**
@@ -74,13 +76,14 @@ public List<AdverseEventBean> getReportsFor(long mid) throws SQLException {
 		try{
 		conn = factory.getConnection();
 		ps = conn.prepareStatement(
-				"INSERT INTO AdverseEvents (PatientMID, PresImmu, Code, Comment, Prescriber) "
-				  + "VALUES (?, ?, ?, ?, ?)");
+				"INSERT INTO AdverseEvents (PatientMID, PresImmu, Code, Comment, Prescriber, Status) "
+				  + "VALUES (?, ?, ?, ?, ?, ?)");
 		ps.setString(1, aeBean.getMID());
 		ps.setString(2, aeBean.getDrug());
 		ps.setString(3, aeBean.getCode());
 		ps.setString(4, aeBean.getDescription());
 		ps.setLong(5, hcpmid);
+		ps.setString(6,"Active");
 		ps.executeUpdate();
 		}catch(SQLException e){
 			DBUtil.closeConnection(conn, ps);
@@ -136,7 +139,48 @@ public List<AdverseEventBean> getReportsFor(long mid) throws SQLException {
 		long a = DBUtil.getLastInsert(conn);
 		DBUtil.closeConnection(conn, ps);
 		return a;
-		
+	}
+	
+	public List<AdverseEventBean> getUnremovedAdverseEventsByCode(String code) throws DBException
+	{
+		Connection conn = null;
+		PreparedStatement ps = null;
+		try {
+			conn = factory.getConnection();
+			ps = conn.prepareStatement("SELECT * FROM adverseevents WHERE code=? AND status=?");
+			ps.setString(1, code);
+			ps.setString(2, "Active");
+			ResultSet rs;
+			rs = ps.executeQuery();
+			return aeLoader.loadList(rs);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DBException(e);
+		} finally {
+			DBUtil.closeConnection(conn, ps);
+		}
+	}
+	
+	public String getNameForCode(String code) throws DBException
+	{
+		Connection conn = null;
+		PreparedStatement ps = null;
+		try {
+			conn = factory.getConnection();
+			ps = conn.prepareStatement("SELECT PresImmu FROM adverseevents WHERE code=?");
+			ps.setString(1, code);
+			ResultSet rs;
+			rs = ps.executeQuery();
+			if(rs.next()) {
+				 return rs.getString("PresImmu");
+			}
+			return "Name not Found";
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DBException(e);
+		} finally {
+			DBUtil.closeConnection(conn, ps);
+		}
 	}
 	
 	public List<AdverseEventBean> getPerscriptions(String start, String end) throws SQLException, ParseException{

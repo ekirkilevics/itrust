@@ -148,5 +148,6 @@ Very Unhappy (1) <br /></td></tr>
 
 <input type="submit" style="font-size: 16pt; font-weight: bold;" value="Submit Survey">
 </form>
+</div>
 
 <%@include file="/footer.jsp"%>

@@ -5,7 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 import edu.ncsu.csc.itrust.DBUtil;
 import edu.ncsu.csc.itrust.beans.OperationalProfile;
@@ -138,6 +138,55 @@ public class TransactionDAO {
 			DBUtil.closeConnection(conn, ps);
 		}
 	}
+	
+	/**
+	 * The Most Thorough Fetch 
+	 * @param loggedInRole Role of loggedIn
+	 * @param secondaryRole Role of secondary
+	 * @param begin Beginning of date range
+	 * @param end End of date range
+	 * @param type Type of transaction
+	 * @return
+	 * @throws DBException
+	 */
+	public List<TransactionBean> getTransactionsFor(String loggedInRole, String secondaryRole, Date begin, Date end, TransactionType type) throws DBException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+
+		try {
+			conn = factory.getConnection();
+			
+			
+			
+			if(loggedInRole.compareTo("any") == 0) {
+				loggedInRole = "*";
+			}
+			if(secondaryRole.compareTo("any") == 0) {
+				secondaryRole = "*";
+			}
+			
+			ps = conn
+					.prepareStatement("SELECT * FROM TransactionLog, Users  WHERE (MID=loggedInMID OR MID=secondaryMID) AND (Role=? OR Role=?) "
+							+ " AND transactionCode=? AND timeLogged >= ? AND timeLogged <= ?" + " ORDER BY timeLogged DESC");
+			ps.setString(1, loggedInRole);
+			ps.setString(2, secondaryRole);
+			ps.setInt(3, type.getCode());
+			ps.setDate(4, begin);
+			ps.setDate(5, end);
+			ResultSet rs = ps.executeQuery();
+			List<TransactionBean> tbList = loader.loadList(rs);
+
+			//tbList = addAndSortRoles(tbList, patientID, getByRole);
+			
+			return tbList;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DBException(e);
+		} finally {
+			DBUtil.closeConnection(conn, ps);
+		}
+	}
 
 	/**
 	 * Return a list of all transactions in which an HCP accessed the given patient's record, within the dates
@@ -148,7 +197,7 @@ public class TransactionDAO {
 	 * @return A java.util.List of transactions.
 	 * @throws DBException
 	 */
-	public List<TransactionBean> getRecordAccesses(long patientID, Date lower, Date upper, boolean getByRole) throws DBException {
+	public List<TransactionBean> getRecordAccesses(long patientID, java.util.Date lower, java.util.Date upper, boolean getByRole) throws DBException {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		try {
@@ -201,6 +250,14 @@ public class TransactionDAO {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param tbList
+	 * @param patientID
+	 * @param sortByRole
+	 * @return
+	 * @throws DBException
+	 */
 	private List<TransactionBean> addAndSortRoles(List<TransactionBean> tbList, long patientID, boolean sortByRole) throws DBException {
 		Connection conn = null;
 		PreparedStatement ps = null;

@@ -54,24 +54,22 @@ session.removeAttribute("personnelList");
 				<td ><%=t.getTimeLogged()%></td>
 				<td ><a href="/iTrust/auth/viewPersonnel.jsp?personnel=<%=index%>"><%=hcp.getFullName()%></a></td>
 				<td><%=t.getRole() %></td>
-				<td ><%=t.getAddedInfo()%> (<%=t.getTranactionType().getCode()%>)</td>		
+				<td ><%=t.getAddedInfo()%> (<%=t.getTransactionType().getCode()%>)</td>		
 			</tr>
 	<%
-			
-			PersonnelBean personnel = new PersonnelDAO(prodDAO).getPersonnel(t.getLoggedInMID());
-			personnelList.add(personnel);
-			index++;
-			
-		}
-		else if("Personal Health Representative".equals(t.getRole())) {
-			PatientBean p = new PatientDAO(DAOFactory.getProductionInstance()).getPatient(t.getLoggedInMID());
-			
+		PersonnelBean personnel = new PersonnelDAO(prodDAO).getPersonnel(t.getLoggedInMID());
+		personnelList.add(personnel);
+		index++;
+		
+			}
+			else if("Personal Health Representative".equals(t.getRole())) {
+		PatientBean p = new PatientDAO(DAOFactory.getProductionInstance()).getPatient(t.getLoggedInMID());
 	%>
 			<tr>
 				<td ><%=t.getTimeLogged()%></td>
 				<td ><%=p.getFullName()%></td>
-				<td><%=t.getRole() %></td>
-				<td ><%=t.getAddedInfo()%> (<%=t.getTranactionType().getCode()%>)</td>		
+				<td><%=t.getRole()%></td>
+				<td ><%=t.getAddedInfo()%> (<%=t.getTransactionType().getCode()%>)</td>		
 			</tr>
 	<%
 

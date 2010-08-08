@@ -39,7 +39,7 @@ public class ViewMyRecordsTest extends iTrustHTTPTest {
 		assertTrue(wr.getText().contains("Diabetes with ketoacidosis"));
 		assertTrue(wr.getText().contains("Prioglitazone"));
 		assertTrue(wr.getText().contains("Tetracycline"));
-		assertFalse(wr.getText().contains("Notes:"));
+		assertTrue(wr.getText().contains("Notes:"));
 	}
 
 	/*

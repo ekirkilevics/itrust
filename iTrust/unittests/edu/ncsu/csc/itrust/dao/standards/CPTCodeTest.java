@@ -11,11 +11,14 @@ import edu.ncsu.csc.itrust.dao.mysql.CPTCodesDAO;
 import edu.ncsu.csc.itrust.datagenerators.TestDataGenerator;
 import edu.ncsu.csc.itrust.exception.DBException;
 import edu.ncsu.csc.itrust.exception.iTrustException;
+import edu.ncsu.csc.itrust.testutils.EvilDAOFactory;
 import edu.ncsu.csc.itrust.testutils.TestDAOFactory;
 
 public class CPTCodeTest extends TestCase {
 	private DAOFactory factory = TestDAOFactory.getTestInstance();
+	private DAOFactory evilFactory = EvilDAOFactory.getEvilInstance();
 	private CPTCodesDAO cptDAO = factory.getCPTCodesDAO();
+	private CPTCodesDAO evilCptDAO = evilFactory.getCPTCodesDAO();
 
 	@Override
 	protected void setUp() throws Exception {
@@ -96,6 +99,20 @@ public class CPTCodeTest extends TestCase {
 		ProcedureBean proc = new ProcedureBean(code, "");
 		assertEquals(0, cptDAO.updateCode(proc));
 		assertEquals(17, cptDAO.getAllCPTCodes().size());
+	}
+	
+	public void testgetImmunizationCPTCodes() throws DBException {
+		List<ProcedureBean> pBeans = cptDAO.getImmunizationCPTCodes();
+		assertEquals(15, pBeans.size());
+	}
+	
+	public void testgetImmunizationCPTCodes2(){
+		try {
+		evilCptDAO.getImmunizationCPTCodes();
+		fail("Should have thrown DBException");
+		} catch(DBException e) {
+			//success
+		}
 	}
 
 	private void clearCPTCodes() throws SQLException {

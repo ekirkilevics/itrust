@@ -93,13 +93,14 @@ public class ImmunizationUseCasesTest extends iTrustHTTPTest {
 		WebResponse wr = wc.getCurrentPage();
 		wr = wr.getLinkWith("Document Office Visit").click();
 		assertEquals("iTrust - Please Select a Patient", wr.getTitle());
-		// Select patient 6
-		WebForm wf = wr.getFormWithID("mainForm");
-		wf.setParameter("UID_PATIENTID", "6");
-		wr = wf.submit();
+		// choose patient 1
+		WebForm patientForm = wr.getForms()[0];
+		patientForm.getScriptableObject().setParameterValue("UID_PATIENTID", "6");
+		patientForm.getButtons()[1].click();
+		wr = wc.getCurrentPage();
 		assertEquals("iTrust - Document Office Visit", wr.getTitle());
 		wr = wr.getLinkWith("07/10/2004").click();
-		wf = wr.getFormWithID("mainForm");
+		WebForm wf = wr.getFormWithID("mainForm");
 		wf.setParameter("addImmunizationID", "90371");
 		wr = wf.submit();
 		wr = wr.getLinkWith("Office Visit Reminders").click();
@@ -181,10 +182,10 @@ public class ImmunizationUseCasesTest extends iTrustHTTPTest {
 		WebResponse wr = wc.getCurrentPage();
 		wr = wr.getLinkWith("Document Office Visit").click();
 		assertEquals("iTrust - Please Select a Patient", wr.getTitle());
-		// Select patient 6
-		WebForm wf = wr.getFormWithID("mainForm");
-		wf.setParameter("UID_PATIENTID", "6");
-		wr = wf.submit();
+		WebForm patientForm = wr.getForms()[0];
+		patientForm.getScriptableObject().setParameterValue("UID_PATIENTID", "6");
+		patientForm.getButtons()[1].click();
+		wr = wc.getCurrentPage();
 		assertEquals("iTrust - Document Office Visit", wr.getTitle());
 		wr = wr.getLinkWith("07/10/2004").click();
 		WebTable table = wr.getTableStartingWith("Immunizations");
@@ -198,10 +199,10 @@ public class ImmunizationUseCasesTest extends iTrustHTTPTest {
 		WebResponse wr = wc.getCurrentPage();
 		wr = wr.getLinkWith("Document Office Visit").click();
 		assertEquals("iTrust - Please Select a Patient", wr.getTitle());
-		// Select patient 7
-		WebForm wf = wr.getFormWithID("mainForm");
-		wf.setParameter("UID_PATIENTID", "7");
-		wr = wf.submit();
+		WebForm patientForm = wr.getForms()[0];
+		patientForm.getScriptableObject().setParameterValue("UID_PATIENTID", "7");
+		patientForm.getButtons()[1].click();
+		wr = wc.getCurrentPage();
 		assertEquals("iTrust - Document Office Visit", wr.getTitle());
 		wr = wr.getLinkWith("05/10/2006").click();
 		WebTable table = wr.getTableStartingWith("Immunizations");

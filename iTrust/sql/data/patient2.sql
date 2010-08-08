@@ -96,6 +96,7 @@ INSERT INTO PersonalHealthInformation
 VALUES ( 2,  60,   200,   0,      190,          100,           500,             239,         290,          9000000000, '2007-06-07 20:33:58'),
 	   ( 2,  62,   210,   1,      195,          250,             36,             215,           280,          9000000000, '2007-06-07 20:34:58');
 
+
 INSERT INTO OfficeVisits(id,visitDate,HCPID,notes,HospitalID,PatientID)
 VALUES (952,'2007-6-09',9000000000,'Yet another office visit.','1',2),
 	   (953,'2005-10-10',9000000000,'Yet another office visit.','1',2),

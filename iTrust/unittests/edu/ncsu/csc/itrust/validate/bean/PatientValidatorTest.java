@@ -118,6 +118,47 @@ public class PatientValidatorTest extends TestCase {
 		}
 	}
 	
+	public void testFutureBirthError(){
+		PatientBean p = new PatientBean();
+		p.setFirstName("Person5");
+		p.setLastName("LastName5");
+		p.setDateOfBirthStr("10/10/3000");
+		p.setDateOfDeathStr("");
+		p.setCauseOfDeath("Q150");
+		p.setEmail("andy.programmer?gmail.com");
+		p.setStreetAddress1("344 East < Ave.");
+		p.setStreetAddress2("?");
+		p.setCity("Wr0ng");
+		p.setState("Pa");
+		p.setZip1("17534-");
+		p.setPhone1("555");
+		p.setEmergencyName("Tow #ater");
+		p.setEmergencyPhone1("(809)");
+		p.setIcName("Dewie Che@tum and Howe the 2nd");
+		p.setIcAddress1("458 Ripoff Blvd?");
+		p.setIcAddress2("Greedy Suite                        ");
+		p.setIcCity("%");
+		p.setIcState("mI");
+		p.setIcZip1("48169-0000 ");
+		p.setIcPhone1(" 666-059-4023 ");
+		p.setIcID("$$");
+		p.setMotherMID("-1");
+		p.setFatherMID("-2");
+		p.setBloodTypeStr("AB");
+		p.setEthnicityStr("Caucasion");
+		p.setGenderStr("female");
+		p.setTopicalNotes("<script>alert('hello');</script>");
+		p.setPassword("toooooooooooooooooooooooooo long password");
+		p.setPassword("toooooooooooooooooooooooooo long password");
+		try {
+			new PatientValidator().validate(p);
+			fail("exception should have been thrown");
+		} catch (FormValidationException e) {
+			assertEquals("Birth date cannot be in the future!", e.getErrorList().get(2));
+			//assertEquals("Date of Death: MM/DD/YYYY", e.getErrorList().get(3));
+		}
+	}
+	
 	/*
 	 * JUnit test for bug #2 on the bug list
 	 */

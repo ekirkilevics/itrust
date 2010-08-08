@@ -36,6 +36,11 @@ public class PatientValidator extends BeanValidator<PatientBean> {
 		errorList.addIfNotNull(checkFormat("Date of Death", p.getDateOfDeathStr(), ValidationFormat.DATE,
 				true));
 		try {
+			if (p.getDateOfDeath() == null && "".equals(p.getDateOfDeathStr())){
+				if( p.getDateOfBirth().after(new Date())){
+					errorList.addIfNotNull("Birth date cannot be in the future!");
+				}
+			}
 			if (p.getDateOfDeath().before(p.getDateOfBirth()))
 				errorList.addIfNotNull("Death date cannot be before birth date!");
 			if( p.getDateOfDeath().after(new Date())){

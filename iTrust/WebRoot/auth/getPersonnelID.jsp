@@ -31,8 +31,8 @@ if(lastName == null)
 	<tr>
 		<td><b>Personnel:</b></td>
 		<td style="width: 150px; border: 1px solid Gray;">
-			<input name="UID_PERSONNELID" value="" type="text">
-			<span id="NAME_PERSONNELID" name="NAME_PERSONNELID">Not specified</span>
+			<input name="UID_PERSONNELID" value="" type="hidden">
+			<input id="NAME_PERSONNELID" name="NAME_PERSONNELID" type="text" value="Select a User" readonly/>
 		</td>
 		<td>
 			<%@include file="/util/getUserFrame.jsp" %>

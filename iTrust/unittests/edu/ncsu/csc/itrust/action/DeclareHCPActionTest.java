@@ -38,7 +38,7 @@ public class DeclareHCPActionTest extends TestCase {
 		// Assert the transaction
 		List<TransactionBean> transList = factory.getTransactionDAO().getAllTransactions();
 		assertEquals(1, transList.size());
-		assertEquals(TransactionType.DECLARE_HCP, transList.get(0).getTranactionType());
+		assertEquals(TransactionType.DECLARE_HCP, transList.get(0).getTransactionType());
 		assertEquals(2L, transList.get(0).getLoggedInMID());
 		assertEquals(9000000000L, transList.get(0).getSecondaryMID());
 
@@ -51,7 +51,7 @@ public class DeclareHCPActionTest extends TestCase {
 		// Assert the transaction
 		List<TransactionBean> transList = factory.getTransactionDAO().getAllTransactions();
 		assertEquals(1, transList.size());
-		assertEquals(TransactionType.DECLARE_HCP, transList.get(0).getTranactionType());
+		assertEquals(TransactionType.DECLARE_HCP, transList.get(0).getTransactionType());
 		assertEquals(2L, transList.get(0).getLoggedInMID());
 		assertEquals(9000000003L, transList.get(0).getSecondaryMID());
 	}

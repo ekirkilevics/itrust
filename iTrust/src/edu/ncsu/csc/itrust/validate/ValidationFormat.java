@@ -23,13 +23,20 @@ public enum ValidationFormat {
 	QUESTION("[a-zA-Z0-9?\\-'.\\s]{1,50}", "Up to 50 alphanumeric characters and symbols ?-'."),
 	ANSWER("[a-zA-Z0-9\\s]{1,30}", "Up to 30 alphanumeric characters"),
 	ADDRESS("[a-zA-Z0-9.\\s]{1,30}", "Up to 30 alphanumeric characters, and ."),
+	APPT_COMMENT("[0-9a-zA-Z\\s'\"?!:;\\-._\n\t]{1,1000}", "Between 0 and 1000 alphanumerics with space, and other punctuation"),
+	APPT_TYPE_NAME("[a-zA-Z ]{1,30}", "Between 1 and 30 alpha characters and space"),
+	APPT_TYPE_DURATION("[0-9]{1,5}", "Between 1 and 5 numberics"),
 	CITY("[a-zA-Z\\s]{1,15}", "Up to 15 characters"),
 	STATE("[A-Z]{2}", "Two capital letters"),
 	ZIPCODE("([0-9]{5})|([0-9]{5}-[0-9]{4})", "xxxxx or xxxxx-xxxx"), // ^[0-9]{5}(?:-[0-9]{4})?$
 	BLOODTYPE("((O)|(A)|(B)|(AB))([+-]{1})", "Must be [O,A,B,AB]+/-"), // ^(?:O|A|B|AB)[+-]$
 	GENDER("(Male)|(Female)", "Only Male or Female"), // ^(?:Male|Female)$
-	NOTES("[a-zA-Z0-9\\s'\"?!:\\-._\n\t]{1,300}",
+	NOTES("[a-zA-Z0-9\\s'\"?!:;\\-._\n\t]{1,300}",
 			"Up to 300 alphanumeric characters, with space, and other punctuation"),
+	MESSAGES_BODY("[a-zA-Z0-9\\s'\"?!:;\\-.,_\n\t()]{1,1000}",
+			"Up to 1000 alphanumeric characters, with space, and other punctuation"),
+	MESSAGES_SUBJECT("[a-zA-Z0-9\\s'\"?!:;\\-._\n\t()]{1,100}",
+			"Up to 100 alphanumeric characters, with space, and other punctuation"),
 	PASSWORD("[a-zA-Z0-9]{8,20}", "8-20 alphanumeric characters"),
 	INSURANCE_ID("[\\s\\da-zA-Z'-]{1,20}", "Up to 20 letters, digits, space, ' and -"),
 	HOSPITAL_ID("[\\d]{1,10}", "Between 1 and 10 digits"),
@@ -56,6 +63,7 @@ public enum ValidationFormat {
 	SYSTOLIC_BLOOD_PRESSURE("^([4-9][0-9]|1[0-9][0-9]|2[0-3][0-9]|240)$", "Must be between 40 and 240"),
 	DIASTOLIC_BLOOD_PRESSURE("^([4-9][0-9]|1[0-4][0-9]|150)$", "Must be between 40 and 150"),
 	GLUCOSE_LEVEL("^([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|250)$", "Must be between 0 and 250");
+	
 
 	private Pattern regex;
 	private String description;

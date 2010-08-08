@@ -126,4 +126,31 @@ public class DocumentOfficeVisitTest extends iTrustHTTPTest {
 		wr = wc.getCurrentPage();
 		assertTrue(wr.getText().contains("Notes: Up to 300 alphanumeric characters, with space, and other punctuation"));
 	}
+	
+	public void testUpdateOfficeVisitSemicolon() throws Exception {
+		// login UAP
+		WebConversation wc = login("8000000009", "uappass1");
+		WebResponse wr = wc.getCurrentPage();
+		assertEquals("iTrust - UAP Home", wr.getTitle());
+		// click Document Office Visit
+		wr = wr.getLinkWith("Document Office Visit").click();
+		// choose patient 1
+		WebForm patientForm = wr.getForms()[0];
+		patientForm.getScriptableObject().setParameterValue("UID_PATIENTID", "1");
+		patientForm.getButtons()[1].click();
+		wr = wc.getCurrentPage();
+		assertEquals(ADDRESS + "auth/hcp-uap/documentOfficeVisit.jsp", wr.getURL().toString());
+		// click Yes, Document Office Visit
+		WebForm form = wr.getForms()[0];
+		form.getButtons()[0].click();
+		wr = wc.getCurrentPage();
+		assertEquals("iTrust - Document Office Visit", wr.getTitle());
+		// add a new office visit
+		form = wr.getForms()[0];
+		form.setParameter("visitDate", "11/21/2005");
+		form.setParameter("notes", "I like diet-coke ;");
+		form.getButtonWithID("update").click();
+		wr = wc.getCurrentPage();
+		assertTrue(wr.getText().contains("Information Successfully Updated"));
+	}
 }

@@ -26,5 +26,5 @@ INSERT INTO AdverseEvents(
 	Prescriber,
 	TimeLogged
 )
-VALUES (0, '', 2, 'Citalopram Hydrobromide', '548684985', 'Stomach cramps and migraine headaches after taking this drug', 
+VALUES (0, 'Active', 2, 'Citalopram Hydrobromide', '548684985', 'Stomach cramps and migraine headaches after taking this drug', 
 	9000000000, '2007-08-12 15:10:00');

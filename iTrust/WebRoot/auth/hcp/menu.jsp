@@ -13,13 +13,19 @@
 	<a href="/iTrust/auth/staff/editPersonnel.jsp">UAPs</a><br />
 </div>
 <div class="menu_category">
+	<span>Appointments</span><br />
+	<a href="/iTrust/auth/hcp/scheduleAppt.jsp">Schedule Appointment</a><br />
+	<a href="/iTrust/auth/hcp/viewMyAppts.jsp">View My Appointments</a><br />
+</div>
+<div class="menu_category">
 	<span>Messaging</span><br />
-	<a href="/iTrust/auth/hcp/viewMyMessages.jsp">View My Messages</a><br />
-	<a href="/iTrust/auth/hcp/sendMessage.jsp">Send a Message</a><br />
+	<a href="/iTrust/auth/hcp/messageInbox.jsp">Message Inbox</a><br />
+	<a href="/iTrust/auth/hcp/messageOutbox.jsp">Message Outbox</a><br />
 </div>
 <div class="menu_category">
 	<span>View</span><br />
 	<a href="/iTrust/auth/hcp-uap/viewPatientOfficeVisitHistory.jsp">All Patients</a><br />
+	<a href="/iTrust/auth/hcp/calendar.jsp">Appointment Calendar</a><br />
 	<a href="/iTrust/auth/hcp/LabProcHCP.jsp">Laboratory Procedures</a><br />
 	<a href="/iTrust/auth/hcp-uap/viewMyReportRequests.jsp">My Report Requests</a><br />
 </div>

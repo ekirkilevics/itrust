@@ -90,8 +90,8 @@ public class PrescriptionInstructionsTest extends iTrustHTTPTest {
 		assertTrue(wr.getText().contains("Prescription Information"));
 		
 		WebTable wt = wr.getTableStartingWith("Prescription Information");
-		assertEquals("5mg", wt.getTableCell(2, 1).getText());
-		assertEquals("Take twice daily", wt.getTableCell(2, 3).getText());
+		assertEquals("5mg", wt.getTableCell(2, 2).getText());
+		assertEquals("Take twice daily", wt.getTableCell(2, 4).getText());
 	}
 	
 	
@@ -162,8 +162,8 @@ public class PrescriptionInstructionsTest extends iTrustHTTPTest {
 		assertTrue(wr.getText().contains("Prescription Information"));
 		
 		WebTable wt = wr.getTableStartingWith("Prescription Information");
-		assertEquals("5mg", wt.getTableCell(2, 1).getText());
-		assertEquals("Take twice daily", wt.getTableCell(2, 3).getText());
+		assertEquals("5mg", wt.getTableCell(2, 2).getText());
+		assertEquals("Take twice daily", wt.getTableCell(2, 4).getText());
 
 		
 	}

@@ -23,7 +23,7 @@
 	<tr>
 		<td><%=t.getTimeLogged()%></td>
 		<td><%=t.getTransactionID()%></td>
-		<td><%=t.getTranactionType().getDescription()%></td>
+		<td><%=t.getTransactionType().getDescription()%></td>
 		<td><%=t.getLoggedInMID()%></td>
 		<td><%=t.getSecondaryMID()%></td>
 		<td><%=t.getAddedInfo()%></td>

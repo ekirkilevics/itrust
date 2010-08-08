@@ -152,6 +152,10 @@ public class TestDataGenerator {
 	public void loincs() throws SQLException, FileNotFoundException, IOException {
 		new DBBuilder(factory).executeSQLFile(DIR + "/loincs.sql");
 	}
+	
+	public void messages() throws SQLException, FileNotFoundException, IOException {
+		new DBBuilder(factory).executeSQLFile(DIR + "/message.sql");
+	}
 
 	public void ndCodes() throws FileNotFoundException, SQLException, IOException {
 		new DBBuilder(factory).executeSQLFile(DIR + "/ndCodes.sql");
@@ -179,6 +183,10 @@ public class TestDataGenerator {
 
 	public void officeVisit4() throws SQLException, FileNotFoundException, IOException {
 		new DBBuilder(factory).executeSQLFile(DIR + "/ov4.sql");
+	}
+	
+	public void officeVisit5() throws SQLException, FileNotFoundException, IOException {
+		new DBBuilder(factory).executeSQLFile(DIR + "/officeVisits.sql");
 	}
 
 	public void operationalProfile() throws FileNotFoundException, IOException, SQLException {
@@ -292,7 +300,7 @@ public class TestDataGenerator {
 	public void uap1() throws FileNotFoundException, IOException, SQLException {
 		new DBBuilder(factory).executeSQLFile(DIR + "/uap1.sql");
 	}
-
+	
 	public void patient_hcp_vists() throws FileNotFoundException, IOException, SQLException {
 		new DBBuilder(factory).executeSQLFile(DIR + "/patient_hcp_visits.sql");
 	}
@@ -356,6 +364,18 @@ public class TestDataGenerator {
 		new DBBuilder(factory).executeSQLFile(DIR + "/AdverseEventPres.sql");
 	}
 	
+	public void appointment() throws FileNotFoundException, IOException, SQLException {
+		new DBBuilder(factory).executeSQLFile(DIR + "/appointment.sql");
+	}
+	
+	public void appointmentType() throws FileNotFoundException, IOException, SQLException {
+		new DBBuilder(factory).executeSQLFile(DIR + "/appointmentType.sql");
+	}
+	
+	public void admin3() throws SQLException, FileNotFoundException, IOException {
+		new DBBuilder(factory).executeSQLFile(DIR + "/admin3.sql");
+	}
+	
 	public void standardData() throws FileNotFoundException, IOException, SQLException {
 		cptCodes();
 		icd9cmCodes();
@@ -374,18 +394,30 @@ public class TestDataGenerator {
 		patient6();
 		patient7();
 		patient8();
-
+		
 		patient20();
 		patient21();
 		admin1();
 		admin2();
+		admin3();
 		uap1();
 		officeVisit1();
+		
+		messages();
 		tester();
 		fakeEmail();
 		reportRequests();
 		loincs();
 		labProcedures();
+		appointmentType();
+		appointment();
+		
+		transactionLog();
+		transactionLog2();
+		transactionLog3();
+		transactionLog4();
+		
+		AdverseEventPres();
 		
 		System.out.println("Operation completed.");
 	}

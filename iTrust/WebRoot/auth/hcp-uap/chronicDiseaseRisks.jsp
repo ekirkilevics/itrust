@@ -14,7 +14,7 @@ pageTitle = "iTrust - Risk Factors for Chronic Diseases";
 
 <%@include file="/header.jsp" %>
 
-<%
+<%try{
 /* Require a Patient ID first */
 String pidString = (String)session.getAttribute("pid");
 if (pidString == null || 1 > pidString.length()) {
@@ -56,7 +56,8 @@ long pid = action.getPatientID();
 <%
 		}
 	}
-	else {
+}
+	catch(Exception e) {
 %>
 	<tr>
     	<td colspan="2" align=center>No Data</td>

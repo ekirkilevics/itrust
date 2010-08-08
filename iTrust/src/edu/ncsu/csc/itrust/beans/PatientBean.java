@@ -63,6 +63,15 @@ public class PatientBean implements Serializable {
 	private Ethnicity ethnicity = Ethnicity.NotSpecified;
 	private Gender gender = Gender.NotSpecified;
 	private String topicalNotes = "";
+	private String messageFilter= "";
+
+	public String getMessageFilter() {
+		return messageFilter;
+	}
+
+	public void setMessageFilter(String messageFilter) {
+		this.messageFilter = messageFilter;
+	}
 
 	public BloodType getBloodType() {
 		return bloodType;

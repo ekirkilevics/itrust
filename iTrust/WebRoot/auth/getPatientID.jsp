@@ -34,8 +34,8 @@ pageTitle = "iTrust - Please Select a Patient";
 			<td><b>Patient:</b></td>
 			<td style="width: 150px; border: 1px solid Gray;">
 				<input name="forward" type="hidden" value="<%=request.getParameter("forward") %>" />
-				<input name="UID_PATIENTID" type="text" value="" />
-				<span name="NAME_PATIENTID">Not specified</span>
+				<input name="UID_PATIENTID" type="hidden" value="" />
+				<input name="NAME_PATIENTID" type="text" readonly value="Select a Patient">
 				</td>
 			<td>
 				<input type="button" onclick="getUser('PATIENTID');" value="Find User" />

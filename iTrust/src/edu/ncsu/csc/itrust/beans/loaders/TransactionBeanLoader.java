@@ -34,7 +34,7 @@ public class TransactionBeanLoader implements BeanLoader<TransactionBean> {
 		t.setLoggedInMID(rs.getLong("loggedInMID"));
 		t.setSecondaryMID(rs.getLong("secondaryMID"));
 		t.setTimeLogged(rs.getTimestamp("timeLogged"));
-		t.setTranactionType(TransactionType.parse(rs.getInt("transactionCode")));
+		t.setTransactionType(TransactionType.parse(rs.getInt("transactionCode")));
 		t.setTransactionID(rs.getLong("transactionID"));
 		return t;
 	}

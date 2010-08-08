@@ -101,3 +101,4 @@ if (prescription == null) {%>
 		%>
 	<%}%>
 <%}%>
+<%@include file="/footer.jsp" %>

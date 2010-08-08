@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BlackBoxTestPlan>
+	<Test id="testAddPatient">
+		<role>Patient</role>
+		<usecase>32</usecase>
+		<dateAdded>8/5/2010</dateAdded>
+		<dateModified></dateModified>
+		<author>Jason King</author>
+		<description>
+			<precondition>Jason is a member of the system.</precondition>
+			<precondition>Bob is a user.</precondition>
+			<precondition>Ann has logged in successfully.</precondition>
+			<step>Click ok</step>
+			<step>Click NO.</step>
+			<step>Type "5"</step>
+			<step>Press enter.</step>
+		</description>
+		<expectedResults>
+			<eResult>User is added successfully</eResult>
+			<eResult>Nobody was harmed.</eResult>
+			<eResult>No children were injured.</eResult>
+		</expectedResults>
+		<actualResults>
+		</actualResults>
+	</Test>
+	<Test id="testDeletePatient">
+		<role>HCP</role>
+		<dateAdded>8/2/2010</dateAdded>
+		<dateModified></dateModified>
+		<author>Jason King</author>
+		<description>
+			<precondition>Jason is a member of the system.</precondition>
+			<precondition>Bob is a user.</precondition>
+			<precondition>Ann has logged in successfully.</precondition>
+			<step>Click ok</step>
+			<step>Click NO.</step>
+			<step>Type "5"</step>
+			<step>Press enter.</step>
+		</description>
+		<expectedResults>
+			<result>User is added successfully</result>
+			<result>Nobody was harmed.</result>
+			<result>No children were injured.</result>
+		</expectedResults>
+		<actualResults>
+		</actualResults>
+	</Test>
+	<Test id="testDeletePatient">
+		<role>HCP</role>
+		<dateAdded>8/4/2010</dateAdded>
+		<dateModified></dateModified>
+		<author>Jason King</author>
+		<description>
+			<precondition>Jason is a member of the system.</precondition>
+			<precondition>Bob is a user.</precondition>
+			<precondition>Ann has logged in successfully.</precondition>
+			<step>Click ok</step>
+			<step>Click NO.</step>
+			<step>Type "5"</step>
+			<step>Press enter.</step>
+		</description>
+		<expectedResults>
+			<result>User is added successfully</result>
+			<result>Nobody was harmed.</result>
+			<result>No children were injured.</result>
+		</expectedResults>
+		<actualResults>
+		</actualResults>
+	</Test>
+	<Test id="testDeletePatient">
+		<role>HCP</role>
+		<dateAdded>8/3/2010</dateAdded>
+		<dateModified></dateModified>
+		<author>Jason King</author>
+		<description>
+			<precondition>Jason is a member of the system.</precondition>
+			<precondition>Bob is a user.</precondition>
+			<precondition>Ann has logged in successfully.</precondition>
+			<step>Click ok</step>
+			<step>Click NO.</step>
+			<step>Type "5"</step>
+			<step>Press enter.</step>
+		</description>
+		<expectedResults>
+			<result>User is added successfully</result>
+			<result>Nobody was harmed.</result>
+			<result>No children were injured.</result>
+		</expectedResults>
+		<actualResults>
+		</actualResults>
+	</Test>
+	<Test id="testDeletePatient">
+		<role>Admin</role>
+		<dateAdded>8/6/2010</dateAdded>
+		<dateModified></dateModified>
+		<author>Jason King</author>
+		<description>
+			<precondition>Jason is a member of the system.</precondition>
+			<precondition>Bob is a user.</precondition>
+			<precondition>Ann has logged in successfully.</precondition>
+			<step>Click ok</step>
+			<step>Click NO.</step>
+			<step>Type "5"</step>
+			<step>Press enter.</step>
+		</description>
+		<expectedResults>
+			<result>User is added successfully</result>
+			<result>Nobody was harmed.</result>
+			<result>No children were injured.</result>
+		</expectedResults>
+		<actualResults>
+		</actualResults>
+	</Test>
+	<Test id="testDeletePatient">
+		<role>Patient</role>
+		<dateAdded>8/6/2010</dateAdded>
+		<dateModified></dateModified>
+		<author>Jason King</author>
+		<description>
+			<precondition>Jason is a member of the system.</precondition>
+			<precondition>Bob is a user.</precondition>
+			<precondition>Ann has logged in successfully.</precondition>
+			<step>Click ok</step>
+			<step>Click NO.</step>
+			<step>Type "5"</step>
+			<step>Press enter.</step>
+		</description>
+		<expectedResults>
+			<result>User is added successfully</result>
+			<result>Nobody was harmed.</result>
+			<result>No children were injured.</result>
+		</expectedResults>
+		<actualResults>
+		</actualResults>
+	</Test>	
+</BlackBoxTestPlan>

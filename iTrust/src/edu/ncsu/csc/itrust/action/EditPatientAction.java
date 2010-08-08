@@ -97,4 +97,10 @@ public class EditPatientAction extends PatientBaseAction {
     			"Please login to iTrust to see who has viewed your records.");
 		return email;
 	}
+	
+	public void editMessageFilter(String filter) throws iTrustException, FormValidationException {
+		PatientBean b = this.getPatient();
+		b.setMessageFilter(filter);
+		this.updateInformation(b);
+	}
 }

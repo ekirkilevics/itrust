@@ -11,6 +11,7 @@ public class ReportAdversePrescriptionTest extends iTrustHTTPTest {
 		gen.hcp0();
 		gen.ovMed();
 		gen.patient2();
+		gen.patient1();
 		
 	}
 
@@ -39,4 +40,17 @@ public class ReportAdversePrescriptionTest extends iTrustHTTPTest {
 		assertTrue(wr.getText().contains("Adverse Event Successfully Reported"));
 	}
 	
+	public void testReportAdverseEventsButton() throws Exception{
+		WebConversation wc = login("1", "pw");
+		WebResponse wr = wc.getCurrentPage();
+		assertEquals("iTrust - Patient Home", wr.getTitle());
+		wr = wr.getLinkWith("Prescription Records").click();
+		assertEquals("iTrust - Get My Prescription Report", wr.getTitle());
+		WebForm patientForm = wr.getForms()[0];
+		patientForm.getButtons()[0].click();
+		wr = wc.getCurrentPage();		
+		for(int i = 0; i < wr.getElementNames().length; i++){
+			assertNotSame("adevent", wr.getElementNames()[i]);
+		}
+	}
 }

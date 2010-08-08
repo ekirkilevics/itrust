@@ -393,3 +393,4 @@ String task = request.getParameter("task");
 	
 	
 <%} %>
+<%@include file="/footer.jsp" %>

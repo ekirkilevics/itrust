@@ -60,6 +60,12 @@ session.removeAttribute("personnelList");
 		session.setAttribute("personnelList", personnelList);
 %>
 	</tr>
+	<tr>
+		<td  class="subHeader">Notes:</td>
+		<td>
+			<%= ov.getNotes() %>
+		</td>
+	</tr>
 </table>
 <br /><br />
 <table class="fTable" align="center" >
@@ -67,8 +73,8 @@ session.removeAttribute("personnelList");
 		<th colspan="2">Diagnoses</th>
 	</tr>
 	<tr  class="subHeader">
-		<td>ICD Code</th>
-		<td>Description</th>
+		<th>ICD Code</th>
+		<th>Description</th>
 	</tr>
 	<% if (ov.getDiagnoses().size() == 0) { %>
 	<tr>

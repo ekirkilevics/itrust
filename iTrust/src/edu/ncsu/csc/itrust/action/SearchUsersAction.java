@@ -13,6 +13,7 @@ public class SearchUsersAction {
 	private PatientDAO patientDAO;
 	private PersonnelDAO personnelDAO;
 
+
 	/**
 	 * Set up defaults
 	 * 

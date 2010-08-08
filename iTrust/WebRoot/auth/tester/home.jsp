@@ -20,7 +20,7 @@ pageTitle = "iTrust - Tester Home";
 		
 %>
 
-<table align="center" border=1 cellpadding=2 cellspacing=2>
+<table class="fancyTable" align="center" border=1 cellpadding=2 cellspacing=2>
 	<tr>
 		<th>Operation</th>
 		<th colspan=2 >Total</th>
@@ -28,9 +28,10 @@ pageTitle = "iTrust - Tester Home";
 		<th colspan=2 >Personnel Only</th>
 	</tr>
 <%
+	int i = 1;
 	for (TransactionType type : TransactionType.values()) {
 %>
-	<tr>
+	<tr <%= (i++%2 == 0)?" class=\"alt\"":"" %>>
 		<td align=left><%=type.getDescription()%></td>
 		<td align=center><%=op.getTotalCount().get(type)%></td>
 		<td align=center><%=formatter.format((double)op.getTotalCount().get(type) / op.getNumTotalTransactions())%></td>

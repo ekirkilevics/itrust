@@ -68,5 +68,11 @@ public class EditPersonnelAction extends PersonnelBaseAction {
 		personnelDAO.editPersonnel(personnelForm);
 		transDAO.logTransaction(TransactionType.CREATE_DISABLE_PATIENT_HCP, loggedInMID);
 	}
+	
+	public void editMessageFilter(String filter) throws iTrustException, FormValidationException {
+		PersonnelBean b = personnelDAO.getPersonnel(this.getPid());
+		b.setMessageFilter(filter);
+		this.updateInformation(b);
+	}
 
 }

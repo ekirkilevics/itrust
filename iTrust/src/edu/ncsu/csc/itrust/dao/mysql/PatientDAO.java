@@ -186,9 +186,9 @@ public class PatientDAO {
 					+ "eName=?,ePhone1=?,ePhone2=?,ePhone3=?,iCName=?,iCAddress1=?,iCAddress2=?,iCCity=?,"
 					+ "ICState=?,iCZip1=?, iCZip2=?, iCPhone1=?,iCPhone2=?,iCPhone3=?,iCID=?,DateOfBirth=?,"
 					+ "DateOfDeath=?,CauseOfDeath=?,MotherMID=?,FatherMID=?,"
-					+ "BloodType=?,Ethnicity=?,Gender=?,TopicalNotes=?, CreditCardType=?, CreditCardNumber=? WHERE MID=?");
+					+ "BloodType=?,Ethnicity=?,Gender=?,TopicalNotes=?, CreditCardType=?, CreditCardNumber=?, MessageFilter=? WHERE MID=?");
 			patientLoader.loadParameters(ps, p);
-			ps.setLong(39, p.getMID());
+			ps.setLong(40, p.getMID());
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
