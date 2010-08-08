@@ -13,7 +13,6 @@ import edu.ncsu.csc.itrust.beans.AdverseEventBean;
 import edu.ncsu.csc.itrust.beans.loaders.AdverseEventBeanLoader;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
 import edu.ncsu.csc.itrust.exception.DBException;
-import edu.ncsu.csc.itrust.exception.iTrustException;
 import java.sql.Timestamp;
 
 /**

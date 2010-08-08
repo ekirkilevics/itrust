@@ -9,8 +9,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 
@@ -19,11 +17,15 @@ import de.laures.cewolf.DatasetProducer;
 import de.laures.cewolf.links.CategoryItemLinkGenerator;
 import de.laures.cewolf.tooltips.CategoryToolTipGenerator;
 import edu.ncsu.csc.itrust.beans.AdverseEventBean;
-import edu.ncsu.csc.itrust.beans.TransactionBean;
 
 
 public class AdverseEventsData implements DatasetProducer, CategoryToolTipGenerator, CategoryItemLinkGenerator, Serializable {
 	
+	/**
+	 * The generated serializable ID.
+	 */
+	private static final long serialVersionUID = 6145689621506271656L;
+
 	// Hardcoded months array to make implementation simpler
     private final String[] months = {"Jan","Feb","Mar","Apr","May","June","July","Aug","Sept","Oct","Nov","Dec"};
    
@@ -45,8 +47,14 @@ public class AdverseEventsData implements DatasetProducer, CategoryToolTipGenera
 	/**
 	 *  Produces some random data.
 	 */
-    public Object produceDataset(Map params) throws DatasetProduceException {
+    @SuppressWarnings("unchecked")
+	public Object produceDataset(Map params) throws DatasetProduceException {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset(){
+			/**
+			 * The generated serializable ID.
+			 */
+			private static final long serialVersionUID = -8238489914590553747L;
+
 			/**
 			 * @see java.lang.Object#finalize()
 			 */
@@ -81,6 +89,7 @@ public class AdverseEventsData implements DatasetProducer, CategoryToolTipGenera
      * This producer's data is invalidated after 5 seconds. By this method the
      * producer can influence Cewolf's caching behaviour the way it wants to.
      */
+	@SuppressWarnings("unchecked")
 	public boolean hasExpired(Map params, Date since) {		
 		return (System.currentTimeMillis() - since.getTime())  > 5000;
 	}

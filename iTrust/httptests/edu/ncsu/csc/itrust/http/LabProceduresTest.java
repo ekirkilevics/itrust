@@ -60,6 +60,7 @@ public class LabProceduresTest extends iTrustHTTPTest {
 	 * LHCP chooses the top procedure (the procedure from InputLabResults). 4. The LHCP allows viewing access
 	 * to the laboratory results.
 	 */
+	@SuppressWarnings("unused")
 	private void hcpLabProc() throws Exception {
 		// login hcp
 		WebConversation wc = login("9000000000", "pw");
@@ -79,6 +80,7 @@ public class LabProceduresTest extends iTrustHTTPTest {
 		assertTrue(wr.getText().contains("Privacy Changed"));
 	}
 
+	@SuppressWarnings("unused")
 	private void patientViewLabResults() throws Exception {
 		WebConversation wc = login("2", "pw");
 		WebResponse wr = wc.getCurrentPage();
