@@ -12,6 +12,7 @@ import edu.ncsu.csc.itrust.beans.SurveyResultBean;
 public class PhysicianSatisfactionUseCaseTest extends iTrustHTTPTest {
 	
 	protected void setUp() throws Exception{
+		super.setUp();
 		gen.clearAllTables();
 		gen.standardData();		
 	}

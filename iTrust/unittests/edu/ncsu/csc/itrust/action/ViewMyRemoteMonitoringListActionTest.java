@@ -90,7 +90,7 @@ public class ViewMyRemoteMonitoringListActionTest extends TestCase {
 			//Here to remove warning about data not being read
 			data.get(0).getPatientMID();
 		}catch(Exception e){
-			//Should never get here
+			e.printStackTrace();
 		}
 	}
 	

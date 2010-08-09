@@ -7,6 +7,7 @@ import com.meterware.httpunit.WebResponse;
 public class SendEmailNotificationTest extends iTrustHTTPTest {
 
 	protected void setUp() throws Exception {
+		super.setUp();
 		gen.clearAllTables();
 		gen.icd9cmCodes();
 		gen.ndCodes();

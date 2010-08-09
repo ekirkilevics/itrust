@@ -12,6 +12,7 @@ import com.meterware.httpunit.WebResponse;
 public class PrescriptionInteractionAndAllergyTest extends iTrustHTTPTest {
 	
 	protected void setUp() throws Exception{
+		super.setUp();
 		gen.clearAllTables();
 		gen.hcp0();
 	}

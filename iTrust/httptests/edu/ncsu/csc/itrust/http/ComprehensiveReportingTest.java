@@ -8,6 +8,7 @@ import com.meterware.httpunit.WebResponse;
 public class ComprehensiveReportingTest extends iTrustHTTPTest {
 	
 	protected void setUp() throws Exception{
+		super.setUp();
 		gen.clearAllTables();
 		gen.standardData();
 	}

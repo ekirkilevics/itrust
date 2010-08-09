@@ -11,6 +11,7 @@ public class ViewAccessLogTest extends iTrustHTTPTest {
 
 	@Override
 	protected void setUp() throws Exception {
+		super.setUp();
 		gen.clearAllTables();
 		gen.uap1();
 		gen.patient2();

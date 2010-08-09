@@ -11,6 +11,7 @@ import com.meterware.httpunit.WebResponse;
 public class MaintainStandardsUseCase extends iTrustHTTPTest {
 
 	protected void setUp() throws Exception{
+		super.setUp();
 		gen.clearAllTables();
 		gen.standardData();
 	}

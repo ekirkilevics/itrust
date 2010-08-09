@@ -10,6 +10,7 @@ import com.meterware.httpunit.WebResponse;
 public class PrescriptionInstructionsTest extends iTrustHTTPTest {
 
 	protected void setUp() throws Exception {
+		super.setUp();
 		gen.clearAllTables();
 		gen.hcp0();
 		gen.ndCodes();

@@ -15,6 +15,7 @@ import com.meterware.httpunit.WebForm;
 public class CreditCardValidatorTest extends iTrustHTTPTest {
 	@Override
 	protected void setUp() throws Exception {
+		super.setUp();
 		gen.clearAllTables();
 		gen.patient1();
 		gen.clearLoginFailures();

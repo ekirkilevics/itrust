@@ -6,6 +6,7 @@ import com.meterware.httpunit.WebResponse;
 public class ConsultationTest extends iTrustHTTPTest {
 	@Override
 	protected void setUp() throws Exception {
+		super.setUp();
 		gen.clearAllTables();
 		gen.icd9cmCodes();
 		gen.ndCodes();

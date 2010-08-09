@@ -84,7 +84,7 @@ public class ViewMyRecordsActionTest extends TestCase {
 	}
 
 	public void testRepresentPatient() throws iTrustException {
-		String StrRep = new String("3");
+		String StrRep = "3";
 		long longRep = (new Long(StrRep)).longValue();
 		long mid = action.representPatient("3");
 		

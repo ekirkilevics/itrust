@@ -9,6 +9,7 @@ import com.meterware.httpunit.WebResponse;
 public class ExperiencedLHCPsUseCaseTest extends iTrustHTTPTest {
 	
 	protected void setUp() throws Exception{
+		super.setUp();
 		gen.clearAllTables();
 		gen.standardData();
 		gen.patient_hcp_vists();

@@ -11,6 +11,7 @@ import com.meterware.httpunit.WebTable;
 public class SurveyUseCaseTest extends iTrustHTTPTest {
 	
 	protected void setUp() throws Exception{
+		super.setUp();
 		gen.clearAllTables();
 		gen.hcp0();
 		gen.patient2();		

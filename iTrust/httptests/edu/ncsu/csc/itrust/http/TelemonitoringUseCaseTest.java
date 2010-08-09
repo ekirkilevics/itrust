@@ -13,6 +13,7 @@ import com.meterware.httpunit.WebTable;
 public class TelemonitoringUseCaseTest extends iTrustHTTPTest {
 	
 	protected void setUp() throws Exception{
+		super.setUp();
 		gen.clearAllTables();
 		gen.standardData();
 	}

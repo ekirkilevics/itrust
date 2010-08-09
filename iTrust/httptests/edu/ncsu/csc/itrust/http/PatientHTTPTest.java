@@ -8,6 +8,7 @@ import com.meterware.httpunit.WebTable;
 public class PatientHTTPTest extends iTrustHTTPTest {
 	@Override
 	protected void setUp() throws Exception {
+		super.setUp();
 		gen.clearAllTables();
 		gen.standardData();
 	}

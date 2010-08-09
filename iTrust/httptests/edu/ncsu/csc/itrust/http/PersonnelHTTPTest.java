@@ -7,6 +7,7 @@ import com.meterware.httpunit.WebTable;
 public class PersonnelHTTPTest extends iTrustHTTPTest {
 	@Override
 	protected void setUp() throws Exception {
+		super.setUp();
 		gen.clearAllTables();
 		gen.standardData();
 	}

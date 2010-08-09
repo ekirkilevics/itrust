@@ -9,6 +9,7 @@ public class MonitorAdverseEventTest extends iTrustHTTPTest {
 
 	@Override
 	protected void setUp() throws Exception {
+		super.setUp();
 		gen.clearAllTables();
 		gen.patient2();
 		gen.hcp0();
@@ -151,7 +152,7 @@ public class MonitorAdverseEventTest extends iTrustHTTPTest {
 		WebTable wt = wr.getTableStartingWith("Immunization");
 		assertTrue(wt.getRowCount() == 7);
 		// view bar chart
-		form = wr.getForms()[0];
+//		form = wr.getForms()[0];
 		wr = wr.getLinkWith("View Chart").click();
 		assertTrue(wr.getText().contains("src=\"/iTrust/charts/"));
 	}

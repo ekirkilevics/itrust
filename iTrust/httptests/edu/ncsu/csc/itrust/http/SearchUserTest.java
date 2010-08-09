@@ -9,6 +9,7 @@ import com.meterware.httpunit.WebTable;
 public class SearchUserTest extends iTrustHTTPTest{
 	
 	protected void setUp() throws Exception {
+		super.setUp();
 		gen.clearAllTables();
 		gen.standardData();
 	}
