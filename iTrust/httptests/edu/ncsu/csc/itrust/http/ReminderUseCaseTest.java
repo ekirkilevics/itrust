@@ -30,7 +30,7 @@ public class ReminderUseCaseTest extends iTrustHTTPTest {
 		wr = wr.getForms()[0].submit();
 		
 		// Checks that message are sent
-		wr.getText().contains("3 message(s) sent.");
+		assertTrue(wr.getText().contains("4 message(s) sent."));
 	}
 	
 	public void testAdminCheckSystemReminderOutbox() throws Exception {
@@ -112,6 +112,6 @@ public class ReminderUseCaseTest extends iTrustHTTPTest {
 		wr = wr.getForms()[0].submit();
 		
 		// Checks that message are sent
-		wr.getText().contains("0 message(s) sent.");
+		assertTrue(wr.getText().contains("0 message(s) sent."));
 	}
 }

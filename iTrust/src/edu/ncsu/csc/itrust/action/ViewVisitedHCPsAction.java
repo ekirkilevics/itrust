@@ -93,7 +93,7 @@ public class ViewVisitedHCPsAction {
 				visitBean.setHCPName(hcp.getFullName());
 				visitBean.setOVDate("");
 				visitBean.setHCPSpecialty(hcp.getSpecialty());
-				visitBean.setHCPAddr(new String(hcp.getStreetAddress1() +" "+ hcp.getStreetAddress2() +" "+ hcp.getCity() +", "+ hcp.getState() +" "+ hcp.getZip()));
+				visitBean.setHCPAddr(hcp.getStreetAddress1() +" "+ hcp.getStreetAddress2() +" "+ hcp.getCity() +", "+ hcp.getState() +" "+ hcp.getZip());
 				visitBean.setDesignated(true);
 				visits.add(visitBean);
 			}
@@ -144,7 +144,7 @@ public class ViewVisitedHCPsAction {
 		
 		for (HCPVisitBean visit: visits) {
 			if (0 == visit.getHCPName().toLowerCase().compareTo(name.toLowerCase())) {
-				Long mid = new Long(visit.getHCPMID());
+				Long mid = Long.valueOf(visit.getHCPMID());
 
 				//if (patientDAO.checkDeclaredHCP(patientMID, visit.getHCPMID())) {
 					declareAction.undeclareHCP(mid.toString());
@@ -176,7 +176,7 @@ public class ViewVisitedHCPsAction {
 		for (HCPVisitBean visit: visits) {
 			if (0 == visit.getHCPName().toLowerCase().compareTo(name.toLowerCase())) {
 				match = true;
-				Long mid = new Long(visit.getHCPMID());
+				Long mid = Long.valueOf(visit.getHCPMID());
 				if (!patientDAO.checkDeclaredHCP(patientMID, visit.getHCPMID())) {
 					declareAction.declareHCP(mid.toString());
 				}

@@ -62,7 +62,7 @@ public class GenerateCalendarAction {
 		for(int i=0; i<send.size(); i++) {
 			ApptBean ab = send.get(i);
 			long t = ab.getDate().getTime();
-			long m = types.getDurationByType(ab.getApptType()) * 60 * 1000;
+			long m = types.getDurationByType(ab.getApptType()) * 60L * 1000L;
 			Timestamp time = new Timestamp(t+m);
 			for(int j=i+1; j<send.size(); j++) {
 				if(send.get(j).getDate().before(time)) {
