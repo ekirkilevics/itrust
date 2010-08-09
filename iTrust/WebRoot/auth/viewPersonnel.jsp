@@ -28,7 +28,7 @@ ViewPersonnelAction action = new ViewPersonnelAction(prodDAO, loggedInMID.longVa
 </div>
 <br />
 <div align="center">
-	<img src="/iTrust/image/user/<%=p.getMID()%>.jpg" alt="MID picture">
+	<img src="/iTrust/image/user/<%=p.getMID()%>.png" alt="MID picture">
 </div>
 <br />
 <table class="fTable" align="center">

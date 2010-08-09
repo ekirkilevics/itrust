@@ -8,7 +8,7 @@ PatientBean patient = new PatientDAO(DAOFactory.getProductionInstance()).getPati
 %>
 
 <div align="center" style="margin-bottom: 30px;">
-	<img src="/iTrust/image/user/<%=loggedInMID.longValue() %>.jpg" alt="MID picture">
+	<img src="/iTrust/image/user/<%=loggedInMID.longValue() %>.png" alt="MID picture">
 </div>
 
 <div align="center">
