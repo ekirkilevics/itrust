@@ -360,7 +360,7 @@ public class TestDataGenerator {
 		new DBBuilder(factory).executeSQLFile(DIR + "/pha1.sql");
 	}
 
-	public void AdverseEventPres() throws FileNotFoundException, IOException, SQLException {
+	public void adverseEventPres() throws FileNotFoundException, IOException, SQLException {
 		new DBBuilder(factory).executeSQLFile(DIR + "/AdverseEventPres.sql");
 	}
 	
@@ -417,7 +417,7 @@ public class TestDataGenerator {
 		transactionLog3();
 		transactionLog4();
 		
-		AdverseEventPres();
+		adverseEventPres();
 		
 		System.out.println("Operation completed.");
 	}

@@ -169,7 +169,7 @@ public class EditOfficeVisitActionTest extends TestCase {
 			action.isAllergyOnList("a", "4");
 			fail("Patient does not follow long format!!!!");
 		}catch(Exception e){
-			//Should get in here
+			e.printStackTrace();
 		}
 		
 		

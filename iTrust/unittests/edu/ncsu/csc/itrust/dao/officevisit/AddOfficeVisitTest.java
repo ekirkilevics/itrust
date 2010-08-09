@@ -34,7 +34,7 @@ public class AddOfficeVisitTest extends TestCase {
 			assertEquals(1, ov.getPatientID());
 		}
 		catch(Exception e) {
-			
+			e.printStackTrace();
 		}
 	}
 

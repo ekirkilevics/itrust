@@ -17,7 +17,7 @@ public class MonitorAdverseEventActionTest extends TestCase {
 		gen.hcp0();
 		gen.pha0();
 		gen.patient1();
-		gen.AdverseEventPres();
+		gen.adverseEventPres();
 		gen.ndCodes();
 		gen.cptCodes();
 		action = new MonitorAdverseEventAction(TestDAOFactory.getTestInstance(), 9999999990L);

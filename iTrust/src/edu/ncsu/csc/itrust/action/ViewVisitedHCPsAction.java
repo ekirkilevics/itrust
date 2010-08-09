@@ -65,7 +65,7 @@ public class ViewVisitedHCPsAction {
 				visitBean.setHCPName(pb.getFullName());
 				visitBean.setOVDate(ov.getVisitDateStr());
 				visitBean.setHCPSpecialty(pb.getSpecialty());
-				visitBean.setHCPAddr(new String(pb.getStreetAddress1() +" "+ pb.getStreetAddress2() +" "+ pb.getCity() +", "+ pb.getState() +" "+ pb.getZip()));
+				visitBean.setHCPAddr(pb.getStreetAddress1() +" "+ pb.getStreetAddress2() +" "+ pb.getCity() +", "+ pb.getState() +" "+ pb.getZip());
 								
 				if (true == (tmp = patientDAO.checkDeclaredHCP(patientMID, ov.getHcpID()))) {
 					visitBean.setDesignated(tmp);

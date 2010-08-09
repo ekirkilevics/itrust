@@ -28,7 +28,7 @@ public class UpdateOfficeVisitTest extends TestCase{
 			assertEquals("9191919191",ov.getHospitalID());
 		} 
 		catch (Exception e) {
-			
+			e.printStackTrace();
 		}
 	}
 	
