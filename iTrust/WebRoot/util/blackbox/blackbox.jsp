@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@page import="java.io.*"%>
 <%@page import="java.util.*"%>
 <%@page import="java.util.regex.Pattern" %>
@@ -119,6 +120,10 @@ class TestParser {
 		
 		public String getDescription()
 		{
+			if(precondition.size() == 0 && step.size() == 0)
+			{
+				return description;
+			}
 			String d = "<strong>Preconditions:</strong><br/>";
 			for(String p : precondition)
 			{
@@ -170,7 +175,12 @@ class TestParser {
 		public void setAResult(String a)
 		{
 			aResult.add(a);
-		}	
+		}
+		
+		public void setDescription(String d)
+		{
+			this.description = d;
+		}
 	}
  
 	class SortByDate implements Comparator<BlackBoxTest> {
@@ -242,6 +252,10 @@ class TestParser {
 			}else if (qName.equalsIgnoreCase("Author")) {
 				test.setAuthor(tempVal);
 			}
+			else if (qName.equalsIgnoreCase("Description"))
+			{
+				test.setDescription(tempVal);
+			}
 			else if (qName.equalsIgnoreCase("Precondition")) {
 				test.setPrecondition(tempVal);
 			}
@@ -301,7 +315,6 @@ class TestParser {
 			temp+=		"\n\t\t<td>" + b.getRole() + "</td>";
 			temp+=		"\n\t\t<td>" + b.getDateAdded() + "</td>";
 			temp+=		"\n\t\t<td>" + b.getDateModified() + "</td>";
-			temp+=		"\n\t\t<td>" + b.getAuthor() + "</td>";	
 			testList.add(temp);
 		}
 		return testList;
@@ -328,8 +341,7 @@ LinkedList<String> rolesList = t.getRolesList();
 		<th style="width:5%">Use Case</th>
 		<th style="width:5%">Role</th>
 		<th style="width:5%">Date Added</th>
-		<th style="width:5%">Date Modified</th>
-		<th style="width:5%">Author</th>											
+		<th style="width:5%">Date Modified</th>									
 	</tr>
 <%	
 		int i = 0;
