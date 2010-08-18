@@ -47,97 +47,116 @@ public class AdverseEventDAO {
 	 * @param mid The MID of the user to be looked up.
 	 * @return A java.util.List of AdverseEventBeans.
 	 * @throws SQLException
+	 * @throws DBException 
 	 */
-public List<AdverseEventBean> getReportsFor(long mid) throws SQLException {
+public List<AdverseEventBean> getReportsFor(long mid) throws DBException {
 		Connection conn = null;
-		PreparedStatement ps = null;
+		PreparedStatement ps = null;	
+		try {
+			conn = factory.getConnection();
+			ps = conn.prepareStatement("SELECT * FROM AdverseEvents WHERE PatientMID = ?");
+			ps.setLong(1, mid);
+			ResultSet rs = ps.executeQuery();
 
-		conn = factory.getConnection();
-		ps = conn.prepareStatement("SELECT * FROM AdverseEvents WHERE PatientMID = ?");
-		ps.setLong(1, mid);
-		ResultSet rs = ps.executeQuery();
-
-		List<AdverseEventBean> aeList = this.aeLoader.loadList(rs);
-
-		DBUtil.closeConnection(conn, ps);
-
-		return aeList;
+			List<AdverseEventBean> aeList = this.aeLoader.loadList(rs);
+			return aeList;
+		} catch(SQLException e){
+			e.printStackTrace();
+			throw new DBException(e);
+		} finally{
+			DBUtil.closeConnection(conn, ps);
+		}
 	}
 
 	/**
 	 * Adds a message to the database.
 	 * @param mBean A bean representing the message to be added.
 	 * @throws SQLException
+	 * @throws DBException 
 	 */
-	public void addReport(AdverseEventBean aeBean, long hcpmid) throws SQLException {
+	public void addReport(AdverseEventBean aeBean, long hcpmid) throws DBException {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		try{
-		conn = factory.getConnection();
-		ps = conn.prepareStatement(
-				"INSERT INTO AdverseEvents (PatientMID, PresImmu, Code, Comment, Prescriber, Status) "
-				  + "VALUES (?, ?, ?, ?, ?, ?)");
-		ps.setString(1, aeBean.getMID());
-		ps.setString(2, aeBean.getDrug());
-		ps.setString(3, aeBean.getCode());
-		ps.setString(4, aeBean.getDescription());
-		ps.setLong(5, hcpmid);
-		ps.setString(6,"Active");
-		ps.executeUpdate();
-		}catch(SQLException e){
+			conn = factory.getConnection();
+			ps = conn.prepareStatement(
+					"INSERT INTO AdverseEvents (PatientMID, PresImmu, Code, Comment, Prescriber, Status) "
+					  + "VALUES (?, ?, ?, ?, ?, ?)");
+			ps.setString(1, aeBean.getMID());
+			ps.setString(2, aeBean.getDrug());
+			ps.setString(3, aeBean.getCode());
+			ps.setString(4, aeBean.getDescription());
+			ps.setLong(5, hcpmid);
+			ps.setString(6,"Active");
+			ps.executeUpdate();
+		} catch(SQLException e){
+			e.printStackTrace();
+			throw new DBException(e);
+		} finally {
 			DBUtil.closeConnection(conn, ps);
-			throw e;
 		}
-		DBUtil.closeConnection(conn, ps);
 	}
 	
-	public long getHCPMID(int id) throws SQLException{
+	public long getHCPMID(int id) throws DBException{
 		Connection conn = null;
 		PreparedStatement ps = null;
-
-		conn = factory.getConnection();
-		ps = conn.prepareStatement("SELECT * FROM AdverseEvents WHERE id=?");
-		ps.setInt(1, id);
-		ResultSet rs = ps.executeQuery();
-
-		long hcpMID = 0;
-		if(rs.next()) {
-			
-			 hcpMID = rs.getLong("Prescriber");
+		try {
+			conn = factory.getConnection();
+			ps = conn.prepareStatement("SELECT * FROM AdverseEvents WHERE id=?");
+			ps.setInt(1, id);
+			ResultSet rs = ps.executeQuery();
+	
+			long hcpMID = 0;
+			if(rs.next()) {
+				
+				 hcpMID = rs.getLong("Prescriber");
+			}
+			return hcpMID;
+		} catch(SQLException e) {
+			e.printStackTrace();
+			throw new DBException(e);
+		} finally {
+			DBUtil.closeConnection(conn, ps);
 		}
-
-		DBUtil.closeConnection(conn, ps);
-
-		return hcpMID;
 	}
 	
-	public AdverseEventBean getReport(int id) throws SQLException{
+	public AdverseEventBean getReport(int id) throws DBException{
 		Connection conn = null;
 		PreparedStatement ps = null;
-
-		conn = factory.getConnection();
-		ps = conn.prepareStatement("SELECT * FROM AdverseEvents WHERE id=?");
-		ps.setInt(1, id);
-		ResultSet rs = ps.executeQuery();
-
-		List<AdverseEventBean> aeList = aeLoader.loadList(rs);
-		DBUtil.closeConnection(conn, ps);
-		return aeList.get(0);
+		try {
+			conn = factory.getConnection();
+			ps = conn.prepareStatement("SELECT * FROM AdverseEvents WHERE id=?");
+			ps.setInt(1, id);
+			ResultSet rs = ps.executeQuery();
+	
+			List<AdverseEventBean> aeList = aeLoader.loadList(rs);
+			return aeList.get(0);
+		} catch(SQLException e) {
+			e.printStackTrace();
+			throw new DBException(e);
+		} finally {
+			DBUtil.closeConnection(conn, ps);			
+		}
 	}
 	
-	public long removeReport(int id) throws SQLException{
+	public long removeReport(int id) throws DBException{
 		Connection conn = null;
 		PreparedStatement ps = null;
-		
-		conn = factory.getConnection();
-		ps = conn.prepareStatement("UPDATE AdverseEvents SET Status = ? WHERE id = ?");
-		String removed = "removed";
-		ps.setString(1, removed);
-		ps.setInt(2,id);
-		ps.executeUpdate();
-		long a = DBUtil.getLastInsert(conn);
-		DBUtil.closeConnection(conn, ps);
-		return a;
+		try {
+			conn = factory.getConnection();
+			ps = conn.prepareStatement("UPDATE AdverseEvents SET Status = ? WHERE id = ?");
+			String removed = "removed";
+			ps.setString(1, removed);
+			ps.setInt(2,id);
+			ps.executeUpdate();
+			long a = DBUtil.getLastInsert(conn);
+			return a;
+		} catch(SQLException e){
+			e.printStackTrace();
+			throw new DBException(e);
+		} finally {
+			DBUtil.closeConnection(conn, ps);	
+		}
 	}
 	
 	public List<AdverseEventBean> getUnremovedAdverseEventsByCode(String code) throws DBException
@@ -182,45 +201,56 @@ public List<AdverseEventBean> getReportsFor(long mid) throws SQLException {
 		}
 	}
 	
-	public List<AdverseEventBean> getPerscriptions(String start, String end) throws SQLException, ParseException{
+	public List<AdverseEventBean> getPerscriptions(String start, String end) throws ParseException, DBException{
 		Connection conn = null;
 		PreparedStatement ps = null;
-		SimpleDateFormat fmt = new SimpleDateFormat("MM/dd/yyy");
-		Date beginning = fmt.parse(start);
-		Date ending = fmt.parse(end);
- 
-		conn = factory.getConnection();
-		//AND NDCodes.Code=AdverseEvents.Code 
-		ps = conn.prepareStatement("SELECT * FROM AdverseEvents,NDCodes WHERE AdverseEvents.TimeLogged >= ? AND AdverseEvents.TimeLogged <= ? AND NDCodes.Code=AdverseEvents.Code ORDER BY AdverseEvents.Code, AdverseEvents.TimeLogged DESC");
-		 
-		ps.setTimestamp(1, new Timestamp(beginning.getTime()));
-		ps.setTimestamp(2, new Timestamp(ending.getTime() + 1000L * 60L * 60 * 24L));
-		ResultSet rs = ps.executeQuery();
-
-		List<AdverseEventBean> aeList = aeLoader.loadList(rs);
-
-		DBUtil.closeConnection(conn, ps);
-		return aeList;
+		
+		try{
+			SimpleDateFormat fmt = new SimpleDateFormat("MM/dd/yyy");
+			Date beginning = fmt.parse(start);
+			Date ending = fmt.parse(end);
+	 
+			conn = factory.getConnection();
+			//AND NDCodes.Code=AdverseEvents.Code 
+			ps = conn.prepareStatement("SELECT * FROM AdverseEvents,NDCodes WHERE AdverseEvents.TimeLogged >= ? AND AdverseEvents.TimeLogged <= ? AND NDCodes.Code=AdverseEvents.Code ORDER BY AdverseEvents.Code, AdverseEvents.TimeLogged DESC");
+			 
+			ps.setTimestamp(1, new Timestamp(beginning.getTime()));
+			ps.setTimestamp(2, new Timestamp(ending.getTime() + 1000L * 60L * 60 * 24L));
+			ResultSet rs = ps.executeQuery();
+	
+			List<AdverseEventBean> aeList = aeLoader.loadList(rs);
+			return aeList;
+		} catch(SQLException e){
+			e.printStackTrace();
+			throw new DBException(e);
+		} finally {
+			DBUtil.closeConnection(conn, ps);	
+		}
 	}
 	
-	public List<AdverseEventBean> getImmunizations(String start, String end) throws SQLException, ParseException{
+	public List<AdverseEventBean> getImmunizations(String start, String end) throws ParseException, DBException{
 		Connection conn = null;
 		PreparedStatement ps = null;
-		SimpleDateFormat fmt = new SimpleDateFormat("MM/dd/yyy");
-		Date beginning = fmt.parse(start);
-		Date ending = fmt.parse(end);
- 
-		conn = factory.getConnection();
-		//AND NDCodes.Code=AdverseEvents.Code 
-		ps = conn.prepareStatement("SELECT * FROM AdverseEvents,CPTCodes WHERE AdverseEvents.TimeLogged >= ? AND AdverseEvents.TimeLogged <= ? AND CPTCodes.Code=AdverseEvents.Code ORDER BY AdverseEvents.Code, AdverseEvents.TimeLogged DESC");
-		 
-		ps.setTimestamp(1, new Timestamp(beginning.getTime()));
-		ps.setTimestamp(2, new Timestamp(ending.getTime() + 1000L * 60L * 60 * 24L));
-		ResultSet rs = ps.executeQuery();
-
-		List<AdverseEventBean> aeList = aeLoader.loadList(rs);
-
-		DBUtil.closeConnection(conn, ps);
-		return aeList;
+		try {
+			SimpleDateFormat fmt = new SimpleDateFormat("MM/dd/yyy");
+			Date beginning = fmt.parse(start);
+			Date ending = fmt.parse(end);
+	 
+			conn = factory.getConnection();
+			//AND NDCodes.Code=AdverseEvents.Code 
+			ps = conn.prepareStatement("SELECT * FROM AdverseEvents,CPTCodes WHERE AdverseEvents.TimeLogged >= ? AND AdverseEvents.TimeLogged <= ? AND CPTCodes.Code=AdverseEvents.Code ORDER BY AdverseEvents.Code, AdverseEvents.TimeLogged DESC");
+			 
+			ps.setTimestamp(1, new Timestamp(beginning.getTime()));
+			ps.setTimestamp(2, new Timestamp(ending.getTime() + 1000L * 60L * 60 * 24L));
+			ResultSet rs = ps.executeQuery();
+	
+			List<AdverseEventBean> aeList = aeLoader.loadList(rs);
+			return aeList;
+		} catch(SQLException e){
+			e.printStackTrace();
+			throw new DBException(e);
+		} finally {
+			DBUtil.closeConnection(conn, ps);			
+		}
 	}
 }

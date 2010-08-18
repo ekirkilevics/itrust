@@ -156,8 +156,8 @@ public class ReportAdverseEventAction {
 		try{
 			adverseEventDAO.addReport(aeBean, hcpID);
 		}
-		catch( SQLException e ){
-			return e.getMessage();
+		catch( DBException e ){
+			throw new iTrustException(e.getMessage());
 		}
 		/**
 		 * Old code used to send a single e-mail. Keep for reference

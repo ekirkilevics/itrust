@@ -183,21 +183,12 @@ class TestParser {
 		}
 	}
  
-	class SortByDate implements Comparator<BlackBoxTest> {
+	class SortByTestID implements Comparator<BlackBoxTest> {
 
 	 	public int compare(BlackBoxTest arg0, BlackBoxTest arg1) {
-	 		 SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
-	 		 Date x = null;
-	 		 Date y = null;
-	 		 try
-	 		 {
-				 x = sdf.parse(arg0.getDateAdded());
-				 y = sdf.parse(arg1.getDateAdded());
-	 		 } catch(ParseException e)
-	 		 {
-	 			 e.printStackTrace();
-	 		 }
-			 return -1*(x.compareTo(y));
+	 		 String x = arg0.getId();
+	 		 String y = arg1.getId();
+			 return x.compareTo(y);
 	 	}
 	}
 
@@ -303,7 +294,7 @@ class TestParser {
 	private LinkedList<String> getHTMLOutput(LinkedList<BlackBoxTest> list)
 	{
 		LinkedList<String> testList = new LinkedList<String>();
-		Collections.sort(list, new SortByDate());
+		Collections.sort(list, new SortByTestID());
 		for(BlackBoxTest b : list)
 		{
 			String temp = "";
@@ -379,12 +370,12 @@ document.write('<div id="divStayTopLeft" style="position:absolute">')
   <tr>
     <td width="100%" bgcolor="#FFFFFF">
       <p align="left">
-      	   <a href="/iTrust" style="font-size:10px;">< Back to iTrust</a><br/><br/>
+      	   <a href="/iTrust" style="font-size:12px;">< Back to iTrust</a><br/><br/>
 <%
 	   for(String role : rolesList)
 	   {
 %>      
-	       <a href="<%="#"+role%>" style="font-size:10px;"><%=role %></a><br>
+	       <a href="<%="#"+role%>" style="font-size:15px;"><%=role %></a><br>
 <%
 	   }
 %>

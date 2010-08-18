@@ -15,7 +15,7 @@ public class ViewAdverseEventAction {
 		this.adEventDAO = factory.getAdverseEventDAO();
 	}
 	
-	public AdverseEventBean getAdverseEvent(int id) throws SQLException
+	public AdverseEventBean getAdverseEvent(int id) throws DBException
 	{
 		return adEventDAO.getReport(id);
 	}

@@ -49,7 +49,7 @@ public class GenerateCalendarActionTest extends TestCase {
 										+ "-0" + (Calendar.getInstance().get(Calendar.MONTH)+1) + "-01 00:00:00");
 		
 		Timestamp LastDayOfMonth = Timestamp.valueOf("" + Calendar.getInstance().get(Calendar.YEAR) 
-				+ "-0" + (Calendar.getInstance().get(Calendar.MONTH)+1) + "-31 00:00:00");		
+				+ "-0" + (Calendar.getInstance().get(Calendar.MONTH)+1) + "-31 23:59:59");		
 		
 		for(int i = 0; i < aList.size(); i++)
 		{
@@ -79,7 +79,7 @@ public class GenerateCalendarActionTest extends TestCase {
 		}
 		
 		b = new ApptBean();
-		b.setApptType("Colonoscopy");
+		b.setApptType("Physical");
 		b.setHcp(hcpId);
 		b.setPatient(01L);
 		b.setDate(new Timestamp(System.currentTimeMillis()+(20*60*1000)));
@@ -94,7 +94,7 @@ public class GenerateCalendarActionTest extends TestCase {
 		b.setApptType("Colonoscopy");
 		b.setHcp(hcpId);
 		b.setPatient(mId);
-		b.setDate(new Timestamp(System.currentTimeMillis()+(100000*60*1000)));
+		b.setDate(new Timestamp(System.currentTimeMillis()+(60*60*1000)));
 		b.setComment(null);
 		try {
 			assertTrue(schedAction.addAppt(b).startsWith("Success"));

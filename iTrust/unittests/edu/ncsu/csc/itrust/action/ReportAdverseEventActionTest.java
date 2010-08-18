@@ -92,15 +92,21 @@ public class ReportAdverseEventActionTest extends TestCase {
 		assertEquals(body, email.getBody());
 	}
 	
-	public void testBadEvent() throws iTrustException, FormValidationException, DBException{
+	public void testBadEvent(){
 		AdverseEventBean badBean = new AdverseEventBean();
 		badBean.setMID("Two");
 		badBean.setDrug("Rat Posion");
 		badBean.setCode("999999999");
 		badBean.setDescription("I'm not a rat!");
 		badBean.setPrescriber("9000000000");
-		String results = advAction.addReport(badBean);
-		assertEquals("Incorrect integer value: 'Two' for column 'PatientMID' at row 1", results);
+		String results = "";
+		try{
+			results = advAction.addReport(badBean);
+		}
+		catch(Exception e)
+		{
+			assertEquals("A database exception has occurred. Please see the log in the console for stacktrace", e.getMessage());
+		}
 		
 	}
 	

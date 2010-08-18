@@ -22,7 +22,7 @@ String code = (String)request.getParameter("code");
 // Retrieve list of Adverse Event beans with this code, but only ones that have not been removed by the PHA
 List<AdverseEventBean> adEvents = action.getUnremovedAdverseEventsByCode(code);
 
-// Get the meaningful name for the prescription or immunization code
+// Get the meaningful descriptive name for the prescription or immunization code
 String name = action.getNameForCode(code);
 %>
 

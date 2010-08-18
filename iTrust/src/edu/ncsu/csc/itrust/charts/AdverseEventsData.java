@@ -18,7 +18,13 @@ import de.laures.cewolf.links.CategoryItemLinkGenerator;
 import de.laures.cewolf.tooltips.CategoryToolTipGenerator;
 import edu.ncsu.csc.itrust.beans.AdverseEventBean;
 
-
+/**
+ * This class handles the data for charting in CeWolf/JFreeChart. This class implements DatasetProducer,
+ * CategoryToolTipGenerator, CategoryItemLinkGenerator, and Serializable.
+ * 
+ * @author Jason
+ *
+ */
 public class AdverseEventsData implements DatasetProducer, CategoryToolTipGenerator, CategoryItemLinkGenerator, Serializable {
 	
 	/**
@@ -26,7 +32,7 @@ public class AdverseEventsData implements DatasetProducer, CategoryToolTipGenera
 	 */
 	private static final long serialVersionUID = 6145689621506271656L;
 
-	// Hardcoded months array to make implementation simpler
+	// Hardcoded months array to make implementation simpler for Adverse Event charts
     private final String[] months = {"Jan","Feb","Mar","Apr","May","June","July","Aug","Sept","Oct","Nov","Dec"};
    
     // Initialize the values for each month to 0
@@ -38,17 +44,26 @@ public class AdverseEventsData implements DatasetProducer, CategoryToolTipGenera
     // This will be the name of the prescription or immunization under analysis
     private String codeName;
     
+    /**
+     * Called from the JSP page to initialize the list of Adverse Events needed to
+     * produce the desired chart.
+     * 
+     * @param adEvents
+     * @param name
+     */
     public void setAdverseEventsList(List<AdverseEventBean> adEvents, String name)
     {
     	adverseEvents = adEvents;
     	this.codeName = name;
     }
     
-	/**
-	 *  Produces some random data.
-	 */
+    /**
+     * This method parses the list of Adverse Event Beans to initialize the chart dataset.
+     */
     @SuppressWarnings("unchecked")
 	public Object produceDataset(Map params) throws DatasetProduceException {
+    	// The DefaultCategoryDataset is used for bar charts.
+    	// This dataset class may change based on the type of chart you wish to produce.
         DefaultCategoryDataset dataset = new DefaultCategoryDataset(){
 			/**
 			 * The generated serializable ID.
@@ -64,6 +79,10 @@ public class AdverseEventsData implements DatasetProducer, CategoryToolTipGenera
         };
         
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        // For each Adverse Event in the list,
+        // parse the string repreentation of the report date
+        // to a Java Date object. Then, get the month of the
+        // Date object and increment the value count for that month.
         for(AdverseEventBean event : adverseEvents)
         {
         	Calendar cal = Calendar.getInstance();
@@ -77,8 +96,13 @@ public class AdverseEventsData implements DatasetProducer, CategoryToolTipGenera
         	values[monthOfReport]++;
         }
         
+        // For each month, add the monthly values to the dataset for
+        // producing the chart.
         for(int i = 0; i < 12; i++)
         {
+        	// values[i] represents the number of adverse events for month i
+        	// codeName represents the given prescription/immunization being analyzed
+        	// month[i] is the static array of month names, to be used as labels on the chart
         	dataset.addValue(values[i],codeName,months[i]);
         }
           
