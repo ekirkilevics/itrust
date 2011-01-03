@@ -52,3 +52,5 @@ DROP TABLE IF EXISTS UserPrefs;
 
 DROP TABLE IF EXISTS RemoteMonitoringData;
 DROP TABLE IF EXISTS RemoteMonitoringLists;
+
+DROP TABLE IF EXISTS ProfilePhotos;

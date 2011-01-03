@@ -381,3 +381,9 @@ CREATE TABLE AdverseEvents (
 	Prescriber BIGINT unsigned default 0,
 	TimeLogged timestamp NOT NULL default CURRENT_TIMESTAMP
 ) ENGINE=MyISAM;
+
+CREATE TABLE ProfilePhotos (
+	MID BIGINT (10) primary key,
+	Photo LONGBLOB,
+	UpdatedDate timestamp NOT NULL default CURRENT_TIMESTAMP
+) ENGINE=MyISAM;
