@@ -1,3 +1,5 @@
+<%@page errorPage="/auth/exceptionHandler.jsp"%>
+<%@page import="java.util.ResourceBundle"%>
 <%@page import="edu.ncsu.csc.itrust.enums.TransactionType"%>
 <%@ page import="net.tanesha.recaptcha.ReCaptcha" %>
 <%@ page import="net.tanesha.recaptcha.ReCaptchaFactory" %>
@@ -11,8 +13,10 @@ pageTitle = "iTrust - Login";
 %>
 <%
 String remoteAddr = request.getRemoteAddr();
+//recaptcha.properties file found in WEB-INF/classes (usually not seen in Eclipse)
 ReCaptchaImpl reCaptcha = new ReCaptchaImpl();
-reCaptcha.setPrivateKey("6Lcpzb4SAAAAAGbscE39L3UmHQ_ferVd7RyJuo5Y");
+ResourceBundle reCaptchaProps = ResourceBundle.getBundle("edu.ncsu.csc.itrust.recaptcha"); 
+reCaptcha.setPrivateKey(reCaptchaProps.getString("api.key"));
 
 String challenge = request.getParameter("recaptcha_challenge_field");
 String uresponse = request.getParameter("recaptcha_response_field");
