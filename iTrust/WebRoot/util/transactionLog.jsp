@@ -24,6 +24,7 @@ A few clarifications:
 </ul>
 <table border=1>
 	<tr>
+		<th>ID></th>
 		<th>Time Logged</th>
 		<th>Type</th>
 		<th>Code</th>
@@ -38,9 +39,10 @@ A few clarifications:
 		for (TransactionBean t : list) {
 	%>
 	<tr>
+		<td><%= StringEscapeUtils.escapeHtml("" + (t.getTransactionID())) %></td>
 		<td><%= StringEscapeUtils.escapeHtml("" + (t.getTimeLogged())) %></td>
 		<td><%= StringEscapeUtils.escapeHtml("" + (t.getTransactionType().name())) %></td>
-		<td><%= StringEscapeUtils.escapeHtml("" + (t.getTransactionID())) %></td>
+		<td><%= StringEscapeUtils.escapeHtml("" + (t.getTransactionType().getCode())) %></td>
 		<td><%= StringEscapeUtils.escapeHtml("" + (t.getTransactionType().getDescription())) %></td>
 		<td><%= StringEscapeUtils.escapeHtml("" + (t.getLoggedInMID())) %></td>
 		<td><%= StringEscapeUtils.escapeHtml("" + (t.getSecondaryMID())) %></td>
