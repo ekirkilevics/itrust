@@ -1,6 +1,8 @@
 <%@page import="edu.ncsu.csc.itrust.dao.DAOFactory"%>
 <%@page import="java.util.List"%>
 <%@page import="edu.ncsu.csc.itrust.beans.TransactionBean"%>
+<%@page import="org.apache.commons.lang.StringEscapeUtils"%>
+
 <html>
 <head>
 <title>FOR TESTING PURPOSES ONLY</title>
@@ -17,16 +19,17 @@
 		<th>Extra Info</th>
 	</tr>
 	<%
+		
 		List<TransactionBean> list = DAOFactory.getProductionInstance().getTransactionDAO().getAllTransactions();
 		for (TransactionBean t : list) {
 	%>
 	<tr>
-		<td><%=t.getTimeLogged()%></td>
-		<td><%=t.getTransactionID()%></td>
-		<td><%=t.getTransactionType().getDescription()%></td>
-		<td><%=t.getLoggedInMID()%></td>
-		<td><%=t.getSecondaryMID()%></td>
-		<td><%=t.getAddedInfo()%></td>
+		<td><%= StringEscapeUtils.escapeHtml("" + (t.getTimeLogged())) %></td>
+		<td><%= StringEscapeUtils.escapeHtml("" + (t.getTransactionID())) %></td>
+		<td><%= StringEscapeUtils.escapeHtml("" + (t.getTransactionType().getDescription())) %></td>
+		<td><%= StringEscapeUtils.escapeHtml("" + (t.getLoggedInMID())) %></td>
+		<td><%= StringEscapeUtils.escapeHtml("" + (t.getSecondaryMID())) %></td>
+		<td><%= StringEscapeUtils.escapeHtml("" + (t.getAddedInfo())) %></td>
 	</tr>
 	<%
 	}

@@ -1,0 +1,25 @@
+Most all this project ended up being in the jsp pages notificationArea 
+(both in auth/patient and auth/hcp) which was included in home.jsp and
+in viewAppt.jsp, which required some adjustment to handle looking at
+representee's appointments instead of just one's own.
+
+The decision was made to add getMonitoringHCPs() to the RemoteMonitoringDAO()
+because it was required to know whether a patient was being monitored or not.
+It was implemented in this way because this functionality might be useful in
+the future and it seemed too specific just to have something which returned
+the number of HCPs monitoring the patient.
+
+Implemented getAppointments in ViewMyApptsAction so as to get the appointments
+for an arbitrary MID.
+
+Tests:
+/iTrust/httptests/edu/ncsu/csc/itrust/http/NotificationAreaTest.java
+	testPatientViewDeclaredProviderFromNotificationCenter()
+	testHCPTelemedicineDetailsFromNotificationCenter()
+	testRepresenteeAppointmentDetailsFromNotificationCenter()
+/iTrust/unittests/edu/ncsu/csc/itrust/dao/remotemonitoring/PatientDataTest.java
+	testGetMonitoringHCPs()
+	
+BlackBox:
+testHCPMessageDetailsFromNotificationCenter
+testHCPTelemedicineDetailsFromNotificationCenter

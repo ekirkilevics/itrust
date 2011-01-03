@@ -22,6 +22,7 @@ import edu.ncsu.csc.itrust.dao.mysql.NDCodesDAO;
 import edu.ncsu.csc.itrust.dao.mysql.OfficeVisitDAO;
 import edu.ncsu.csc.itrust.dao.mysql.PatientDAO;
 import edu.ncsu.csc.itrust.dao.mysql.PersonnelDAO;
+import edu.ncsu.csc.itrust.dao.mysql.ReasonCodesDAO;
 import edu.ncsu.csc.itrust.dao.mysql.ReferralDAO;
 import edu.ncsu.csc.itrust.dao.mysql.RemoteMonitoringDAO;
 import edu.ncsu.csc.itrust.dao.mysql.ReportRequestDAO;
@@ -29,6 +30,7 @@ import edu.ncsu.csc.itrust.dao.mysql.RiskDAO;
 import edu.ncsu.csc.itrust.dao.mysql.SurveyDAO;
 import edu.ncsu.csc.itrust.dao.mysql.SurveyResultDAO;
 import edu.ncsu.csc.itrust.dao.mysql.TransactionDAO;
+import edu.ncsu.csc.itrust.dao.mysql.UserPrefsDAO;
 import edu.ncsu.csc.itrust.dao.mysql.VisitRemindersDAO;
 import edu.ncsu.csc.itrust.testutils.EvilDAOFactory;
 import edu.ncsu.csc.itrust.testutils.TestDAOFactory;
@@ -177,6 +179,14 @@ public class DAOFactory {
 	
 	public RemoteMonitoringDAO getRemoteMonitoringDAO() {
 		return new RemoteMonitoringDAO(this);
+	}
+
+	public ReasonCodesDAO getORCodesDAO() {
+		return new ReasonCodesDAO(this);
+	}
+	
+	public UserPrefsDAO getUserPrefsDAO() {
+		return new UserPrefsDAO(this);
 	}
 	
 }

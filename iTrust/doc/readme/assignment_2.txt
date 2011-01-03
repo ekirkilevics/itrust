@@ -1,0 +1,27 @@
+- Bug 1:
+	Design Decisions: If entry is not an integer and an exception is thrown display Error message
+	Tests Added: testEditAppointmentTypeDurationStringInput() in httptests.edu.ncsu.csc.itrust.http.AppointmentTypeTest
+	Black Box: testEditAppointmentTypeDurationStringInput
+	Other Notes: Jason King said that the Use Case number was not strictly required, and as such to not worry about it.
+
+- Bug 2:
+	Design Decisions: Added test clause to validate() in /iTrust/src/edu/ncsu/csc/itrust/validate/PatientValidator.java
+	Tests Added: 
+		the testCauseOfDeathValidation() JUnit test in /iTrust/unittests/edu/ncsu/csc/itrust/validate/bean/PatientValidatorTest.java
+		the testCauseOfDeathValidation() HTTPUnit test in /iTrust/httptests/edu/ncsu/csc/itrust/http/EditPatientTest.java (we added this test class)
+	Black Box: testCauseOfDeathValidation
+	Other Notes: Jason King said that the Use Case number was not strictly required, and as such to not worry about it.
+
+- Bug 3:
+	Design Decisions: After an appointment is scheduled the page was not redirected and an success or error message is given.
+	Tests Added: testScheduleAppointment() in /iTrust/httptests/edu/ncsu/csc/itrust/http/AppointmentTypeTest.java
+	Black Box: testScheduleAppointment()
+	Other Notes: Jason King said that the Use Case number was not strictly required, and as such to not worry about it.
+
+- Bug 4:
+	Design Decisions: Added one freaking character to the validator format /iTrust/src/edu/ncsu/csc/itrust/validate/ValidationFormat.java woo!
+	Tests Added:
+		testUpdateInformationOctothorpe() to /iTrust/unittests/edu/ncsu/csc/itrust/action/EditOfficeVisitActionTest.java and
+		testUpdateOfficeVisitOctothorpe() to /iTrust/httptests/edu/ncsu/csc/itrust/http/DocumentOfficeVisitTest.java	
+	Black Box: testUpdateOfficeVisitOctothorpe
+	Other Notes: Jason King said that the Use Case number was not strictly required, and as such to not worry about it.

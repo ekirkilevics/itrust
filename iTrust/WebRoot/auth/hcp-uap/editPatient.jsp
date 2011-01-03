@@ -18,7 +18,7 @@
 %>
 
 <%@include file="/header.jsp"%>
-
+<itrust:patientNav thisTitle="Demographics" />
 <%
 	/* Require a Patient ID first */
 	String pidString = (String) session.getAttribute("pid");
@@ -30,7 +30,6 @@
 		}
 	}
 	else {
-		session.removeAttribute("pid");
 		session.setAttribute("editPid", pidString);
 	}
 
@@ -47,6 +46,7 @@
 				.getParameterMap(), new PatientBean());
 		try {
 			action.updateInformation(p);
+			loggingAction.logEvent(TransactionType.DEMOGRAPHICS_EDIT, loggedInMID.longValue(), p.getMID(), "");
 %>
 	<br />
 	<div align=center>
@@ -58,14 +58,16 @@
 %>
 	<br />
 	<div align=center>
-		<span class="iTrustError"><%=e.getMessage() %></span>
+		<span class="iTrustError"><%=StringEscapeUtils.escapeHtml(e.getMessage()) %></span>
 	</div>
 	<br />
 <%
 		}
 	} else {
 		p = action.getPatient();
+		loggingAction.logEvent(TransactionType.DEMOGRAPHICS_VIEW, loggedInMID.longValue(), p.getMID(), "");
 	}
+	
 %>
 
 <form action="editPatient.jsp" method="post"><input type="hidden"
@@ -79,71 +81,71 @@
 			</tr>
 			<tr>
 				<td class="subHeaderVertical">First Name:</td>
-				<td><input name="firstName" value="<%=p.getFirstName()%>" type="text"></td>
+				<td><input name="firstName" value="<%= StringEscapeUtils.escapeHtml("" + (p.getFirstName())) %>" type="text"></td>
 			</tr>
 			<tr>
 				<td class="subHeaderVertical">Last Name:</td>
-				<td><input name="lastName" value="<%=p.getLastName()%>" type="text"></td>
+				<td><input name="lastName" value="<%= StringEscapeUtils.escapeHtml("" + (p.getLastName())) %>" type="text"></td>
 			</tr>
 			<tr>
 				<td class="subHeaderVertical">Email:</td>
-				<td><input name="email" value="<%=p.getEmail()%>" type="text"></td>
+				<td><input name="email" value="<%= StringEscapeUtils.escapeHtml("" + (p.getEmail())) %>" type="text"></td>
 			</tr>
 			<tr>
 				<td class="subHeaderVertical">Address:</td>
 				<td><input name="streetAddress1"
-					value="<%=p.getStreetAddress1()%>" type="text"><br />
-				<input name="streetAddress2" value="<%=p.getStreetAddress2()%>" type="text"></td>
+					value="<%= StringEscapeUtils.escapeHtml("" + (p.getStreetAddress1())) %>" type="text"><br />
+				<input name="streetAddress2" value="<%= StringEscapeUtils.escapeHtml("" + (p.getStreetAddress2())) %>" type="text"></td>
 			</tr>
 			<tr>
 				<td class="subHeaderVertical">City:</td>
-				<td><input name="city" value="<%=p.getCity()%>" type="text">
+				<td><input name="city" value="<%= StringEscapeUtils.escapeHtml("" + (p.getCity())) %>" type="text">
 				</td>
 			</tr>
 			<tr>
 				<td class="subHeaderVertical">State:</td>
-				<td><itrust:state name="state" value="<%=p.getState()%>" /></td>
+				<td><itrust:state name="state" value="<%= StringEscapeUtils.escapeHtml(p.getState()) %>" /></td>
 			</tr>
 			<tr>
 				<td class="subHeaderVertical">Zip:</td>
-				<td><input name="zip1" value="<%=p.getZip1()%>" maxlength="5"
+				<td><input name="zip1" value="<%= StringEscapeUtils.escapeHtml("" + (p.getZip1())) %>" maxlength="5"
 					type="text" size="5"> - <input name="zip2"
-					value="<%=p.getZip2()%>" maxlength="4" type="text" size="4">
+					value="<%= StringEscapeUtils.escapeHtml("" + (p.getZip2())) %>" maxlength="4" type="text" size="4">
 				</td>
 			</tr>
 			<tr>
 				<td class="subHeaderVertical">Phone:</td>
-				<td><input name="phone1" value="<%=p.getPhone1()%>" type="text"
+				<td><input name="phone1" value="<%= StringEscapeUtils.escapeHtml("" + (p.getPhone1())) %>" type="text"
 					size="3" maxlength="3"> - <input name="phone2"
-					value="<%=p.getPhone2()%>" type="text" size="3" maxlength="3">
-				- <input name="phone3" value="<%=p.getPhone3()%>" type="text"
+					value="<%= StringEscapeUtils.escapeHtml("" + (p.getPhone2())) %>" type="text" size="3" maxlength="3">
+				- <input name="phone3" value="<%= StringEscapeUtils.escapeHtml("" + (p.getPhone3())) %>" type="text"
 					size="4" maxlength="4"></td>
 			</tr>
 			<tr>
 				<td class="subHeaderVertical">Mother MIDs:</td>
-				<td><input name="motherMID" value="<%=p.getMotherMID()%>"
+				<td><input name="motherMID" value="<%= StringEscapeUtils.escapeHtml("" + (p.getMotherMID())) %>"
 					maxlength="10" type="text"></td>
 			</tr>
 
 			<tr>
 				<td class="subHeaderVertical">Father MID:</td>
-				<td><input name="fatherMID" value="<%=p.getFatherMID()%>"
+				<td><input name="fatherMID" value="<%= StringEscapeUtils.escapeHtml("" + (p.getFatherMID())) %>"
 					maxlength="10" type="text"></td>
 			</tr>
 			<tr>
 				<td class="subHeaderVertical">Credit Card Type:</td>
 				<td><select name="creditCardType">
 				<option value="">Select:</option>
-				<option value="MASTERCARD" <%= p.getCreditCardType().equals("MASTERCARD") ? "selected" : "" %>>Mastercard</option>
-				<option value="VISA" <%= p.getCreditCardType().equals("VISA") ? "selected" : "" %>>Visa</option>
-				<option value="DISCOVER" <%= p.getCreditCardType().equals("DISCOVER") ? "selected" : "" %>>Discover</option>
-				<option value="AMEX" <%= p.getCreditCardType().equals("AMEX") ? "selected" : "" %>>American Express</option>
+				<option value="MASTERCARD" <%= StringEscapeUtils.escapeHtml("" + ( p.getCreditCardType().equals("MASTERCARD") ? "selected" : "" )) %>>Mastercard</option>
+				<option value="VISA" <%= StringEscapeUtils.escapeHtml("" + ( p.getCreditCardType().equals("VISA") ? "selected" : "" )) %>>Visa</option>
+				<option value="DISCOVER" <%= StringEscapeUtils.escapeHtml("" + ( p.getCreditCardType().equals("DISCOVER") ? "selected" : "" )) %>>Discover</option>
+				<option value="AMEX" <%= StringEscapeUtils.escapeHtml("" + ( p.getCreditCardType().equals("AMEX") ? "selected" : "" )) %>>American Express</option>
 				</select>
 				</td>
 			</tr>
 			<tr>
 				<td class="subHeaderVertical">Credit Card Number:</td>
-				<td><input name="creditCardNumber" value="<%=p.getCreditCardNumber()%>"
+				<td><input name="creditCardNumber" value="<%= StringEscapeUtils.escapeHtml("" + (p.getCreditCardNumber())) %>"
 					maxlength="19" type="text"></td>
 			</tr>
 		</table>
@@ -154,47 +156,47 @@
 			</tr>
 			<tr>
 				<td class="subHeaderVertical">Name:</td>
-				<td><input name="icName" value="<%=p.getIcName()%>" type="text">
+				<td><input name="icName" value="<%= StringEscapeUtils.escapeHtml("" + (p.getIcName())) %>" type="text">
 				</td>
 			</tr>
 			<tr>
 				<td class="subHeaderVertical">Address:</td>
-				<td><input name="icAddress1" value="<%=p.getIcAddress1()%>"
+				<td><input name="icAddress1" value="<%= StringEscapeUtils.escapeHtml("" + (p.getIcAddress1())) %>"
 					type="text"><br />
-				<input name="icAddress2" value="<%=p.getIcAddress2()%>" type="text">
+				<input name="icAddress2" value="<%= StringEscapeUtils.escapeHtml("" + (p.getIcAddress2())) %>" type="text">
 				</td>
 			</tr>
 			<tr>
 				<td class="subHeaderVertical">City:</td>
-				<td><input name="icCity" value="<%=p.getIcCity()%>" type="text">
+				<td><input name="icCity" value="<%= StringEscapeUtils.escapeHtml("" + (p.getIcCity())) %>" type="text">
 				</td>
 			</tr>
 
 			<tr>
 				<td class="subHeaderVertical">State:</td>
-				<td><itrust:state name="icState" value="<%=p.getIcState()%>" />
+				<td><itrust:state name="icState" value="<%= StringEscapeUtils.escapeHtml(p.getIcState()) %>" />
 				</td>
 			</tr>
 			<tr>
 				<td class="subHeaderVertical">Zip:</td>
-				<td><input name="icZip1" value="<%=p.getIcZip1()%>"
+				<td><input name="icZip1" value="<%= StringEscapeUtils.escapeHtml("" + (p.getIcZip1())) %>"
 					maxlength="5" type="text" size="5"> - <input name="icZip2"
-					value="<%=p.getIcZip2()%>" maxlength="4" type="text" size="4">
+					value="<%= StringEscapeUtils.escapeHtml("" + (p.getIcZip2())) %>" maxlength="4" type="text" size="4">
 				</td>
 			</tr>
 			<tr>
 				<td class="subHeaderVertical">Phone:</td>
-				<td><input name="icPhone1" value="<%=p.getIcPhone1()%>"
+				<td><input name="icPhone1" value="<%= StringEscapeUtils.escapeHtml("" + (p.getIcPhone1())) %>"
 					type="text" size="3" maxlength="3"> - <input
-					name="icPhone2" value="<%=p.getIcPhone2()%>" type="text" size="3"
+					name="icPhone2" value="<%= StringEscapeUtils.escapeHtml("" + (p.getIcPhone2())) %>" type="text" size="3"
 					maxlength="3"> - <input name="icPhone3"
-					value="<%=p.getIcPhone3()%>" type="text" size="4" maxlength="4">
+					value="<%= StringEscapeUtils.escapeHtml("" + (p.getIcPhone3())) %>" type="text" size="4" maxlength="4">
 
 				</td>
 			</tr>
 			<tr>
 				<td class="subHeaderVertical">Insurance ID:</td>
-				<td><input name="icID" value="<%=p.getIcID()%>" type="text">
+				<td><input name="icID" value="<%= StringEscapeUtils.escapeHtml("" + (p.getIcID())) %>" type="text">
 				</td>
 			</tr>
 		</table>
@@ -208,16 +210,16 @@
 			<tr>
 				<td class="subHeaderVertical">Name:</td>
 				<td><input name="emergencyName"
-					value="<%=p.getEmergencyName()%>" type="text"></td>
+					value="<%= StringEscapeUtils.escapeHtml("" + (p.getEmergencyName())) %>" type="text"></td>
 			</tr>
 			<tr>
 				<td class="subHeaderVertical">Phone:</td>
 				<td><input name="emergencyPhone1"
-					value="<%=p.getEmergencyPhone1()%>" type="text" size="3"
+					value="<%= StringEscapeUtils.escapeHtml("" + (p.getEmergencyPhone1())) %>" type="text" size="3"
 					maxlength="3"> - <input name="emergencyPhone2"
-					value="<%=p.getEmergencyPhone2()%>" type="text" size="3"
+					value="<%= StringEscapeUtils.escapeHtml("" + (p.getEmergencyPhone2())) %>" type="text" size="3"
 					maxlength="3"> - <input name="emergencyPhone3"
-					value="<%=p.getEmergencyPhone3()%>" type="text" size="4"
+					value="<%= StringEscapeUtils.escapeHtml("" + (p.getEmergencyPhone3())) %>" type="text" size="4"
 					maxlength="4"></td>
 			</tr>
 		</table>
@@ -235,7 +237,7 @@
 							selected = (eth.equals(p.getEthnicity())) ? "selected=selected"
 									: "";
 					%>
-					<option value="<%=eth.getName()%>" <%=selected%>><%=eth.getName()%></option>
+					<option value="<%=eth.getName()%>" <%= StringEscapeUtils.escapeHtml("" + (selected)) %>><%= StringEscapeUtils.escapeHtml("" + (eth.getName())) %></option>
 					<%
 						}
 					%>
@@ -249,7 +251,7 @@
 							selected = (bt.equals(p.getBloodType())) ? "selected=selected"
 									: "";
 					%>
-					<option value="<%=bt.getName()%>" <%=selected%>><%=bt.getName()%></option>
+					<option value="<%=bt.getName()%>" <%= StringEscapeUtils.escapeHtml("" + (selected)) %>><%= StringEscapeUtils.escapeHtml("" + (bt.getName())) %></option>
 					<%
 						}
 					%>
@@ -262,7 +264,7 @@
 						for (Gender g : Gender.values()) {
 							selected = (g.equals(p.getGender())) ? "selected=selected" : "";
 					%>
-					<option value="<%=g.getName()%>" <%=selected%>><%=g.getName()%></option>
+					<option value="<%=g.getName()%>" <%= StringEscapeUtils.escapeHtml("" + (selected)) %>><%= StringEscapeUtils.escapeHtml("" + (g.getName())) %></option>
 					<%
 						}
 					%>
@@ -271,14 +273,14 @@
 			<tr>
 				<td class="subHeaderVertical">Date Of Birth:</td>
 				<td><input type=text name="dateOfBirthStr" maxlength="10"
-					size="10" value="<%=p.getDateOfBirthStr()%>"> <input
+					size="10" value="<%= StringEscapeUtils.escapeHtml("" + (p.getDateOfBirthStr())) %>"> <input
 					type=button value="Select Date"
 					onclick="displayDatePicker('dateOfBirthStr');"></td>
 			</tr>
 			<tr>
 				<td class="subHeaderVertical">Date Of Death:</td>
 				<td><input type=text name="dateOfDeathStr" maxlength="10"
-					size="10" value="<%=p.getDateOfDeathStr()%>"> <input
+					size="10" value="<%= StringEscapeUtils.escapeHtml("" + (p.getDateOfDeathStr())) %>"> <input
 					type=button value="Select Date"
 					onclick="displayDatePicker('dateOfDeathStr');"></td>
 			</tr>
@@ -292,7 +294,7 @@
 						if (diag.getICDCode().equals(p.getCauseOfDeath()))
 							select = "selected=\"selected\"";
 %>
-					<option <%=select%> value="<%=diag.getICDCode()%>"><%=diag.getICDCode() %>
+					<option <%= StringEscapeUtils.escapeHtml("" + (select)) %> value="<%=diag.getICDCode()%>"><%= StringEscapeUtils.escapeHtml("" + (diag.getICDCode() )) %>
 					- <jsp:expression>diag.getDescription()</jsp:expression></option>
 <%					
 			}
@@ -301,7 +303,7 @@
 			</tr>
 			<tr>
 				<td class="subHeaderVertical">Topical Notes:</td>
-				<td><textarea name="topicalNotes"><%=p.getTopicalNotes()%></textarea>
+				<td><textarea name="topicalNotes"><%= StringEscapeUtils.escapeHtml("" + (p.getTopicalNotes())) %></textarea>
 				</td>
 			</tr>
 		</table>

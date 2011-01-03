@@ -1,0 +1,2 @@
+Added appointmentCase3 method to TestDataGenerator.java along with the associated sql file in the iTrust sql directory.
+All other required data is already represented by existing sql files (remoteMonitoring3.sql among others).
