@@ -44,12 +44,12 @@ String confirm = "";
 try {
 	if (removeID != null && !removeID.equals("")) {
 		confirm = action.undeclareHCP(removeID);
-		loggingAction.logEvent(TransactionType.HEALTH_REPRESENTATIVE_UNDECLARE, loggedInMID, loggedInMID, "Undeclared "+removeID);
+		loggingAction.logEvent(TransactionType.LHCP_UNDECLARE_DLHCP, loggedInMID, loggedInMID, "Undeclared "+removeID);
 	}
 	else if (designateHCPs != null && !designateHCPs[0].equals("")) {
 		for (String designateHCP : designateHCPs) {
 			confirm = action.declareHCP(designateHCP);
-			loggingAction.logEvent(TransactionType.HEALTH_REPRESENTATIVE_DECLARE, loggedInMID, loggedInMID, "Declared "+designateHCP);
+			loggingAction.logEvent(TransactionType.LHCP_DECLARE_DLHCP, loggedInMID, loggedInMID, "Declared "+designateHCP);
 		}
 	}
 	else {
