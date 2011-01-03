@@ -41,7 +41,6 @@ public class ProfilePhotoAction {
 						// TODO do the validation of uploading and image size here
 						// TODO Modify DAOFActory to have the getter - don't use this construction
 						new ProfilePhotoDAO(factory).store(loggedInMID, bi);
-						System.out.println("Got the buffered image - time to store!!");
 					}
 				}
 				return "Picture stored successfully";
