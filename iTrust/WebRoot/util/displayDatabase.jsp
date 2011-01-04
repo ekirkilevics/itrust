@@ -4,7 +4,8 @@
 <%@page import="java.util.LinkedList"%>
 <%@page import="org.apache.commons.lang.StringEscapeUtils"%>
 
-<html>
+
+<%@page import="java.awt.image.BufferedImage"%><html>
 <head>
 	<title>Display Database</title>
 	<style type="text/css">
@@ -52,10 +53,19 @@
 		%></tr><%
 		while(rs.next()){
 			%><tr><%
+			long mid = 0l;
 			for(int i=1;i<=numCol;i++){
 				try{
 					String data = rs.getString(i);
+					
+					if ("ProfilePhotos".equals(tableName) && i==2)
+					{
+						%><td>Photo</td><%
+					}
+					else
+					{
 					%><td><%= StringEscapeUtils.escapeHtml("" + (data)) %></td><%
+					}				
 				} catch(SQLException e){
 					%><td>--Error in date, might be empty--</td><%
 				}
