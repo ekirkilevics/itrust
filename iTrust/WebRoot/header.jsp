@@ -50,7 +50,6 @@
 					<div style="float: right; width: 40%; text-align: right; vertical-align: bottom; margin-right: 20px;color:black;">
 					<% out.println("Welcome, "+ StringEscapeUtils.escapeHtml("" + userName)+"<BR/>"); %>
 					<a class="iTrustNavlink" href="/iTrust">Home</a>  |  <a class="iTrustNavlink" href="/iTrust/logout.jsp">Logout</a>
-					<!-- | <a class="iTrustNavLink" href="/iTrust/auth/preferences.jsp">Preferences</a> -->
 					</div>
 			</div>
 			<div id="iTrustSelectedPatient">

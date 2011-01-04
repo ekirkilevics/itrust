@@ -9,15 +9,6 @@ CREATE TABLE Users(
 	/* Please use the MyISAM backend with no foreign keys.*/
 ) ENGINE=MyISAM; 
 
-CREATE TABLE UserPrefs(
-	MID                 BIGINT unsigned,
-	ThemeColor          VARCHAR(6),
-	SecondaryColor          VARCHAR(6) DEFAULT "FFFFFF",
-
-	PRIMARY KEY (MID)
-	/* Please use the MyISAM backend with no foreign keys.*/
-) ENGINE=MyISAM; 
-
 CREATE TABLE Hospitals(
 	HospitalID   varchar(10),
 	HospitalName varchar(30) NOT NULL, 

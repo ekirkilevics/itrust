@@ -3,7 +3,6 @@ package edu.ncsu.csc.itrust.action;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-import edu.ncsu.csc.itrust.beans.UserPrefsBean;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
 import edu.ncsu.csc.itrust.datagenerators.TestDataGenerator;
 import edu.ncsu.csc.itrust.enums.TransactionType;

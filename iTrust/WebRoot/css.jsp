@@ -7,28 +7,7 @@
 <%@include file="/global.jsp" %>
 
 <%
-UserPrefsBean prefsBean;
-
-boolean usingDefaultColor = false;
-if(loggedInMID != null) {
-	UserPrefsAction action = new UserPrefsAction(prodDAO, loggedInMID.longValue());
-	prefsBean = action.getUserPrefs();
-	if(prefsBean == null) {
-		prefsBean = new UserPrefsBean();
-		usingDefaultColor = true;
-	}
-} else {
-	prefsBean = new UserPrefsBean();
-	usingDefaultColor = true;
-}
-
-if (usingDefaultColor) {
-	UserPrefsAction action = new UserPrefsAction(prodDAO, 0);
-	prefsBean.setThemeColor(action.getDefaultColor().getThemeColor());
-}
-
 String primaryColor = "C7C7C7"; //prefsBean.getThemeColor(); //"A1BFFF"; //
-//String secondaryColor = prefsBean.getSecondaryColor();
 String secondaryColor = "FFFFFF";
 
 //Calculate the inverse of the secondary color

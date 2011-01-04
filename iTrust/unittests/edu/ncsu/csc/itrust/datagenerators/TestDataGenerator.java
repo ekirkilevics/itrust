@@ -73,10 +73,6 @@ public class TestDataGenerator {
 	public void clearHospitalAssignments() throws FileNotFoundException, IOException, SQLException {
 		new DBBuilder(factory).executeSQLFile(DIR + "/hospitalAssignmentsReset.sql");
 	}
-	
-	public void colorScheme() throws FileNotFoundException, IOException, SQLException {
-		new DBBuilder(factory).executeSQLFile(DIR + "/colorScheme.sql");
-	}
 
 	public void foreignKeyTest() throws FileNotFoundException, IOException, SQLException {
 		new DBBuilder(factory).executeSQLFile(DIR + "/foreignKeyTest.sql");
@@ -473,8 +469,6 @@ public class TestDataGenerator {
 		transactionLog4();
 		
 		adverseEventPres();
-		
-		colorScheme();
 		
 		System.out.println("Operation completed.");
 	}

@@ -31,7 +31,6 @@ import edu.ncsu.csc.itrust.dao.mysql.RiskDAO;
 import edu.ncsu.csc.itrust.dao.mysql.SurveyDAO;
 import edu.ncsu.csc.itrust.dao.mysql.SurveyResultDAO;
 import edu.ncsu.csc.itrust.dao.mysql.TransactionDAO;
-import edu.ncsu.csc.itrust.dao.mysql.UserPrefsDAO;
 import edu.ncsu.csc.itrust.dao.mysql.VisitRemindersDAO;
 import edu.ncsu.csc.itrust.testutils.EvilDAOFactory;
 import edu.ncsu.csc.itrust.testutils.TestDAOFactory;
@@ -188,10 +187,6 @@ public class DAOFactory {
 
 	public ReasonCodesDAO getORCodesDAO() {
 		return new ReasonCodesDAO(this);
-	}
-	
-	public UserPrefsDAO getUserPrefsDAO() {
-		return new UserPrefsDAO(this);
 	}
 	
 }
