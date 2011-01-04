@@ -36,10 +36,12 @@ public class ProfilePhotoDAOTest extends TestCase {
 		catch (iTrustException e)
 		{
 			e.printStackTrace();
+			fail();
 		}
 		catch (IOException e2)
 		{
 			e2.printStackTrace();
+			fail();
 		}
 	}
 	
@@ -85,6 +87,7 @@ public class ProfilePhotoDAOTest extends TestCase {
 			mydao = EvilDAOFactory.getEvilInstance().getProfilePhotoDAO();
 			BufferedImage bi = new BufferedImage(900, 500, BufferedImage.TYPE_3BYTE_BGR);
 			mydao.store(1l, bi);
+			fail();
 		}
 		catch (iTrustException e)
 		{

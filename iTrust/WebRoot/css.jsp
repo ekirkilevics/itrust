@@ -27,7 +27,7 @@ if (usingDefaultColor) {
 	prefsBean.setThemeColor(action.getDefaultColor().getThemeColor());
 }
 
-String primaryColor = "98CC68"; //prefsBean.getThemeColor(); //"A1BFFF"; //
+String primaryColor = "C7C7C7"; //prefsBean.getThemeColor(); //"A1BFFF"; //
 //String secondaryColor = prefsBean.getSecondaryColor();
 String secondaryColor = "FFFFFF";
 
