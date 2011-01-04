@@ -3,6 +3,7 @@ package edu.ncsu.csc.itrust.dao.mysql;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,6 +20,21 @@ import edu.ncsu.csc.itrust.exception.DBException;
 import edu.ncsu.csc.itrust.exception.iTrustException;
 
 public class ProfilePhotoDAO {
+	public static final BufferedImage DEFAULT_PROFILE_PHOTO = loadDefaultProfilePhoto();
+
+	private static BufferedImage loadDefaultProfilePhoto() {
+		try {
+			InputStream stream = ProfilePhotoDAO.class.getResourceAsStream("defaultProfilePhoto.jpg");
+			BufferedImage read = ImageIO.read(stream);
+			stream.close();
+			return read;
+		} catch (IOException e) {
+			System.err.println("Unable to load default profile photo from ProfilePhotoDAO. "
+					+ "See following stacktrace.");
+			e.printStackTrace();
+			return null;
+		}
+	}
 
 	private DAOFactory factory;
 
@@ -40,12 +56,9 @@ public class ProfilePhotoDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("INSERT INTO ProfilePhotos(MID, Photo) VALUES(?,?) ON DUPLICATE KEY UPDATE Photo=?");
+			ps = conn
+					.prepareStatement("INSERT INTO ProfilePhotos(MID, Photo) VALUES(?,?) ON DUPLICATE KEY UPDATE Photo=?");
 			ps.setLong(1, mid);
-			// byte[] bytes = new byte[500000]; // no bigger than this
-			// ImageInputStream iis = ImageIO.createImageInputStream(photo);
-			// photo.
-			// iis.read(bytes);
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
 			ImageOutputStream ios = new MemoryCacheImageOutputStream(baos);
 			ImageIO.write(photo, "jpeg", ios);
@@ -62,7 +75,7 @@ public class ProfilePhotoDAO {
 	}
 
 	/**
-	 * Return a profile photo for the given MID
+	 * Return a profile photo for the given MID. Returns a default "No Photo Available" if
 	 * 
 	 * @param mid
 	 * @return
@@ -82,7 +95,7 @@ public class ProfilePhotoDAO {
 				BufferedImage bi = ImageIO.read(new MemoryCacheImageInputStream(blob.getBinaryStream()));
 				return bi;
 			} else
-				throw new iTrustException("No photo available");
+				return DEFAULT_PROFILE_PHOTO;
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new DBException(e);

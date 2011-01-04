@@ -44,11 +44,12 @@ things to note about this example
 To browse through this example, look through the following files:
 <ul>
 	<li>WebRoot/auth/examplephotoupload.jsp</li>
-	<li>WebRoot/auth/exampleprofilephoto.jsp</li>
 	<li>sql/createTables.sql - the ProfilePhotos table</li>
 	<li>ProfilePhotoAction - this is the upload part where we use an
 	external library to do our uploads</li>
 	<li>ProfilePhotoDAO - this is the storage part</li>
+	<li>ProfilePhotoServlet - this is the Java servlet used for actually generating the image</li>
+	<li>WebRoot/WEB-INF/web.xml - this is where the URL for PhotoProfileServlet is defined</li>
 </ul>
 <br>
 
@@ -68,12 +69,11 @@ To browse through this example, look through the following files:
 <h2>To be uploaded</h2>
 
 <form action="" method="post" enctype="multipart/form-data"><input
-	type="file" name="photo"> <input type="hidden"
-	name="formIsFilled" value="true"> <input type="submit"
-	value="Upload"></form>
+	type="file" name="photo"> 
+	 <input type="submit" value="Upload"></form>
 
 <h2>Here's what's stored in the database for User <%=loggedInMID %></h2>
-<img width="300" src="exampleprofilephoto.jsp"
+<img width="300" src="<%=request.getContextPath()%>/auth/profilephoto"
 	alt="Photo should be showing up here - if there's one in the database."></div>
 
 <br>
