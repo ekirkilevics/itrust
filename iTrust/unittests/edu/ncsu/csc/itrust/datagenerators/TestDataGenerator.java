@@ -213,7 +213,11 @@ public class TestDataGenerator {
 	public void patient1() throws FileNotFoundException, IOException, SQLException {
 		new DBBuilder(factory).executeSQLFile(DIR + "/patient1.sql");
 	}
-
+	
+	public void clearProfilePhotos() throws FileNotFoundException, IOException, SQLException {
+		new DBBuilder(factory).executeSQLFile(DIR + "/clearphotos.sql");
+	}
+	
 	public void patient2() throws FileNotFoundException, IOException, SQLException {
 		new DBBuilder(factory).executeSQLFile(DIR + "/patient2.sql");
 	}
