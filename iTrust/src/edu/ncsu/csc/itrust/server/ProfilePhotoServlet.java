@@ -12,6 +12,7 @@ import edu.ncsu.csc.itrust.exception.iTrustException;
 
 public class ProfilePhotoServlet extends HttpServlet {
 	private static final long serialVersionUID = 180837253118457932L;
+	private DAOFactory daoFactory = null;
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException,
@@ -19,11 +20,17 @@ public class ProfilePhotoServlet extends HttpServlet {
 		resp.setContentType("image/jpg");
 		long loggedInMID = (Long) req.getSession().getAttribute("loggedInMID");
 		try {
-			BufferedImage bi = DAOFactory.getProductionInstance().getProfilePhotoDAO().get(loggedInMID);
+			if (daoFactory == null) {
+				daoFactory = DAOFactory.getProductionInstance();
+			}
+			BufferedImage bi = daoFactory.getProfilePhotoDAO().get(loggedInMID);
 			ImageIO.write(bi, "jpg", resp.getOutputStream());
 		} catch (iTrustException e) {
 			e.printStackTrace();
 		}
 	}
 
+	public void setDaoFactory(DAOFactory daoFactory) {
+		this.daoFactory = daoFactory;
+	}
 }
