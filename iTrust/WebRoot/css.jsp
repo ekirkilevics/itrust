@@ -1,8 +1,6 @@
 <%@page contentType="text/css" %>
 
-<%@page import="edu.ncsu.csc.itrust.action.UserPrefsAction"%>
 <%@page import="edu.ncsu.csc.itrust.action.ViewHelperAction"%>
-<%@page import="edu.ncsu.csc.itrust.beans.UserPrefsBean"%>
 
 <%@include file="/global.jsp" %>
 
