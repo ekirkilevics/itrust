@@ -72,7 +72,7 @@ To browse through this example, look through the following files:
 	name="formIsFilled" value="true"> <input type="submit"
 	value="Upload"></form>
 
-<h2>Here's what's stored in the database for Patient <%=loggedInMID %></h2>
+<h2>Here's what's stored in the database for User <%=loggedInMID %></h2>
 <img width="300" src="exampleprofilephoto.jsp"
 	alt="Photo should be showing up here - if there's one in the database."></div>
 
