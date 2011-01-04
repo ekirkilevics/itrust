@@ -10,7 +10,8 @@
 <script type="text/javascript">
 function fillLoginFields(u,p) {
 	document.getElementById("j_username").value = u;
-	document.getElementById("j_password").value = p;			
+	document.getElementById("j_password").value = p;		
+	document.forms[0].submit();	
 }
 </script>
 <%
