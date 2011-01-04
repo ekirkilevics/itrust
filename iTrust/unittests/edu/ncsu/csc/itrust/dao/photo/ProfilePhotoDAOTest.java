@@ -59,7 +59,7 @@ public class ProfilePhotoDAOTest extends TestCase {
 		}
 	}
 	
-	public void testEvilConnection()
+	public void testEvilConnectionGet()
 	{
 		try
 		{
@@ -78,7 +78,7 @@ public class ProfilePhotoDAOTest extends TestCase {
 		}
 	}
 	
-	public void testEvilConnection2()
+	public void testEvilConnectionStore()
 	{
 		try
 		{
