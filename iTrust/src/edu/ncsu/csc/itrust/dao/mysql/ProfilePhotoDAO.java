@@ -103,5 +103,29 @@ public class ProfilePhotoDAO {
 			DBUtil.closeConnection(conn, ps);
 		}
 	}
+	
+	/**
+	 * Given an MID, remove the associated image from the database
+	 * 
+	 * @param mid
+	 * @return
+	 * @throws DBException
+	 * @throws IOException
+	 */
+	public int removePhoto(long mid) throws DBException, IOException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		try {
+			conn = factory.getConnection();
+			ps = conn.prepareStatement("DELETE FROM ProfilePhotos WHERE mid=?");
+			ps.setLong(1, mid);
+			return ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DBException(e);
+		} finally {
+			DBUtil.closeConnection(conn, ps);
+		}
+	}
 
 }

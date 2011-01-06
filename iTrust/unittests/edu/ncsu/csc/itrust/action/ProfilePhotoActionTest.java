@@ -45,7 +45,7 @@ public class ProfilePhotoActionTest extends TestCase {
 	public void testHappyPath() throws Exception {
 		HttpServletRequest request = ctrl.createMock(HttpServletRequest.class);
 		InputStream photoStream = ProfilePhotoDAO.class.getResourceAsStream("defaultProfilePhoto.jpg");
-
+		
 		expect(request.getMethod()).andReturn("post");
 		expect(request.getContentType()).andReturn("multipart/").anyTimes();
 		expect(request.getCharacterEncoding()).andReturn("").anyTimes();

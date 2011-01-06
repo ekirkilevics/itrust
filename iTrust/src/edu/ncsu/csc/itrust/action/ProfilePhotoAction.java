@@ -11,23 +11,24 @@ import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
+import edu.ncsu.csc.itrust.dao.mysql.ProfilePhotoDAO;
 import edu.ncsu.csc.itrust.exception.DBException;
 
 public class ProfilePhotoAction {
 
 	private long loggedInMID;
-	private DAOFactory factory;
+	private ProfilePhotoDAO photoDAO;
 	private ServletFileUpload upload;
 
 	public ProfilePhotoAction(DAOFactory factory, long loggedInMID) {
-		this.factory = factory;
+		this.photoDAO = factory.getProfilePhotoDAO();
 		this.loggedInMID = loggedInMID;
 		upload = new ServletFileUpload(new DiskFileItemFactory());
 	}
 
 	// For unit testing purposes
 	public ProfilePhotoAction(DAOFactory factory, long loggedInMID, ServletFileUpload upload) {
-		this.factory = factory;
+		this.photoDAO = factory.getProfilePhotoDAO();
 		this.loggedInMID = loggedInMID;
 		this.upload = upload;
 	}
@@ -51,7 +52,7 @@ public class ProfilePhotoAction {
 					if (!item.isFormField()) {
 						BufferedImage bi = ImageIO.read(item.getInputStream());
 						// TODO do the validation of uploading and image size here
-						factory.getProfilePhotoDAO().store(loggedInMID, bi);
+						photoDAO.store(loggedInMID, bi);
 					}
 				}
 				return "Picture stored successfully";
@@ -65,6 +66,26 @@ public class ProfilePhotoAction {
 		} else {
 			System.err.println("Not a multi-part request");
 			return "Error uploading file - please try again";
+		}
+	}
+	
+	/**
+	 * This method calls the ProfilePhotoDAO remove method and handles 
+	 * IOExceptions appropriately.
+	 * @param mid
+	 * @return
+	 * @throws DBException
+	 */
+	public String removePhoto(long mid) throws DBException
+	{
+		try
+		{
+			photoDAO.removePhoto(mid);
+			return "Picture removed successfully. Now displaying default image.";
+		}
+		catch(IOException e)
+		{
+			return "Error removing file -- please try again";
 		}
 	}
 

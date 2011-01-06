@@ -12,15 +12,63 @@
 <%@include file="/global.jsp"%>
 
 <%
-	pageTitle = "iTrust - Example Profile Photo Upload";
+	pageTitle = "iTrust - Patient Photo";
 %>
 
 <%@include file="/header.jsp"%>
 
 
 <%
-	PatientBean patient = DAOFactory.getProductionInstance().getPatientDAO().getPatient(loggedInMID);
+	/* Require a Patient ID first */
+	String pidString = (String) session.getAttribute("pid");
+	if (pidString == null || 1 > pidString.length()) {
+		if (pidString == null || 1 > pidString.length()) {
+			response.sendRedirect("/iTrust/auth/getPatientID.jsp?forward=hcp-uap/editPatientPhoto.jsp");
+			return;
+		}
+	}
+
+	long patientMID = Long.parseLong(pidString);
+	String message = "";
+	PatientBean patient = DAOFactory.getProductionInstance().getPatientDAO().getPatient(patientMID);
+
+	ProfilePhotoAction action = new ProfilePhotoAction(DAOFactory.getProductionInstance(), patientMID);
+	if (ServletFileUpload.isMultipartContent(request)) {
+		message = action.storePicture(request);
+	}
+	
+	if(request.getParameter("remove") != null)
+	{
+		message = action.removePhoto(patientMID);
+	}
+
 %>
+<span class="iTrustMessage"><%=message %></span>
+<table class="fancyTable">
+	<tr>
+		<th colspan="2"><%=patient.getFullName() %>'s Photo</th>
+	</tr>
+	<tr>
+		<td rowspan="2">
+			<img style="width:100px;height:100px;" src="<%=request.getContextPath()%>/auth/profilephoto" alt="<%= userName%>">
+		</td>
+		<td>Update the patient photo.
+			<form action="" method="post" enctype="multipart/form-data">
+				<input type="file" name="photo"> 
+	 			<input type="submit" value="Upload">
+	 		</form>
+	 	</td>
+	 	</tr>
+	 	<tr>
+	 	<td>
+	 		<form action="editPatientPhoto.jsp">
+	 			Remove existing photo and replace with default photo.
+	 			<input type="submit" name="remove" value="Remove" />
+	 		</form>
+		</td>
+	</tr>
+</table>
+
 <br>
 This is an example page for future assignments. Eventually, we would
 like to have full-featured, secure file uploading capabilities for
@@ -53,30 +101,6 @@ To browse through this example, look through the following files:
 </ul>
 <br>
 
-
-<p>Current logged in user: <%=patient.getFullName()%>
 </div>
-
-
-<div id=Content>
-<%
-	ProfilePhotoAction action = new ProfilePhotoAction(DAOFactory.getProductionInstance(),
-			loggedInMID);
-	if (ServletFileUpload.isMultipartContent(request)) {
-		action.storePicture(request);
-	}
-%>
-<h2>To be uploaded</h2>
-
-<form action="" method="post" enctype="multipart/form-data"><input
-	type="file" name="photo"> 
-	 <input type="submit" value="Upload"></form>
-
-<h2>Here's what's stored in the database for User <%=loggedInMID %></h2>
-<img width="300" src="<%=request.getContextPath()%>/auth/profilephoto"
-	alt="Photo should be showing up here - if there's one in the database."></div>
-
-<br>
-<br>
 
 <%@include file="/footer.jsp"%>

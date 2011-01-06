@@ -18,7 +18,7 @@ public class ProfilePhotoServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException,
 			IOException {
 		resp.setContentType("image/jpg");
-		long loggedInMID = (Long) req.getSession().getAttribute("loggedInMID");
+		long loggedInMID = Long.parseLong( (String) req.getSession().getAttribute("pid") );
 		try {
 			if (daoFactory == null) {
 				daoFactory = DAOFactory.getProductionInstance();

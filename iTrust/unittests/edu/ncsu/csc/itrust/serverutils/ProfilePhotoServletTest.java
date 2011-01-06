@@ -56,7 +56,7 @@ public class ProfilePhotoServletTest extends TestCase {
 		resp.setContentType("image/jpg");
 		expectLastCall().once();
 		expect(req.getSession()).andReturn(session).once();
-		expect(session.getAttribute("loggedInMID")).andReturn(2L).once();
+		expect(session.getAttribute("pid")).andReturn("2").once();
 		expect(mockDAOFactory.getProfilePhotoDAO()).andReturn(mockDAO).once();
 		expect(mockDAO.get(2L)).andReturn(new BufferedImage(200, 200, BufferedImage.TYPE_INT_ARGB));
 		expect(resp.getOutputStream()).andReturn(new ServletOutputStream() {
@@ -78,7 +78,7 @@ public class ProfilePhotoServletTest extends TestCase {
 		resp.setContentType("image/jpg");
 		expectLastCall().once();
 		expect(req.getSession()).andReturn(session).once();
-		expect(session.getAttribute("loggedInMID")).andReturn(2L).once();
+		expect(session.getAttribute("pid")).andReturn("2").once();
 		ctrl.replay();
 
 		servlet.doGet(req, resp);// just swallows the exception

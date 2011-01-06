@@ -23,14 +23,8 @@
 	/* Require a Patient ID first */
 	String pidString = (String) session.getAttribute("pid");
 	if (pidString == null || 1 > pidString.length()) {
-		pidString = (String) session.getAttribute("editPid");
-		if (pidString == null || 1 > pidString.length()) {
-			response.sendRedirect("/iTrust/auth/getPatientID.jsp?forward=hcp-uap/editPatient.jsp");
-			return;
-		}
-	}
-	else {
-		session.setAttribute("editPid", pidString);
+		response.sendRedirect("/iTrust/auth/getPatientID.jsp?forward=hcp-uap/editPatient.jsp");
+		return;
 	}
 
 	/* If the patient id doesn't check out, then kick 'em out to the exception handler */
@@ -203,6 +197,20 @@
 		</td>
 		<td width="15px">&nbsp;</td>
 		<td valign=top>
+		<table class="fTable" align=center style="width: 350px;"
+			<tr>
+				<th colspan="2">Patient Photo</th>
+			</tr>
+			<tr>
+				<td style="width:100px;">
+					<img style="width:100px;height:100px;" src="<%=request.getContextPath()%>/auth/profilephoto" alt="<%=p.getFullName()%>">
+				</td>
+				<td>
+					<a href="editPatientPhoto.jsp">Edit or remove <%=p.getFullName() %>'s photo</a>
+				</td>
+			</tr>
+		</table>
+		<br />
 		<table class="fTable" align=center style="width: 350px;">
 			<tr>
 				<th colspan=2>Emergency Contact</th>
