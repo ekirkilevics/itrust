@@ -203,7 +203,7 @@
 			</tr>
 			<tr>
 				<td style="width:100px;">
-					<img style="width:100px;height:100px;" src="<%=request.getContextPath()%>/auth/profilephoto" alt="<%=p.getFullName()%>">
+					<img style="width:100px;height:100px;" src="<%=request.getContextPath()%>/auth/hcp-uap/profilephoto" alt="<%=p.getFullName()%>">
 				</td>
 				<td>
 					<a href="editPatientPhoto.jsp">Edit or remove <%=p.getFullName() %>'s photo</a>

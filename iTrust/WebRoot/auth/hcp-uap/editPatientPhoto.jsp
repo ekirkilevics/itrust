@@ -63,7 +63,7 @@
 	</tr>
 	<tr>
 		<td rowspan="2">
-			<img style="width:100px;height:100px;" src="<%=request.getContextPath()%>/auth/profilephoto" alt="<%= userName%>">
+			<img style="width:100px;height:100px;" src="<%=request.getContextPath()%>/auth/hcp-uap/profilephoto" alt="<%= userName%>">
 		</td>
 		<td>Update the patient photo.
 			<form action="" method="post" enctype="multipart/form-data">
