@@ -58,7 +58,7 @@
 				try{
 					String data = rs.getString(i);
 					
-					if ("ProfilePhotos".equals(tableName) && i==2)
+					if ("profilephotos".equals(tableName.toLowerCase()) && i==2)
 					{
 						%><td>Photo</td><%
 					}
