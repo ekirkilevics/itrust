@@ -34,12 +34,25 @@
 
 	ProfilePhotoAction action = new ProfilePhotoAction(DAOFactory.getProductionInstance(), patientMID);
 	if (ServletFileUpload.isMultipartContent(request)) {
-		message = action.storePicture(request);
+		try
+		{
+			message = action.storePicture(request);
+			loggingAction.logEvent(TransactionType.PATIENT_PHOTO_UPLOAD, loggedInMID.longValue(), patient.getMID(), "");
+		} catch (Exception e)
+		{
+			message = "There was an error uploading the photo. Please try again.";
+		}
 	}
 	
 	if(request.getParameter("remove") != null)
 	{
-		message = action.removePhoto(patientMID);
+		try{
+			message = action.removePhoto(patientMID);
+			loggingAction.logEvent(TransactionType.PATIENT_PHOTO_REMOVE, loggedInMID.longValue(), patient.getMID(), "");
+		} catch (Exception e)
+		{
+			message = "There was an error retrieving the photo. Please try again.";
+		}
 	}
 
 %>
@@ -61,7 +74,7 @@
 	 	</tr>
 	 	<tr>
 	 	<td>
-	 		<form action="editPatientPhoto.jsp">
+	 		<form action="editPatientPhoto.jsp" method="post">
 	 			Remove existing photo and replace with default photo.
 	 			<input type="submit" name="remove" value="Remove" />
 	 		</form>

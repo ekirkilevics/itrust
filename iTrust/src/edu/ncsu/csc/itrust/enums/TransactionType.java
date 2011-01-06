@@ -40,6 +40,8 @@ public enum TransactionType {
     PASSWORD_RESET(310, "Password changed", "changed your iTrust password", true),
     DEMOGRAPHICS_VIEW(400, "View patient demographics", "viewed your demographics", true),
     DEMOGRAPHICS_EDIT(410, "Edit patient demographics", "edited your demographics", true),
+    PATIENT_PHOTO_UPLOAD(411, "Upload patient photo", "uploaded a photo of you to your record", false),
+    PATIENT_PHOTO_REMOVE(412, "Remove patient photo", "removed your photograph from your record", false),
     LHCP_VIEW(600, "View LHCP information", "viewed LHCP information", false),
     LHCP_DECLARE_DLHCP(601, "Declare LHCP as DLHCP", "declared a LHCP", true),
     LHCP_UNDECLARE_DLHCP(602, "Undeclare LHCP as DLHCP", "undeclared an LHCP", true),
