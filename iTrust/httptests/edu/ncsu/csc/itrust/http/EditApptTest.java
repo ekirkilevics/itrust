@@ -26,23 +26,15 @@ public class EditApptTest extends iTrustHTTPTest {
 		assertLogged(TransactionType.APPOINTMENT_ALL_VIEW, 9000000000L, 0L, "");
 		
 		WebTable table = wr.getTables()[0];
-		int row = 0;
-		for (int i = 0; i < table.getRowCount(); i++) {
-			if (table.getCellAsText(i,0).equals("Random Person")) {
-				row = i;
-				break;
-			}
-		}
-		
-		wr = table.getTableCell(row, 5).getLinkWith("Edit/Remove").click();
-		assertTrue(wr.getText().contains("Random Person"));
+		wr = table.getTableCell(table.getRowCount()-1, 5).getLinkWith("Edit/Remove").click();
+		assertTrue(wr.getText().contains("Andy Programmer"));
 		WebForm wf = wr.getFormWithID("mainForm");
 		wf.setParameter("comment", "New comment!");
 		
 		SubmitButton[] buttons = wf.getSubmitButtons();
 		wr = wf.submit(buttons[0]);	// Submit as "Change"
 		assertTrue(wr.getText().contains("Success: Appointment changed"));
-		assertLogged(TransactionType.APPOINTMENT_EDIT, 9000000000L, 1L, "");
+		assertLogged(TransactionType.APPOINTMENT_EDIT, 9000000000L, 2L, "");
 	}
 	
 	public void testSetPassedDate() throws Exception {
