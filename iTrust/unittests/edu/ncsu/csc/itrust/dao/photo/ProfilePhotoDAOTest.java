@@ -43,4 +43,14 @@ public class ProfilePhotoDAOTest extends TestCase {
 		assertSame(ProfilePhotoDAO.DEFAULT_PROFILE_PHOTO, TestDAOFactory.getTestInstance()
 				.getProfilePhotoDAO().get(7l));
 	}
+	
+	public void testRemovePicture() throws Exception
+	{
+		gen.patient1();
+		BufferedImage bi = new BufferedImage(500, 600, BufferedImage.TYPE_3BYTE_BGR);
+		assertEquals(1, mydao.store(1l, bi));
+		assertEquals(1, mydao.removePhoto(1));
+		assertSame(ProfilePhotoDAO.DEFAULT_PROFILE_PHOTO, TestDAOFactory.getTestInstance()
+				.getProfilePhotoDAO().get(1l));
+	}
 }

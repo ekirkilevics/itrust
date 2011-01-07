@@ -28,5 +28,13 @@ public class ProfilePhotoDAOExceptionTest extends TestCase {
 		}
 	}
 	
+	public void testEvilConnectionRemove() throws Exception {
+		try {
+			EvilDAOFactory.getEvilInstance().getProfilePhotoDAO().removePhoto(1l);
+			fail("Exception should have been thrown");
+		} catch (DBException e) {
+			assertEquals(EvilDAOFactory.MESSAGE, e.getSQLException().getMessage());
+		}
+	}
 	
 }
