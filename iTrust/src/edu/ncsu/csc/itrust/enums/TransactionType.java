@@ -1,6 +1,5 @@
 package edu.ncsu.csc.itrust.enums;
 
-import org.apache.commons.lang.StringUtils;
 
 /**
  * All of the possible transaction types, in no particular order, used in producing the operational profile.

@@ -47,7 +47,8 @@ public class DetermineOperationalProfileTest extends iTrustHTTPTest {
 		wr = wc.getCurrentPage();
 			
 		WebTable table = wr.getTableStartingWithPrefix("Operation");
-		assertEquals("Create a patient", table.getCellAsText(8, 0));
+		
+		assertEquals("Create a patient", table.getCellAsText(getRowNumber("Create a patient"), 0));
 		assertEquals("1", table.getCellAsText(8, 1)); //was 1
 		assertEquals("17%", table.getCellAsText(8, 2));//was 25%
 		assertEquals("1", table.getCellAsText(8, 3));//was 1
@@ -55,10 +56,24 @@ public class DetermineOperationalProfileTest extends iTrustHTTPTest {
 		assertEquals("0", table.getCellAsText(8, 5));//was 0
 		assertEquals("0%", table.getCellAsText(8, 6));//was 0
 		//now check the totals are correct
-		assertEquals("Add Medical procedure code", table.getCellAsText(45, 0));
+		
+		assertEquals("Add Medical procedure code", table.getCellAsText(getRowNumber("Add Medical procedure code"), 0));
 		assertEquals("0", table.getCellAsText(45, 1));//was 4 - supposed to be 3
 		assertEquals("0", table.getCellAsText(45, 3));//was 3 - supposed to be 2
 		assertEquals("0", table.getCellAsText(45, 5));//supposed to be 1
 		assertLogged(TransactionType.OPERATIONAL_PROFILE_VIEW, 9999999999L, 0L, "");
+	}
+	
+	public int getRowNumber(String description)
+	{
+		TransactionType[] values = TransactionType.values();
+		int rownumber = 0;
+		for (int i=0;i<values.length;i++)
+		{
+			if (description.equals(values[i].getDescription()))
+				rownumber = i+1;
+		}
+		
+		return rownumber;
 	}
 }
