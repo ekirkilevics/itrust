@@ -106,4 +106,24 @@ public class ProfilePhotoActionTest extends TestCase {
 	public void testNormalConstructorNoException() throws Exception {
 		new ProfilePhotoAction(TestDAOFactory.getTestInstance(), 2L);
 	}
+
+	public void testRemove() throws Exception {
+		expect(mockDAO.removePhoto(4L)).andReturn(0).anyTimes();
+		ctrl.replay();
+
+		action = new ProfilePhotoAction(mockDAOFactory, 4L, mockUpload);
+		assertEquals("Picture removed successfully. Now displaying default image.", action.removePhoto(4L));
+
+		ctrl.verify();
+	}
+
+	public void testRemoveException() throws Exception {
+		expect(mockDAO.removePhoto(4L)).andThrow(new IOException()).anyTimes();
+		ctrl.replay();
+
+		action = new ProfilePhotoAction(mockDAOFactory, 4L, mockUpload);
+		assertEquals("Error removing file -- please try again", action.removePhoto(4L));
+
+		ctrl.verify();
+	}
 }
