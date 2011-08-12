@@ -21,7 +21,7 @@
 			<div style="float: right; width: 48%; text-align: right; margin-right: 10px;">
 				  <a class="iTrustNavlink" href="mailto:nobody@itrust.com">Contact</a>
 				| <a class="iTrustNavlink" href="/iTrust/privacyPolicy.jsp">Privacy Policy</a>
-				| <a class="iTrustNavlink" href="http://agile.csc.ncsu.edu/iTrust/">iTrust v11.0</a>
+				| <a class="iTrustNavlink" href="http://agile.csc.ncsu.edu/iTrust/">iTrust v12.0</a>
 			</div>
 			<div style="clear: both;">
 			</div>
