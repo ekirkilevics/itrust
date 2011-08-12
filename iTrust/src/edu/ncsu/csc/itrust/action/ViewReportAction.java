@@ -2,6 +2,7 @@ package edu.ncsu.csc.itrust.action;
 
 import java.util.List;
 import edu.ncsu.csc.itrust.beans.DiagnosisBean;
+import edu.ncsu.csc.itrust.beans.PatientBean;
 import edu.ncsu.csc.itrust.beans.PersonnelBean;
 import edu.ncsu.csc.itrust.beans.PrescriptionBean;
 import edu.ncsu.csc.itrust.beans.ProcedureBean;
@@ -77,5 +78,15 @@ public class ViewReportAction {
 	 */
 	public PersonnelBean getPersonnel(long mid) throws iTrustException {
 		return personnelDAO.getPersonnel(mid);
+	}
+	
+	/**
+	 * Returns a PaitentBean when given an MID
+	 * @param mid patient of interest
+	 * @return PatientBean of the given HCP
+	 * @throws iTrustException
+	 */
+	public PatientBean getPatient(long mid) throws iTrustException {
+		return patientDAO.getPatient(mid);
 	}
 }

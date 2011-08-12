@@ -126,7 +126,7 @@ INSERT INTO OVMedication(NDCode, VisitID, StartDate,EndDate,Dosage,Instructions)
 
 
 DELETE FROM OVProcedure WHERE VisitID = 955;
-INSERT INTO OVProcedure(CPTCode, VisitID) VALUES ('1270F', 955);
+INSERT INTO OVProcedure(ID, VisitID, CPTCode) VALUES (955, 955, '1270F');
 
 INSERT INTO DeclaredHCP(PatientID,HCPID) VALUE(2, 9000000003)
  ON DUPLICATE KEY UPDATE PatientID = PatientID;

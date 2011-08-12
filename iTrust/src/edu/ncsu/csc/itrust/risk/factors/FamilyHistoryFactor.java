@@ -23,10 +23,12 @@ public class FamilyHistoryFactor extends PatientRiskFactor {
 		this.icdUpper = icdUpper;
 	}
 
+	@Override
 	public String getDescription() {
 		return "Patient has a family history of this disease";
 	}
 
+	@Override
 	public boolean hasFactor() {
 		try {
 			return factory.getRiskDAO().hasFamilyHistory(patientID, icdLower, icdUpper);

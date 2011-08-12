@@ -1,10 +1,5 @@
 package edu.ncsu.csc.itrust.action;
 
-import edu.ncsu.csc.itrust.action.base.PersonnelBaseAction;
-import edu.ncsu.csc.itrust.dao.DAOFactory;
-import edu.ncsu.csc.itrust.exception.FormValidationException;
-import edu.ncsu.csc.itrust.exception.iTrustException;
-
 /**
  * Edits the designated personnel Used by admin/editPersonnel.jsp, staff/editMyDemographics.jsp,
  * editPersonnel.jsp

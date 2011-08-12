@@ -8,7 +8,7 @@
 %>
 
 <div align="center" style="margin-bottom: 30px;">
-	<img src="/iTrust/image/user/<%= StringEscapeUtils.escapeHtml("" + (loggedInMID.longValue() )) %>.png" alt="MID picture">
+	<img src="/iTrust/image/user/<%= StringEscapeUtils.escapeHtml("" + (loggedInMID.longValue() )) %>.png" alt="noPhoto.png">
 </div>
 
 <div align="center">

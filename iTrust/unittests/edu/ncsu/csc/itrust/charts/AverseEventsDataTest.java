@@ -14,6 +14,7 @@ import edu.ncsu.csc.itrust.datagenerators.TestDataGenerator;
 public class AverseEventsDataTest extends TestCase {
 	private AdverseEventsData chart;
 	
+	@Override
 	protected void setUp() throws Exception {
 		TestDataGenerator gen = new TestDataGenerator();
 		gen.clearAllTables();

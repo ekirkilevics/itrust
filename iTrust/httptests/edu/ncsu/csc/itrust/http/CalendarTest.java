@@ -8,15 +8,19 @@ import edu.ncsu.csc.itrust.enums.TransactionType;
 
 public class CalendarTest extends iTrustHTTPTest {
 
+	@Override
 	protected void setUp() throws Exception {
 		super.setUp(); // clear tables is called in super
-		gen.standardData();
-		gen.officeVisit5();
-	}
-
-	protected void tearDown() throws Exception {
 		gen.clearAllTables();
 		gen.standardData();
+		//gen.officeVisit5();
+		gen.officeVisits();
+	}
+
+	@Override
+	protected void tearDown() throws Exception {
+		gen.clearAllTables();
+		//gen.standardData();
 	}
 
 	public void testHCPViewAppointmentCalendar() throws Exception {

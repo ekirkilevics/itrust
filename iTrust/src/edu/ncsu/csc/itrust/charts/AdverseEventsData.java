@@ -73,6 +73,7 @@ public class AdverseEventsData implements DatasetProducer, CategoryToolTipGenera
 			/**
 			 * @see java.lang.Object#finalize()
 			 */
+			@Override
 			protected void finalize() throws Throwable {
 				super.finalize();
 			}
@@ -135,6 +136,7 @@ public class AdverseEventsData implements DatasetProducer, CategoryToolTipGenera
 	/**
 	 * @see java.lang.Object#finalize()
 	 */
+	@Override
 	protected void finalize() throws Throwable {
 		super.finalize();
 	}

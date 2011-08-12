@@ -70,6 +70,7 @@ public class TestDAOFactory extends DAOFactory implements IConnectionDriver {
 		return builder.parse(new InputSource(reader));
 	}
 
+	@Override
 	public Connection getConnection() throws SQLException {
 		return dataSource.getConnection();
 	}

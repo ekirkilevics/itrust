@@ -23,6 +23,7 @@ public class MonitorAdverseEventActionTest extends TestCase {
 		action = new MonitorAdverseEventAction(TestDAOFactory.getTestInstance(), 9999999990L);
 	}
 	
+	@Override
 	protected void tearDown() throws Exception{
 		gen.clearAllTables();
 	}

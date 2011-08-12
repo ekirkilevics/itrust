@@ -23,8 +23,10 @@ public class ManageHospitalAssignmentsAction {
 	/**
 	 * Set up defaults
 	 * 
-	 * @param factory The DAOFactory used to create the DAOs used in this action.
-	 * @param loggedInMID The MID of the user managing hospitals.
+	 * @param factory
+	 *            The DAOFactory used to create the DAOs used in this action.
+	 * @param loggedInMID
+	 *            The MID of the user managing hospitals.
 	 */
 	public ManageHospitalAssignmentsAction(DAOFactory factory, long loggedInMID) {
 		this.loggedInMID = loggedInMID;
@@ -74,8 +76,10 @@ public class ManageHospitalAssignmentsAction {
 	/**
 	 * Assigns the mid to the hospital
 	 * 
-	 * @param midString The MID of the person assigned to the hospital as a String.
-	 * @param hospitalID The ID of the hospital.
+	 * @param midString
+	 *            The MID of the person assigned to the hospital as a String.
+	 * @param hospitalID
+	 *            The ID of the hospital.
 	 * @return message indicating the status of the assignment
 	 * @throws iTrustException
 	 */
@@ -84,9 +88,9 @@ public class ManageHospitalAssignmentsAction {
 			long hcpID = Long.valueOf(midString);
 			boolean confirm = hospitalsDAO.assignHospital(hcpID, hospitalID);
 			if (confirm) {/*
-							 * only patient is mentioned for transaction type 0, but spec looks like personnel
-							 * should be included too...
-							 */
+						 * only patient is mentioned for transaction type 0, but spec looks like personnel
+						 * should be included too...
+						 */
 				return "HCP successfully assigned.";
 			} else
 				return "Assignment did not occur";
@@ -157,4 +161,27 @@ public class ManageHospitalAssignmentsAction {
 		}
 	}
 
+	/**
+	 * Checks if the HCP is a LT if it is then check to see if a hospital is assigned to them
+	 * 
+	 * @param hcpID
+	 *            the String to be checked
+	 * @return true If the LT has an assigned hospital
+	 * @return false If the LT does not have an assigned hospital
+	 * @throws iTrustException
+	 */
+	public boolean checkLTHospital(String hcpID) throws iTrustException{
+		try{
+			long pid = Long.valueOf(hcpID);
+			if(personnelDAO.getPersonnel(pid).getRole().toString().equals("LT")){
+				if(hospitalsDAO.checkLTHasHospital(pid)){
+					return true;
+				}
+				return false;
+			}
+		} catch (NumberFormatException e) {
+			throw new iTrustException("LT ID is not a number: " + e.getMessage());
+		}
+		return false;
+	}
 }

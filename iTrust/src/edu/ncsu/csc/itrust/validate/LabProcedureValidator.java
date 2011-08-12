@@ -4,7 +4,7 @@ import edu.ncsu.csc.itrust.beans.LabProcedureBean;
 import edu.ncsu.csc.itrust.exception.ErrorList;
 import edu.ncsu.csc.itrust.exception.FormValidationException;
 
-public class LabProcedureValidator {
+public class LabProcedureValidator extends BeanValidator<LabProcedureBean> {
 	
 	/**
 	 * Performs the act of validating the bean in question, which varies depending on the
@@ -15,21 +15,38 @@ public class LabProcedureValidator {
 	public void validate(LabProcedureBean b) throws FormValidationException {
 		ErrorList errorList = new ErrorList();
 		errorList.addIfNotNull(checkFormat("LOINC", b.getLoinc(), ValidationFormat.LOINC, false));
-		errorList.addIfNotNull(checkFormat("Commentary", b.getCommentary(), ValidationFormat.COMMENTS, true));
-		errorList.addIfNotNull(checkFormat("Results", b.getCommentary(), ValidationFormat.COMMENTS, true));
+		errorList.addIfNotNull(checkFormat("Commentary", b.getCommentary(), ValidationFormat.LABPROCEDURE_COMMENTS, true));
+		errorList.addIfNotNull(checkFormat("Results", b.getResults(), ValidationFormat.LABPROCEDURE_COMMENTS, true));
 		errorList.addIfNotNull(checkFormat("Status", b.getStatus(), ValidationFormat.LAB_STATUS, false));
 		errorList.addIfNotNull(checkFormat("Rights", b.getRights(), ValidationFormat.LAB_RIGHTS, false));
+		
+		if (b.getNumericalResult()!=null && b.getNumericalResult().length() > 0) {
+			errorList.addIfNotNull(checkFormat("Numerical Result", b.getNumericalResult(), 
+											   ValidationFormat.LABPROCEDURE_NUMRESULT_CONTENT, 
+											   false));
+			errorList.addIfNotNull(checkFormat("Numerical Result", b.getNumericalResult(), 
+											   ValidationFormat.LABPROCEDURE_NUMRESULT_LENGTH, 
+											   false));
+		}
+		if (b.getUpperBound()!=null && b.getUpperBound().length() > 0) {
+			errorList.addIfNotNull(checkFormat("Upper Bound", b.getUpperBound(), 
+											   ValidationFormat.LABPROCEDURE_NUMRESULT_CONTENT, 
+											   false));
+			errorList.addIfNotNull(checkFormat("Upper Bound", b.getUpperBound(), 
+											   ValidationFormat.LABPROCEDURE_NUMRESULT_LENGTH, 
+											   false));
+		}
+		
+		if (b.getLowerBound()!=null && b.getLowerBound().length() > 0) {
+			errorList.addIfNotNull(checkFormat("Lower Bound", b.getLowerBound(), 
+											   ValidationFormat.LABPROCEDURE_NUMRESULT_CONTENT, 
+											   false));
+			errorList.addIfNotNull(checkFormat("Lower Bound", b.getLowerBound(), 
+											   ValidationFormat.LABPROCEDURE_NUMRESULT_LENGTH, 
+											   false));
+		}
 		if (errorList.hasErrors())
 			throw new FormValidationException(errorList);
 	}
 
-	protected String checkFormat(String name, String value, ValidationFormat format, boolean isNullable) {
-		String errorMessage = name + ": " + format.getDescription();
-		if (value == null || "".equals(value))
-			return isNullable ? "" : errorMessage;
-		if (format.getRegex().matcher(value).matches())
-			return "";
-		else
-			return errorMessage;
-	}
 }

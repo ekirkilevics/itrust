@@ -5,6 +5,12 @@ import com.meterware.httpunit.WebForm;
 import com.meterware.httpunit.WebResponse;
 import edu.ncsu.csc.itrust.enums.TransactionType;
 
+/**
+ * Test all office visit document
+ * @author David White
+ * @ author Nazaire Gnassounou
+ *
+ */
 public class DocumentOfficeVisitTest extends iTrustHTTPTest {
 	@Override
 	protected void setUp() throws Exception {
@@ -45,7 +51,7 @@ public class DocumentOfficeVisitTest extends iTrustHTTPTest {
 		wr = wc.getCurrentPage();
 		assertEquals("iTrust - Document Office Visit", wr.getTitle());
 		// add a new office visit
-		form = wr.getForms()[0];
+		form = wr.getFormWithID("mainForm");
 		form.setParameter("visitDate", "11/21/2005");
 		form.setParameter("notes", "I like diet-coke");
 		form.getButtonWithID("update").click();
@@ -77,14 +83,16 @@ public class DocumentOfficeVisitTest extends iTrustHTTPTest {
 		patientForm.getScriptableObject().setParameterValue("UID_PATIENTID", "2");
 		patientForm.getButtons()[1].click();
 		wr = wc.getCurrentPage();
+		
 		assertEquals(ADDRESS + "auth/hcp-uap/documentOfficeVisit.jsp", wr.getURL().toString());
 		// click Yes, Document Office Visit
 		WebForm form = wr.getForms()[0];
 		form.getButtons()[0].click();
 		wr = wc.getCurrentPage();
+		
 		assertEquals("iTrust - Document Office Visit", wr.getTitle());
 		// add a new office visit
-		form = wr.getForms()[0];
+		form = wr.getFormWithID("mainForm");
 		form.setParameter("visitDate", "11/02/2005");
 		form.setParameter("notes", "Great Patient!");
 		form.getButtons()[1].click();
@@ -123,7 +131,7 @@ public class DocumentOfficeVisitTest extends iTrustHTTPTest {
 		wr = wc.getCurrentPage();
 		assertEquals("iTrust - Document Office Visit", wr.getTitle());
 		// add a new office visit
-		form = wr.getForms()[0];
+		form = wr.getFormWithID("mainForm");
 		form.setParameter("visitDate", "11/21/2005");
 		form.setParameter("notes", "<script>alert('ha ha ha');</script>");
 		form.getButtons()[1].click();
@@ -151,7 +159,7 @@ public class DocumentOfficeVisitTest extends iTrustHTTPTest {
 		wr = wc.getCurrentPage();
 		assertEquals("iTrust - Document Office Visit", wr.getTitle());
 		// add a new office visit
-		form = wr.getForms()[0];
+		form = wr.getFormWithID("mainForm");
 		form.setParameter("visitDate", "11/21/2005");
 		form.setParameter("notes", "I like diet-coke ;");
 		form.getButtonWithID("update").click();
@@ -189,7 +197,7 @@ public class DocumentOfficeVisitTest extends iTrustHTTPTest {
 		wr = wc.getCurrentPage();
 		assertEquals("iTrust - Document Office Visit", wr.getTitle());
 		// add a new office visit
-		form = wr.getForms()[0];
+		form = wr.getFormWithID("mainForm");
 		form.setParameter("visitDate", "11/21/2005");
 		form.setParameter("notes", "I like diet-coke #");
 		form.getButtonWithID("update").click();

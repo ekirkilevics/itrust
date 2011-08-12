@@ -1,7 +1,7 @@
 <%@taglib prefix="itrust" uri="/WEB-INF/tags.tld" %>
 <%@page errorPage="/auth/exceptionHandler.jsp" %>
 
-<%@page import="edu.ncsu.csc.itrust.action.EditPrescriptionAction"%>
+<%@page import="edu.ncsu.csc.itrust.action.EditPrescriptionsAction"%>
 <%@page import="edu.ncsu.csc.itrust.action.EditOfficeVisitAction"%>
 <%@page import="edu.ncsu.csc.itrust.beans.OfficeVisitBean"%>
 <%@page import="edu.ncsu.csc.itrust.beans.PrescriptionBean"%>
@@ -19,21 +19,20 @@ boolean makeChange = false;
 if (request.getParameter("change") != null) {
 	if (request.getParameter("change").equalsIgnoreCase("True")) {
 		makeChange = true;
-		
 	}
 }
 
-EditPrescriptionAction prescriptionAction = new EditPrescriptionAction(prodDAO);
 
 String ovIDString = request.getParameter("ovID");
 String pidString = (String)session.getAttribute("pid");
 int presID = Integer.parseInt(request.getParameter("presID"));
 
 EditOfficeVisitAction officeAction = new EditOfficeVisitAction(prodDAO, loggedInMID, pidString, ovIDString);
+EditPrescriptionsAction prescriptionAction = officeAction.prescriptions();
 OfficeVisitBean ov = officeAction.getOfficeVisit();
 
 PrescriptionBean prescription = null;
-for (PrescriptionBean pres : ov.getPrescriptions()) {
+for (PrescriptionBean pres : prescriptionAction.getPrescriptions()) {
 	if (pres.getId() == presID) {
 		prescription = pres;
 		break;
@@ -76,6 +75,7 @@ if (prescription == null) {%>
 			prescription.setInstructions(request.getParameter("instructions"));
 			prescriptionAction.editPrescription(prescription);
 			loggingAction.logEvent(TransactionType.PRESCRIPTION_EDIT, loggedInMID, ov.getPatientID(), "Prescription ID: " + prescription.getId());
+			response.sendRedirect("editOfficeVisit.jsp?ovID=" + StringEscapeUtils.escapeHtml("" + ovIDString) + "&prescriptionEdited=true");
 			%> 
 			<table align=center border=1 class="fTable">
 			<tr>
@@ -102,4 +102,8 @@ if (prescription == null) {%>
 		%>
 	<%}%>
 <%}%>
+<br/>
+<br/>
+<a href="editOfficeVisit.jsp?ovID=<%= StringEscapeUtils.escapeHtml("" + ovIDString) %>">Return to Office Visit</a>
+<br/>
 <%@include file="/footer.jsp" %>

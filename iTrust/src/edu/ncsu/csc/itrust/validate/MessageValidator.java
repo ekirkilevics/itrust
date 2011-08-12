@@ -16,6 +16,7 @@ public class MessageValidator extends BeanValidator<MessageBean> {
 	public MessageValidator() {
 	}
 	
+	@Override
 	public void validate(MessageBean mBean) throws FormValidationException {
 		ErrorList errorList = new ErrorList();
 		errorList.addIfNotNull(checkFormat("body", mBean.getBody(), ValidationFormat.MESSAGES_BODY, false));

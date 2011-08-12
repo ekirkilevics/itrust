@@ -128,12 +128,13 @@ pageTitle = "iTrust - Appointment Calendar";
 				if(rtable.containsKey(calDay)) {
 					ArrayList<OfficeVisitBean> l = rtable.get(calDay);
 					for(OfficeVisitBean b : l) {
+						ViewOfficeVisitAction view = new ViewOfficeVisitAction(prodDAO, loggedInMID.longValue(), b.getVisitID()+"");
 						OfficeVisitBean ov = new ViewOfficeVisitAction(prodDAO, loggedInMID.longValue(), b.getVisitID()+"").getOfficeVisit();
-						String in = (ov.getDiagnoses().size() == 0)?"Office Visit":(ov.getDiagnoses().get(0).getICDCode()+"-"+ov.getDiagnoses().get(0).getDescription());
-						out.print("<div class=\"calendarEntry\">"+StringEscapeUtils.escapeHtml("" + (((ov.getDiagnoses().size() == 0)?"Office Visit":in)))+"<br /><a name=\""+StringEscapeUtils.escapeHtml("" + (in))+"-"+StringEscapeUtils.escapeHtml("" + (calDay))+"\" href=\"viewOfficeVisit.jsp?ovID="+ StringEscapeUtils.escapeHtml("" + (b.getVisitID())) +"\" >Read Details</a></div>");
-						if(ov.getPrescriptions().size() != 0) {
-							String in2 = ov.getPrescriptions().get(0).getMedication().getNDCode()+"-"+ov.getPrescriptions().get(0).getMedication().getDescription();
-							out.print("<div class=\"calendarEntry\">"+StringEscapeUtils.escapeHtml("" + (in2))+"<br /><a name=\""+StringEscapeUtils.escapeHtml("" + (in2))+"-"+StringEscapeUtils.escapeHtml("" + (calDay))+"\" href=\"viewPrescriptionInformation.jsp?visitID="+ StringEscapeUtils.escapeHtml("" + (b.getVisitID())) +"&presID="+ StringEscapeUtils.escapeHtml("" + (ov.getPrescriptions().get(0).getId())) +"\" >Read Details</a></div>");
+						String in = (view.getDiagnoses().size() == 0)?"Office Visit":view.getDiagnoses().get(0).getICDCode()+"-"+view.getDiagnoses().get(0).getDescription();
+						out.print("<div class=\"calendarEntry\">"+StringEscapeUtils.escapeHtml("" + (((view.getDiagnoses().size() == 0)?"Office Visit":in)))+"<br /><a name=\""+StringEscapeUtils.escapeHtml("" + (in))+"-"+StringEscapeUtils.escapeHtml("" + (calDay))+"\" href=\"viewOfficeVisit.jsp?ovID="+ StringEscapeUtils.escapeHtml("" + (b.getVisitID())) +"\" >Read Details</a></div>");
+						if(view.getPrescriptions().size() != 0) {
+							String in2 = view.getPrescriptions().get(0).getMedication().getNDCode()+"-"+view.getPrescriptions().get(0).getMedication().getDescription();
+							out.print("<div class=\"calendarEntry\">"+StringEscapeUtils.escapeHtml("" + (in2))+"<br /><a name=\""+StringEscapeUtils.escapeHtml("" + (in2))+"-"+StringEscapeUtils.escapeHtml("" + (calDay))+"\" href=\"viewPrescriptionInformation.jsp?visitID="+ StringEscapeUtils.escapeHtml("" + (b.getVisitID())) +"&presID="+ StringEscapeUtils.escapeHtml("" + (view.getPrescriptions().get(0).getId())) +"\" >Read Details</a></div>");
 						}
 					}
 				}

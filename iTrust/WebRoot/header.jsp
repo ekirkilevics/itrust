@@ -34,6 +34,7 @@
 		
 	</head>
 	<body>
+	<div id="container">
 		<div id="iTrustHeader">
 			<div id="iTrustLogo">
 				<a class="iTrustNavlink" href="/iTrust"><img style="float:left;height:100px;border:0px" src="/iTrust/image/new/title.png" alt="iTrust Electronic Medical Records Software" height="75px" /></a>
@@ -47,7 +48,7 @@
 					{
 	%>
 				
-					<div style="float: right; width: 40%; text-align: right; vertical-align: bottom; margin-right: 20px;color:black;">
+					<div style="float: right; text-align: right; vertical-align: bottom; margin-right: 20px;color:black;">
 					<% out.println("Welcome, "+ StringEscapeUtils.escapeHtml("" + userName)+"<BR/>"); %>
 					<a class="iTrustNavlink" href="/iTrust">Home</a>  |  <a class="iTrustNavlink" href="/iTrust/logout.jsp">Logout</a>
 					</div>
@@ -100,6 +101,9 @@
 							}
 							else if (userRole.equals("tester")) {
 								%><%@include file="/auth/tester/menu.jsp"%><%
+							}
+							else if (userRole.equals("lt")) {
+								%><%@include file="/auth/lt/menu.jsp"%><%
 							}
 						} //no one is logged in	
 						else {

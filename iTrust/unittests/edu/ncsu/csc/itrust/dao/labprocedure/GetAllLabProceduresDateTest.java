@@ -21,7 +21,7 @@ public class GetAllLabProceduresDateTest extends TestCase {
 
 	public void testGetAllLabProcedures() throws Exception {
 		List<LabProcedureBean> procedures = lpDAO.getAllLabProcedures();
-		assertEquals(6, procedures.size());
+		assertEquals(7, procedures.size());
 		assertEquals("10640-1", procedures.get(0).getLoinc());
 		assertEquals("10640-1", procedures.get(1).getLoinc());
 		assertEquals("10763-1", procedures.get(2).getLoinc());

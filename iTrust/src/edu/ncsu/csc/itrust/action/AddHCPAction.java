@@ -58,5 +58,4 @@ public class AddHCPAction {
 		p.setPassword(pwd);
 		return newMID;
 	}
-
 }

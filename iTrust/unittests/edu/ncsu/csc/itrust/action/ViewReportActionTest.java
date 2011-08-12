@@ -3,11 +3,13 @@ package edu.ncsu.csc.itrust.action;
 import java.util.List;
 import junit.framework.TestCase;
 import edu.ncsu.csc.itrust.beans.DiagnosisBean;
+import edu.ncsu.csc.itrust.beans.PatientBean;
 import edu.ncsu.csc.itrust.beans.PersonnelBean;
 import edu.ncsu.csc.itrust.beans.PrescriptionBean;
 import edu.ncsu.csc.itrust.beans.ProcedureBean;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
 import edu.ncsu.csc.itrust.datagenerators.TestDataGenerator;
+import edu.ncsu.csc.itrust.exception.iTrustException;
 import edu.ncsu.csc.itrust.testutils.TestDAOFactory;
 
 public class ViewReportActionTest extends TestCase {
@@ -20,6 +22,7 @@ public class ViewReportActionTest extends TestCase {
 	protected void setUp() throws Exception {
 		gen = new TestDataGenerator();
 		gen.clearAllTables();
+		gen.hcp0();
 		gen.patient2();
 	}
 
@@ -58,5 +61,16 @@ public class ViewReportActionTest extends TestCase {
 		List<PersonnelBean> list = action.getDeclaredHCPs(2L);
 		assertEquals(1, list.size());
 	}
+	
+	public void testGetPersonnel() throws iTrustException {
+		PersonnelBean bean = action.getPersonnel(9000000000L);
+		assertEquals("Kelly Doctor", bean.getFullName());
+		assertEquals("surgeon", bean.getSpecialty());
+	}
 
+	public void testGetPatientl() throws iTrustException {
+		PatientBean bean = action.getPatient(2L);
+		assertEquals("Andy Programmer", bean.getFullName());
+	}
+	
 }

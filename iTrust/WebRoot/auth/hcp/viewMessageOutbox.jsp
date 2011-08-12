@@ -62,7 +62,7 @@ pageTitle = "iTrust - View Message";
 			<td colspan="2"><b>Message:</b></td>
 		</tr>
 		<tr>
-			<td colspan="2"><%= StringEscapeUtils.escapeHtml("" + ( original.getBody() )) %></td>
+			<td colspan="2"><%= StringEscapeUtils.escapeHtml("" + ( original.getBody() )).replace("\n","<br/>") %></td>
 		</tr>
 		<tr>
 			<td colspan="2"><a href="messageOutbox.jsp">Back</a></td>

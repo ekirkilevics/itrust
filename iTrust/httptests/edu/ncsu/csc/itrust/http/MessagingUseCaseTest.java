@@ -3,14 +3,11 @@ package edu.ncsu.csc.itrust.http;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 import com.meterware.httpunit.WebConversation;
 import com.meterware.httpunit.WebForm;
 import com.meterware.httpunit.WebResponse;
 import edu.ncsu.csc.itrust.DBBuilder;
-import edu.ncsu.csc.itrust.beans.Email;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
-import edu.ncsu.csc.itrust.dao.mysql.FakeEmailDAO;
 import edu.ncsu.csc.itrust.enums.TransactionType;
 import edu.ncsu.csc.itrust.testutils.TestDAOFactory;
 
@@ -55,7 +52,7 @@ public class MessagingUseCaseTest extends iTrustHTTPTest {
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		Date date = new Date();
 		String stamp = dateFormat.format(date);
-
+	//	System.out.println(stamp);
 		
 		assertTrue(wr.getText().contains("My Sent Messages"));
 		

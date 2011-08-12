@@ -15,6 +15,7 @@ import edu.ncsu.csc.itrust.beans.HealthRecord;
 public class HealthDataTest extends TestCase {
 	private HealthData chart;
 	
+	@Override
 	protected void setUp() throws Exception {
 		chart = new HealthData();
 	}

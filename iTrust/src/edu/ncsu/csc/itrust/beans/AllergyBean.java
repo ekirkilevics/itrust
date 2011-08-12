@@ -47,6 +47,7 @@ public class AllergyBean {
 		this.id = id;
 	}
 
+	@Override
 	public String toString() {
 		return this.description;
 	}

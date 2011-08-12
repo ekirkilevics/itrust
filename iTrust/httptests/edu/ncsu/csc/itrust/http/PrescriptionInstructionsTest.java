@@ -10,6 +10,7 @@ import edu.ncsu.csc.itrust.enums.TransactionType;
 
 public class PrescriptionInstructionsTest extends iTrustHTTPTest {
 
+	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
 		gen.clearAllTables();
@@ -60,10 +61,17 @@ public class PrescriptionInstructionsTest extends iTrustHTTPTest {
 		wr = wf.submit();
 		
 //		assertTrue(wr.getText().contains("Prescription Updated!"));
+
+		assertEquals("iTrust - Document Office Visit", wr.getTitle());
+		assertTrue(wr.getText().contains("information successfully updated"));
 		
-		WebTable wt = wr.getTableStartingWith("Prescription Updated!");
+		WebTable tbl = wr.getTableWithID("prescriptionsTable");
+		assertEquals("10mg", tbl.getTableCell(2, 1).getText());
+		assertEquals("Take thrice daily", tbl.getTableCell(2, 3).getText());
+		
+		/*WebTable wt = wr.getTableStartingWith("Prescription Updated!");
 		assertEquals("10mg", wt.getTableCell(2, 1).getText());
-		assertEquals("Take thrice daily", wt.getTableCell(2, 3).getText());
+		assertEquals("Take thrice daily", wt.getTableCell(2, 3).getText());*/
 		assertLogged(TransactionType.PRESCRIPTION_EDIT, 9000000000L, 2L, "");
 	}
 	

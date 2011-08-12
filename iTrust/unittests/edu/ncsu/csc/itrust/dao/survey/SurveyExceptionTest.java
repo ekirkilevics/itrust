@@ -12,6 +12,7 @@ public class SurveyExceptionTest extends TestCase {
 	private DAOFactory factory = EvilDAOFactory.getEvilInstance();
 	private SurveyDAO surveyDAO = factory.getSurveyDAO();
 
+	@Override
 	protected void setUp() throws Exception {
 	}
 

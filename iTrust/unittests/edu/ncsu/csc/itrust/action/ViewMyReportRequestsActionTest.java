@@ -17,6 +17,7 @@ public class ViewMyReportRequestsActionTest extends TestCase {
 	private ViewMyReportRequestsAction action;
 	//private FakeEmailDAO feDAO = factory.getFakeEmailDAO();
 
+	@Override
 	protected void setUp() throws Exception {
 		TestDataGenerator gen = new TestDataGenerator();
 		gen.clearAllTables();

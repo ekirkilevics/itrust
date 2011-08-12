@@ -10,6 +10,7 @@ import edu.ncsu.csc.itrust.enums.TransactionType;
  */
 public class ViewPatientsUseCaseTest extends iTrustHTTPTest {
 	
+	@Override
 	protected void setUp() throws Exception{
 		super.setUp();
 		gen.clearAllTables();
@@ -41,14 +42,15 @@ public class ViewPatientsUseCaseTest extends iTrustHTTPTest {
 		
 		WebTable wt = wr.getTableStartingWith("Past Patients");
 		assertEquals("11/28/2010", wt.getTableCell(2,2).getText());
-		assertEquals("06/10/2007", wt.getTableCell(3,2).getText());
-		assertEquals("05/10/2006", wt.getTableCell(4,2).getText());
+		assertEquals("10/31/2010", wt.getTableCell(3,2).getText());
+		assertEquals("06/10/2007", wt.getTableCell(4,2).getText());
 		assertEquals("05/10/2006", wt.getTableCell(5,2).getText());
-		assertEquals("10/10/2005", wt.getTableCell(6,2).getText());
+		assertEquals("05/10/2006", wt.getTableCell(6,2).getText());
 		assertEquals("10/10/2005", wt.getTableCell(7,2).getText());
-		assertEquals("07/10/2004", wt.getTableCell(8,2).getText());
-		assertEquals("05/10/1999", wt.getTableCell(9,2).getText());
-		assertEquals("344 Bob Street Raleigh NC 27607", wt.getTableCell(3,1).getText());
+		assertEquals("10/10/2005", wt.getTableCell(8,2).getText());
+		assertEquals("07/10/2004", wt.getTableCell(9,2).getText());
+		assertEquals("05/10/1999", wt.getTableCell(10,2).getText());
+		assertEquals("344 Bob Street Raleigh NC 27607", wt.getTableCell(4,1).getText());
 		wr = wr.getLinkWith("Andy Programmer").click();
 		assertEquals("iTrust - Edit Personal Health Record", wr.getTitle());
 	}

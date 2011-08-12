@@ -72,6 +72,9 @@
 		<role-name>uap</role-name>
 	</security-role>
 	<security-role>
+		<role-name>lt</role-name>
+	</security-role>
+	<security-role>
 		<role-name>tester</role-name>
 	</security-role>		
 
@@ -82,8 +85,9 @@
 		/auth/hcp/*           - JSPs for HCP's only
 		/auth/hcp-uap/*       - JSPs for HCP's and UAP's only (note that there is no uap "only" folder
 		/auth/admin/*         - JSPs for Administrators only
-		/auth/staff/*         - JSPs for only hospital staff (hcps, uaps, admin)
+		/auth/staff/*         - JSPs for only hospital staff (hcps, uaps, admin, lt)
 		/auth/patient/*       - JSPs for patients only
+		/auth/lt/*       	  - JSPs for LTs only
 		
 		If any user attempts to access a folder that their role is not authorized for, 
 		an HTTP 403 error is thrown, which is defined above as responding with noaccess.jsp (which
@@ -113,6 +117,7 @@
 			<role-name>er</role-name>
 			<role-name>tester</role-name>
 			<role-name>pha</role-name>
+			<role-name>lt</role-name>
 		</auth-constraint>
 	</security-constraint>
 
@@ -126,6 +131,19 @@
 		<auth-constraint>
 			<!-- Anyone with one of the listed roles may access this area -->
 			<role-name>hcp</role-name>
+		</auth-constraint>
+	</security-constraint>
+	
+	<security-constraint>
+		<display-name>LT Only</display-name>
+		<web-resource-collection>
+			<web-resource-name>Only LTs are Allowed</web-resource-name>
+			<!-- Define the context-relative URL(s) to be protected -->
+			<url-pattern>/auth/lt/*</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<!-- Anyone with one of the listed roles may access this area -->
+			<role-name>lt</role-name>
 		</auth-constraint>
 	</security-constraint>
 	
@@ -217,6 +235,7 @@
 			<!-- Anyone with one of the listed roles may access this area -->
 			<role-name>hcp</role-name>
 			<role-name>uap</role-name>
+			<role-name>lt</role-name>
 			<role-name>admin</role-name>
 		</auth-constraint>
 	</security-constraint>
@@ -235,6 +254,7 @@
 			<role-name>patient</role-name>
 		</auth-constraint>
 	</security-constraint>
+	
 	<security-constraint>
 		<display-name>PHA Only</display-name>
 		<web-resource-collection>

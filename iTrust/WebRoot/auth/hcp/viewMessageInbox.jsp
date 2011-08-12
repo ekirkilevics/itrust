@@ -68,8 +68,14 @@ pageTitle = "iTrust - View Message";
 			<td colspan="2"><b>Message:</b></td>
 		</tr>
 		<tr>
-			<td colspan="2"><%= StringEscapeUtils.escapeHtml("" + ( original.getBody() )) %></td>
+			<td colspan="2"><%= StringEscapeUtils.escapeHtml("" + ( original.getBody() )).replace("\n","<br/>") %></td>
 		</tr>
+		<%if(action.linkedToReferral(original.getMessageId()) != 0L){%>
+		<tr>
+			<td colspan="2"><a href="/iTrust/auth/hcp-uap/viewReceivedReferrals.jsp?referalID=<%=action.linkedToReferral(original.getMessageId()) %>">View this referral!</a></td>
+		</tr>
+		
+		<%} %>
 	</table>
 
 

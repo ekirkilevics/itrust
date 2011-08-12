@@ -15,6 +15,11 @@ public class EditDemographicsTest extends iTrustHTTPTest {
 		gen.icd9cmCodes();
 	}
 
+	@Override
+	protected void tearDown() throws Exception {
+		gen.clearAllTables();
+	}
+
 	/*
 	 * Authenticate UAP:
 	 * MID: 8000000009

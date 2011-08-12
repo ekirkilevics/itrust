@@ -65,6 +65,10 @@ public class PatientBaseAction {
 			throw new iTrustException("Patient ID is not a number: " + HtmlEncoder.encode(input));
 		}
 	}
+	
+	protected DAOFactory getFactory() {
+		return factory;
+	}
 
 	/**
 	 * Retrieves the identifier of the patient as a long.

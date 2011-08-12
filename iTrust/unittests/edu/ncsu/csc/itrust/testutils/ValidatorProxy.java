@@ -6,10 +6,12 @@ import edu.ncsu.csc.itrust.validate.ValidationFormat;
 
 public class ValidatorProxy extends BeanValidator<TestBean> {
 	
+	@Override
 	public String checkFormat(String name, Long value, ValidationFormat format, boolean isNullable) {
 		return super.checkFormat(name, value, format, isNullable);
 	}
 	
+	@Override
 	public String checkFormat(String name, String value, ValidationFormat format, boolean isNullable) {
 		return super.checkFormat(name, value, format, isNullable);
 	}

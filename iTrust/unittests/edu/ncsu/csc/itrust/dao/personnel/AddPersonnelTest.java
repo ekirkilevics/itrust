@@ -28,6 +28,17 @@ public class AddPersonnelTest extends TestCase {
 		assertEquals(" ", personnelDAO.getName(mid));
 		assertEquals("er", personnelDAO.getPersonnel(mid).getRole().getUserRolesString());
 	}
+	
+	public void testGetNextID() throws Exception {
+		assertEquals(         1L, personnelDAO.getNextID(Role.ADMIN));
+		assertEquals(9000000000L, personnelDAO.getNextID(Role.ER));
+		assertEquals(9000000000L, personnelDAO.getNextID(Role.HCP));
+		assertEquals(5000000000L, personnelDAO.getNextID(Role.LT));
+		assertEquals(         1L, personnelDAO.getNextID(Role.PATIENT));
+		assertEquals(7000000000L, personnelDAO.getNextID(Role.PHA));
+		assertEquals(         1L, personnelDAO.getNextID(Role.TESTER));
+		assertEquals(8000000000L, personnelDAO.getNextID(Role.UAP));
+	}
 
 	public void testDoesNotExist() throws Exception {
 		try {

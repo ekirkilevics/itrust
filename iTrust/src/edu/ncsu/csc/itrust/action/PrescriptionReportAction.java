@@ -12,6 +12,7 @@ import edu.ncsu.csc.itrust.beans.PrescriptionReportBean;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
 import edu.ncsu.csc.itrust.dao.mysql.OfficeVisitDAO;
 import edu.ncsu.csc.itrust.dao.mysql.PatientDAO;
+import edu.ncsu.csc.itrust.dao.mysql.PrescriptionReportDAO;
 import edu.ncsu.csc.itrust.dao.mysql.TransactionDAO;
 import edu.ncsu.csc.itrust.exception.DBException;
 import edu.ncsu.csc.itrust.exception.FormValidationException;
@@ -29,6 +30,7 @@ import edu.ncsu.csc.itrust.exception.iTrustException;
 public class PrescriptionReportAction extends PatientBaseAction {
 	private boolean isRepresenting = false;
 	private OfficeVisitDAO ovDAO;
+	private PrescriptionReportDAO prDAO;
 	private TransactionDAO transDAO;
 	private PatientDAO patientDAO;
 	private long loggedInMID;
@@ -49,6 +51,7 @@ public class PrescriptionReportAction extends PatientBaseAction {
 		this.transDAO = factory.getTransactionDAO();
 		this.ovDAO = factory.getOfficeVisitDAO();
 		this.patientDAO = factory.getPatientDAO();
+		this.prDAO = factory.getPrescriptionReportDAO();
 		this.loggedInMID = loggedInMID;
 	}
 
@@ -114,7 +117,7 @@ public class PrescriptionReportAction extends PatientBaseAction {
 		if (ovIDs.size() == 0)
 			return new ArrayList<PrescriptionReportBean>();
 
-		return ovDAO.getPrescriptionReports(ovIDs, pid);
+		return prDAO.byOfficeVisitAndPatient(ovIDs, pid);
 	}
 
 	/**

@@ -88,7 +88,7 @@ abstract public class iTrustHTTPTest extends TestCase {
 			if( (t.getTransactionType() == code) &&
 				(t.getLoggedInMID() == loggedInMID) &&
 				(t.getSecondaryMID() == secondaryMID) &&
-				(t.getAddedInfo().equals(addedInfo)) )
+				(t.getAddedInfo().trim().contains(addedInfo)) )
 				{
 					fail("Event was logged, but should NOT have been logged");
 					return;

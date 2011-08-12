@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.Vector;
 import java.util.List;
 import edu.ncsu.csc.itrust.DBUtil;
@@ -35,7 +36,7 @@ import edu.ncsu.csc.itrust.enums.Role;
 public class PersonnelDAO {
 	private DAOFactory factory;
 	private PersonnelLoader personnelLoader;
-	private HospitalBeanLoader hospitalBeanLoader;
+	private HospitalBeanLoader hospitalBeanLoader; 
 
 	/**
 	 * The typical constructor.
@@ -78,6 +79,37 @@ public class PersonnelDAO {
 		}
 	}
 
+	public long getNextID(Role role) throws DBException, iTrustException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		//long newID = 9000000000L;
+		long minID = role.getMidFirstDigit()*1000000000L;
+		minID = minID == 0 ? 1 : minID;  // Do not use 0 as an ID.
+	    long maxID = minID + 999999999L;
+		long nextID = minID;
+		
+		try {
+			conn = factory.getConnection();
+			
+			ps = conn.prepareStatement("SELECT MAX(users.mid) FROM Users WHERE mid >= ? AND mid <= ?");
+			ps.setLong(1, minID);
+			ps.setLong(2, maxID);
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()) {
+				nextID = rs.getLong(1) + 1;
+				if(nextID < minID){
+					nextID = minID;
+				}
+			}
+			return nextID;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DBException(e);
+		} finally {
+			DBUtil.closeConnection(conn, ps);
+		}
+	}
+	
 	/**
 	 * Adds an empty personnel, and returns the MID.
 	 * 
@@ -89,15 +121,17 @@ public class PersonnelDAO {
 	public long addEmptyPersonnel(Role role) throws DBException, iTrustException {
 		Connection conn = null;
 		PreparedStatement ps = null;
-		long newID;
+		
+		long nextID = getNextID(role);
 
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("INSERT INTO Personnel(Role) VALUES(?)");
-			ps.setString(1, role.name());
+			
+			ps = conn.prepareStatement("INSERT INTO Personnel(MID, Role) VALUES(?,?)");
+			ps.setString(1, ""+nextID);
+			ps.setString(2, role.name());
 			ps.executeUpdate();
-			newID = DBUtil.getLastInsert(conn);
-			return newID;
+			return nextID;
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new DBException(e);
@@ -145,10 +179,10 @@ public class PersonnelDAO {
 		try {
 			conn = factory.getConnection();
 			ps = conn.prepareStatement("UPDATE Personnel SET AMID=?,firstName=?,lastName=?,"
-					+ "phone1=?,phone2=?,phone3=?, address1=?,address2=?,city=?, state=?, zip=?, zip1=?, zip2=?, email=?, MessageFilter=?"
+					+ "phone1=?,phone2=?,phone3=?, address1=?,address2=?,city=?, state=?, zip=?, zip1=?, zip2=?, specialty=?, email=?, MessageFilter=?"
 					+ " WHERE MID=?");
 			personnelLoader.loadParameters(ps, p);
-			ps.setLong(16, p.getMID());
+			ps.setLong(17, p.getMID());
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -300,6 +334,29 @@ public class PersonnelDAO {
 			ps = conn.prepareStatement("SELECT * FROM personnel WHERE firstName LIKE ? AND lastName LIKE ?");
 			ps.setString(1, first);
 			ps.setString(2, last);
+			ResultSet rs = ps.executeQuery();
+			return personnelLoader.loadList(rs);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DBException(e);
+		} finally {
+			DBUtil.closeConnection(conn, ps);
+		}
+	}
+	
+	/**
+	 * Returns list of personnel who are Lab Techs.
+	 * @return List of personnel beans.
+	 * @throws DBException
+	 */
+	public List<PersonnelBean> getLabTechs() throws DBException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		
+		try {
+			conn = factory.getConnection();
+			
+			ps = conn.prepareStatement("SELECT * FROM personnel WHERE role = 'lt' ");
 			ResultSet rs = ps.executeQuery();
 			return personnelLoader.loadList(rs);
 		} catch (SQLException e) {

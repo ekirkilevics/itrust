@@ -8,6 +8,9 @@ import edu.ncsu.csc.itrust.enums.TransactionType;
 
 /**
  * Use Cases 9, 11 & 17
+ *  @author David White
+ *  @ author Nazaire Gnassounou
+ *
  */
 public class ImmunizationUseCasesTest extends iTrustHTTPTest {
 
@@ -92,6 +95,13 @@ public class ImmunizationUseCasesTest extends iTrustHTTPTest {
 		assertTrue(check);
 		assertLogged(TransactionType.PATIENT_REMINDERS_VIEW, 9000000000L, 0L, "");
 	}
+	/**
+	 *  test update Immunization
+	 *  throws Exception
+	 *  @author David White
+	 *  @author Nazaire Gnassounou
+	 *
+	 */
 	
 	public void testUpdateImmunizations() throws Exception {
 		
@@ -109,8 +119,9 @@ public class ImmunizationUseCasesTest extends iTrustHTTPTest {
 		wr = wc.getCurrentPage();
 		assertEquals("iTrust - Document Office Visit", wr.getTitle());
 		wr = wr.getLinkWith("07/10/2004").click();
-		WebForm wf = wr.getFormWithID("mainForm");
-		wf.setParameter("addImmunizationID", "90371");
+		WebForm wf = wr.getFormWithID("immunizationForm");
+		
+		wf.setParameter("CPTCode", "90371");
 		wr = wf.submit();
 		assertLogged(TransactionType.OFFICE_VISIT_EDIT, 9000000000L, 6L, "Office visit");
 		
@@ -143,7 +154,13 @@ public class ImmunizationUseCasesTest extends iTrustHTTPTest {
 		assertTrue(check);
 		assertLogged(TransactionType.PATIENT_REMINDERS_VIEW, 9000000000L, 0L, "");
 	}
-	
+	/**
+	 *  test view Immunization
+	 *  throws Exception
+	 *  @author David White
+	 *  @author Nazaire Gnassounou
+	 *
+	 */
 	public void testViewImmunizationRecord() throws Exception {
 		
 		WebConversation wc = login("6", "pw");
@@ -180,7 +197,13 @@ public class ImmunizationUseCasesTest extends iTrustHTTPTest {
 		assertEquals("90371", table.getCellAsText(24, 0));
 		assertEquals("90371", table.getCellAsText(25, 0));
 	}
-	
+	/**
+	 *  test update ImmunizationRecord
+	 *  throws Exception
+	 *  @author David White
+	 *  @author Nazaire Gnassounou
+	 *
+	 */
 	public void testViewImmunizationRecord2() throws Exception {
 		
 		WebConversation wc = login("2", "pw");
@@ -210,12 +233,18 @@ public class ImmunizationUseCasesTest extends iTrustHTTPTest {
 		wr = wc.getCurrentPage();
 		assertEquals("iTrust - Document Office Visit", wr.getTitle());
 		wr = wr.getLinkWith("07/10/2004").click();
-		WebTable table = wr.getTableStartingWith("Immunizations");
+		WebTable table = wr.getTableStartingWith("[Top]Immunizations");
 		assertEquals("90649", table.getCellAsText(2, 0));
 		assertLogged(TransactionType.OFFICE_VISIT_VIEW, 9000000000L, 6L, "Office visit");
 		
 	}
-	
+	/**
+	 *  test update Immunization record2
+	 *  throws Exception
+	 *  @author David White
+	 *  @author Nazaire Gnassounou
+	 *
+	 */
 	public void testDocumentImmunization2() throws Exception {
 		
 		WebConversation wc = login("9000000000", "pw");
@@ -230,10 +259,10 @@ public class ImmunizationUseCasesTest extends iTrustHTTPTest {
 		wr = wc.getCurrentPage();
 		assertEquals("iTrust - Document Office Visit", wr.getTitle());
 		wr = wr.getLinkWith("05/10/2006").click();
-		WebTable table = wr.getTableStartingWith("Immunizations");
+		WebTable table = wr.getTableStartingWith("[Top]Immunizations");
 		assertEquals("90696", table.getCellAsText(2, 0));
 		wr = wr.getLinkWith("Remove").click();
-		table = wr.getTableStartingWith("Immunizations");
+		table = wr.getTableStartingWith("[Top]Immunizations");
 		assertEquals("No immunizations on record", table.getCellAsText(2, 0));
 		assertLogged(TransactionType.OFFICE_VISIT_VIEW, 9000000000L, 7L, "Office visit");
 		

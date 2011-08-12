@@ -21,6 +21,7 @@ public class PrescriptionBean {
 	private int dosage = 0;
 	private String instructions = "";
 	private String orc = null;
+	private String overrideComment = null;
 
 	public PrescriptionBean() {
 	}
@@ -31,6 +32,10 @@ public class PrescriptionBean {
 				&& this.equals((PrescriptionBean) other);
 	}
 
+	/**
+	 * @param other
+	 * @return
+	 */
 	private boolean equals(PrescriptionBean other) {
 		return (medication == other.medication || (medication != null && medication.equals(other.medication)))
 				&& visitID == other.visitID
@@ -40,11 +45,15 @@ public class PrescriptionBean {
 				&& instructions.equals(other.instructions);
 	}
 
+	@Override
 	public int hashCode() {
 		assert false : "hashCode not designed";
 		return 42; // any arbitrary constant will do
 	}
-
+/**
+ * getters and setters for dosage,
+ * reason, override reason
+ */
 	public int getDosage() {
 		return dosage;
 	}
@@ -58,7 +67,15 @@ public class PrescriptionBean {
 	}
 
 	public void setReason(String reason) {
-		this.orc = orc;
+		this.orc = reason;
+	}
+	
+	public String getOverrideComment() {
+		return overrideComment;
+	}
+	
+	public void setOverrideComment(String overrideComment) {
+		this.overrideComment = overrideComment;
 	}
 
 	public Date getEndDate() {
@@ -71,6 +88,10 @@ public class PrescriptionBean {
 
 	public void setEndDateStr(String endDate) {
 		this.endDateStr = endDate;
+	}
+
+	public void setEndDate(Date endDate) {
+		this.endDateStr = new SimpleDateFormat("MM/dd/yyyy").format(endDate);
 	}
 
 	public String getInstructions() {

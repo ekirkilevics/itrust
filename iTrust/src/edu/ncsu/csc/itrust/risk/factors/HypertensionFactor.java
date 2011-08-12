@@ -18,10 +18,12 @@ public class HypertensionFactor extends PatientRiskFactor {
 		this.record = currentHealthRecord;
 	}
 
+	@Override
 	public String getDescription() {
 		return "Patient has hypertension";
 	}
 
+	@Override
 	public boolean hasFactor() {
 		return (record.getBloodPressureSystolic() > systolicThreshold)
 				|| (record.getBloodPressureDiastolic() > diastolicThreshold);

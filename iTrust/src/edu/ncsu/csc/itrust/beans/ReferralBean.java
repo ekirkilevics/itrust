@@ -14,14 +14,12 @@ public class ReferralBean {
 	private long senderID = 0L;
 	private long receiverID = 0L;
 	private String referralDetails = "";
-	private String consultationDetails = "";
-	private ReferralStatus status = ReferralStatus.Pending;
+	private long ovid = 0L;
+	private boolean viewedByPatient = false;
+	private boolean viewedByHCP = false;
+	private String timeStamp = "";
+	private int priority = 3;
 	
-	public enum ReferralStatus {
-		Pending,
-		Finished,
-		Declined
-	}
 
 	public ReferralBean() {
 	}
@@ -36,11 +34,14 @@ public class ReferralBean {
 		return (id == other.id
 				&& senderID == other.senderID
 				&& receiverID == other.receiverID
-				&& referralDetails.equals(other.referralDetails)
-				&& consultationDetails.equals(other.consultationDetails)
-				&& status.equals(other.status));
+				&& ovid == other.ovid
+				&& viewedByPatient == other.viewedByPatient
+				&& viewedByHCP == other.viewedByHCP
+				&& timeStamp.equals(other.timeStamp)
+				&& referralDetails.equals(other.referralDetails));
 	}
 
+	@Override
 	public int hashCode() {
 		assert false : "hashCode not designed";
 		return 42; // any arbitrary constant will do
@@ -78,28 +79,52 @@ public class ReferralBean {
 		this.referralDetails = referralDetails;
 	}
 
-	public String getConsultationDetails() {
-		return consultationDetails;
-	}
-
-	public void setConsultationDetails(String consultationDetails) {
-		this.consultationDetails = consultationDetails;
-	}
-
-	public ReferralStatus getStatus() {
-		return status;
-	}
-
-	public void setStatus(ReferralStatus status) {
-		this.status = status;
-	}
-
 	public long getPatientID() {
 		return patientID;
 	}
 
 	public void setPatientID(long patientID) {
 		this.patientID = patientID;
+	}
+
+	public void setOvid(long ovid) {
+		this.ovid = ovid;
+	}
+
+	public long getOvid() {
+		return ovid;
+	}
+
+	public void setViewedByPatient(boolean viewedByPatient) {
+		this.viewedByPatient = viewedByPatient;
+	}
+
+	public boolean isViewedByPatient() {
+		return viewedByPatient;
+	}
+
+	public void setViewedByHCP(boolean viewedByHCP) {
+		this.viewedByHCP = viewedByHCP;
+	}
+
+	public boolean isViewedByHCP() {
+		return viewedByHCP;
+	}
+
+	public void setTimeStamp(String timeStamp) {
+		this.timeStamp = timeStamp;
+	}
+
+	public String getTimeStamp() {
+		return timeStamp;
+	}
+
+	public void setPriority(int priority) {
+		this.priority = priority;
+	}
+
+	public int getPriority() {
+		return priority;
 	}
 
 	

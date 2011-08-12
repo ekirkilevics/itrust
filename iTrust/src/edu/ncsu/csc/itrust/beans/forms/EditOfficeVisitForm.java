@@ -1,7 +1,5 @@
 package edu.ncsu.csc.itrust.beans.forms;
 
-import edu.ncsu.csc.itrust.exception.FormValidationException;
-
 /**
  * A form to contain data coming from editing an office visit.
  * 
@@ -14,26 +12,27 @@ public class EditOfficeVisitForm {
 	private String hcpID;
 	private String patientID;
 	private String hospitalID;
-	private String removeLabProcID;
-	private String removeDiagID;
-	private String removeProcID;
-	private String removeImmunizationID;
-	private String removeMedID;
-	private String addLabProcID;
-	private String addDiagID;
-	private String addProcID;
-	private String addImmunizationID;
-	private String addMedID;
+	//private String removeLabProcID;
+	//private String removeDiagID;
+	//private String removeProcID;
+	//private String removeImmunizationID;
+	//private String removeMedID;
+	//private String addLabProcID;
+	//private String addDiagID;
+	//private String addProcID;
+	//private String addImmunizationID;
+	//private String addMedID;
 	private String notes;
 	private String visitDate;
-	private String startDate;
-	private String endDate;
-	private String dosage;
-	private String instructions;
-	private String causeOfDeath;
-	private String[] orc;
-	private String comment;
+	//private String startDate;
+	//private String endDate;
+	//private String dosage;
+	//private String instructions;
+	//private String causeOfDeath;
+	//private String[] orc;
+	//private String comment;
 
+	/*
 	public String getAddDiagID() {
 		return addDiagID;
 	}
@@ -42,8 +41,6 @@ public class EditOfficeVisitForm {
 		this.addDiagID = addDiagID;
 	}
 	
-
-
 	public String getAddLabProcID() {
 		return addLabProcID;
 	}
@@ -74,7 +71,7 @@ public class EditOfficeVisitForm {
 
 	public void setAddImmunizationID(String addImmunizationID) {
 		this.addImmunizationID = addImmunizationID;
-	}
+	}*/
 	
 	public String getNotes() {
 		return notes;
@@ -92,6 +89,7 @@ public class EditOfficeVisitForm {
 		this.ovID = ovID;
 	}
 
+	/*
 	public String getRemoveLabProcID() {
 		return removeLabProcID;
 	}
@@ -131,7 +129,7 @@ public class EditOfficeVisitForm {
 	public void setRemoveImmunizationID(String removeImmunizationID) {
 		this.removeImmunizationID = removeImmunizationID; 
 	}
-
+	*/
 	public String getVisitDate() {
 		return visitDate;
 	}
@@ -164,6 +162,7 @@ public class EditOfficeVisitForm {
 		this.hospitalID = hospitalID;
 	}
 
+	/*
 	public String getDosage() {
 		return dosage;
 	}
@@ -204,6 +203,8 @@ public class EditOfficeVisitForm {
 		this.causeOfDeath = causeOfDeath;
 	}
 
+	*/
+	/*
 	public Object setOverrideCode(String[] reasonCode) throws FormValidationException {
 		if(reasonCode == null || reasonCode.equals(""))
 			throw new FormValidationException("Invalid override reason");
@@ -215,8 +216,8 @@ public class EditOfficeVisitForm {
 	public String[] getOverrideCodes() {
 		return orc;
 	}
-	
-	
+	*/
+	/*
 	public void setOverrideComment(String comment) {
 		this.comment = comment;
 	}
@@ -224,4 +225,5 @@ public class EditOfficeVisitForm {
 	public String getOverrideComment() {
 		return this.comment;
 	}
+	*/
 }

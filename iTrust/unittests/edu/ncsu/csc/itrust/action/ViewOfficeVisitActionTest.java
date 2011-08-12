@@ -7,7 +7,14 @@ import edu.ncsu.csc.itrust.exception.iTrustException;
 import edu.ncsu.csc.itrust.testutils.TestDAOFactory;
 import edu.ncsu.csc.itrust.exception.DBException;
 
+/**
+ * Test All doctor office visit
+ * @author David White
+ * @ author Nazaire Gnassounou
+ *
+ */
 public class ViewOfficeVisitActionTest extends TestCase {
+	
 
 	private DAOFactory factory = TestDAOFactory.getTestInstance();
 	private ViewOfficeVisitAction action;
@@ -20,18 +27,23 @@ public class ViewOfficeVisitActionTest extends TestCase {
 		gen.standardData();
 	}
 
+	/**
+	 * Test view office visit
+	 * @throws Exception
+	 */
 	public void testViewOfficeVisit() throws Exception {
 		String hcp = null;
+		action = new ViewOfficeVisitAction(factory, 2L, "955");
+		assertEquals(955L, action.getOvID());
+		assertEquals(2L, action.getPid());
+		assertEquals(955L, action.getOfficeVisit().getID());
+		//assertEquals(3, action.getPrescriptions().size());
+		hcp = action.getHCPName(9000000000L);
+		assertNotNull(hcp);
+		hcp = action.getHCPName(9000000099L);
+		assertEquals("User does not exist", hcp);
+		
 		try {
-			action = new ViewOfficeVisitAction(factory, 2L, "955");
-			assertEquals(955L, action.getOvID());
-			assertEquals(2L, action.getPid());
-			assertEquals(955L, action.getOfficeVisit().getID());
-			assertEquals(3, action.getPrescriptions().size());
-			hcp = action.getHCPName(9000000000L);
-			assertNotNull(hcp);
-			hcp = action.getHCPName(9000000099L);
-			assertEquals("User does not exist", hcp);
 			action = new ViewOfficeVisitAction(factory, 2L, "0");
 			fail("should have been iTrustException");
 		}
@@ -41,6 +53,16 @@ public class ViewOfficeVisitActionTest extends TestCase {
 		catch (iTrustException e) {
 			assertEquals("Office Visit "+Long.valueOf("0")+" with Patient MID 2 does not exist", e.getMessage());
 		}
+	}
+	
+	public void testOfficeVisitSubActions() throws Exception {
+		action = new ViewOfficeVisitAction(factory, 2L, "955");
+		assertEquals(1, action.getAllProcedures().size());
+		assertEquals(1, action.getDiagnoses().size());
+		assertEquals(0, action.getImmunizations().size());
+		assertEquals(2, action.getLabProcedures().size());
+		assertEquals(3, action.getPrescriptions().size());
+		assertEquals(1, action.getProcedures().size());
 	}
 
 	public void testCanRepresent() throws Exception {

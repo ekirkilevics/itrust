@@ -54,6 +54,9 @@ try {
 		else if (request.isUserInRole("tester")) {
 			userRole = "tester";
 		}
+		else if (request.isUserInRole("lt")) {
+			userRole = "lt";
+		}
 		session.setAttribute("userRole", userRole);
 	}
 	

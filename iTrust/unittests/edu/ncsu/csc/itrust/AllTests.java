@@ -12,6 +12,7 @@ public class AllTests {
 		DBBuilder.rebuildAll();
 		DirectorySuiteBuilder builder = new DirectorySuiteBuilder();
 		builder.setFilter(new SimpleTestFilter() {
+			@Override
 			public boolean include(Class clazz) {
 				// Ignore the HTTP tests in this suite
 				return !clazz.getPackage().getName().contains("http")

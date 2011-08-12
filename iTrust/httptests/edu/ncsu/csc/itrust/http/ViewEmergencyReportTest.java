@@ -7,6 +7,7 @@ import edu.ncsu.csc.itrust.enums.TransactionType;
 
 public class ViewEmergencyReportTest extends iTrustHTTPTest {
 
+	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
 		gen.clearAllTables();

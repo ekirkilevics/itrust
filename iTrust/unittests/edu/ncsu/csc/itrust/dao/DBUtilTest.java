@@ -1,7 +1,6 @@
 package edu.ncsu.csc.itrust.dao;
 
 import static org.easymock.classextension.EasyMock.*;
-import static org.easymock.classextension.EasyMock.replay;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;

@@ -5,7 +5,7 @@ DROP TABLE IF EXISTS FakeEmail;
 DROP TABLE IF EXISTS GlobalVariables;
 DROP TABLE IF EXISTS HCPAssignedHos;
 DROP TABLE IF EXISTS HCPRelations;
-
+DROP TABLE IF EXISTS ReferralMessage;
 
 DROP TABLE IF EXISTS LabProcedure;
 DROP TABLE IF EXISTS LoginFailures;
@@ -54,3 +54,6 @@ DROP TABLE IF EXISTS RemoteMonitoringData;
 DROP TABLE IF EXISTS RemoteMonitoringLists;
 
 DROP TABLE IF EXISTS ProfilePhotos;
+
+DROP TABLE IF EXISTS PatientSpecificInstructions;
+

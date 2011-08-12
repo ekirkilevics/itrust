@@ -24,6 +24,7 @@ public class GenerateCalendarActionTest extends TestCase {
 	private long mId = 2L;
 	private long hcpId = 9000000000L;
 	
+	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
 		

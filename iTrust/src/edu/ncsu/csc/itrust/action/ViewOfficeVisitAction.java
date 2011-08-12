@@ -2,12 +2,19 @@ package edu.ncsu.csc.itrust.action;
 
 import java.util.List;
 import edu.ncsu.csc.itrust.action.base.OfficeVisitBaseAction;
+import edu.ncsu.csc.itrust.beans.DiagnosisBean;
+import edu.ncsu.csc.itrust.beans.LabProcedureBean;
 import edu.ncsu.csc.itrust.beans.OfficeVisitBean;
 import edu.ncsu.csc.itrust.beans.PrescriptionBean;
+import edu.ncsu.csc.itrust.beans.ProcedureBean;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
+import edu.ncsu.csc.itrust.dao.mysql.DiagnosesDAO;
+import edu.ncsu.csc.itrust.dao.mysql.LabProcedureDAO;
 import edu.ncsu.csc.itrust.dao.mysql.OfficeVisitDAO;
 import edu.ncsu.csc.itrust.dao.mysql.PatientDAO;
 import edu.ncsu.csc.itrust.dao.mysql.PersonnelDAO;
+import edu.ncsu.csc.itrust.dao.mysql.PrescriptionsDAO;
+import edu.ncsu.csc.itrust.dao.mysql.ProceduresDAO;
 import edu.ncsu.csc.itrust.exception.DBException;
 import edu.ncsu.csc.itrust.exception.iTrustException;
 import edu.ncsu.csc.itrust.Messages;
@@ -21,6 +28,11 @@ import edu.ncsu.csc.itrust.Messages;
  */
 public class ViewOfficeVisitAction extends OfficeVisitBaseAction {
 	private OfficeVisitDAO ovDAO;
+	private PrescriptionsDAO prescriptionsDAO;
+	private ProceduresDAO proceduresDAO;
+	private LabProcedureDAO labProceduresDAO;
+	private DiagnosesDAO diagnosesDAO;
+	
 	private PersonnelDAO personnelDAO;
 	private PatientDAO patientDAO;
 
@@ -38,6 +50,11 @@ public class ViewOfficeVisitAction extends OfficeVisitBaseAction {
 		super(factory, String.valueOf(loggedInMID), ovIDString);
 		this.personnelDAO = factory.getPersonnelDAO();
 		this.ovDAO = factory.getOfficeVisitDAO();
+
+		prescriptionsDAO = factory.getPrescriptionsDAO();
+		proceduresDAO = factory.getProceduresDAO();
+		labProceduresDAO = factory.getLabProcedureDAO();
+		diagnosesDAO = factory.getDiagnosesDAO();
 	}
 
 	/**
@@ -55,6 +72,12 @@ public class ViewOfficeVisitAction extends OfficeVisitBaseAction {
 		this.personnelDAO = factory.getPersonnelDAO();
 		this.patientDAO = factory.getPatientDAO();
 		this.ovDAO = factory.getOfficeVisitDAO();
+
+		prescriptionsDAO = factory.getPrescriptionsDAO();
+		proceduresDAO = factory.getProceduresDAO();
+		labProceduresDAO = factory.getLabProcedureDAO();
+		diagnosesDAO = factory.getDiagnosesDAO();
+		
 		checkRepresented(loggedInMID, repPIDString);
 	}
 
@@ -87,7 +110,34 @@ public class ViewOfficeVisitAction extends OfficeVisitBaseAction {
 	 * @throws DBException
 	 */
 	public List<PrescriptionBean> getPrescriptions() throws DBException {
-		return ovDAO.getPrescriptions(ovID);
+		return prescriptionsDAO.getList(ovID);
+	}
+
+	public List<ProcedureBean> getAllProcedures() throws DBException {
+		return proceduresDAO.getList(ovID);
+	}
+
+	public List<ProcedureBean> getProcedures() throws DBException {
+		return proceduresDAO.getMedProceduresList(ovID);
+	}
+	
+	public List<ProcedureBean> getImmunizations() throws DBException {
+		return proceduresDAO.getImmunizationList(ovID);
+	}
+	
+	public List<DiagnosisBean> getDiagnoses() throws DBException {
+		return diagnosesDAO.getList(ovID);
+	}
+	
+	public List<LabProcedureBean> getLabProcedures() throws DBException {
+		return labProceduresDAO.getLabProceduresForPatientOV(ovID);
+	}
+	
+	public void setViewed(List<LabProcedureBean> procs) throws DBException {
+		for (LabProcedureBean b : procs) {
+			b.setViewedByPatient(true);
+			labProceduresDAO.markViewed(b);
+		}
 	}
 
 	/**

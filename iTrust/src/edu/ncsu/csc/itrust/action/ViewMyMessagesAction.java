@@ -13,6 +13,7 @@ import edu.ncsu.csc.itrust.dao.DAOFactory;
 import edu.ncsu.csc.itrust.dao.mysql.MessageDAO;
 import edu.ncsu.csc.itrust.dao.mysql.PatientDAO;
 import edu.ncsu.csc.itrust.dao.mysql.PersonnelDAO;
+import edu.ncsu.csc.itrust.dao.mysql.ReferralDAO;
 import edu.ncsu.csc.itrust.exception.DBException;
 import edu.ncsu.csc.itrust.exception.iTrustException;
 
@@ -25,6 +26,7 @@ public class ViewMyMessagesAction {
 	private PatientDAO patientDAO;
 	private PersonnelDAO personnelDAO;
 	private MessageDAO messageDAO;
+	private ReferralDAO referralDAO;
 
 	/**
 	 * Set up defaults
@@ -37,6 +39,7 @@ public class ViewMyMessagesAction {
 		this.patientDAO = factory.getPatientDAO();
 		this.personnelDAO = factory.getPersonnelDAO();
 		this.messageDAO = factory.getMessageDAO();
+		this.referralDAO = factory.getReferralDAO();
 	}
 	
 	/**
@@ -282,4 +285,26 @@ public class ViewMyMessagesAction {
 			e.printStackTrace();
 		}
 	}
+	
+	/**
+	 * Get the number of unread messages that the current user has.
+	 * 
+	 * @return The number of unread messages.
+	 * @throws SQLException
+	 */
+	public int getUnreadCount() throws SQLException {
+		List<MessageBean> messages = getAllMyMessages();
+		int count = 0;
+		for (MessageBean mb: messages) {
+			if (mb.getRead() == 0) {
+				count++;
+			}
+		}
+		return count;
+	}
+	
+	public long linkedToReferral(long id) throws DBException {
+		return referralDAO.isReferralMessage(id);
+	}
+	
 }

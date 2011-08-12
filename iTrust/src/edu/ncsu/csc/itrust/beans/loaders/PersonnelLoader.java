@@ -6,7 +6,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import edu.ncsu.csc.itrust.beans.PersonnelBean;
-import edu.ncsu.csc.itrust.enums.Role;
 
 /**
  * A loader for PersonnelBeans.
@@ -60,7 +59,7 @@ public class PersonnelLoader implements BeanLoader<PersonnelBean> {
 		ps.setString(i++, p.getZip());
 		ps.setString(i++, p.getZip1());
 		ps.setString(i++, p.getZip2());
-		//ps.setString(i++, p.getSpecialty());
+		ps.setString(i++, p.getSpecialty());
 		ps.setString(i++, p.getEmail());
 		ps.setString(i++, p.getMessageFilter());
 		return ps;

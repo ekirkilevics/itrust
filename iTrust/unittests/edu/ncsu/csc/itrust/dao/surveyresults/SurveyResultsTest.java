@@ -18,6 +18,7 @@ public class SurveyResultsTest extends TestCase {
 	private DAOFactory factory = TestDAOFactory.getTestInstance();
 	private SurveyResultDAO surveyResultDAO = factory.getSurveyResultDAO();
 	
+	@Override
 	protected void setUp() throws Exception {
 		TestDataGenerator gen = new TestDataGenerator();
 		gen.clearAllTables();

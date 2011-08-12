@@ -12,6 +12,7 @@ public class OfficeVisitsFromHospitalTest extends TestCase {
 	
 	private TestDataGenerator gen;
 	
+	@Override
 	protected void setUp() throws Exception {
 		gen = new TestDataGenerator();
 		gen.clearAllTables();

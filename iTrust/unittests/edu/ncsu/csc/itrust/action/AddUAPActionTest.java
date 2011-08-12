@@ -22,6 +22,7 @@ public class AddUAPActionTest extends TestCase {
 	@Override
 	protected void setUp() throws Exception {
 		gen = new TestDataGenerator();
+		gen.clearAllTables();
 		gen.hcp0();
 		action = new AddUAPAction(factory, 9000000000L);
 	}
@@ -30,7 +31,7 @@ public class AddUAPActionTest extends TestCase {
 	 * Tests adding a new UAP
 	 * @throws Exception
 	 */
-	public void testAddPatient() throws Exception {
+	public void testAddUAP() throws Exception {
 		PersonnelBean p = new PersonnelBean();
 		p.setFirstName("Cosmo");
 		p.setLastName("Kramer");

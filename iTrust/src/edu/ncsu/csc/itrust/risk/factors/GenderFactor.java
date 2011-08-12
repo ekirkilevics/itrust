@@ -19,10 +19,12 @@ public class GenderFactor extends PatientRiskFactor {
 		this.gender = gender;
 	}
 
+	@Override
 	public String getDescription() {
 		return "Patient is " + patient.getGender().toString().toLowerCase();
 	}
 
+	@Override
 	public boolean hasFactor() {
 		return gender.equals(patient.getGender()) && !gender.equals(Gender.NotSpecified);
 	}

@@ -20,9 +20,10 @@ VALUES
 (113, 113, 79.10)
 ON DUPLICATE KEY UPDATE VisitID = VALUES(VisitID), ICDCode = VALUES(ICDCode);
 
-INSERT INTO labprocedure (PatientMID, LaboratoryProcedureCode, Rights, Status, Commentary, Results, OfficeVisitID, UpdatedDate)
+INSERT INTO labprocedure (PatientMID, LaboratoryProcedureCode, Rights, Status, Commentary, Results, OfficeVisitID, UpdatedDate,
+                          NumericalResults, LowerBound, UpperBound)
 VALUES
-(4, '10640-1','ALLOWED','COMPLETED','','',109,'2008-01-22 20:20:45.0');
+(4, '10640-1','ALLOWED','Completed','','',109,'2008-01-22 20:20:45.0', '10', '9', '11');
 
 INSERT INTO ovmedication(ID, VisitID, NDCode, StartDate, EndDate, Dosage, Instructions)
 VALUES

@@ -50,6 +50,8 @@ if (formIsFilled) {
 			loggingAction.logEvent(TransactionType.ER_EDIT, loggedInMID.longValue(), personnelForm.getMID(), "");
 		else if(personnelForm.getRole() == Role.PHA) // If pid belongs to a PHA
 			loggingAction.logEvent(TransactionType.PHA_EDIT, loggedInMID.longValue(), personnelForm.getMID(), "");
+		else if(personnelForm.getRole() == Role.LT) // If pid belongs to a LT
+			loggingAction.logEvent(TransactionType.LT_EDIT, loggedInMID.longValue(), personnelForm.getMID(), "");
 %>
 		<div align=center>
 			<span class="iTrustMessage">Information Successfully Updated</span>

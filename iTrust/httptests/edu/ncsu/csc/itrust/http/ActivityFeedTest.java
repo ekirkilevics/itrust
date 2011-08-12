@@ -21,19 +21,19 @@ public class ActivityFeedTest extends iTrustHTTPTest {
 		WebResponse wr = wc.getCurrentPage();
 		int entries = 0;
 		String s = wr.getText();
-		int start = s.indexOf("Activity Feed</legend>");
+		int start = s.indexOf("Activity Feed</h2>");
 		int end = s.indexOf("<a href=\"home.jsp?date=");
 		s = s.substring(start, end);
 		// Check for 20 items
 		entries = 0;
-		while (s.contains("<div")) {
+		while (s.contains("<li")) {
 			entries++;
-			s = s.substring(s.indexOf("<div") + 1);
+			s = s.substring(s.indexOf("<li") + 1);
 		}
 		assertEquals(entries,20);
 		wr = wr.getLinkWith("Older Activities").click();
 		s = wr.getText();
-		s = s.substring(s.indexOf("<legend"), s.indexOf("</legend"));
+		s = s.substring(s.indexOf("<h2"), s.indexOf("</h2"));
 		// Check for 40 items
 		entries = 40;
 		while (s.contains("<div")) {
@@ -43,12 +43,12 @@ public class ActivityFeedTest extends iTrustHTTPTest {
 		assertEquals(entries,40);
 		wr = wr.getLinkWith("Older Activities").click();
 		s = wr.getText();
-		s = s.substring(s.indexOf("Activity Feed</legend>"), s.lastIndexOf("</fieldset>"));
+		s = s.substring(s.indexOf("Activity Feed</h2>"), s.lastIndexOf("</ul>"));
 		entries = 0;
 		
-		while (s.contains("<div")) {
+		while (s.contains("<li")) {
 			entries++;
-			s = s.substring(s.indexOf("<div") + 1);
+			s = s.substring(s.indexOf("<li") + 1);
 		}
 		assertEquals(entries - 3,60);
 	}
@@ -63,11 +63,11 @@ public class ActivityFeedTest extends iTrustHTTPTest {
 		wr = wr.getLinkWith("Refresh").click();
 		
 		String s = wr.getText();
-		s = s.substring(s.lastIndexOf("<fieldset"), s.lastIndexOf("</fieldset"));
+		s = s.substring(s.lastIndexOf("<ul"), s.lastIndexOf("</ul"));
 		
-		while (s.contains("<div")) {
+		while (s.contains("<li")) {
 			entries++;
-			s = s.substring(s.indexOf("<div") + 1);
+			s = s.substring(s.indexOf("<li") + 1);
 		}
 		assertEquals(20,entries);
 	}
@@ -86,7 +86,7 @@ public class ActivityFeedTest extends iTrustHTTPTest {
 		assertTrue(s.contains("Andy Programmer viewed your prescription report yesterday at 9:43AM."));
 		assertTrue(s.contains("Justin Time</a> created an emergency report for you yesterday at 10:04AM."));
 		assertTrue(s.contains("Gandalf Stormcrow</a> edited your office visit yesterday at 11:18AM."));
-		assertTrue(s.contains("FirstUAP LastUAP</a> edited your lab procedure results yesterday at 12:02PM."));
+		assertTrue(s.contains("FirstUAP LastUAP</a> viewed your lab procedure results yesterday at 12:02PM."));
 		assertTrue(s.contains("Gandalf Stormcrow</a> viewed your risk factors yesterday at 12:58PM."));
 		assertTrue(s.contains("FirstUAP LastUAP</a> viewed your risk factors yesterday at 1:02PM."));
 		assertTrue(s.contains("Kelly Doctor</a> viewed your risk factors yesterday at 1:15PM."));

@@ -33,7 +33,13 @@ public class LabProcedureBeanLoader implements BeanLoader<LabProcedureBean> {
 		LabProcedure.setResults(rs.getString("Results"));
 		LabProcedure.setOvID(rs.getLong("OfficeVisitID"));
 		LabProcedure.setTimestamp(rs.getTimestamp("UpdatedDate"));
-		LabProcedure.setRights(rs.getString("Rights"));		
+		LabProcedure.setRights(rs.getString("Rights"));
+		LabProcedure.setLTID(rs.getLong("LabTechID"));
+		LabProcedure.setPriorityCode(rs.getInt("PriorityCode"));
+		LabProcedure.setViewedByPatient(rs.getBoolean("ViewedByPatient")); //must be set after status
+		LabProcedure.setNumericalResult(rs.getString("NumericalResults"));
+		LabProcedure.setUpperBound(rs.getString("UpperBound"));
+		LabProcedure.setLowerBound(rs.getString("LowerBound"));
 		return LabProcedure;
 	}
 

@@ -116,7 +116,7 @@
 					size="4" maxlength="4"></td>
 			</tr>
 			<tr>
-				<td class="subHeaderVertical">Mother MIDs:</td>
+				<td class="subHeaderVertical">Mother MID:</td>
 				<td><input name="motherMID" value="<%= StringEscapeUtils.escapeHtml("" + (p.getMotherMID())) %>"
 					maxlength="10" type="text"></td>
 			</tr>

@@ -16,11 +16,16 @@ public class MonitorAdverseEventTest extends iTrustHTTPTest {
 		gen.hcp0();
 		gen.pha1();
 		gen.patient1();
-		gen.patient2();
+		//gen.patient2();
 		gen.patient3();
 		gen.patient4();
 		gen.patient10();
 		gen.patient13();
+	}
+
+	@Override
+	protected void tearDown() throws Exception {
+		gen.clearAllTables();
 	}
 
 	/*

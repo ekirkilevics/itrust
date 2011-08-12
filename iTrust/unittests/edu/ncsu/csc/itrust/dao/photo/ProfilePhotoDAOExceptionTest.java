@@ -2,10 +2,8 @@ package edu.ncsu.csc.itrust.dao.photo;
 
 import java.awt.image.BufferedImage;
 import junit.framework.TestCase;
-import edu.ncsu.csc.itrust.dao.mysql.ProfilePhotoDAO;
 import edu.ncsu.csc.itrust.exception.DBException;
 import edu.ncsu.csc.itrust.testutils.EvilDAOFactory;
-import edu.ncsu.csc.itrust.testutils.TestDAOFactory;
 
 public class ProfilePhotoDAOExceptionTest extends TestCase {
 

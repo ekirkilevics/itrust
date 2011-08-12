@@ -24,7 +24,9 @@ pageTitle = "iTrust - Hospital Staffing Assignments";
  	  	return;
 	}
 	else {
-		//session.removeAttribute("mid");
+		if(pidString.charAt(0) == '5'){
+			response.sendRedirect("../getPersonnelID.jsp?forward=admin/hospitalAssignments.jsp");
+		}
 	}
 
 
@@ -42,9 +44,14 @@ pageTitle = "iTrust - Hospital Staffing Assignments";
 	}
 	if (action.equals("assgn"))
 	{
-		hosAssignManager.assignHCPToHospital(pid + "", request.getParameter("id"));
-		loggingAction.logEvent(TransactionType.LHCP_ASSIGN_HOSPITAL, loggedInMID.longValue(), pid, "");
-		%><span >HCP has been assigned. <%= StringEscapeUtils.escapeHtml("" + (request.getParameter("id") )) %><br /></span><%
+		/* Checks to see if a HCP is a LT. If it is a LT check to see if the LT is assigned to any hospital */
+		if(hosAssignManager.checkLTHospital(pidString)){
+			%><span>LT has an assigned hospital already. Please remove assigned hospital before assigning to a new hospital.</span><%
+		}else{
+			hosAssignManager.assignHCPToHospital(pid + "", request.getParameter("id"));
+			loggingAction.logEvent(TransactionType.LHCP_ASSIGN_HOSPITAL, loggedInMID.longValue(), pid, "");
+			%><span >HCP has been assigned. <%= StringEscapeUtils.escapeHtml("" + (request.getParameter("id") )) %><br /></span><%
+		}
 	}
 	else if (action.equals("unass"))
 	{

@@ -14,7 +14,6 @@
 <%@page import="edu.ncsu.csc.itrust.beans.OfficeVisitBean"%>
 <%@page import="edu.ncsu.csc.itrust.beans.ProcedureBean"%>
 <%@page import="edu.ncsu.csc.itrust.action.ViewMyRecordsAction"%>
-<%@page import="edu.ncsu.csc.itrust.beans.LabProcedureBean"%>
 <%@page import="edu.ncsu.csc.itrust.dao.mysql.PatientDAO"%>
 <%@page import="edu.ncsu.csc.itrust.dao.mysql.PersonnelDAO"%>
 
@@ -57,7 +56,6 @@ Long originalLoggedInMID = loggedInMID;
 	List<FamilyMemberBean> family = action.getFamilyHistory();
 	List<AllergyBean> allergies = action.getAllergies();
 	List<PatientBean> represented = action.getRepresented();
-	List<LabProcedureBean> procs = action.getLabs();
 	
 	loggingAction.logEvent(TransactionType.MEDICAL_RECORD_VIEW, originalLoggedInMID, patient.getMID(), "");
 %> 
@@ -346,9 +344,17 @@ if (request.getParameter("message") != null) {
 		<td ><%= StringEscapeUtils.escapeHtml("" + (df.format(hr.getDateRecorded()))) %></td>
 		<%
 			PersonnelBean personnel = new PersonnelDAO(prodDAO).getPersonnel(hr.getPersonnelID());
-			personnelList.add(personnel);
+		    if (personnel != null) {
+		        personnelList.add(personnel);
+		    }
 		%>
-		<td ><a href="/iTrust/auth/viewPersonnel.jsp?personnel=<%= StringEscapeUtils.escapeHtml("" + (index)) %>"><%= StringEscapeUtils.escapeHtml("" + (personnel.getFullName())) %></a></td>
+		<td >
+		  <% if (personnel != null) { %>
+		  <a href="/iTrust/auth/viewPersonnel.jsp?personnel=<%= StringEscapeUtils.escapeHtml("" + (index)) %>">
+		      <%= StringEscapeUtils.escapeHtml("" + (personnel.getFullName())) %>
+		  </a>
+		  <% } %>
+		</td>
 	</tr>
 <%
 			index++;
@@ -370,49 +376,6 @@ if (request.getParameter("message") != null) {
 <br />
 <table class="fTable" align="center">
 	<tr>
-		<th colspan="11">Lab Procedures</th>
-	</tr>
-	<tr class="subHeader">
-		<td>Patient</td>
-		<td>Lab Code</td>
-		<td>Status</td>
-		<td>Results</td>
-		<td>OfficeVisitID</td>
-		<td>Commentary</td>
-		<td>Updated Date</td>
-	</tr>
-<%
-	if(procs.size() > 0 ) {
-		for (LabProcedureBean bean : procs) {
-%>
-	<tr>
-		<td ><%= StringEscapeUtils.escapeHtml("" + (patient.getFullName())) %></td>
-		<td ><%= StringEscapeUtils.escapeHtml("" + (bean.getLoinc())) %></td>
-		<td ><%= StringEscapeUtils.escapeHtml("" + (bean.getStatus())) %></td>
-		<td ><%= StringEscapeUtils.escapeHtml("" + (bean.getResults())) %></td>
-		<td ><%= StringEscapeUtils.escapeHtml("" + (bean.getOvID())) %></td>
-		<td ><%= StringEscapeUtils.escapeHtml("" + (bean.getCommentary())) %></td>
-		<td ><%= StringEscapeUtils.escapeHtml("" + (df.format(bean.getTimestamp()))) %></td>
-
-	</tr>
-<%
-		}
-	}
-	else {
-%>
-		<tr>
-			<td colspan=11 align=center>
-				No Data
-			</td>
-		</tr>
-<%
-	}
-%>
-</table>
-<br />
-<br />
-<table class="fTable" align="center">
-	<tr>
 		<th colspan="4">Immunizations</th>
 	</tr>
 	<tr class="subHeader">
@@ -424,7 +387,7 @@ if (request.getParameter("message") != null) {
 <%
 boolean hasNoData = true;
 for (OfficeVisitBean ov: officeVisits) {
-	List<ProcedureBean> ovProcs = action.getCompleteOfficeVisit(ov.getVisitID()).getProcedures();
+	List<ProcedureBean> ovProcs = action.getProcedures(ov.getVisitID());
 	for (ProcedureBean proc: ovProcs) {
 		if (null != proc.getAttribute() && proc.getAttribute().equals("immunization")) {
 			hasNoData=false;

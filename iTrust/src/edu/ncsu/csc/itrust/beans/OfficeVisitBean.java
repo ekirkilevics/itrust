@@ -2,9 +2,7 @@ package edu.ncsu.csc.itrust.beans;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 /**
  * A bean for storing data about an office visit at the hospital.
@@ -21,16 +19,13 @@ public class OfficeVisitBean {
 	private String notes = "";
 	private String visitDateStr = new SimpleDateFormat("MM/dd/yyyy").format(new Date());
 	private String hospitalID = "";
-	private List<DiagnosisBean> diagnoses = new ArrayList<DiagnosisBean>();
-	private List<PrescriptionBean> prescriptions = new ArrayList<PrescriptionBean>();
-	private List<ProcedureBean> procedures = new ArrayList<ProcedureBean>();
 
 	public OfficeVisitBean() {
 	}
 
 	/**
 	 * For use ONLY by DAOs
-	 * 
+	 * setters and getters method
 	 * @param visitID
 	 */
 	public OfficeVisitBean(long visitID) {
@@ -68,32 +63,12 @@ public class OfficeVisitBean {
 		return visitDateStr;
 	}
 
-	public List<DiagnosisBean> getDiagnoses() {
-		return diagnoses;
-	}
-
-	public List<PrescriptionBean> getPrescriptions() {
-		return prescriptions;
-	}
-
-	public List<ProcedureBean> getProcedures() {
-		return procedures;
-	}
-
 	public long getVisitID() {
 		return visitID;
 	}
 
-	public void setDiagnoses(List<DiagnosisBean> diagnoses) {
-		this.diagnoses = diagnoses;
-	}
-
 	public void setHcpID(long hcpID) {
 		this.hcpID = hcpID;
-	}
-
-	public void setPrescriptions(List<PrescriptionBean> prescriptions) {
-		this.prescriptions = prescriptions;
 	}
 
 	public void setNotes(String notes) {
@@ -102,10 +77,6 @@ public class OfficeVisitBean {
 
 	public void setPatientID(long patientID) {
 		this.patientID = patientID;
-	}
-
-	public void setProcedures(List<ProcedureBean> procedures) {
-		this.procedures = procedures;
 	}
 
 	public void setVisitDateStr(String visitDate) {

@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import junit.framework.TestCase;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
@@ -54,6 +53,7 @@ public class ProfilePhotoActionTest extends TestCase {
 		expect(mockItem.isFormField()).andReturn(false).anyTimes();
 		expect(mockUpload.parseRequest(request)).andReturn(Arrays.asList(mockItem));
 		expect(mockItem.getInputStream()).andReturn(photoStream);
+		expect(mockItem.getSize()).andReturn(2000l);
 		expect(mockDAO.store(anyLong(), (BufferedImage) anyObject())).andReturn(1);
 		ctrl.replay();
 		action = new ProfilePhotoAction(mockDAOFactory, 1, mockUpload);

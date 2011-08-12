@@ -13,9 +13,12 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
 import edu.ncsu.csc.itrust.dao.mysql.ProfilePhotoDAO;
 import edu.ncsu.csc.itrust.exception.DBException;
+import edu.ncsu.csc.itrust.exception.iTrustException;
 
 public class ProfilePhotoAction {
 
+	private final long maxFileSize = 2048*1024; // maximum file size for uploads in bytes
+	
 	private long loggedInMID;
 	private ProfilePhotoDAO photoDAO;
 	private ServletFileUpload upload;
@@ -52,6 +55,10 @@ public class ProfilePhotoAction {
 					if (!item.isFormField()) {
 						BufferedImage bi = ImageIO.read(item.getInputStream());
 						// TODO do the validation of uploading and image size here
+						if(item.getSize() > maxFileSize)
+						{
+							throw new iTrustException("Error uploading file - file must be 2MB or less");
+						}
 						photoDAO.store(loggedInMID, bi);
 					}
 				}
@@ -62,6 +69,9 @@ public class ProfilePhotoAction {
 			} catch (IOException e) {
 				e.printStackTrace();
 				return "Error uploading file - please try again";
+			} catch (iTrustException e) {
+				e.printStackTrace();
+				return e.getMessage();
 			}
 		} else {
 			System.err.println("Not a multi-part request");

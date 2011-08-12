@@ -19,10 +19,12 @@ public class EthnicityFactor extends PatientRiskFactor {
 		this.patient = patient;
 	}
 
+	@Override
 	public String getDescription() {
 		return "Patient's ethnicity is " + patient.getEthnicity();
 	}
 
+	@Override
 	public boolean hasFactor() {
 		for (Ethnicity ethnicity : atRisk) {
 			if (patient.getEthnicity().equals(ethnicity) && !Ethnicity.NotSpecified.equals(ethnicity))

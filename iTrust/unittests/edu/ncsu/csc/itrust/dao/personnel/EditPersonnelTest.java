@@ -60,4 +60,11 @@ public class EditPersonnelTest extends TestCase {
 		assertEquals("6666", p.getZip2());
 		assertEquals("55555-6666", p.getZip());
 	}
+	
+	public void testEditPersonnelSpecialty() throws Exception {
+		PersonnelBean p = personnelDAO.getPersonnel(8000000009L);
+		p.setSpecialty("chocolate");
+		personnelDAO.editPersonnel(p);
+		assertEquals("chocolate",p.getSpecialty());
+	}
 }

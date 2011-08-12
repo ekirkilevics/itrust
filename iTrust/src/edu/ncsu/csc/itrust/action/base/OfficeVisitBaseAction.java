@@ -19,6 +19,7 @@ import edu.ncsu.csc.itrust.exception.iTrustException;
  * Very similar to {@link PatientBaseAction} and {@link PersonnelBaseAction}
  */
 abstract public class OfficeVisitBaseAction extends PatientBaseAction {
+	private static final long UNSAVED_VISIT_ID = -1;
 
 	/**
 	 * A database access object for dealing with office visits.
@@ -48,6 +49,23 @@ abstract public class OfficeVisitBaseAction extends PatientBaseAction {
 		this.ovDAO = factory.getOfficeVisitDAO();
 		this.ovID = checkOfficeVisitID(ovIDString);
 	}
+	
+	
+	/**
+	 * Constructs an action that is initially unsaved.  Like the three-argument 
+	 * constructor except that the office visit id is a sentinel value and does 
+	 * not represent a valid office visit.
+	 * 
+	 * @param factory
+	 * @param pidString
+	 * @throws iTrustException
+	 */
+	public OfficeVisitBaseAction(DAOFactory factory, String pidString)
+			throws iTrustException {
+		super(factory, pidString);
+		this.ovDAO = factory.getOfficeVisitDAO();
+		this.ovID = UNSAVED_VISIT_ID;
+	}
 
 	/**
 	 * Asserts whether this unique office visit identifier both exists and is associated with the patient in
@@ -71,6 +89,25 @@ abstract public class OfficeVisitBaseAction extends PatientBaseAction {
 						+ " does not exist");
 		} catch (NumberFormatException e) {
 			throw new iTrustException("Office Visit ID is not a number: " + e.getMessage());
+		}
+	}
+	
+	/**
+	 * Indicates if the office visit has been saved or not.
+	 * @return boolean that indicates if this has been saved. 
+	 */
+	public boolean isUnsaved() {
+		return ovID == UNSAVED_VISIT_ID;
+	}
+	
+	/**
+	 * Raises an exception if the office visit has not been saved.  Otherwise, 
+	 * does nothing. 
+	 * @throws iTrustException
+	 */
+	protected void verifySaved() throws iTrustException {
+		if (isUnsaved()) {
+			throw new iTrustException("Cannot perform action.  OfficeVisit is not saved.");
 		}
 	}
 

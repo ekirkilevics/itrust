@@ -1,75 +1,54 @@
 package edu.ncsu.csc.itrust.action;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
-import edu.ncsu.csc.itrust.action.base.OfficeVisitBaseAction;
+import edu.ncsu.csc.itrust.action.base.EditOfficeVisitBaseAction;
 import edu.ncsu.csc.itrust.beans.Email;
 import edu.ncsu.csc.itrust.beans.HospitalBean;
-import edu.ncsu.csc.itrust.beans.LabProcedureBean;
-import edu.ncsu.csc.itrust.beans.MedicationBean;
 import edu.ncsu.csc.itrust.beans.OfficeVisitBean;
-import edu.ncsu.csc.itrust.beans.OverrideReasonBean;
-import edu.ncsu.csc.itrust.beans.PrescriptionBean;
 import edu.ncsu.csc.itrust.beans.PatientBean;
-import edu.ncsu.csc.itrust.beans.DrugInteractionBean;
-import edu.ncsu.csc.itrust.beans.AllergyBean;
-import edu.ncsu.csc.itrust.beans.PrescriptionReportBean;
 import edu.ncsu.csc.itrust.beans.forms.EditOfficeVisitForm;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
-import edu.ncsu.csc.itrust.dao.mysql.AllergyDAO;
-import edu.ncsu.csc.itrust.dao.mysql.DrugInteractionDAO;
 import edu.ncsu.csc.itrust.dao.mysql.HospitalsDAO;
-import edu.ncsu.csc.itrust.dao.mysql.LabProcedureDAO;
-import edu.ncsu.csc.itrust.dao.mysql.NDCodesDAO;
 import edu.ncsu.csc.itrust.dao.mysql.OfficeVisitDAO;
 import edu.ncsu.csc.itrust.dao.mysql.PatientDAO;
 import edu.ncsu.csc.itrust.dao.mysql.PersonnelDAO;
-import edu.ncsu.csc.itrust.dao.mysql.TransactionDAO;
+import edu.ncsu.csc.itrust.dao.mysql.ReferralDAO;
+import edu.ncsu.csc.itrust.enums.TransactionType;
 import edu.ncsu.csc.itrust.exception.DBException;
 import edu.ncsu.csc.itrust.exception.FormValidationException;
 import edu.ncsu.csc.itrust.exception.iTrustException;
 import edu.ncsu.csc.itrust.validate.EditOfficeVisitValidator;
 
 /**
- * Edits the office visits of a patient Used by editOfficeVisit.jsp
+ * Edits the office visits of a patient Used by editOfficeVisit.jsp.  This 
+ * exists in two states: saved and unsaved.  If unsaved, data cannot be saved 
+ * to sub actions (if this is attempted, exceptions will be raised).  Once it 
+ * is saved, however, the sub actions can be saved.  
  * 
  * @author laurenhayward
+ * @author David White
  * 
  */
-public class EditOfficeVisitAction extends OfficeVisitBaseAction {
+public class EditOfficeVisitAction extends EditOfficeVisitBaseAction {
 	private EditOfficeVisitValidator validator = new EditOfficeVisitValidator();
 	private PersonnelDAO personnelDAO;
 	private HospitalsDAO hospitalDAO;
 	private OfficeVisitDAO ovDAO;
-	private LabProcedureDAO lpDAO;
-	private TransactionDAO transDAO;
-	private DrugInteractionDAO drugDAO;
-	private AllergyDAO allergyDAO;
 	private PatientDAO patDAO;
-	private NDCodesDAO ndcDAO;
+	
+	private EditPrescriptionsAction prescriptionsAction;
+	private EditProceduresAction proceduresAction;
+	private EditImmunizationsAction immunizationsAction;
+	private EditDiagnosesAction diagnosesAction;
+	private EditLabProceduresAction labProceduresAction;
+	private EditPatientInstructionsAction patientInstructionsAction;
+	private EditReferralsAction referralsAction;
+	
+	private EventLoggingAction loggingAction;
+	
 	private long loggedInMID;
-	private long pid;
 
-	/**
-	 * Used to identify the subactions that can comprise an office visit action.
-	 * Subactions help direct the action's logic because sometimes multiple 
-	 * office visit actions can occur within one transaction.
-	 */
-	private enum OVSubAction {
-		ADD_DIAGNOSIS,
-		REMOVE_DIAGNOSIS,
-		ADD_PROCEDURE,
-		REMOVE_PROCEDURE,
-		ADD_MEDICATION,
-		REMOVE_MEDICATION,
-		ADD_LAB_PROCEDURE,
-		REMOVE_LAB_PROCEDURE,
-		ADD_IMMUNIZATION,
-		REMOVE_IMMUNIZATION
-	};
 
 	/**
 	 * Patient id and office visit id validated by super class
@@ -82,18 +61,78 @@ public class EditOfficeVisitAction extends OfficeVisitBaseAction {
 	 */
 	public EditOfficeVisitAction(DAOFactory factory, long loggedInMID, String pidString, String ovIDString)
 			throws iTrustException {
-		super(factory, pidString, ovIDString);
+		super(factory, loggedInMID, pidString, ovIDString);
 		pid = Long.parseLong(pidString);
 		ovDAO = factory.getOfficeVisitDAO();
 		this.personnelDAO = factory.getPersonnelDAO();
 		this.hospitalDAO = factory.getHospitalsDAO();
-		this.lpDAO = factory.getLabProcedureDAO();
-		this.transDAO = factory.getTransactionDAO();
-		this.drugDAO = factory.getDrugInteractionDAO();
-		this.allergyDAO = factory.getAllergyDAO();
-		this.ndcDAO = factory.getNDCodesDAO();
 		this.patDAO = factory.getPatientDAO();
+
+		this.prescriptionsAction = new EditPrescriptionsAction(factory, loggedInMID, pidString, ovIDString);
+		this.proceduresAction = new EditProceduresAction(factory, loggedInMID, pidString, ovIDString);
+		this.immunizationsAction = new EditImmunizationsAction(factory, loggedInMID, pidString, ovIDString);
+		this.diagnosesAction = new EditDiagnosesAction(factory, loggedInMID, pidString, ovIDString);
+		this.labProceduresAction = new EditLabProceduresAction(factory, loggedInMID, pidString, ovIDString);
+		this.patientInstructionsAction = new EditPatientInstructionsAction(factory, loggedInMID, pidString, ovIDString);
+		this.referralsAction = new EditReferralsAction(factory, loggedInMID, pidString, ovIDString);
+		
+		this.loggingAction = new EventLoggingAction(factory);
+		
 		this.loggedInMID = loggedInMID;
+	}
+	
+	/**
+	 * Create an OfficeVisitAction that is not yet associated with an actual 
+	 * office visit.  When update() is called, it will be saved.  Until then, 
+	 * any attempt to save prescriptions, procedures, lab procedures, 
+	 * immunizations, or diagnoses will raise an exception.
+	 * @param factory
+	 * @param loggedInMID
+	 * @param pidString
+	 * @throws iTrustException
+	 */
+	public EditOfficeVisitAction(DAOFactory factory, long loggedInMID, String pidString)
+			throws iTrustException {
+		super(factory, loggedInMID, pidString);
+		pid = Long.parseLong(pidString);
+		ovDAO = factory.getOfficeVisitDAO();
+		this.personnelDAO = factory.getPersonnelDAO();
+		this.hospitalDAO = factory.getHospitalsDAO();
+		this.patDAO = factory.getPatientDAO();
+		
+		this.prescriptionsAction = new EditPrescriptionsAction(factory, loggedInMID, pidString); 
+		this.proceduresAction = new EditProceduresAction(factory, loggedInMID, pidString);
+		this.immunizationsAction = new EditImmunizationsAction(factory, loggedInMID, pidString);
+		this.diagnosesAction = new EditDiagnosesAction(factory, loggedInMID, pidString);
+		this.labProceduresAction = new EditLabProceduresAction(factory, loggedInMID, pidString);
+		this.patientInstructionsAction = new EditPatientInstructionsAction(factory, loggedInMID, pidString);
+		this.referralsAction = new EditReferralsAction(factory, loggedInMID, pidString);
+
+		this.loggingAction = new EventLoggingAction(factory);
+		
+		this.loggedInMID = loggedInMID;
+	}
+	
+	/**
+	 * Used to update the sub actions once a office visit is saved.  Until this 
+	 * is called, attempting to save sub actions will raise an exception.
+	 * @throws iTrustException
+	 */
+	private void reinitializeSubActions() throws iTrustException {
+		if (isUnsaved()) {
+			throw new iTrustException("Cannot initalize EditOfficeVisit sub actions.  No ovID is present.");
+		}
+		DAOFactory factory = getFactory();
+		String pidString = ""+getPid();
+		String ovIDString = ""+getOvID();
+		
+		prescriptionsAction = new EditPrescriptionsAction(factory, loggedInMID, pidString, ovIDString);
+		proceduresAction = new EditProceduresAction(factory, loggedInMID, pidString, ovIDString);
+		immunizationsAction = new EditImmunizationsAction(factory, loggedInMID, pidString, ovIDString);
+		diagnosesAction = new EditDiagnosesAction(factory, loggedInMID, pidString, ovIDString);
+		labProceduresAction = new EditLabProceduresAction(factory, loggedInMID, pidString, ovIDString);
+		patientInstructionsAction = new EditPatientInstructionsAction(factory, loggedInMID, pidString, ovIDString);
+		referralsAction = new EditReferralsAction(factory, loggedInMID, pidString, ovIDString);
 	}
 
 	/**
@@ -103,22 +142,54 @@ public class EditOfficeVisitAction extends OfficeVisitBaseAction {
 	 * @throws iTrustException
 	 */
 	public OfficeVisitBean getOfficeVisit() throws iTrustException {
-		OfficeVisitBean officeVisit = ovDAO.getOfficeVisit(ovID);
-		return officeVisit;
+		return getBean();
 	}
 	
+	
 	/**
-	 * Returns a list of the lab procedures that have been done in an office visit.
-	 * 
-	 * @param mid the doctor the visit was with
-	 * @param ovid the office visit's id
-	 * @return a list of the lab procedures that were done in that visit
-	 * @throws DBException
+	 * @return The EditPrescriptionsAction sub action associated with this office visit.
+	 * @throws iTrustException
 	 */
-
-	public List<LabProcedureBean> getLabProcedures(long mid, long ovid) throws DBException {
-		return lpDAO.getAllLabProceduresForDocOV(mid, ovid);
+	public EditPrescriptionsAction prescriptions() throws iTrustException {
+		return prescriptionsAction;
 	}
+	/**
+	 * @return The EditProceduresAction sub action associated with this office visit.
+	 * @throws iTrustException
+	 */
+	public EditProceduresAction procedures() throws iTrustException {
+		return proceduresAction;
+	}
+	/**
+	 * @return The EditImmunizationsAction sub action associated with this office visit.
+	 * @throws iTrustException
+	 */
+	public EditImmunizationsAction immunizations() throws iTrustException {
+		return immunizationsAction;
+	}
+	/**
+	 * @return The EditDiagnosesAction sub action associated with this office visit.
+	 * @throws iTrustException
+	 */
+	public EditDiagnosesAction diagnoses() throws iTrustException {
+		return diagnosesAction;
+	}
+	/**
+	 * @return The EditLabProceduresAction sub action associated with this office visit.
+	 * @throws iTrustException
+	 */
+	public EditLabProceduresAction labProcedures() throws iTrustException {
+		return labProceduresAction;
+	}
+	
+	public EditPatientInstructionsAction patientInstructions() throws iTrustException {
+		return patientInstructionsAction;
+	}
+	
+	public EditReferralsAction referrals() throws iTrustException {
+		return referralsAction;
+	}
+	
 
 	/**
 	 * This is a list of all hospitals, ordered by the office visit's hcp FIRST
@@ -127,8 +198,8 @@ public class EditOfficeVisitAction extends OfficeVisitBaseAction {
 	 * @return
 	 * @throws iTrustException
 	 */
-	public List<HospitalBean> getHospitals(long hcpID) throws iTrustException {
-		List<HospitalBean> hcpsHospitals = personnelDAO.getHospitals(hcpID);
+	public List<HospitalBean> getHospitals() throws iTrustException {
+		List<HospitalBean> hcpsHospitals = personnelDAO.getHospitals(getHcpid());
 		List<HospitalBean> allHospitals = hospitalDAO.getAllHospitals();
 		return combineLists(hcpsHospitals, allHospitals);
 	}
@@ -138,7 +209,7 @@ public class EditOfficeVisitAction extends OfficeVisitBaseAction {
 	 * Combines two lists of hospitals
 	 * 
 	 * @param hcpsHospitals hospitals the HCP is assigned to
-	 * @param allHospitals all hopsitals
+	 * @param allHospitals all hospitals
 	 * @return the combined list
 	 */
 	private List<HospitalBean> combineLists(List<HospitalBean> hcpsHospitals, List<HospitalBean> allHospitals) {
@@ -150,7 +221,9 @@ public class EditOfficeVisitAction extends OfficeVisitBaseAction {
 	}
 
 	/**
-	 * Updates the office visit with information from the form passed in
+	 * Updates the office visit with information from the form passed in.  If 
+	 * the office visit has not yet been saved, calling this method will save 
+	 * it as well as make the sub actions able to be saved.
 	 * 
 	 * @param form
 	 *            information to update
@@ -160,16 +233,6 @@ public class EditOfficeVisitAction extends OfficeVisitBaseAction {
 	public String updateInformation(EditOfficeVisitForm form) throws FormValidationException {
 		String confirm = "";
 		try {
-			checkAddSubAction(OVSubAction.ADD_DIAGNOSIS, form.getAddDiagID(), ovID, null);
-			checkAddSubAction(OVSubAction.ADD_PROCEDURE, form.getAddProcID(), ovID, null);
-			checkAddSubAction(OVSubAction.ADD_IMMUNIZATION, form.getAddImmunizationID(), ovID, null, form.getHcpID());
-			checkAddSubAction(OVSubAction.ADD_LAB_PROCEDURE, form.getAddLabProcID(), ovID, null);
-			checkAddPrescription(form, ovID);
-			checkRemoveSubAction(OVSubAction.REMOVE_DIAGNOSIS, form.getRemoveDiagID());
-			checkRemoveSubAction(OVSubAction.REMOVE_LAB_PROCEDURE, form.getRemoveLabProcID());
-			checkRemoveSubAction(OVSubAction.REMOVE_PROCEDURE, form.getRemoveProcID());
-			checkRemoveSubAction(OVSubAction.REMOVE_IMMUNIZATION, form.getRemoveImmunizationID());
-			checkRemoveSubAction(OVSubAction.REMOVE_MEDICATION, form.getRemoveMedID());
 			updateOv(form);
 			confirm = "success";
 			return confirm;
@@ -179,74 +242,14 @@ public class EditOfficeVisitAction extends OfficeVisitBaseAction {
 		}
 	}
 	
-	public String hasInteraction(String drug, String pid, String startdate, String enddate) throws iTrustException{
-		String response = "";
-		try {
-
-			SimpleDateFormat original = new SimpleDateFormat("MM/dd/yyyy");
-			SimpleDateFormat needed = new SimpleDateFormat("yyyy/MM/dd");
-			
-			Date start = original.parse(startdate);
-			startdate = needed.format(start);
-			Date end = original.parse(enddate);
-			enddate = needed.format(end);
-			
-			
-			startdate = startdate.replaceAll("/", "-");
-			enddate = enddate.replaceAll("/", "-");
-			List<PrescriptionReportBean> prBeanList = ovDAO.getPrescriptionReportsByDate(Long.parseLong(pid), startdate, enddate);
-			List<DrugInteractionBean> dBeanList = drugDAO.getInteractions(drug);
-			for (PrescriptionReportBean prBean : prBeanList){
-				String presDrug = prBean.getPrescription().getMedication().getNDCode();
-				for (DrugInteractionBean dBean : dBeanList){
-					String intDrug1 = dBean.getFirstDrug();
-					String intDrug2 = dBean.getSecondDrug();
-					
-					if (presDrug.equals(intDrug1) && drug.equals(intDrug2)){
-						response += "Currently Prescribed: " + prBean.getPrescription().getMedication().getDescription() + 
-						". Start Date: " + prBean.getPrescription().getStartDateStr() 
-						+ ", End Date: " + prBean.getPrescription().getEndDateStr() + ". ";
-						response += "Interactions: " + prBean.getPrescription().getMedication().getDescription() + " - " + ndcDAO.getNDCode((dBean.getSecondDrug())).getDescription() + ". ";
-						response += "Description: " + dBean.getDescription() + "  ";
-					} else if (presDrug.equals(intDrug2) && drug.equals(intDrug1)){
-						response += "Currently Prescribed: " + prBean.getPrescription().getMedication().getDescription() + ". Start Date: " + prBean.getPrescription().getStartDateStr() 
-						+ ", End Date: " + prBean.getPrescription().getEndDateStr() + ". ";
-						response += "Interactions: " + prBean.getPrescription().getMedication().getDescription() + " - " + ndcDAO.getNDCode(dBean.getFirstDrug()).getDescription() + ". ";
-						response += "Description: " + dBean.getDescription() + "  ";
-					}
-				}
-			}
-
-		} catch (DBException e){
-			e.printStackTrace();
-			throw new iTrustException(e.getMessage());
-		} catch (ParseException e){
-			e.printStackTrace();
-			throw new iTrustException(e.getMessage());
-		}
-		return response;
-	}
-	
-	public String  isAllergyOnList(String patMID, String ndcode) throws iTrustException{
-		String response = "";
-		try {
-			List<AllergyBean> allergyList = allergyDAO.getAllergies(Long.parseLong(patMID));
-			if (allergyList.isEmpty()) return response;
-			MedicationBean medBean = ndcDAO.getNDCode(ndcode);
-			if(medBean == null) return response;
-			String newDrug = medBean.getDescription();
-			for (AllergyBean allergyBean : allergyList){
-				String currentAllerDrug = allergyBean.getDescription();
-				//Allergy: Aspirin. First Found: 12/20/2008. 
-				if (newDrug.equals(currentAllerDrug)){
-					response += "Allergy: " + newDrug + ". First Found: " + allergyBean.getFirstFoundStr();
-				}
-			}
-		} catch (DBException e){
-			e.printStackTrace();
-			throw new iTrustException(e.getMessage());
-		}
-		return response;
+	/**
+	 * Helper that logs an office visit event.  The associated patient id, HCP 
+	 * id, and office visit id are automatically included.
+	 * @param trans Transaction type for the log.
+	 * @throws DBException
+	 */
+	public void logOfficeVisitEvent(TransactionType trans) throws DBException {
+		loggingAction.logEvent(trans, loggedInMID, getPid(), "Office visit ID: " + getOvID());
 	}
 	
 	/**
@@ -272,55 +275,6 @@ public class EditOfficeVisitAction extends OfficeVisitBaseAction {
 					hcpName, problem));
 		return email;
 	}
-	
-/**
- * Adds a prescription to an office visit
- * 
- * @param form the information about the prescription
- * @param ovID the id for the office visit
- * @throws DBException
- * @throws FormValidationException
- */
-	
-	private void checkAddPrescription(EditOfficeVisitForm form, long ovID) throws DBException,
-			FormValidationException {
-		if (form.getAddMedID() != null && !"".equals(form.getAddMedID())) {
-			new EditOfficeVisitValidator(true).validate(form);
-			PrescriptionBean pres = new PrescriptionBean();
-			pres.setDosage(Integer.valueOf(form.getDosage()));
-			pres.setEndDateStr(form.getEndDate());
-			pres.setStartDateStr(form.getStartDate());
-			pres.setInstructions(form.getInstructions());
-			MedicationBean med = new MedicationBean();
-			med.setNDCode(form.getAddMedID());
-			pres.setMedication(med);
-			pres.setVisitID(ovID);
-			
-			long presID = ovDAO.addPrescription(pres);
-			
-			if(form.getOverrideCodes() != null)
-			{
-				OverrideReasonBean orBean;
-				for(String code : form.getOverrideCodes())
-				{
-					orBean = new OverrideReasonBean();
-					orBean.setPresID(presID);
-					orBean.setORCode(code);
-					orBean.setDescription(null);
-					ovDAO.addReason(orBean);
-				}
-				if(form.getOverrideComment() != null && !form.getOverrideComment().equals("")) {
-					orBean = new OverrideReasonBean();
-					orBean.setPresID(presID);
-					orBean.setORCode("00000");
-					orBean.setDescription(form.getOverrideComment());
-					ovDAO.addReason(orBean);
-				}
-
-			}
-				
-		}
-	}
 
 	/**
 	 * Updates the office visit.
@@ -329,98 +283,50 @@ public class EditOfficeVisitAction extends OfficeVisitBaseAction {
 	 * @throws DBException
 	 * @throws FormValidationException
 	 */
-	private void updateOv(EditOfficeVisitForm form) throws DBException, FormValidationException {
+	private void updateOv(EditOfficeVisitForm form) throws DBException, FormValidationException, iTrustException {
 		validator.validate(form);
-		OfficeVisitBean ov = new OfficeVisitBean(ovID);
+		OfficeVisitBean ov = getBean();
 		ov.setNotes(form.getNotes());
 		ov.setVisitDateStr(form.getVisitDate());
 		ov.setHcpID(Long.valueOf(form.getHcpID()));
 		ov.setPatientID(Long.valueOf(form.getPatientID()));
 		ov.setHospitalID(form.getHospitalID());
-		ovDAO.update(ov);
+		updateBean(ov);
 	}
-
+	
 	
 	/**
-	 * Adds a diagnosis or a procedure to an office visit
-	 * 
-	 * @param action the type of action to add
-	 * @param code the CPT code of the action
-	 * @param visitID the office visit to add the action to
-	 * @param dateOfDeath the date of death, if needed
-	 * @return true if the operation completed; false if the code was null
+	 * @return The OfficeVisitBean associated with this office visit, or if it 
+	 * has not been saved, a default OfficeVisitBean with the HCP id and 
+	 * patient id filled in.
+	 * @throws DBException
+	 */
+	private OfficeVisitBean getBean() throws DBException {
+		if (isUnsaved()) {
+			OfficeVisitBean b = new OfficeVisitBean();
+			b.setHcpID(getHcpid());
+			b.setPatientID(getPid());
+			return b;
+		} else {
+			return ovDAO.getOfficeVisit(ovID);
+		}
+	}
+	
+	/**
+	 * Update the office visit with the given data.  If the office visit has 
+	 * not yet been saved, this will save it and reinitialize the sub actions.
+	 * @param bean The data with which to update the office visit.
 	 * @throws DBException
 	 * @throws iTrustException
 	 */
-	
-	private boolean checkAddSubAction(OVSubAction action, String code, long visitID, String dateOfDeath)
-			throws DBException, iTrustException {
-		if (code == null || "".equals(code)) {
-			return false;
+	private void updateBean(OfficeVisitBean bean) throws DBException, iTrustException {
+		if (isUnsaved()) {
+			// bean.getID() == -1
+			ovID = ovDAO.add(bean);
+			reinitializeSubActions();
 		} else {
-			switch (action) {
-			case ADD_DIAGNOSIS:
-				ovDAO.addDiagnosisToOfficeVisit(Double.valueOf(code), visitID);
-				break;
-			case ADD_IMMUNIZATION:
-			case ADD_PROCEDURE:
-				ovDAO.addProcedureToOfficeVisit(code, visitID, "");
-				break;
-			case ADD_LAB_PROCEDURE:
-				ovDAO.addLabProcedureToOfficeVisit(code, visitID, pid);
-				break;
-			default:
-				return false;
-			}
-			return true;
+			ovDAO.update(bean);
 		}
-	}
-	
-	private boolean checkAddSubAction(OVSubAction action, String code, long visitID, String dateOfDeath, String hcpid)
-	throws DBException, iTrustException {
-		if (code == null || "".equals(code)) {
-			return false;
-		} else {
-			ovDAO.addProcedureToOfficeVisit(code, visitID, hcpid);
-			return true;
-		}
-	 }
-	
-	/**
-	 * Removes an action from an office visit
-	 * 
-	 * @param action type of action to remove
-	 * @param input id for the action to remove
-	 * @return true if the operation completed; false if the code was null
-	 * @throws DBException
-	 */
-
-	private boolean checkRemoveSubAction(OVSubAction action, String input) throws DBException {
-		if (input == null || "".equals(input))
-			return false;
-		long removeID;
-		try {
-			removeID = Long.valueOf(input);
-		} catch (NumberFormatException e) {
-			e.printStackTrace();
-			return false;
-		}
-		switch (action) {
-		case REMOVE_DIAGNOSIS:
-			ovDAO.removeDiagnosisFromOfficeVisit(removeID);
-			break;
-		case REMOVE_IMMUNIZATION:
-		case REMOVE_PROCEDURE:
-			ovDAO.removeProcedureFromOfficeVisit(removeID);
-			break;
-		case REMOVE_MEDICATION:
-			ovDAO.removePrescription(removeID);
-			break;
-		case REMOVE_LAB_PROCEDURE:
-			ovDAO.removeLabProcedureFromOfficeVisit(removeID);
-			break;
-		}
-		return true;
 	}
 
 }

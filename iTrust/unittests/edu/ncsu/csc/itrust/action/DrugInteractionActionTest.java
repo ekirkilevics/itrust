@@ -16,12 +16,14 @@ public class DrugInteractionActionTest extends TestCase {
 	private DAOFactory evilFactory = EvilDAOFactory.getEvilInstance();
 	private DrugInteractionAction action;
 
+	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
 		gen.clearAllTables();
 		action = new DrugInteractionAction(factory,9000000001L);
 	}
 
+	@Override
 	protected void tearDown() throws Exception {
 		super.tearDown();
 	}

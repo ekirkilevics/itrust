@@ -33,7 +33,7 @@ pageTitle = "iTrust - Add HCP";
 			loggingAction.logEvent(TransactionType.LHCP_CREATE, loggedInMID.longValue(), newMID, "");
 %>
 	<div align=center>
-		<span class="iTrustMessage">New HCP <%= StringEscapeUtils.escapeHtml("" + (fullname)) %> succesfully added!</span>
+		<span class="iTrustMessage">New HCP <%= StringEscapeUtils.escapeHtml("" + (fullname)) %> successfully added!</span>
 		<br />
 		<br />
 		<table class="fTable">
@@ -89,6 +89,14 @@ to recover the password.</p>
 	<tr>
 		<td class="subHeaderVertical">Email:</td>
 		<td><input type="text" name="email"></td>
+	</tr>
+		<td class="subHeaderVertical">Specialty:</td>
+		<td><select name="specialty">
+		<option value="general physician">General Physician</option>
+		<option value="heart surgeon">Heart Surgeon</option>
+		<option value="ob/gyn">OB/GYN</option>
+		<option value="pediatrician">Pediatrician</option>
+		<option value="surgeon">Surgeon</option>
 	</tr>
 </table>
 <br />

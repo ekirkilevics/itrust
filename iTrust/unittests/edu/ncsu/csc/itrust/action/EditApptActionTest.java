@@ -15,6 +15,7 @@ public class EditApptActionTest extends TestCase {
 	private DAOFactory factory;
 	private long hcpId = 9000000000L;
 	
+	@Override
 	protected void setUp() throws Exception {
 		TestDataGenerator gen = new TestDataGenerator();
 		gen.clearAllTables();

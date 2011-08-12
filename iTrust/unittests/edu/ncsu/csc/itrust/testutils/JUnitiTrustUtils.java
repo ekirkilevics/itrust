@@ -1,6 +1,5 @@
 package edu.ncsu.csc.itrust.testutils;
 
-import static junit.framework.Assert.assertEquals;
 import java.util.List;
 import edu.ncsu.csc.itrust.beans.TransactionBean;
 import edu.ncsu.csc.itrust.enums.TransactionType;

@@ -20,7 +20,12 @@
 			font-size:.8em;
 			background-color: #FFFFFF;
 			border:1px solid #4F708D;
-			padding:1px 2px 1px 2px;
+			padding:2px 2px 2px 2px;
+		}
+		
+		.fancyTable .testName {
+            padding:2px 2px 2px 10px;
+            font-size: 1.0em;
 		}
 		
 		.fancyTable th {
@@ -32,13 +37,59 @@
 			color:#ffffff;
 		}
 		
+		.fancyTable tr td {
+            color:#000000;
+            background-color:#EEE;
+		}
+		
 		.fancyTable tr.alt td {
 			color:#000000;
 			background-color:#DDDDFF;
 		}
+		
+		.fancyTable a {
+		    color: rgb(0,0,0);
+		    text-decoration: none;
+		}
+		
+		.fancyTable a:hover{
+		     text-decoration: underline;
+		}
+		
+		.fancyTable ul, .fancyTable ol {
+		    padding-left: 25px;
+		}
+		
 	</style>
+	<script>
+	function empty() { }
+	function showrow(e) {
+        // object attribute detection...
+        // Firefox supports event.target.  Internet Explorer supports 
+        // event.srcElement.  This if statement selects the appropriate 
+        // attribute. (Google Chrome supports both attributes.)  
+        if (e.target) {
+        	src = e.target;
+        } else {
+        	src = e.srcElement;
+        }
+        row = src.parentNode.parentNode;
+		for (i=1; i<row.children.length; i++) {
+		    cell = row.children[i];
+		    span = cell.children[0];
+		    if (span.style.display=='none') {
+		    	src.style.fontWeight = 'bold'; 
+		    	span.style.display = 'inline';
+		    } else {
+                src.style.fontWeight = 'normal'; 
+		    	span.style.display = 'none';
+		    }
+	    }
+		//console.log(e);
+	}
+	</script>
 </head>
-<body style="margin-left:150px;">
+<body style="margin-left:50px;">
 <% 
 final String path = "http://localhost:8080/iTrust/util/blackbox";
 class TestParser {
@@ -49,7 +100,7 @@ class TestParser {
 		private String dateModified = "";
 		private String author = "";
 		private String role = "";
-		private String useCase = "";
+		private String useCase = "0";
 		private String description = "";
 		private LinkedList<String> precondition = new LinkedList<String>();
 		private LinkedList<String> step = new LinkedList<String>();
@@ -125,25 +176,30 @@ class TestParser {
 				return description;
 			}
 			String d = "<strong>Preconditions:</strong><br/>";
+			d = d + "<ul>";
 			for(String p : precondition)
 			{
-				d = d + "--> " + p + "<br/>";
+				d = d + "<li>" + p + "</li>";
 			}
+			d = d + "</ul>";
 			d = d + "<br/><strong>STEPS:</strong><br/>";
+			d = d + "<ol>";
 			for(int i = 1; i < step.size()+1; i++)
 			{
-				d = d + "\t" + i + ") " + step.get(i-1) + "<br/>";
+				d = d + "<li>" + step.get(i-1) + "</li>";
 			}
+			d = d + "</ol>";
 			return d;
 		}
 		
 		public String getExpectedResults()
 		{
-			String eR = "";
+			String eR = "<ul>";
 			for(String e : eResult)
 			{
-				eR = eR + "--> " + e + "<br/>";
+				eR = eR + "<li>" + e + "</li>";
 			}
+			eR = eR + "</ul>";
 			return eR;
 		}
 		
@@ -186,9 +242,16 @@ class TestParser {
 	class SortByTestID implements Comparator<BlackBoxTest> {
 
 	 	public int compare(BlackBoxTest arg0, BlackBoxTest arg1) {
-	 		 String x = arg0.getId();
-	 		 String y = arg1.getId();
-			 return x.compareTo(y);
+	 		 String x = arg0.getUseCase();
+	 		 int x1 = Integer.parseInt(x.trim());
+	 		 String y = arg1.getUseCase();
+	 		 int y1 = Integer.parseInt(y.trim());
+	 		 if(x1 < y1)
+	 			 return -1;
+	 		 if(x1 == y1)
+	 			 return 0;
+	 		 else
+	 			 return 1;
 	 	}
 	}
 
@@ -197,10 +260,16 @@ class TestParser {
 	private LinkedList<String> roles = new LinkedList<String>();
 	private BlackBoxTest test;
 	private String tempVal = "";
+	private int maxUseCase = 0;
 	
 	public LinkedList<BlackBoxTest> getTests()
 	{
 		return bbt;
+	}
+	
+	public int getMaxUseCase()
+	{
+		return maxUseCase;
 	}
 	
 	private void parseDocument() throws Exception{
@@ -226,7 +295,9 @@ class TestParser {
 		}
 	
 		public void characters(char[] ch, int start, int length) throws SAXException {
-			tempVal = new String(ch,start,length);
+			String s = new String(ch,start,length);
+			s = s.replace("&","&amp;");
+			tempVal += s;
 		}
 	
 		public void endElement(String uri, String localName,
@@ -260,12 +331,24 @@ class TestParser {
 				test.setAResult(tempVal);
 			}else if (qName.equalsIgnoreCase("Role")) {
 				test.setRole(tempVal);
-				if(!roles.contains(tempVal))
-				{
+				String tvLower = tempVal.toLowerCase();
+				boolean found = false;
+				for (String r : roles) {
+					if (r.toLowerCase().equals(tvLower)) {
+						found = true;
+						break;
+					}
+				}
+				if (!found) {
 					roles.add(tempVal);
 				}
+				
 			}else if (qName.equalsIgnoreCase("UseCase")) {
-				test.setUseCase(tempVal);
+				if(Integer.parseInt(tempVal.trim()) > maxUseCase)
+				{
+					maxUseCase = Integer.parseInt(tempVal);
+				}
+				test.setUseCase(tempVal.trim());
 			}
 		}
 	};
@@ -283,7 +366,20 @@ class TestParser {
 		LinkedList<BlackBoxTest> testList = new LinkedList<BlackBoxTest>();
 		for(BlackBoxTest b : bbt)
 		{
-			if(b.getRole().equals(r))
+			if(b.getRole().toLowerCase().equals(r.toLowerCase()))
+			{
+				testList.add(b);
+			}
+		}
+		return testList;
+	}
+	
+	private LinkedList<BlackBoxTest> getTestsForUseCase(int uc)
+	{
+		LinkedList<BlackBoxTest> testList = new LinkedList<BlackBoxTest>();
+		for(BlackBoxTest b : bbt)
+		{
+			if(Integer.parseInt(b.getUseCase().trim()) ==  uc)
 			{
 				testList.add(b);
 			}
@@ -298,10 +394,10 @@ class TestParser {
 		for(BlackBoxTest b : list)
 		{
 			String temp = "";
-			temp+=		"\n\t\t<td>" + b.getId() + "</td>";
-			temp+=		"\n\t\t<td>" + b.getDescription() +"</td>";
-			temp+=		"\n\t\t<td>" + b.getExpectedResults() + "</td>";
-			temp+=		"\n\t\t<td>" + b.getActualResults() + "</td>";
+			temp+=		"\n\t\t<td class=\"testName\"><a href='javascript:;' onclick='showrow(event)'>" + b.getId() + "</a></td>";
+			temp+=		"\n\t\t<td><span style='display: none;'>" + b.getDescription() +"</span></td>";
+			temp+=		"\n\t\t<td><span style='display: none;'>" + b.getExpectedResults() + "</span></td>";
+			temp+=		"\n\t\t<td><span style='display: none;'>" + b.getActualResults() + "</span></td>";
 			temp+=		"\n\t\t<td>" + b.getUseCase() + "</td>";
 			temp+=		"\n\t\t<td>" + b.getRole() + "</td>";
 			temp+=		"\n\t\t<td>" + b.getDateAdded() + "</td>";
@@ -319,13 +415,20 @@ LinkedList<String> rolesList = t.getRolesList();
 %>
 
 <%
-	for(String role : rolesList)
+	for(int j = 0; j <= t.getMaxUseCase(); j++)
 	{
 %>
-<div align="left"><p style="font-family:verdana;font-size:1em;"><a name="<%=role%>"><%= role %></p></div>
+<div align="left"><p style="font-family:verdana;font-size:1em;">
+<%if(j == 0){ %>
+<a name="uncategorized">Uncategorized</a>
+<%} else{ %>
+<a name="UC<%=j%>">UC<%=j %>
+<%} %>
+
+</p></div>
 <table class="fancyTable">
 	<tr class="fancyTable">
-		<th style="width:10%">Test ID</th>
+		<th style="width:10%">Test ID<br/><span style="font-weight: normal; font-size: 0.8em;">(click id to show details)</span></th>
 		<th style="width:30%">Description</th>
 		<th style="width:30%">Expected Results</th>
 		<th style="width:5%">Actual Results</th>
@@ -336,7 +439,7 @@ LinkedList<String> rolesList = t.getRolesList();
 	</tr>
 <%	
 		int i = 0;
-		LinkedList<String> outputList = t.getHTMLOutput(t.getTestsForRole(role));
+		LinkedList<String> outputList = t.getHTMLOutput(t.getTestsForUseCase(j));
 		for(String test : outputList)
 		{
 %>
@@ -351,95 +454,5 @@ LinkedList<String> rolesList = t.getRolesList();
 <%
 	}
 %>
-
-
-
-<script>
-if (!document.layers)
-document.write('<div id="divStayTopLeft" style="position:absolute">')
-</script>
-
-<layer id="divStayTopLeft">
-
-<!--EDIT BELOW CODE TO YOUR OWN MENU-->
-<table border="1" width="130" cellspacing="0" cellpadding="0">
-  <tr>
-    <td width="100%" bgcolor="#FFFFCC">
-      <p align="center"><b><font size="3">Table of Contents</font></b></td>
-  </tr>
-  <tr>
-    <td width="100%" bgcolor="#FFFFFF">
-      <p align="left">
-      	   <a href="/iTrust" style="font-size:12px;">< Back to iTrust</a><br/><br/>
-<%
-	   for(String role : rolesList)
-	   {
-%>      
-	       <a href="<%="#"+role%>" style="font-size:15px;"><%= role %></a><br>
-<%
-	   }
-%>
-    </td>
-  </tr>
-</table>
-<!--END OF EDIT-->
-
-</layer>
-
-
-<script type="text/javascript">
-
-/*
-Floating Menu script-  Roy Whittle (http://www.javascript-fx.com/)
-Script featured on/available at http://www.dynamicdrive.com/
-This notice must stay intact for use
-*/
-
-//Enter "frombottom" or "fromtop"
-var verticalpos="fromtop"
-
-if (!document.layers)
-document.write('</div>')
-
-function JSFX_FloatTopDiv()
-{
-	var startX = 5,
-	startY = 5;
-	var ns = (navigator.appName.indexOf("Netscape") != -1);
-	var d = document;
-	function ml(id)
-	{
-		var el=d.getElementById?d.getElementById(id):d.all?d.all[id]:d.layers[id];
-		if(d.layers)el.style=el;
-		el.sP=function(x,y){this.style.left=x;this.style.top=y;};
-		el.x = startX;
-		if (verticalpos=="fromtop")
-		el.y = startY;
-		else{
-		el.y = ns ? pageYOffset + innerHeight : document.body.scrollTop + document.body.clientHeight;
-		el.y -= startY;
-		}
-		return el;
-	}
-	window.stayTopLeft=function()
-	{
-		if (verticalpos=="fromtop"){
-		var pY = ns ? pageYOffset : document.body.scrollTop;
-		ftlObj.y += (pY + startY - ftlObj.y)/8;
-		}
-		else{
-		var pY = ns ? pageYOffset + innerHeight : document.body.scrollTop + document.body.clientHeight;
-		ftlObj.y += (pY - startY - ftlObj.y)/8;
-		}
-		ftlObj.sP(ftlObj.x, ftlObj.y);
-		setTimeout("stayTopLeft()", 10);
-	}
-	ftlObj = ml("divStayTopLeft");
-	stayTopLeft();
-}
-JSFX_FloatTopDiv();
-</script>
-
-
 </body>
 </html>

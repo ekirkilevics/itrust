@@ -12,5 +12,6 @@ public class FormValidationExceptionTest extends TestCase {
 		MockJSPWriter writer = new MockJSPWriter();
 		e.printHTML(writer);
 		assertEquals("<h2>Information not valid</h2><div class=\"errorList\">a<br /></div>", writer.input);
+		assertEquals("<h2>Information not valid</h2><div class=\"errorList\">a<br /></div>", e.printHTMLasString());
 	}
 }

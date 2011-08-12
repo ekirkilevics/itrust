@@ -11,6 +11,7 @@ import edu.ncsu.csc.itrust.beans.SurveyBean;
 import edu.ncsu.csc.itrust.beans.LabProcedureBean;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
 import edu.ncsu.csc.itrust.dao.mysql.PatientDAO;
+import edu.ncsu.csc.itrust.dao.mysql.PrescriptionsDAO;
 import edu.ncsu.csc.itrust.dao.mysql.TransactionDAO;
 import edu.ncsu.csc.itrust.dao.mysql.OfficeVisitDAO;
 import edu.ncsu.csc.itrust.dao.mysql.SurveyDAO;
@@ -33,6 +34,7 @@ public class MyDiagnosisAction {
 	private SurveyDAO surveyDAO;
 	private TransactionDAO transactionDAO;
 	private LabProcedureDAO labprocDAO;
+	private PrescriptionsDAO prescriptionsDAO;
 	private long loggedInMID;
 
 	/**
@@ -50,6 +52,7 @@ public class MyDiagnosisAction {
 		this.surveyDAO = factory.getSurveyDAO();
 		this.transactionDAO = factory.getTransactionDAO();
 		this.labprocDAO = factory.getLabProcedureDAO();
+		this.prescriptionsDAO = factory.getPrescriptionsDAO();
 	}
 	
 	/**
@@ -88,8 +91,9 @@ public class MyDiagnosisAction {
 			// Check to see if we already have a bean for the HCP associated with this visit
 			if (hcpHash.containsKey(bean.getHcpID())) {
 				diag = hcpHash.get(bean.getHcpID());
-				
-				for (PrescriptionBean p: bean.getPrescriptions()) {
+				// get all prescriptions associated with an office visit
+				List<PrescriptionBean> prescriptions = prescriptionsDAO.getList(bean.getID());
+				for (PrescriptionBean p: prescriptions) {
 					List<MedicationBean> mlist = diag.getMedList();
 					
 					for (MedicationBean b: mlist) {
@@ -136,7 +140,8 @@ public class MyDiagnosisAction {
 					diag.setHCPName("null");
 				}
 				diag.incNumPatients();
-				for (PrescriptionBean p: bean.getPrescriptions()) {
+				List<PrescriptionBean> prescriptions = prescriptionsDAO.getList(bean.getID());
+				for (PrescriptionBean p: prescriptions) {
 					mlist.add(p.getMedication());
 				}
 				diag.setMedList(mlist);
@@ -170,7 +175,9 @@ public class MyDiagnosisAction {
 		List<OfficeVisitBean> ovs = officeVisitDAO.getAllOfficeVisitsForDiagnosis(icdcode);
 		for (int i = 0; i < ovs.size(); i++) {
 			if (ovs.get(i).getHcpID() == hcpid) {
-				list.addAll(ovs.get(i).getPrescriptions());
+				long ovid = ovs.get(i).getID();
+				List<PrescriptionBean> prescriptions = prescriptionsDAO.getList(ovid);
+				list.addAll(prescriptions);
 			}
 		}
 		

@@ -10,9 +10,15 @@ import edu.ncsu.csc.itrust.enums.TransactionType;
 
 /**
  * Use Case 6
+ * Test designatedand ViewHCPCase 
+ * @author David White
+ * @ author Nazaire Gnassounou
+ *
  */
+
 public class DesignateAndViewHCPUseCaseTest extends iTrustHTTPTest {
 
+	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
 		gen.clearAllTables();
@@ -20,6 +26,10 @@ public class DesignateAndViewHCPUseCaseTest extends iTrustHTTPTest {
 		gen.patient_hcp_vists();
 	}
 	
+	/**
+	 * Test testReportSeenHCPs0
+	 * @throws Exception
+	 */
 	public void testReportSeenHCPs0() throws Exception {
 
 		WebConversation wc = login("2", "pw");
@@ -34,9 +44,11 @@ public class DesignateAndViewHCPUseCaseTest extends iTrustHTTPTest {
 		TableRow rows[] = table.getRows();
 		
 		assertEquals("| HCP Name | Specialty | Address | Date of Office Visit | Designated HCP?", rows[0].getText());
-		assertEquals("| Jason Frankenstein | surgeon | 333 Dark Lane Raleigh, NC 27603 | 05/01/2008 |", rows[1].getText());
-		assertEquals("| Kelly Doctor | surgeon | 4321 My Road St PO BOX 2 CityName, NY 12345-1234 | 06/10/2007 |",rows[2].getText());
-		assertEquals("| Gandalf Stormcrow | none | 4321 My Road St PO BOX 2 CityName, NY 12345-1234 |  |",rows[3].getText());
+		assertEquals("| Mary Shelley | surgeon | 1313 Cautionary Tale Raleigh, NC 27601 | 07/03/2008 |", rows[1].getText());
+		assertEquals("| Lauren Frankenstein | pediatrician | 333 Dark Lane Raleigh, NC 27605 | 06/02/2008 |", rows[2].getText());
+		assertEquals("| Jason Frankenstein | surgeon | 333 Dark Lane Raleigh, NC 27603 | 05/01/2008 |", rows[3].getText());
+		assertEquals("| Kelly Doctor | surgeon | 4321 My Road St PO BOX 2 CityName, NY 12345-1234 | 06/10/2007 |",rows[4].getText());
+		assertEquals("| Gandalf Stormcrow | none | 4321 My Road St PO BOX 2 CityName, NY 12345-1234 |  |",rows[5].getText());
 
 	}
 	
@@ -65,7 +77,7 @@ public class DesignateAndViewHCPUseCaseTest extends iTrustHTTPTest {
 		WebTable table = (WebTable)wr.getElementWithID("hcp_table");
 		TableRow rows[] = table.getRows();
 		
-		assertEquals("| Jason Frankenstein | surgeon | 333 Dark Lane Raleigh, NC 27603 | 05/01/2008 |", rows[1].getText());
+		assertEquals("| Jason Frankenstein | surgeon | 333 Dark Lane Raleigh, NC 27603 | 05/01/2008 |", rows[3].getText());
 		
 	}
 	
@@ -80,12 +92,12 @@ public class DesignateAndViewHCPUseCaseTest extends iTrustHTTPTest {
 		assertEquals("iTrust - My Providers", wr.getTitle());
 		
 		WebForm form = wr.getFormWithID("searchForm");
-		form.setParameter("filter_name", "frank");
+		form.setParameter("filter_name", "Frank");
 		form.setParameter("filter_specialty", "pediatrician");
 		wr = form.submit();
 		assertEquals("iTrust - My Providers", wr.getTitle());
-		WebTable table = (WebTable)wr.getElementWithID("filter_hcp_table");
+		WebTable table = (WebTable)wr.getElementWithID("hcp_table");
 		TableRow rows[] = table.getRows();
-		assertEquals("| Lauren Frankenstein | pediatrician | 333 Dark Lane Raleigh, NC 27603 |", rows[1].getText());
+		assertEquals("| Lauren Frankenstein | pediatrician | 333 Dark Lane Raleigh, NC 27605 | 06/02/2008 |", rows[1].getText());
 	}
 }

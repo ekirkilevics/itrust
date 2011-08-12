@@ -13,6 +13,12 @@ import edu.ncsu.csc.itrust.exception.DBException;
 import edu.ncsu.csc.itrust.exception.iTrustException;
 import edu.ncsu.csc.itrust.testutils.TestDAOFactory;
 
+/**
+ * Test Hostipal DAO
+ * @author David White
+ * Nazaire gnassounou
+ *
+ */
 public class AddEditHospitalDAOTest extends TestCase {
 	private DAOFactory factory = TestDAOFactory.getTestInstance();
 	private HospitalsDAO hospitalDAO = factory.getHospitalsDAO();
@@ -29,17 +35,32 @@ public class AddEditHospitalDAOTest extends TestCase {
 		new DBBuilder(factory).executeSQL(Arrays.asList("DELETE FROM Hospitals;"));
 	}
 
+	/**
+	 * Test All hospital
+	 * test Get HospitalFromEmptyTable
+	 * test GetHospital
+	 * test AddDupe
+	 * testUpdateName
+	 * @throws Exception
+	 */
 	public void testGetAllHospitals() throws Exception {
 		List<HospitalBean> hospitals = hospitalDAO.getAllHospitals();
-		assertEquals(4, hospitals.size());
-		assertEquals("Test Hospital 1", hospitals.get(0).getHospitalName());
-		assertEquals("9191919191", hospitals.get(2).getHospitalID());
+		assertEquals(7, hospitals.size());
+		// All hospitals in alphabetical order.
+		assertEquals("Central Hospital", hospitals.get(0).getHospitalName());
+		assertEquals("Eastern Hospital", hospitals.get(1).getHospitalName());
+		assertEquals("Northern Hospital", hospitals.get(2).getHospitalName());
+		assertEquals("Test Hospital 1", hospitals.get(3).getHospitalName());
+		assertEquals("Test Hospital 8181818181", hospitals.get(4).getHospitalName());
+		assertEquals("Test Hospital 9191919191", hospitals.get(5).getHospitalName());
+		assertEquals("Z Empty Hospital", hospitals.get(6).getHospitalName());
 	}
 
 	public void testGetHospital() throws DBException {
 		HospitalBean hosp = hospitalDAO.getHospital("9191919191");
 		assertEquals("9191919191", hosp.getHospitalID());
 		assertEquals("Test Hospital 9191919191", hosp.getHospitalName());
+
 	}
 
 	public void testGetAllFromEmptyTable() throws SQLException, DBException {

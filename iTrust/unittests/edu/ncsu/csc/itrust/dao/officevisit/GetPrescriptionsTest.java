@@ -4,12 +4,17 @@ import java.util.Arrays;
 import java.util.List;
 import junit.framework.TestCase;
 import edu.ncsu.csc.itrust.beans.PrescriptionReportBean;
-import edu.ncsu.csc.itrust.dao.mysql.OfficeVisitDAO;
+import edu.ncsu.csc.itrust.dao.mysql.PrescriptionReportDAO;
 import edu.ncsu.csc.itrust.datagenerators.TestDataGenerator;
 import edu.ncsu.csc.itrust.testutils.TestDAOFactory;
 
+/**
+ * @author David White
+ * @author Nazaire Gnassounou
+ * Test  prescriptions
+ */
 public class GetPrescriptionsTest extends TestCase {
-	private OfficeVisitDAO ovDAO = TestDAOFactory.getTestInstance().getOfficeVisitDAO();
+	private PrescriptionReportDAO preportDAO = TestDAOFactory.getTestInstance().getPrescriptionReportDAO();
 	private TestDataGenerator gen;
 
 	@Override
@@ -24,7 +29,7 @@ public class GetPrescriptionsTest extends TestCase {
 
 	public void testGetPrescriptions() throws Exception {
 		List<Long> ovIDs = Arrays.asList(955L, 952L);
-		List<PrescriptionReportBean> prescriptions = ovDAO.getPrescriptionReports(ovIDs, 2L);
+		List<PrescriptionReportBean> prescriptions = preportDAO.byOfficeVisitAndPatient(ovIDs, 2L);
 		for (int i=0;i<3;i++)
 		{
 			if (prescriptions.get(i).getPrescription()
@@ -75,7 +80,7 @@ public class GetPrescriptionsTest extends TestCase {
 
 	public void testGetWithNotRightPID() throws Exception {
 		List<Long> ovIDs = Arrays.asList(5L, 2L);
-		List<PrescriptionReportBean> prescriptions = ovDAO.getPrescriptionReports(ovIDs, 1L); // injection!
+		List<PrescriptionReportBean> prescriptions = preportDAO.byOfficeVisitAndPatient(ovIDs, 1L); // injection!
 		assertEquals(0, prescriptions.size());
 	}
 }

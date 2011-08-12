@@ -50,9 +50,9 @@ public class DetermineOperationalProfileTest extends iTrustHTTPTest {
 		
 		assertEquals("Create a patient", table.getCellAsText(getRowNumber("Create a patient"), 0));
 		assertEquals("1", table.getCellAsText(8, 1)); //was 1
-		assertEquals("17%", table.getCellAsText(8, 2));//was 25%
+		assertEquals("17%", table.getCellAsText(8, 2));//was 17%
 		assertEquals("1", table.getCellAsText(8, 3));//was 1
-		assertEquals("20%", table.getCellAsText(8, 4)); //was 33%
+		assertEquals("20%", table.getCellAsText(8, 4)); //was 20%
 		assertEquals("0", table.getCellAsText(8, 5));//was 0
 		assertEquals("0%", table.getCellAsText(8, 6));//was 0
 		//now check the totals are correct

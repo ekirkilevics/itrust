@@ -67,7 +67,7 @@ public class CPTCodesDAO {
 	}
 	
 	/**
-	 * Returns a list of all CPT codes.
+	 * Returns a list of all immunization CPT codes.
 	 * 
 	 * @return A java.util.List of all Immunization-related CPT codes.
 	 * @throws DBException
@@ -78,6 +78,28 @@ public class CPTCodesDAO {
 		try {
 			conn = factory.getConnection();
 			ps = conn.prepareStatement("select * from cptcodes where attribute='immunization' order by code");
+			ResultSet rs = ps.executeQuery();
+			return procedureBeanLoader.loadList(rs);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DBException(e);
+		} finally {
+			DBUtil.closeConnection(conn, ps);
+		}
+	}
+	
+	/**
+	 * Returns a list of all non-immunization CPT codes.
+	 * 
+	 * @return A java.util.List of all Immunization-related CPT codes.
+	 * @throws DBException
+	 */
+	public List<ProcedureBean> getProcedureCPTCodes() throws DBException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		try {
+			conn = factory.getConnection();
+			ps = conn.prepareStatement("select * from cptcodes where attribute is NULL order by code");
 			ResultSet rs = ps.executeQuery();
 			return procedureBeanLoader.loadList(rs);
 		} catch (SQLException e) {

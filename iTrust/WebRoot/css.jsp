@@ -20,7 +20,7 @@ gStr = gStr.length() == 1 ? "0" + gStr : gStr;
 bStr = bStr.length() == 1 ? "0" + bStr : bStr;
 String secondaryColorInv = rStr + gStr + bStr;
 
-String backgroundColor = "#F0F0F0"; //ViewHelperAction.calculateColor(primaryColor, secondaryColor, 0.75);
+String backgroundColor = "#FFFFFF"; //ViewHelperAction.calculateColor(primaryColor, secondaryColor, 0.75);
 String linkColor = ViewHelperAction.calculateColor(primaryColor, secondaryColorInv, 0.5);
 String borderColor = ViewHelperAction.calculateColor(primaryColor, secondaryColor, 0.5);
 String calendarHeadingColor = ViewHelperAction.calculateColor(primaryColor, secondaryColor, 0.1);
@@ -37,12 +37,19 @@ body {
 	margin: 0px;
 	padding: 0px;
 	background-color: <%= backgroundColor %>;
-	color: #<%= formTitleColor %>;
+	font-size: 13px;
+	color: #2C2C2C;
+	line-height: 1.6em;
+	font-family: "Helvetica Neue", "Helvetica", Arial, Geneva, sans-serif;
 }
 
 a {
 	color: #<%= linkColor %>;
 	font-size: 14px;
+}
+
+table{
+	border-collapse: collapse;
 }
 
 input:focus {
@@ -77,8 +84,21 @@ legend {
 .contentBlock a{
 	font-family: verdana;
 	font-size: 0.9em;
-	padding-left: 10px;
+	/*padding-left: 10px;*/
 	color: #<%= linkColor %>;
+}
+
+.contentBlock img.icon {
+    padding-right: 10px;
+}
+
+.contentBlock ul {
+    list-style-type: none;
+    padding-left: 1em;
+}
+
+.contentBlock ul > li {
+    
 }
 
 .subheading {
@@ -90,15 +110,31 @@ legend {
 }
 
 .menuItem {
-	padding: 0em;
+	
 	margin: 0em;
 	width: 100%;
+	border-bottom: 1px solid #fff;
+}
+
+.menuItem:hover{
+	border-bottom: 1px solid #bd0000;
+}
+
+.menu_category .menuItem .highlighted{
+	border: 0;
+	width: 14px;
+	visibility: hidden;
+	padding: 0 0 0 4px;
+	float: left;
+}
+
+.menu_category .menuItem:hover .highlighted{
+	visibility: visible;
 }
 
 .menuItem:hover {
-	background-color: #<%= formBackgroundColor %>;
+	background-color: #E5E5E5;
 }
-
 
 /* iTrust Header */
 #title {
@@ -109,40 +145,57 @@ legend {
 
 #iTrustHeader {
 	width: 100%;
-	height: 125px;
+	height: 112px;
 	padding: 0em;
-	background: #<%=primaryColor %>;
 	vertical-align: bottom;
+	border-bottom: 4px solid #BD0000;
+	position: relative;
 }
 
 /* Main navigation formatting */
 #iTrustLogo {
-	width: 40%;
 	float: left;
-	padding-top: 10px;
+    padding-top: 6px;
 }
 
 #iTrustUserInfo {
-	width: 60%;
 	float: right;
 	text-align: right;
-	valign: top;
+	
+}
+
+#iTrustUserInfo div{
+	padding:10px;
+	background: #e5e5e5;
+	border-top: 2px solid #3e3e3e;
+}
+
+#iTrustUserInfo div a{
+	font-size: 12px;
 }
 
 #iTrustSelectedPatient {
-	width: 100%;
-	float: right;
+	
+	clear:both;
 	text-align: right;
-	background: #<%=primaryColor %>;
-	border-top: 2px solid black;
+	background: #3E3E3E;
+	position: absolute;
+	right:0;
+	bottom:0;
+	/**border-top: 2px solid black;**/
 }
 
 .selectedPatient {
-	color:black;
+	color: #fff;
+	margin: 0 16px;
+}
+
+#container{
+	height: 100%;
 }
 
 .selectedPatient a{
-	color:black;
+	color:#fff;
 }
 
 #iTrustNavLink {
@@ -157,40 +210,79 @@ legend {
 	margin: 0em;
 	float: left;
 	position: relative;
-	width: 12em;
-	margin-right: 1em;
+
+	width: 15%;
+	margin: 16px 0 0 0;
+
 	height: 100%;
-	background: #<%=primaryColor %>;	
+		
+}
+
+#notificationArea:first-child{
+	width: 25% !important;
+}
+
+#notificationArea{
+	width: 74% !important;
+}
+
+#areaContainer{
+	padding: 10px;
+}
+
+#notificationArea h2{
+	background-color: #3E3E3E;
+    border-bottom: 2px solid #BD0000;
+    color:#fff;
+    padding: 10px;
+    margin-bottom: 0;
+}
+
+#notificationArea.rightArea{
+	border:1px solid #dedede;
+}
+
+#notificationArea.rightArea h2{
+	margin: 0;
+}
+
+#notificationArea ul{
+	list-style: none;
+	margin: 0 10px 0 0;
+	padding: 0;
 }
 
 #iTrustMenu a {
 	color: <%= linkColor %>;
 	font-weight: normal;
-	font-size: 10.5pt;
+	font-size: 13px;
 	text-decoration: none;
 }
 
 
 .iTrustMenuContents {
 	min-height: 80px;
+	width: 100%;
 }
 
 #iTrustMain {
-	float: left;
 	position: relative;
-	margin: 0em;
-	width: 100%;
-	min-width: 800px;
+	border-top: 2px solid #773838;
 }
+
+
 
 /* Content Page */
 
 #iTrustPage {
-	position: relative;
-	width: 100% - 13em;
-	margin: 0em;
-	margin-left: 12em;
-	height: 100%;
+
+    border-bottom: 1px solid #A0A0A0;
+    border-left: 1px solid #A0A0A0;
+    float: right;
+    padding: 0 0 20px;
+    position: relative;
+    width: 84%;
+
 }
 
 #leftBorder, #rightBorder {
@@ -208,7 +300,7 @@ legend {
 	margin-right: 1em;
 	padding: 1em;
 	position: relative;
-	width: 100%-1em;
+	width: 100% - 1em;
 	height: 100%;
 	-moz-border-radius: 0px 0px 15px 0px;
 	border-radius: 0px 0px 15px 0px;
@@ -217,14 +309,15 @@ legend {
 #iTrustFooter {
 	float: left;
 	position: relative;
-	border-top: 1px solid #336699;
+	border-top: 2px solid #bd0000;
 	margin-top: 1em;
 	height: 2em;
 	width: 100%;
 	min-width: 800px;
-	background-color: #<%=primaryColor%>;
+	background-color: #e5e5e5;
 }
 
+#iTrustFooter 
 
 /* Formated table stuff */
 .fTable {
@@ -233,24 +326,40 @@ legend {
 	border-collapse: collapse;
 }
 
+.fTable tbody tr td{
+    background: none repeat scroll 0 0 #EDEDED;
+    border-bottom: 1px dashed #CBCBCB;
+}
+
+.fTable tbody tr:hover td{
+    background: none repeat scroll 0 0 #CFCFCF;
+}
+
 .fTable tr {
-	border: 1px solid black;
+	/*border: 1px solid black;*/
+	 
 }
 
 .fTable tr th {
-	border: 1px solid black;
-	background-color: #<%= formHeadingBgColor %>;
+	/*border: 1px solid black;*/
+	background-color: #3e3e3e;
 	font-size: 16px;
-	padding-left: 4px;
-	padding-right: 4px;
+	padding: 10px;
 	white-space: nowrap;
+	color: #fff;
+	border-bottom: 2px solid #bd0000;
+	text-align:left;
+	font-weight: bold;
+}
+
+.fTable tr th a{
+	color: #fff;
 }
 
 .fTable tr td {
-	border: 1px solid black;
-	font-size: 16px;
-	padding-left: 4px;
-	padding-right: 4px;
+	/*border: 1px solid black;*/
+	font-size: 14px;
+	padding: 10px;
 }
 
 .fTable .subHeader td {
@@ -262,16 +371,24 @@ legend {
 }
 
 .fTable .subHeader th {
-	background: #<%= formHeadingBgColor2%>;
-	font-weight: bold;
-	text-align: center;
-	white-space: nowrap;
+    background: none repeat scroll 0 0 #888888;
+    border-bottom: 1px solid #919191;
+    color: #F7F7F7;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: left;
+    white-space: nowrap;
 }
 
 .fTable .subHeaderVertical {
 	background: #<%= formHeadingBgColor2%>;
 	font-weight: bold;
 	text-align: left;
+	font-size: 14px;
+}
+
+.fTable .topLink {
+    float: right;
 }
 
 .iTrustError {
@@ -394,11 +511,50 @@ legend {
 	padding-bottom: 0.5em;
 	padding-left: 1em; 
 }
+
+#loginMenu h2{
+	background: none repeat scroll 0 0 #474747;
+    border-bottom: 2px solid #BD0000;
+    color: #FFFFFF;
+    padding: 10px;
+    margin: 0;
+}
+
+#sampleLoginsHead{
+background: none repeat scroll 0 0 #474747;
+    border-bottom: 2px solid #BD0000;
+    color: #FFFFFF;
+    padding: 4px 10px;
+	margin: 0;
+	font-size: 14px;
+}
+
+#sampleLoginTable{
+	border: 1px solid #a0a0a0;
+}
+
+#sampleLoginTable td{
+	padding: 2px 10px;
+}
+
+#sampleLoginTable td:hover{
+	background: #e5e5e5;
+}
+
+#loginMenu form{
+	padding: 10px;
+	border: 1px solid #a0a0a0;
+}
+			
+.menu_category table td:hover{
+	
+}
 			
 .menu_category a {
 	font-size: 14px;
 	color: black;
 	text-decoration: none;
+	display: table;
 }
 
 .menu_category a:hover {	
@@ -410,6 +566,16 @@ legend {
 	font-weight: bold;
 	color: black;
 }
+
+
+.menu_category span:first-child{
+	border-bottom: 1px dotted #000;
+	width: 100%;
+	display: inline-table;
+}
+
+
+
 
 /* These links are only for testing purposes and are indicated such */
 a.iTrustTestNavlink {

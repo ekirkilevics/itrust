@@ -8,6 +8,7 @@ import edu.ncsu.csc.itrust.enums.TransactionType;
 
 public class ComprehensiveReportingTest extends iTrustHTTPTest {
 	
+	@Override
 	protected void setUp() throws Exception{
 		super.setUp();
 		gen.clearAllTables();
@@ -56,10 +57,10 @@ public class ComprehensiveReportingTest extends iTrustHTTPTest {
 		assertTrue(wr.getText().contains("Please Select a Patient"));
         wr = wc.getResponse(ADDRESS + "/util/getUser.jsp");
         //assertEquals("iTrust - Find User", wr.getTitle());
-        wr.getForms()[0].setParameter("mid", "22");
+        wr.getForms()[0].setParameter("mid", "23");
         wr = wr.getForms()[0].submit();
         assertTrue(wr.getText().contains("User does not exist"));
-        assertNotLogged(TransactionType.COMPREHENSIVE_REPORT_ADD, 9000000000L, 22L, "Report ID:");
+        assertNotLogged(TransactionType.COMPREHENSIVE_REPORT_ADD, 9000000000L, 23L, "Report ID:");
 	}
 	
 	/*

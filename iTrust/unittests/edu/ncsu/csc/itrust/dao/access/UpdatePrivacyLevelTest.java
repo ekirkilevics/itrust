@@ -5,13 +5,22 @@ import java.util.Comparator;
 import java.util.List;
 import junit.framework.TestCase;
 import edu.ncsu.csc.itrust.beans.DiagnosisBean;
+import edu.ncsu.csc.itrust.dao.mysql.DiagnosesDAO;
 import edu.ncsu.csc.itrust.dao.mysql.OfficeVisitDAO;
 import edu.ncsu.csc.itrust.datagenerators.TestDataGenerator;
 import edu.ncsu.csc.itrust.exception.DBException;
 import edu.ncsu.csc.itrust.testutils.TestDAOFactory;
 
+/**
+ * Test privacy level
+ * Test privacy level with access
+ * and without no access
+ * @author nazaire Gnassounou
+ * @ author David white
+ */
 public class UpdatePrivacyLevelTest extends TestCase {
 	private OfficeVisitDAO ovDAO = TestDAOFactory.getTestInstance().getOfficeVisitDAO();
+	private DiagnosesDAO diagDAO = TestDAOFactory.getTestInstance().getDiagnosesDAO();
 	private TestDataGenerator gen;
 
 	@Override
@@ -41,7 +50,7 @@ public class UpdatePrivacyLevelTest extends TestCase {
 	}
 
 	private List<DiagnosisBean> getDiagnoses() throws DBException {
-		List<DiagnosisBean> diagnoses = ovDAO.getDiagnoses(960);
+		List<DiagnosisBean> diagnoses = diagDAO.getList(960);
 		Collections.sort(diagnoses, new Comparator<DiagnosisBean>() {
 			public int compare(DiagnosisBean o1, DiagnosisBean o2) {
 				return Long.valueOf(o1.getOvDiagnosisID()).compareTo(Long.valueOf(o2.getOvDiagnosisID()));

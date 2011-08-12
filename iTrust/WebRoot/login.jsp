@@ -70,10 +70,10 @@ iTrust is also an interface for medical staff from various locations.  iTrust al
 	} else {
 %>
 	<form method="post" action="/iTrust/login.jsp">
-	<span>MID</span><br />
-	<input type="text" maxlength="10" name="j_username"><br />
+	<span style="border:0;">MID</span><br />
+	<input type="text" maxlength="10" name="j_username" style="width: 158px;"><br />
 	<span>Password</span><br />
-	<input type="password" maxlength="20" name="j_password"><br /><br />
+	<input type="password" maxlength="20" name="j_password" style="width: 158px;"><br /><br />
 <%
 
 	ReCaptcha c = ReCaptchaFactory.newReCaptcha("6Lcpzb4SAAAAAHCD9njojEQJE3ZFuRVYQDsHdZjr", "6Lcpzb4SAAAAAGbscE39L3UmHQ_ferVd7RyJuo5Y", false);

@@ -2,6 +2,7 @@ package edu.ncsu.csc.itrust.http;
 
 import java.text.SimpleDateFormat;
 import com.meterware.httpunit.WebConversation;
+import com.meterware.httpunit.WebLink;
 import com.meterware.httpunit.WebResponse;
 import java.util.Date;
 
@@ -10,6 +11,7 @@ import java.util.Date;
  */
 public class NotificationAreaTest extends iTrustHTTPTest {
 	
+	@Override
 	protected void setUp() throws Exception{
 		super.setUp();
 		gen.clearAllTables();
@@ -54,5 +56,46 @@ public class NotificationAreaTest extends iTrustHTTPTest {
 		assertTrue(wr.getText().contains("<b>Duration:</b> 45 minutes"));		
 		assertTrue(wr.getText().contains("<b>Comments:</b>"));
 		assertTrue(wr.getText().contains("General Checkup after your knee surgery."));
+	}
+	
+	public void testUnreadMessagesCount() throws Exception {
+
+		WebConversation wc = login("9000000000", "pw");
+		WebResponse wr = wc.getCurrentPage();
+		assertEquals("iTrust - HCP Home", wr.getTitle());
+		WebLink wl = null;
+		WebLink[] weblinks = wr.getMatchingLinks(WebLink.MATCH_URL_STRING, "messageInbox.jsp");
+		for (WebLink link: weblinks) {
+			if (link.getText().matches("^\\d+$")) {
+				wl = link;
+				break;
+			}
+		}
+		assertTrue(wl != null);
+		assertEquals("12", wl.getText());
+		wr = wl.click();
+		
+		// view inbox
+		assertEquals("iTrust - View My Message", wr.getTitle());
+		wl = wr.getFirstMatchingLink(WebLink.MATCH_URL_STRING, "msg=0");
+		assertEquals("Read", wl.getText());
+		wr = wl.click();
+		
+		// reading message
+		assertEquals("iTrust - View Message", wr.getTitle());
+		wr = wr.getLinkWith("Home").click();
+		
+		// back at home page, check number of unread messages
+		assertEquals("iTrust - HCP Home", wr.getTitle());
+		wl = null;
+		weblinks = wr.getMatchingLinks(WebLink.MATCH_URL_STRING, "messageInbox.jsp");
+		for (WebLink link: weblinks) {
+			if (link.getText().matches("^\\d+$")) {
+				wl = link;
+				break;
+			}
+		}
+		assertTrue(wl != null);
+		assertEquals("11", wl.getText());
 	}
 }

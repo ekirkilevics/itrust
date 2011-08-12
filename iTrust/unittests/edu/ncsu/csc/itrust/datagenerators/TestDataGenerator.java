@@ -141,6 +141,18 @@ public class TestDataGenerator {
 	public void hcp3() throws FileNotFoundException, SQLException, IOException {
 		new DBBuilder(factory).executeSQLFile(DIR + "/hcp3.sql");
 	}
+
+	public void hcp4() throws FileNotFoundException, SQLException, IOException {
+		new DBBuilder(factory).executeSQLFile(DIR + "/hcp4.sql");
+	}
+
+	public void hcp5() throws FileNotFoundException, SQLException, IOException {
+		new DBBuilder(factory).executeSQLFile(DIR + "/hcp5.sql");
+	}
+
+	public void hcp7() throws FileNotFoundException, SQLException, IOException {
+		new DBBuilder(factory).executeSQLFile(DIR + "/hcp7.sql");
+	}
 	
 	public void healthData() throws SQLException, FileNotFoundException, IOException {
 		new DBBuilder(factory).executeSQLFile(DIR + "/healthdata.sql");
@@ -181,6 +193,10 @@ public class TestDataGenerator {
 	public void ndCodes2() throws FileNotFoundException, SQLException, IOException {
 		new DBBuilder(factory).executeSQLFile(DIR + "/ndCodes2.sql");
 	}
+	
+	public void ndCodes3() throws FileNotFoundException, SQLException, IOException {
+		new DBBuilder(factory).executeSQLFile(DIR + "/ndCodes3.sql");
+	}
 
 	public void officeVisit1() throws SQLException, FileNotFoundException, IOException {
 		new DBBuilder(factory).executeSQLFile(DIR + "/ov1.sql");
@@ -197,8 +213,24 @@ public class TestDataGenerator {
 	public void officeVisit4() throws SQLException, FileNotFoundException, IOException {
 		new DBBuilder(factory).executeSQLFile(DIR + "/ov4.sql");
 	}
-	
+
 	public void officeVisit5() throws SQLException, FileNotFoundException, IOException {
+		new DBBuilder(factory).executeSQLFile(DIR + "/ov5.sql");
+	}
+
+	public void officeVisit6() throws SQLException, FileNotFoundException, IOException {
+		new DBBuilder(factory).executeSQLFile(DIR + "/ov6.sql");
+	}
+
+	public void officeVisit7() throws SQLException, FileNotFoundException, IOException {
+		new DBBuilder(factory).executeSQLFile(DIR + "/ov7.sql");
+	}
+
+	public void officeVisit8() throws SQLException, FileNotFoundException, IOException {
+		new DBBuilder(factory).executeSQLFile(DIR + "/ov8.sql");
+	}
+	
+	public void officeVisits() throws SQLException, FileNotFoundException, IOException {
 		new DBBuilder(factory).executeSQLFile(DIR + "/officeVisits.sql");
 	}
 
@@ -280,6 +312,10 @@ public class TestDataGenerator {
 
 	public void patient21() throws FileNotFoundException, SQLException, IOException {
 		new DBBuilder(factory).executeSQLFile(DIR + "/patient21.sql");
+	}
+
+	public void patient22() throws FileNotFoundException, SQLException, IOException {
+		new DBBuilder(factory).executeSQLFile(DIR + "/patient22.sql");
 	}
 	
 	public void patient42() throws FileNotFoundException, SQLException, IOException {
@@ -425,6 +461,42 @@ public class TestDataGenerator {
 		new DBBuilder(factory).executeSQLFile(DIR + "/admin3.sql");
 	}
 	
+	public void uc44_acceptance_scenario_2() throws SQLException, FileNotFoundException, IOException {
+		new DBBuilder(factory).executeSQLFile(DIR + "/uc44_acceptance_scenario_2.sql");
+	}
+	
+	public void uc44_acceptance_scenario_3() throws SQLException, FileNotFoundException, IOException {
+		new DBBuilder(factory).executeSQLFile(DIR + "/uc44_acceptance_scenario_3.sql");
+	}
+	
+	public void uc44_acceptance_scenario_5() throws SQLException, FileNotFoundException, IOException {
+		new DBBuilder(factory).executeSQLFile(DIR + "/uc44_acceptance_scenario_5.sql");
+	}
+	
+	public void ltData0() throws SQLException, FileNotFoundException, IOException {
+		new DBBuilder(factory).executeSQLFile(DIR + "/lt0.sql");
+	}
+	
+	public void ltData1() throws SQLException, FileNotFoundException, IOException {
+		new DBBuilder(factory).executeSQLFile(DIR + "/lt1.sql");
+	}
+	
+	public void ltData2() throws SQLException, FileNotFoundException, IOException {
+		new DBBuilder(factory).executeSQLFile(DIR + "/lt2.sql");
+	}
+	
+	public void referrals() throws SQLException, FileNotFoundException, IOException {
+		new DBBuilder(factory).executeSQLFile(DIR + "/referrals.sql");
+	}
+	
+	public void referral_query_testdata() throws SQLException, FileNotFoundException, IOException {
+		new DBBuilder(factory).executeSQLFile(DIR + "/referral_query_testdata.sql");
+	}
+	
+	public void referral_sort_testdata() throws SQLException, FileNotFoundException, IOException {
+		new DBBuilder(factory).executeSQLFile(DIR + "/referral_sort_testdata.sql");
+	}
+	
 	public void standardData() throws FileNotFoundException, IOException, SQLException {
 		cptCodes();
 		icd9cmCodes();
@@ -432,8 +504,13 @@ public class TestDataGenerator {
 		ORCodes();
 		hospitals();
 		hcp0();
-
+		
+		ltData0();
+		ltData1();
+		ltData2();
+		
 		hcp3();
+		hcp7();
 		er4();
 		pha1();
 		patient1();
@@ -447,6 +524,7 @@ public class TestDataGenerator {
 		
 		patient20();
 		patient21();
+		patient22();
 		patient42();
 		admin1();
 		admin2();
@@ -454,6 +532,7 @@ public class TestDataGenerator {
 		uap1();
 		officeVisit1();
 		
+		referrals();
 		messages();
 		tester();
 		fakeEmail();

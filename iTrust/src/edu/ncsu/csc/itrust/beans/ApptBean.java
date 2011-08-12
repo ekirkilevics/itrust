@@ -1,9 +1,14 @@
 package edu.ncsu.csc.itrust.beans;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 
-public class ApptBean {
+public class ApptBean implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1965704529780021183L;
 	private String apptType;
 	int apptID;
 	private long patient;

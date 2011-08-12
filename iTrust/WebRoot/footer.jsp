@@ -5,7 +5,7 @@
 
 	
 		<div id="iTrustFooter">
-			<div style="float: left; width: 48%; margin-left: 25px;">
+			<div style="float: left; width: 48%; margin-left: 25px;" class="adminLinks">
 <%
 			if( ! "true".equals(System.getProperty("itrust.production") ) ) { 
 %>
@@ -26,6 +26,6 @@
 			<div style="clear: both;">
 			</div>
 		</div>
-
+</div>
 	</body>
 </html>

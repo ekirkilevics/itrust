@@ -1,7 +1,7 @@
 CREATE TABLE Users(
 	MID                 BIGINT unsigned,
 	Password            VARCHAR(20),
-	Role                enum('patient','admin','hcp','uap','er','tester','pha') NOT NULL DEFAULT 'admin',
+	Role                enum('patient','admin','hcp','uap','er','tester','pha', 'lt') NOT NULL DEFAULT 'admin',
 	sQuestion           VARCHAR(100) DEFAULT '', 
 	sAnswer             VARCHAR(30) DEFAULT '',
 
@@ -17,9 +17,9 @@ CREATE TABLE Hospitals(
 ) ENGINE=MyISAM;
 
 CREATE TABLE Personnel(
-	MID BIGINT unsigned auto_increment,
+	MID BIGINT unsigned default NULL,
 	AMID BIGINT unsigned default NULL,
-	role enum('admin','hcp','uap','er','tester','pha') NOT NULL default 'admin',
+	role enum('admin','hcp','uap','er','tester','pha', 'lt') NOT NULL default 'admin',
 	enabled tinyint(1) unsigned NOT NULL default '0',
 	lastName varchar(20) NOT NULL default '',
 	firstName varchar(20) NOT NULL default '',
@@ -293,7 +293,13 @@ CREATE TABLE LabProcedure (
 	Status VARCHAR(20),
 	Commentary MEDIUMTEXT,
 	Results MEDIUMTEXT,
-	OfficeVisitID INT (10) unsigned,
+	NumericalResults VARCHAR(20),
+	UpperBound VARCHAR(20),
+	LowerBound VARCHAR(20),	
+	OfficeVisitID INT unsigned,
+	LabTechID LONG,
+	PriorityCode INT unsigned,
+	ViewedByPatient BOOLEAN NOT NULL default FALSE,
 	UpdatedDate timestamp NOT NULL default CURRENT_TIMESTAMP
 ) ENGINE=MyISAM;
 
@@ -330,8 +336,11 @@ CREATE TABLE referrals (
 	SenderID               BIGINT UNSIGNED NOT NULL,
 	ReceiverID           BIGINT UNSIGNED NOT NULL,
 	ReferralDetails             TEXT,
-	ConsultationDetails             TEXT,
-	Status						ENUM('Pending','Finished', 'Declined'),
+	OVID		BIGINT UNSIGNED NOT NULL,
+	viewed_by_patient 	boolean NOT NULL,
+	viewed_by_HCP 	boolean NOT NULL,
+	TimeStamp DATETIME NOT NULL,
+	PriorityCode INT unsigned,
 	PRIMARY KEY (id)
 ) AUTO_INCREMENT=1 ENGINE=MyISAM;
 
@@ -378,3 +387,21 @@ CREATE TABLE ProfilePhotos (
 	Photo LONGBLOB,
 	UpdatedDate timestamp NOT NULL default CURRENT_TIMESTAMP
 ) ENGINE=MyISAM;
+
+CREATE TABLE PatientSpecificInstructions (
+    id BIGINT unsigned AUTO_INCREMENT primary key,
+    VisitID BIGINT unsigned,
+    Modified TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    Name VARCHAR(100),
+    URL VARCHAR(250),
+    Comment VARCHAR(500)
+) ENGINE=MyISAM;
+
+CREATE TABLE ReferralMessage(
+	messageID  INT unsigned NOT NULL, 
+	referralID INT unsigned NOT NULL, 
+	PRIMARY KEY (messageID,referralID)
+) ENGINE=MyISAM;
+
+
+

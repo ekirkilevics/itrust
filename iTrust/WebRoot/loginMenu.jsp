@@ -5,8 +5,8 @@
 <%@ page import="net.tanesha.recaptcha.ReCaptchaResponse" %>
     
 <div class="menu_category">
-	<fieldset>
-		<legend>Login</legend>
+	<div id="loginMenu">
+		<h2>Login</h2>
 <script type="text/javascript">
 function fillLoginFields(u,p) {
 	document.getElementById("j_username").value = u;
@@ -30,24 +30,32 @@ function fillLoginFields(u,p) {
 
 %>
 	<form method="post" action="/iTrust/login.jsp">
-	<span>MID</span><br />
-	<input type="text" maxlength="10" id="j_username" name="j_username"><br />
+	<span style="border:0;">MID</span><br />
+	<input type="text" maxlength="10" id="j_username" name="j_username" style="width: 97%;"><br />
 	<span>Password</span><br />
-	<input type="password" maxlength="20" id="j_password" name="j_password"><br /><br />
+	<input type="password" maxlength="20" id="j_password" name="j_password" style="width: 97%;"><br /><br />
 	<input type="submit" value="Login"><br /><br />
 
 	<a style="font-size: 80%;" href="/iTrust/util/resetPassword.jsp">Reset Password</a>
 
 	</form>
-	</fieldset>
+	</div>
 <%
 	}
 if( ! "true".equals(System.getProperty("itrust.production") ) ) { 
 %>
 	<!-- This section is for testing purposes only!! -->
 	<br/>
-	<div align="center">Sample Users</div>
-	<table style="width:100%;">
+	<h2 id="sampleLoginsHead">Sample Users</h2>
+	<table style="width:100%;" id="sampleLoginTable">
+		<tr>
+			<td>
+				<a class="iTrustTestNavlink" onclick="fillLoginFields('5000000001','pw')" href="javascript:void(0)">LT 1</a>
+			</td>
+			<td>
+				<a class="iTrustTestNavlink" onclick="fillLoginFields('5000000002','pw')" href="javascript:void(0)">LT 2</a>
+			</td>
+		</tr>
 		<tr>
 			<td>
 				<a class="iTrustTestNavlink" onclick="fillLoginFields('1','pw')" href="javascript:void(0)">Patient 1</a>
@@ -56,10 +64,26 @@ if( ! "true".equals(System.getProperty("itrust.production") ) ) {
 				<a class="iTrustTestNavlink" onclick="fillLoginFields('2','pw')" href="javascript:void(0)">Patient 2</a>
 			</td>
 		</tr>
+        <tr>
+            <td>
+                <a class="iTrustTestNavlink" onclick="fillLoginFields('5','pw')" href="javascript:void(0)">Patient 5</a>
+            </td>
+            <td>
+                <a class="iTrustTestNavlink" onclick="fillLoginFields('22','pw')" href="javascript:void(0)">Patient 22</a>
+            </td>
+        </tr>
 		<tr>
 			<td>
-				<a class="iTrustTestNavlink" onclick="fillLoginFields('9000000000','pw')" href="javascript:void(0)">HCP</a>
+				<a class="iTrustTestNavlink" onclick="fillLoginFields('9000000000','pw')" href="javascript:void(0)">HCP 1</a>
 			</td>
+            <td>
+                <a class="iTrustTestNavlink" onclick="fillLoginFields('9000000003','pw')" href="javascript:void(0)">HCP 3</a>
+            </td>
+	    </tr>
+	    <tr>
+            <td>
+                <a class="iTrustTestNavlink" onclick="fillLoginFields('9000000007','pw')" href="javascript:void(0)">HCP 7</a>
+            </td>
 			<td>
 				<a class="iTrustTestNavlink" onclick="fillLoginFields('8000000009','uappass1')" href="javascript:void(0)">UAP</a>
 			</td>

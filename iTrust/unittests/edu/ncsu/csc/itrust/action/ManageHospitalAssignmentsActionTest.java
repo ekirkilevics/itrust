@@ -1,5 +1,8 @@
 package edu.ncsu.csc.itrust.action;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 import junit.framework.TestCase;
 import edu.ncsu.csc.itrust.beans.HospitalBean;
@@ -14,9 +17,11 @@ public class ManageHospitalAssignmentsActionTest extends TestCase {
 	private DAOFactory factory = TestDAOFactory.getTestInstance();
 	private DAOFactory evil = EvilDAOFactory.getEvilInstance();
 	private ManageHospitalAssignmentsAction action;
+	private ManageHospitalAssignmentsAction ltAction;
 	private TestDataGenerator gen = new TestDataGenerator();
 	private final static long performingAdmin = 9000000001L;
 	private final static long hcp0 = 9000000000l;
+	private final static long lt0 = 5000000000l;
 	private final static String hosp0 = "1";
 	private final static String hosp1 = "9191919191";
 	private final static String hosp2 = "8181818181";
@@ -28,7 +33,9 @@ public class ManageHospitalAssignmentsActionTest extends TestCase {
 		gen.admin1();
 		gen.hospitals();
 		gen.clearHospitalAssignments();
+		gen.ltData0();
 		action = new ManageHospitalAssignmentsAction(factory, performingAdmin);
+		ltAction = new ManageHospitalAssignmentsAction(factory, lt0);
 	}
 
 	private String doAssignment() throws iTrustException {
@@ -131,7 +138,7 @@ public class ManageHospitalAssignmentsActionTest extends TestCase {
 	}
 
 	public void testGetAvailableHospitals() throws iTrustException {
-		assertSame(4, action.getAvailableHospitals("9000000000").size());
+		assertSame(7, action.getAvailableHospitals("9000000000").size());
 	}
 
 	public void testGetAvailableHospitalsBadMID() {
@@ -169,6 +176,34 @@ public class ManageHospitalAssignmentsActionTest extends TestCase {
 	public void testRemoveHCPAssignmentsBadID() {
 		try {
 			action.removeAllAssignmentsFromHCP("l");
+			fail();
+		} catch (iTrustException e) {
+		}
+	}
+	
+	/**
+	 * New Method to check and make sure LTs only have 1 hospital
+	 * 
+	 * @throws iTrustException
+	 * @throws FileNotFoundException
+	 * @throws IOException
+	 * @throws SQLException
+	 */
+	public void testCheckLTHospital() throws iTrustException, FileNotFoundException, IOException, SQLException {
+		assertTrue(ltAction.checkLTHospital("5000000001"));
+		gen.clearHospitalAssignments();
+		assertFalse(ltAction.checkLTHospital("5000000001"));
+		
+		
+	}
+
+	/**
+	 * This method checks to make sure checkLTHospital method can correctly handle
+	 * and illegal MID.
+	 */
+	public void testCheckLTIDStringMID() {
+		try {
+			assertFalse(ltAction.checkLTHospital("ABCD"));
 			fail();
 		} catch (iTrustException e) {
 		}

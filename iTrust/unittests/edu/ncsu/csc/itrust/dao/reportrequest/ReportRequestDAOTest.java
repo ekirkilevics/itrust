@@ -19,6 +19,7 @@ public class ReportRequestDAOTest extends TestCase {
 	private DAOFactory factory = TestDAOFactory.getTestInstance();
 	private ReportRequestDAO dao = factory.getReportRequestDAO();
 	
+	@Override
 	protected void setUp() throws Exception {
 		TestDataGenerator gen = new TestDataGenerator();
 		gen.clearAllTables();

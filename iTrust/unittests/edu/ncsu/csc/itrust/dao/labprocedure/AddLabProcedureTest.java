@@ -33,7 +33,7 @@ public class AddLabProcedureTest extends TestCase {
 	public void testAddLabProcedure() throws Exception {
 		long id = lpDAO.addLabProcedure(l);
 		LabProcedureBean procedures = lpDAO.getLabProcedure(id);
-		assertEquals("COMPLETED", procedures.getStatus());
+		assertEquals(LabProcedureBean.Completed, procedures.getStatus());
 		assertEquals(1L, procedures.getPid());
 		assertEquals(905L, l.getOvID());
 		assertEquals("10763-1", procedures.getLoinc());

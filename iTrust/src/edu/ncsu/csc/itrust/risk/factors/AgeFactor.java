@@ -16,10 +16,12 @@ public class AgeFactor extends PatientRiskFactor {
 		this.patient = patient;
 	}
 
+	@Override
 	public String getDescription() {
 		return "Patient is over " + age;
 	}
 
+	@Override
 	public boolean hasFactor() {
 		return patient.getAge() > age;
 	}

@@ -128,7 +128,7 @@ function showRisks(){
 
 <br />
 <div align=center>
-	<div style="margin-right: 10px; display: inline-table;">
+	<div style="margin-right: 10px;">
 		<table class="fTable" align="center">
 			<tr>
 				<th colspan="2">Patient Information</th>
@@ -176,7 +176,7 @@ function showRisks(){
 			<input type=button value="Edit" onClick="location='editPatient.jsp';">
 		</a>
 	</div>
-	<div style="margin-right: 10px; display: inline-table;">
+	<div style="margin-right: 10px;">
 		<table class="fTable" align="center">
 			<tr>
 				<th colspan="2">Basic Health Records</th>
@@ -232,7 +232,7 @@ function showRisks(){
 			<input type="button" value="View/Edit History" onClick="location='editBasicHealth.jsp';">
 		</a>
 	</div>
-	<div style="display: inline-table;">
+	<div >
 		<table class="fTable" align="center">
 			<tr>
 				<th>Office Visits</th>
@@ -371,8 +371,9 @@ function showRisks(){
   				<td>Date Received</td>
  			</tr>
 <%	
-		for (OfficeVisitBean ov: officeVisits) { 
-			for (ProcedureBean proc:  action.getCompleteOfficeVisit(ov.getVisitID()).getProcedures()) {
+		for (OfficeVisitBean ov: officeVisits) {
+			
+			for (ProcedureBean proc:  action.getProcedures(ov.getVisitID())) {
 				if (null != proc.getAttribute() && proc.getAttribute().equals("immunization")) { 
 %>
 			<tr>

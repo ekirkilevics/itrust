@@ -3,7 +3,6 @@ package edu.ncsu.csc.itrust.action;
 import java.sql.SQLException;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
 import edu.ncsu.csc.itrust.dao.mysql.AuthDAO;
-import edu.ncsu.csc.itrust.dao.mysql.TransactionDAO;
 import edu.ncsu.csc.itrust.exception.DBException;
 
 /**

@@ -45,3 +45,6 @@ DELETE FROM DrugReactionOverrideCodes;
 DELETE FROM OVReactionOverride;
 
 DELETE FROM ProfilePhotos;
+DELETE FROM OVProcedure;
+
+DELETE FROM PatientSpecificInstructions;

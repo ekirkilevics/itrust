@@ -1,12 +1,13 @@
 <%@taglib prefix="itrust" uri="/WEB-INF/tags.tld" %>
 <%@page errorPage="/auth/exceptionHandler.jsp" %>
 
-<%@page import="edu.ncsu.csc.itrust.action.EditPrescriptionAction"%>
+<%@page import="edu.ncsu.csc.itrust.action.EditPrescriptionsAction"%>
 <%@page import="edu.ncsu.csc.itrust.action.EditOfficeVisitAction"%>
 <%@page import="edu.ncsu.csc.itrust.beans.OfficeVisitBean"%>
 <%@page import="edu.ncsu.csc.itrust.beans.PrescriptionBean"%>
 <%@page import="edu.ncsu.csc.itrust.dao.mysql.OfficeVisitDAO"%>
 <%@page import="edu.ncsu.csc.itrust.dao.mysql.PersonnelDAO"%>
+<%@page import="edu.ncsu.csc.itrust.dao.mysql.PrescriptionsDAO"%>
 
 <%@include file="/global.jsp" %>
 
@@ -19,10 +20,11 @@ pageTitle = "iTrust - Edit Prescription Information";
 <%
 PersonnelDAO docs = new PersonnelDAO(prodDAO);
 OfficeVisitDAO myDAO = new OfficeVisitDAO(prodDAO);
+PrescriptionsDAO prescriptionsDAO = new PrescriptionsDAO(prodDAO);
 int id = Integer.parseInt(request.getParameter("presID"));
 
 PrescriptionBean prescription = null;
-for (PrescriptionBean pres : myDAO.getPrescriptions(Long.parseLong(request.getParameter("visitID")))) {
+for (PrescriptionBean pres : prescriptionsDAO.getList(Long.parseLong(request.getParameter("visitID")))) {
 	if (pres.getId() == id) {
 		prescription = pres;
 	}

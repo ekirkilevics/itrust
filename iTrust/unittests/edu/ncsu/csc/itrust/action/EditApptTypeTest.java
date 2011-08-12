@@ -14,6 +14,7 @@ public class EditApptTypeTest extends TestCase {
 	private DAOFactory factory;
 	private long adminId = 9000000001L;
 	
+	@Override
 	protected void setUp() throws Exception {
 		TestDataGenerator gen = new TestDataGenerator();
 		gen.clearAllTables();

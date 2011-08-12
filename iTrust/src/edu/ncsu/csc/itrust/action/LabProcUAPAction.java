@@ -72,7 +72,7 @@ public class LabProcUAPAction {
 	}
 	
 	/**
-	 * Returns a list of all the lab procedures
+	 * Returns a list of all the lab procedures for a particular patient.
 	 * 
 	 * @param id MID of the UAP viewing the procedures 
 	 * @return a list of all the lab procedures for that UAP
@@ -81,4 +81,23 @@ public class LabProcUAPAction {
 	public List<LabProcedureBean> viewProcedures(long id) throws DBException {
 		return lpDAO.getAllLabProceduresDate(id);
 	}
+	
+	/**
+	 * Returns a list of the lab procedures associated with both the HCP and 
+	 * the given patient.
+	 * 
+	 * @param pid The id of the patient.
+	 * @return A list of lab procedures.
+	 * @throws DBException
+	 */
+	public List<LabProcedureBean> viewPatientProcedures(long pid) throws DBException {
+		return lpDAO.getLabProcedures(loggedInMID, pid);
+	}
+	
+
+	
+	
+	
+	
+	
 }

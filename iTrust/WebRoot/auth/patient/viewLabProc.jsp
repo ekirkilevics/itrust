@@ -40,12 +40,15 @@ for(LabProcedureBean b : proc) {
 if(bean == null) {
 	response.sendRedirect("calendar.jsp");
 }
+
+String status = StringEscapeUtils.escapeHtml("" + (bean.getStatus()));
+
 %>
 
 <br />
 <table  class="fTable" align=center>
 	<tr>
-		<th colspan="11">Lab Procedures</th>
+		<th colspan="13">Lab Procedures</th>
 	</tr>
 
 	<tr class="subHeader">
@@ -53,15 +56,18 @@ if(bean == null) {
 		<td>Status</td>
 		<td>Commentary</td>
 		<td>Results</td>
-		<td>OfficeVisitID</td>
+		<td>Numerical<br/>Result</td>
+        <td colspan="2">Confidence<br/>Interval</td>
 		<td>Updated Date</td>
   	</tr>
 	<tr>
 		<td ><%= StringEscapeUtils.escapeHtml("" + (bean.getLoinc())) %></td>
-		<td ><%= StringEscapeUtils.escapeHtml("" + (bean.getStatus())) %></td>
-		<td ><%= StringEscapeUtils.escapeHtml("" + (bean.getCommentary())) %></td>
-		<td ><%= StringEscapeUtils.escapeHtml("" + (bean.getResults())) %></td>
-		<td ><%= StringEscapeUtils.escapeHtml("" + (bean.getOvID())) %></td>
+		<td ><%= status %></td>
+		<td ><%= status.equals(LabProcedureBean.Completed) ? StringEscapeUtils.escapeHtml("" + (bean.getCommentary())) : ""%></td>
+		<td ><%= status.equals(LabProcedureBean.Completed) ? StringEscapeUtils.escapeHtml("" + (bean.getResults())) : "" %></td>
+        <td ><%= status.equals(LabProcedureBean.Completed) ? StringEscapeUtils.escapeHtml("" + (bean.getNumericalResult())) : "" %></td>
+        <td ><%= status.equals(LabProcedureBean.Completed) ? StringEscapeUtils.escapeHtml("" + (bean.getLowerBound())) : "" %></td>
+        <td ><%= status.equals(LabProcedureBean.Completed) ? StringEscapeUtils.escapeHtml("" + (bean.getUpperBound())) : "" %></td>
 		<td ><%= StringEscapeUtils.escapeHtml("" + (bean.getTimestamp())) %></td>
 	</tr>
 </table>

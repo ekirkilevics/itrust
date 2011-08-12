@@ -3,12 +3,10 @@ package edu.ncsu.csc.itrust.action;
 import java.util.Calendar;
 import edu.ncsu.csc.itrust.beans.SurveyBean;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
-import edu.ncsu.csc.itrust.dao.mysql.AuthDAO;
 import edu.ncsu.csc.itrust.dao.mysql.OfficeVisitDAO;
 import edu.ncsu.csc.itrust.dao.mysql.SurveyDAO;
 import edu.ncsu.csc.itrust.dao.mysql.TransactionDAO;
 import edu.ncsu.csc.itrust.exception.DBException;
-import edu.ncsu.csc.itrust.exception.iTrustException;
 
 /**
  * This class is used to add patient survey data to the database.  The office visit ID is linked with the survey ID.  Once the

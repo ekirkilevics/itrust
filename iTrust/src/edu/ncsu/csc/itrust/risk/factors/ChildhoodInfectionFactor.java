@@ -21,10 +21,12 @@ public class ChildhoodInfectionFactor extends PatientRiskFactor {
 		this.icdCodes = icdCodes.clone();
 	}
 
+	@Override
 	public String getDescription() {
 		return "This patient had a viral infection during their childhood that would increase the risk for this diesease";
 	}
 
+	@Override
 	public boolean hasFactor() {
 		try {
 			return factory.getRiskDAO().hadChildhoodInfection(patientID, icdCodes);

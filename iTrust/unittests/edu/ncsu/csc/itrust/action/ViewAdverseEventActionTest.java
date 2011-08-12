@@ -12,6 +12,7 @@ public class ViewAdverseEventActionTest extends TestCase {
 	private DAOFactory factory = TestDAOFactory.getTestInstance();
 	private TestDataGenerator gen;
 	
+	@Override
 	protected void setUp() throws Exception {
 		action = new ViewAdverseEventAction(factory);
 		gen = new TestDataGenerator();

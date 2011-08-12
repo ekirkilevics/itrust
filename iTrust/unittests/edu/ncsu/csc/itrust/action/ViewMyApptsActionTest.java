@@ -13,6 +13,7 @@ public class ViewMyApptsActionTest extends TestCase {
 	private long mid = 1L;
 	private long hcpId = 9000000000L;
 	
+	@Override
 	protected void setUp() throws Exception {
 		TestDataGenerator gen = new TestDataGenerator();
 		gen.clearAllTables();

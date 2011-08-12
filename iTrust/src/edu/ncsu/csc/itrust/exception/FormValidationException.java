@@ -64,4 +64,14 @@ public class FormValidationException extends Exception {
 		}
 		out.print("</div>");
 	}
+	
+	/** Like printHTML, except a string is returned. */
+	public String printHTMLasString() {
+		String r = "<h2>Information not valid</h2><div class=\"errorList\">";
+		for (String errorMessage : errorList) {
+			r += StringEscapeUtils.escapeHtml(errorMessage) + "<br />";
+		}
+		r += "</div>";
+		return r;
+	}
 }

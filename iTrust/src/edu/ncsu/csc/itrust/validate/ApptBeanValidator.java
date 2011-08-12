@@ -6,6 +6,7 @@ import edu.ncsu.csc.itrust.exception.FormValidationException;
 
 public class ApptBeanValidator extends BeanValidator<ApptBean>{
 
+	@Override
 	public void validate(ApptBean bean) throws FormValidationException {
 		ErrorList errorList = new ErrorList();
 		if(bean.getComment() == null)

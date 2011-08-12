@@ -85,7 +85,8 @@ public class ResetPasswordAction {
 					|| ("hcp".equals(role) && patientDAO.getRole(mid, role).equals("hcp"))
 					|| ("uap".equals(role) && patientDAO.getRole(mid, role).equals("uap"))
 					|| ("pha".equals(role) && patientDAO.getRole(mid, role).equals("pha"))
-					|| ("er".equals(role) && patientDAO.getRole(mid, role).equals("er")))
+					|| ("er".equals(role) && patientDAO.getRole(mid, role).equals("er"))
+					|| ("lt".equals(role) && patientDAO.getRole(mid, role).equals("lt")))
 				return role;
 			else
 				return null;

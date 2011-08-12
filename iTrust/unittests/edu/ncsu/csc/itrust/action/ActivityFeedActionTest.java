@@ -19,6 +19,7 @@ public class ActivityFeedActionTest extends TestCase {
 	private DAOFactory factory;
 	private long mid = 1L;
 	
+	@Override
 	protected void setUp() throws Exception {
 		TestDataGenerator gen = new TestDataGenerator();
 		gen.clearAllTables();

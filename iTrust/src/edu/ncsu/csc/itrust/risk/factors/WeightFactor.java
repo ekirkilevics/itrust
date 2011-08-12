@@ -18,10 +18,12 @@ public class WeightFactor extends PatientRiskFactor {
 		this.bmiThreshold = bmiThreshold;
 	}
 
+	@Override
 	public String getDescription() {
 		return "Patient's body mass index is over " + bmiThreshold;
 	}
 
+	@Override
 	public boolean hasFactor() {
 		double bmi = currentHealthRecord.getBodyMassIndex();
 		return bmi > bmiThreshold && !Double.isInfinite(bmi);

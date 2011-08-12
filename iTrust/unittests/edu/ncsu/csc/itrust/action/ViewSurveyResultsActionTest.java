@@ -6,7 +6,6 @@ import edu.ncsu.csc.itrust.beans.SurveyResultBean;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
 import edu.ncsu.csc.itrust.datagenerators.TestDataGenerator;
 import edu.ncsu.csc.itrust.exception.FormValidationException;
-import edu.ncsu.csc.itrust.exception.iTrustException;
 import edu.ncsu.csc.itrust.testutils.TestDAOFactory;
 import edu.ncsu.csc.itrust.validate.ValidationFormat;
 
@@ -16,6 +15,7 @@ public class ViewSurveyResultsActionTest extends TestCase {
 	private ViewSurveyResultAction action = new ViewSurveyResultAction(factory, 2L);
 	private TestDataGenerator gen;
 
+	@Override
 	protected void setUp() throws Exception {
 		gen = new TestDataGenerator();
 		gen.clearAllTables();

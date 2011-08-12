@@ -20,6 +20,7 @@ public class EMailValidator extends BeanValidator<MessageBean>  {
 	 * @param m A bean of the type to be validated.
 	 */
 	
+	@Override
 	public void validate(MessageBean m) throws FormValidationException {
 		ErrorList errorList = new ErrorList();
 		errorList.addIfNotNull(checkFormat("body", m.getBody(), ValidationFormat.EMAILS,

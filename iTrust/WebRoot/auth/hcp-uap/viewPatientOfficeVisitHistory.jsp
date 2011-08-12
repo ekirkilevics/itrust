@@ -25,6 +25,8 @@ loggingAction.logEvent(TransactionType.PATIENT_LIST_VIEW, loggedInMID, 0, "");
 
 <form action="viewReport.jsp" method="post" name="myform">
 <table class="fTable" align="center">
+	
+	<thead>
 	<tr>
 		<th colspan="3">Past Patients</th>
 	</tr>
@@ -35,6 +37,8 @@ loggingAction.logEvent(TransactionType.PATIENT_LIST_VIEW, loggedInMID, 0, "");
 		<th>Last Visit</th>
 
 	</tr>
+	</thead>
+	<tbody>
 	<%
 		List<PatientBean> patients = new ArrayList<PatientBean>();
 		int index = 0;
@@ -59,6 +63,7 @@ loggingAction.logEvent(TransactionType.PATIENT_LIST_VIEW, loggedInMID, 0, "");
 		}
 		session.setAttribute("patients", patients);
 	%>
+	</tbody>
 </table>
 </form>
 <br />

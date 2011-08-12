@@ -1,8 +1,5 @@
 package edu.ncsu.csc.itrust.validate;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import edu.ncsu.csc.itrust.action.EditOfficeVisitAction;
 import edu.ncsu.csc.itrust.beans.forms.EditOfficeVisitForm;
 import edu.ncsu.csc.itrust.exception.ErrorList;
@@ -15,7 +12,7 @@ import edu.ncsu.csc.itrust.exception.FormValidationException;
  * 
  */
 public class EditOfficeVisitValidator extends BeanValidator<EditOfficeVisitForm> {
-	private boolean validatePrescription = false;
+	//private boolean validatePrescription = false;
 
 	/**
 	 * The default constructor.
@@ -23,9 +20,9 @@ public class EditOfficeVisitValidator extends BeanValidator<EditOfficeVisitForm>
 	public EditOfficeVisitValidator() {
 	}
 
-	public EditOfficeVisitValidator(boolean validatePrescription) {
+	/*public EditOfficeVisitValidator(boolean validatePrescription) {
 		this.validatePrescription = validatePrescription;
-	}
+	}*/
 
 	/**
 	 * Performs the act of validating the bean in question, which varies depending on the
@@ -42,6 +39,7 @@ public class EditOfficeVisitValidator extends BeanValidator<EditOfficeVisitForm>
 		errorList.addIfNotNull(checkFormat("Notes", form.getNotes(), ValidationFormat.NOTES, true));
 		errorList.addIfNotNull(checkFormat("Patient ID", form.getPatientID(), ValidationFormat.MID, false));
 		errorList.addIfNotNull(checkFormat("Visit Date", form.getVisitDate(), ValidationFormat.DATE, false));
+		/*
 		if (validatePrescription) {
 			errorList.addIfNotNull(checkFormat("Start Date", form.getStartDate(), ValidationFormat.DATE,
 					false));
@@ -67,6 +65,7 @@ public class EditOfficeVisitValidator extends BeanValidator<EditOfficeVisitForm>
 
 			}
 		}
+		*/
 		if (errorList.hasErrors())
 			throw new FormValidationException(errorList);
 	}

@@ -47,14 +47,14 @@
 	}
 %>
 
-<br />
+
 <div id="notificationArea" style="width:60%; padding: 0px;">
-  <fieldset>
-    <legend>Activity Feed</legend>
+  <ul>
+    <h2>Activity Feed</h2>
 <%
 	if (pageNumber > 1) {
 %>
-	<div style="width: 100%;">
+	<li style="width: 100%;">
 		<span style="float: left;"><a href="home.jsp?page=1">Refresh</a></span>
 		<%
 		if(accesses.size() == pageNumber * 20 + 1) {
@@ -64,7 +64,7 @@
 		}
 		%>
 		<br />
-	</div>
+	</li>
 <%
 	}
 	ViewPersonnelAction personnels = new ViewPersonnelAction(prodDAO, loggedInMID);
@@ -77,9 +77,9 @@
 	if (pageNumber == 1) {
 		if(accesses.isEmpty()) {
 %>
-			<div style="background-color:"white";">
+			<li style="background-color:"white";">
 				<%= StringEscapeUtils.escapeHtml("" + ( "No recent activity" )) %>
-			</div>
+			</li>
 			<%
 		} else {
 								/* getTransactions() returns one more than necessary */
@@ -101,9 +101,9 @@
 					StringEscapeUtils.escapeHtml(name);
 				}
 			%>
-				<div class="<%= (zebraStripes % 2) == 0 ? "zebraOn" : "zebraOff" %>">
+				<li class="<%= (zebraStripes % 2) == 0 ? "zebraOn" : "zebraOff" %>">
 					<%= action.getMessageAsSentence(name, t.getTimeLogged(), t.getTransactionType())  %>
-				</div>
+				</li>
 	<%
 			}
 		}
@@ -129,13 +129,13 @@
 				name = StringEscapeUtils.escapeHtml(eventPatient.getFullName());
 			}
 	%>
-			<div style="background-color:<%= (zebraStripes % 2) == 0 ? "#DDD" : "white" %>;">
+			<li style="background-color:<%= (zebraStripes % 2) == 0 ? "#DDD" : "white" %>;">
 				<%= action.getMessageAsSentence(name, t.getTimeLogged(), t.getTransactionType()) %>
-			</div>
+			</li>
 	<%
 		}
 	%>
-	<div style="width: 100%;">
+	<li style="width: 100%;">
 		<span style="float: left;"><a href="home.jsp?page=1">Refresh</a></span>
 	<%
 	if(accesses.size() == pageNumber * 20 + 1) {
@@ -144,9 +144,9 @@
 	<%
 	}
 	%>
-	</div>
+	</li>
 <%
 	}
 %>
-</fieldset>
+</ul>
 </div>

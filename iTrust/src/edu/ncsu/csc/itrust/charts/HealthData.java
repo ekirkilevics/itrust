@@ -139,6 +139,7 @@ public class HealthData implements DatasetProducer, CategoryToolTipGenerator, Ca
 			/**
 			 * @see java.lang.Object#finalize()
 			 */
+			@Override
 			protected void finalize() throws Throwable {
 				super.finalize();
 			}
@@ -206,6 +207,7 @@ public class HealthData implements DatasetProducer, CategoryToolTipGenerator, Ca
 	/**
 	 * @see java.lang.Object#finalize()
 	 */
+	@Override
 	protected void finalize() throws Throwable {
 		super.finalize();
 	}

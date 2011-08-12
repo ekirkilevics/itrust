@@ -9,6 +9,7 @@ import edu.ncsu.csc.itrust.enums.TransactionType;
 
 public class ReportAdverseImmuEventTest extends iTrustHTTPTest {
 
+	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
 		gen.clearAllTables();

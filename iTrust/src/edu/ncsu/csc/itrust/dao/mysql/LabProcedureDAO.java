@@ -56,6 +56,33 @@ public class LabProcedureDAO {
 	}
 	
 	/**
+	 * Get lab procedures for a specific office visit, but excluding lab 
+	 * procedures which a patient does not have access to.
+	 * 
+	 * @param ovid Office visit id.
+	 * @return
+	 * @throws DBException
+	 */
+	public List<LabProcedureBean> getLabProceduresForPatientOV(long ovid) throws DBException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+
+		try {
+			conn = factory.getConnection();
+			ps = conn.prepareStatement("SELECT * FROM LabProcedure WHERE OfficeVisitID = ? AND Rights = ? ORDER BY UpdatedDate DESC");
+			ps.setLong(1, ovid);
+			ps.setString(2, LabProcedureBean.Allow);
+			ResultSet rs = ps.executeQuery();
+			return labProcedureLoader.loadList(rs);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DBException(e);
+		} finally {
+			DBUtil.closeConnection(conn, ps);
+		}
+	}
+	
+	/**
 	 * Gets all the lab procedures for a given patient that occur within the next month.
 	 * @param id The MID of the patient as a long.
 	 * @return A java.util.List of LabProcedureBeans.
@@ -158,7 +185,6 @@ public class LabProcedureDAO {
 	
 	/**
 	 * This gets all the procedures for a particular patient on a particular office visit
-	 * @param mid The MID of the patient.
 	 * @param ovid The Office Visit ID.
 	 * @return A java.util.List of LabProcedureBeans
 	 * @throws DBException
@@ -195,6 +221,97 @@ public class LabProcedureDAO {
 			ps = conn.prepareStatement("SELECT * FROM LabProcedure ORDER BY UpdatedDate ASC");
 			ResultSet rs = ps.executeQuery();
 			return labProcedureLoader.loadList(rs);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DBException(e);
+		} finally {
+			DBUtil.closeConnection(conn, ps);
+		}
+	}
+	
+	
+	/**
+	 * Get all lab procedures associated with a particular HCP.
+	 * @param mid The HCP's id.
+	 * @return
+	 * @throws DBException
+	 */
+	public List<LabProcedureBean> getHCPLabProcedures(long mid) throws DBException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+
+		try {
+			if (mid == 0L) throw new SQLException("HCP id cannot be null");
+			conn = factory.getConnection();
+			ps = conn.prepareStatement(
+					"SELECT * FROM LabProcedure WHERE LabProcedure.OfficeVisitID IN " +
+					    "(SELECT OfficeVisits.ID FROM OfficeVisits WHERE OfficeVisits.HCPID = ?)"
+					);
+			ps.setLong(1, mid);
+			ResultSet rs = ps.executeQuery();
+			return labProcedureLoader.loadList(rs);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DBException(e);
+		} finally {
+			DBUtil.closeConnection(conn, ps);
+		}
+	}
+	
+	/**
+	 * Get all lab procedures associated with a particular HCP and Patient.
+	 * @param mid The HCP's id.
+	 * @return
+	 * @throws DBException
+	 */
+	public List<LabProcedureBean> getLabProcedures(long mid, long pid) throws DBException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+
+		try {
+			if (mid == 0L) throw new SQLException("HCP id cannot be null");
+			if (pid == 0L) throw new SQLException("HCP id cannot be null");
+			conn = factory.getConnection();
+			ps = conn.prepareStatement(
+					"SELECT * FROM LabProcedure WHERE LabProcedure.OfficeVisitID IN " +
+					    "(SELECT OfficeVisits.ID FROM OfficeVisits WHERE " +
+					    " OfficeVisits.HCPID = ? AND OfficeVisits.PatientID = ?)"
+					);
+			ps.setLong(1, mid);
+			ps.setLong(2, pid);
+			ResultSet rs = ps.executeQuery();
+			return labProcedureLoader.loadList(rs);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DBException(e);
+		} finally {
+			DBUtil.closeConnection(conn, ps);
+		}
+	}
+
+	/**
+	 * Get a count of all pending lab procedures for a particular HCP.
+	 * @param mid
+	 * @return
+	 * @throws DBException
+	 */
+	public int getHCPPendingCount(long mid) throws DBException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		try {
+			int count = 0;
+			conn = factory.getConnection();
+			ps = conn.prepareStatement(
+					"SELECT COUNT(*) FROM LabProcedure WHERE Status = ? AND LabProcedure.OfficeVisitID IN " +
+					    "(SELECT OfficeVisits.ID FROM OfficeVisits WHERE OfficeVisits.HCPID = ?)"
+					);
+			ps.setString(1, LabProcedureBean.Pending);
+			ps.setLong(2, mid);
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()) {
+				count = rs.getInt(1);
+			}
+			return count;
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new DBException(e);
@@ -240,7 +357,12 @@ public class LabProcedureDAO {
 		try {
 			if (b.getPid() == 0L) throw new SQLException("PatientMID cannot be null");
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("INSERT INTO LabProcedure (PatientMID, LaboratoryProcedureCode, Status, Commentary, Results, OfficeVisitID, Rights) VALUES (?,?,?,?,?,?,?)");
+			ps = conn.prepareStatement(
+					"INSERT INTO LabProcedure " +
+					"(PatientMID, LaboratoryProcedureCode, Status, Commentary, " + 
+					 "Results, OfficeVisitID, Rights, LabTechID, PriorityCode, " + 
+					 "NumericalResults, LowerBound, UpperBound) " + 
+					"VALUES (?,?,?,?,?,?,?,?,?,?,?,?)");
 			ps.setLong(1, b.getPid());
 			ps.setString(2, b.getLoinc());
 			ps.setString(3, b.getStatus());
@@ -248,6 +370,12 @@ public class LabProcedureDAO {
 			ps.setString(5, b.getResults());
 			ps.setLong(6, b.getOvID());
 			ps.setString(7, b.getRights());
+			ps.setLong(8, b.getLTID());
+			ps.setInt(9, b.getPriorityCode());
+			ps.setString(10, b.getNumericalResult());
+			ps.setString(11, b.getLowerBound());
+			ps.setString(12, b.getUpperBound());
+			
 			ps.executeUpdate();
 			return DBUtil.getLastInsert(conn);
 		} catch (SQLException e) {
@@ -269,12 +397,21 @@ public class LabProcedureDAO {
 		try {
 			if (b.getPid() == 0L) throw new SQLException("PatientMID cannot be null");
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("UPDATE LabProcedure SET Status = ?, Commentary = ?, Results = ?, UpdatedDate = ? WHERE LaboratoryProcedureID=?");
+			ps = conn.prepareStatement("UPDATE LabProcedure SET "+
+					" Status = ?, Commentary = ?, Results = ?, UpdatedDate = ?, "+
+					" LabTechID = ?, PriorityCode = ? , NumericalResults = ?, "+
+					" LowerBound = ?, UpperBound = ? "+
+					" WHERE LaboratoryProcedureID=?");
 			ps.setString(1, b.getStatus());
 			ps.setString(2, b.getCommentary());
 			ps.setString(3, b.getResults());
 			ps.setTimestamp(4, new java.sql.Timestamp(System.currentTimeMillis()));
-			ps.setLong(5, b.getProcedureID());
+			ps.setLong(5, b.getLTID());
+			ps.setInt(6, b.getPriorityCode());
+			ps.setString(7, b.getNumericalResult());
+			ps.setString(8, b.getLowerBound());
+			ps.setString(9, b.getUpperBound());
+			ps.setLong(10, b.getProcedureID());
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -283,6 +420,60 @@ public class LabProcedureDAO {
 			DBUtil.closeConnection(conn, ps);
 		}
 	}
+	
+	/**
+	 * Marks a lab procedure as viewed by the patient
+	 * @param b The LabProcedureBean representing the procedure to be marked as viewed.
+	 * @throws DBException
+	 */
+	public void markViewed(LabProcedureBean b) throws DBException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		try {
+			if (b.getPid() == 0L) throw new SQLException("PatientMID cannot be null");
+			conn = factory.getConnection();
+			ps = conn.prepareStatement("UPDATE LabProcedure SET ViewedByPatient = ? WHERE LaboratoryProcedureID=?");
+			ps.setBoolean(1, b.isViewedByPatient());
+			ps.setLong(2, b.getProcedureID());
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DBException(e);
+		} finally {
+			DBUtil.closeConnection(conn, ps);
+		}
+	}
+	
+	/**
+	 * Get the count of unviewed lab procedures for a particular patient.
+	 * @param pid
+	 * @return
+	 * @throws DBException
+	 */
+	public int getPatientUnviewedCount(long pid) throws DBException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		try {
+			if (pid == 0L) throw new SQLException("PatientMID cannot be null");
+			int count = 0;
+			conn = factory.getConnection();
+			ps = conn.prepareStatement("SELECT COUNT(*) FROM LabProcedure WHERE PatientMID = ? AND Rights = ? AND Status = ? AND ViewedByPatient = FALSE ");
+			ps.setLong(1, pid);
+			ps.setString(2, LabProcedureBean.Allow);
+			ps.setString(3, LabProcedureBean.Completed);
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()) {
+				count = rs.getInt(1);
+			}
+			return count;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DBException(e);
+		} finally {
+			DBUtil.closeConnection(conn, ps);
+		}
+	}
+	
 	
 	/**
 	 * Gets all the lab procedures that correspond to a particular LOINC.
@@ -332,7 +523,248 @@ public class LabProcedureDAO {
 			DBUtil.closeConnection(conn, ps);
 		}
 	}
+	
 
+	/**
+	 * Delete a given lab procedure form the database.
+	 * @param procedureID
+	 * @throws DBException
+	 */
+	public void removeLabProcedure(long procedureID) throws DBException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		try {
+			conn = factory.getConnection();
+			ps = conn.prepareStatement("DELETE FROM labprocedure WHERE LaboratoryProcedureID=? ");
+			ps.setLong(1, procedureID);
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DBException(e);
+		} finally {
+			DBUtil.closeConnection(conn, ps);
+		}
+	}
 
+	/**
+	 * Get a list of the lab procedures in transit associated with a given Lab Tech.
+	 * @param id The MID of the LT as a long.
+	 * @return A java.util.List of LabProcedureBeans
+	 * @throws DBException
+	 */
+	public List<LabProcedureBean> getLabProceduresInTransitForLabTech(long id) throws DBException {
+		Connection conn = null;
+		PreparedStatement ps = null;
 
+		try {
+			if (id == 0L) throw new SQLException("LabTechID cannot be null");
+			conn = factory.getConnection();
+			ps = conn.prepareStatement("SELECT * FROM LabProcedure WHERE LabTechID = ? AND Status = ? ORDER BY UpdatedDate ASC");
+			ps.setLong(1, id);
+			ps.setString(2, LabProcedureBean.In_Transit);
+			ResultSet rs = ps.executeQuery();
+			return labProcedureLoader.loadList(rs);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DBException(e);
+		} finally {
+			DBUtil.closeConnection(conn, ps);
+		}
+	}
+
+	/**
+	 * Get a list of the lab procedures received for a given Lab Tech.
+	 * @param id The MID of the LT as a long.
+	 * @return A java.util.List of LabProcedureBeans
+	 * @throws DBException
+	 */
+	public List<LabProcedureBean> getLabProceduresReceivedForLabTech(long id) throws DBException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+
+		try {
+			if (id == 0L) throw new SQLException("LabTechID cannot be null");
+			conn = factory.getConnection();
+			ps = conn.prepareStatement("SELECT * FROM LabProcedure WHERE LabTechID = ? AND Status = ? ORDER BY PriorityCode ASC, UpdatedDate DESC");
+			ps.setLong(1, id);
+			ps.setString(2, LabProcedureBean.Received);
+			ResultSet rs = ps.executeQuery();
+			return labProcedureLoader.loadList(rs);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DBException(e);
+		} finally {
+			DBUtil.closeConnection(conn, ps);
+		}
+	}
+	
+	/**
+	 * Get a list of the lab procedures testing for a given Lab Tech.
+	 * @param id The MID of the LT as a long.
+	 * @return A java.util.List of LabProcedureBeans
+	 * @throws DBException
+	 */
+	public List<LabProcedureBean> getLabProceduresTestingForLabTech(long id) throws DBException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+
+		try {
+			if (id == 0L) throw new SQLException("LabTechID cannot be null");
+			conn = factory.getConnection();
+			ps = conn.prepareStatement("SELECT * FROM LabProcedure WHERE LabTechID = ? AND Status = ? ORDER BY UpdatedDate DESC");
+			ps.setLong(1, id);
+			ps.setString(2, LabProcedureBean.Testing);
+			ResultSet rs = ps.executeQuery();
+			return labProcedureLoader.loadList(rs);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DBException(e);
+		} finally {
+			DBUtil.closeConnection(conn, ps);
+		}
+	}
+
+	/**
+	 * Get the count of the In_Transit and Received lab procedures assigned to 
+	 * a specific lab tech.
+	 *  
+	 * @param mid
+	 * @return
+	 * @throws DBException
+	 */
+	public int getLabTechQueueSize(long mid) throws DBException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+
+		try {
+			if (mid == 0L) throw new SQLException("LabTechID cannot be null");
+			conn = factory.getConnection();
+			int count = 0;
+			ps = conn.prepareStatement("SELECT COUNT(*) FROM LabProcedure WHERE LabTechID = ? AND (Status = ? OR Status = ?)");
+			ps.setLong(1, mid);
+			ps.setString(2, LabProcedureBean.In_Transit);
+			ps.setString(3, LabProcedureBean.Received);
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()) {
+				count = rs.getInt(1);
+			}
+			return count;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DBException(e);
+		} finally {
+			DBUtil.closeConnection(conn, ps);
+		}
+	}
+	
+	/**
+	 * Get the count of the In_Transit and Received lab procedures assigned to 
+	 * a specific lab tech grouped by priority.
+	 *  
+	 * @param mid
+	 * @return
+	 * @throws DBException
+	 */
+	public int[] getLabTechQueueSizeByPriority(long mid) throws DBException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		int[] sizes = new int[4];
+
+		try {
+			if (mid == 0L) throw new SQLException("LabTechID cannot be null");
+			conn = factory.getConnection();
+			for(int i=1; i<=3; i++) {
+				int count = 0;
+				ps = conn.prepareStatement("SELECT COUNT(*) FROM LabProcedure WHERE LabTechID = ? AND (Status = ? OR Status = ?) AND PriorityCode = ?");
+				ps.setLong(1, mid);
+				ps.setString(2, LabProcedureBean.In_Transit);
+				ps.setString(3, LabProcedureBean.Received);
+				ps.setInt(4, i);
+				ResultSet rs = ps.executeQuery();
+				if (rs.next()) {
+					count = rs.getInt(1);
+				}
+				sizes[i] = count;
+			}
+			return sizes;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DBException(e);
+		} finally {
+			DBUtil.closeConnection(conn, ps);
+		}
+	}
+	
+	/**
+	 * @param id
+	 * @param parseLong
+	 * @param parseLong2
+	 * @param parseLong3
+	 * @throws DBException 
+	 */
+	public void submitTestResults(long id, String numericalResult, String upper, String lower) throws DBException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		try {
+			conn = factory.getConnection();
+			ps = conn.prepareStatement("UPDATE LabProcedure SET NumericalResults = ?, UpperBound = ?, LowerBound = ?, Status = ?, UpdatedDate = ? WHERE LaboratoryProcedureID=?");
+			ps.setString(1, numericalResult);
+			ps.setString(2, upper);
+			ps.setString(3, lower);
+			ps.setString(4, "Pending");
+			ps.setTimestamp(5, new java.sql.Timestamp(System.currentTimeMillis()));
+			ps.setLong(6, id);
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DBException(e);
+		} finally {
+			DBUtil.closeConnection(conn, ps);
+		}
+		
+	}
+
+	/**
+	 * @param parseLong
+	 * @throws DBException 
+	 */
+	public void submitReceivedLP(long id) throws DBException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		try {
+			conn = factory.getConnection();
+			ps = conn.prepareStatement("UPDATE LabProcedure SET Status = ?, UpdatedDate = ? WHERE LaboratoryProcedureID=?");
+			ps.setString(1, "Received");
+			ps.setTimestamp(2, new java.sql.Timestamp(System.currentTimeMillis()));
+			ps.setLong(3, id);
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DBException(e);
+		} finally {
+			DBUtil.closeConnection(conn, ps);
+		}
+	}
+
+	/**
+	 * @param parseLong
+	 * @throws DBException 
+	 */
+	public void setLPToTesting(long id) throws DBException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		try {
+			conn = factory.getConnection();
+			ps = conn.prepareStatement("UPDATE LabProcedure SET Status = ?, UpdatedDate = ? WHERE LaboratoryProcedureID=?");
+			ps.setString(1, "Testing");
+			ps.setTimestamp(2, new java.sql.Timestamp(System.currentTimeMillis()));
+			ps.setLong(3, id);
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DBException(e);
+		} finally {
+			DBUtil.closeConnection(conn, ps);
+		}
+	}
 }

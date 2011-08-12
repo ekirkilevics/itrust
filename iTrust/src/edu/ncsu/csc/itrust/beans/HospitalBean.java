@@ -45,6 +45,7 @@ public class HospitalBean {
 		return obj != null && obj.getClass().equals(this.getClass()) && this.equals((HospitalBean) obj);
 	}
 
+	@Override
 	public int hashCode() {
 		assert false : "hashCode not designed";
 		return 42; // any arbitrary constant will do

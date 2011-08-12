@@ -7,6 +7,7 @@ public class TestMailValidator extends TestCase {
 	
 	private MailValidator val = new MailValidator();
 
+	@Override
 	public void setUp() throws Exception {
 	}
 	
@@ -21,6 +22,7 @@ public class TestMailValidator extends TestCase {
 		assertEquals(true, val.validateEmail(value4));
 	}
 
+	@Override
 	public void tearDown() throws Exception {
 	}
 

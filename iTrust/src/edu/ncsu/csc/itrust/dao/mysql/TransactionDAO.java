@@ -199,7 +199,7 @@ public class TransactionDAO {
 			ps.setTimestamp(3, new Timestamp(upper.getTime() + 1000L * 60L * 60 * 24L));
 			ResultSet rs = ps.executeQuery();
 			List<TransactionBean> tbList = loader.loadList(rs);
-
+			
 			tbList = addAndSortRoles(tbList, patientID, getByRole);
 			
 			return tbList;

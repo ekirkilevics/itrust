@@ -1,5 +1,7 @@
 package edu.ncsu.csc.itrust.action;
 
+import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.ArrayList;
 import edu.ncsu.csc.itrust.beans.PersonnelBean;
@@ -22,7 +24,7 @@ public class ViewVisitedHCPsAction {
 	private PersonnelDAO docDAO;
 	private OfficeVisitDAO visitDAO;
 	private PatientDAO patientDAO;
-	private ArrayList<HCPVisitBean> visits;
+	//private ArrayList<HCPVisitBean> visits;
 	private DeclareHCPAction declareAction; 
 	private ArrayList<PersonnelBean> filterList;
 	
@@ -37,129 +39,188 @@ public class ViewVisitedHCPsAction {
 		visitDAO = factory.getOfficeVisitDAO();
 		patientDAO = factory.getPatientDAO();
 		
-		visits = new ArrayList<HCPVisitBean>();
+		//visits = new ArrayList<HCPVisitBean>();
 		declareAction = new DeclareHCPAction(factory, loggedInMID);
 		filterList = new ArrayList<PersonnelBean>();
 	}
 	
 	/**
-	 * Adds all the office visits to a global array
+	 * Create an HCPVisitBean from a given PersonnelBean and office visit date.
 	 * 
-	 * @throws iTrustException
+	 * @param pb The PersonnelBean that will be visited.
+	 * @param visitDate The date of the visit.  This may be the empty string.
+	 * @return The new HCPVisitBean. 
+	 * @throws DBException
 	 */
-	private void processOfficeVisits() throws iTrustException {
-		
-		try {
-			List<OfficeVisitBean> ovlist = visitDAO.getAllOfficeVisits(patientMID);
-			HCPVisitBean visitBean;
-			List<PersonnelBean> dhcps = patientDAO.getDeclaredHCPs(patientMID);
-			boolean tmp;
-			PersonnelBean pb;
-			ArrayList<PersonnelBean> removeIDs = new ArrayList<PersonnelBean>();
-			
-			for (OfficeVisitBean ov: ovlist) {
-				visitBean = new HCPVisitBean();
-				pb = docDAO.getPersonnel(ov.getHcpID());
-				
-				visitBean.setHCPMID(ov.getHcpID());
-				visitBean.setHCPName(pb.getFullName());
-				visitBean.setOVDate(ov.getVisitDateStr());
-				visitBean.setHCPSpecialty(pb.getSpecialty());
-				visitBean.setHCPAddr(pb.getStreetAddress1() +" "+ pb.getStreetAddress2() +" "+ pb.getCity() +", "+ pb.getState() +" "+ pb.getZip());
-								
-				if (true == (tmp = patientDAO.checkDeclaredHCP(patientMID, ov.getHcpID()))) {
-					visitBean.setDesignated(tmp);
-					if (!dhcps.isEmpty()) {
-						for (PersonnelBean hcp : dhcps) {
-							if (hcp.getMID() == ov.getHcpID()) {
-								removeIDs.add(hcp);
-							}
-						}
-						if (!removeIDs.isEmpty()) {
-							for (PersonnelBean pbean: removeIDs) {
-								dhcps.remove(pbean);
-							}
-						}
-					}
-				}
-				
-				visits.add(visitBean);
-				
-			}
-			
-			for (PersonnelBean hcp : dhcps) {
-				visitBean = new HCPVisitBean();
-				visitBean.setHCPMID(hcp.getMID());
-				visitBean.setHCPName(hcp.getFullName());
-				visitBean.setOVDate("");
-				visitBean.setHCPSpecialty(hcp.getSpecialty());
-				visitBean.setHCPAddr(hcp.getStreetAddress1() +" "+ hcp.getStreetAddress2() +" "+ hcp.getCity() +", "+ hcp.getState() +" "+ hcp.getZip());
-				visitBean.setDesignated(true);
-				visits.add(visitBean);
-			}
-			
-			
-		}
-		catch (DBException dbe) {
-			throw new iTrustException(dbe.getMessage());
-		}
+	private HCPVisitBean makeHCPVisitBean(PersonnelBean pb, String visitDate) throws DBException {
+		long hcpid = pb.getMID();
+		HCPVisitBean visitBean = new HCPVisitBean();
+		visitBean.setHCPMID(hcpid);
+		visitBean.setHCPName(pb.getFullName());
+		visitBean.setOVDate(visitDate);
+		visitBean.setHCPSpecialty(pb.getSpecialty());
+		visitBean.setHCPAddr(pb.getStreetAddress1() +" "+ pb.getStreetAddress2() +" "
+						   + pb.getCity() +", "+ pb.getState() +" "+ pb.getZip());
+		visitBean.setDesignated(patientDAO.checkDeclaredHCP(patientMID, hcpid));
+		return visitBean;
 	}
 	
 	/**
-	 * Returns a list of all the visited HCPs
-	 * @return list of all the visited HCPs
+	 * Checks to see if a PersonnelBean matches against a given set of 
+	 * criteria.
+	 * 
+	 * @param pb The PersonnelBean to check.
+	 * @param lastName The last name to check against.  May be null or the empty string to ignore.
+	 * @param specialty The specialty to check against.  May be null or the empty string to ignore.
+	 * @param zip The zip code to check against.  May be null or the empty string to ignore.
+	 * @return true if the PersonnelBean matches all the given parameters, or false otherwise.
 	 */
+	private boolean matchPersonnel(PersonnelBean pb, String lastName, String specialty, String zip) {
+		if (lastName != null && !lastName.equals("") && !pb.getLastName().startsWith(lastName))
+			return false;
+		if (specialty != null && !specialty.equals("") && !specialty.equals(pb.getSpecialty()))
+			return false;
+		if (zip != null && !zip.equals("") && !zip.equals(pb.getZip()))
+			return false;
+		return true;
+	}
 	
-	public List<HCPVisitBean> getVisitedHCPs() {
-		
+	/**
+	 * Get a list of all HCPs visited and/or designated by by the current 
+	 * user.  The list can optionally be filtered by the doctor's last name, 
+	 * specialty, or zip code.
+	 * 
+	 * @param lastName The last name (or a part of it) of the doctor to search 
+	 * 				   for, or null or an empty string to accept all doctors.
+	 * @param specialty The specialty of the doctor to search for, or null or 
+	 * 					an empty string to accept all doctors.
+	 * @param zip The zip code of the doctor to search for, or null or an empty 
+	 * 			  string to accept all doctors.
+	 * @return A list of HCPVisitBeans where each represents one HCP that has 
+	 * 	       been visited or has been designated.
+	 * @throws iTrustException
+	 */
+	private List<HCPVisitBean> getAllVisitedHCPs(String lastName, String specialty, String zip) 
+										     throws iTrustException 
+	{
+		// Visited HCPs in this case includes both HCPs visited *and* HCPs 
+		// designated by the patient.  These two groups are retrieved in 
+		// different ways, then combined.
+		List<HCPVisitBean> visits = new ArrayList<HCPVisitBean>();
 		try {
-			processOfficeVisits();
-		
-			for(int i = 0; i<visits.size(); i++){
-				for(int j = i+1; j<visits.size(); j++){
-					if(visits.get(i).getHCPMID()==visits.get(j).getHCPMID()){
-						visits.remove(visits.get(j));
-						j--;
+			List<OfficeVisitBean> ovlist = visitDAO.getAllOfficeVisits(patientMID);
+			// get most recent office visit for each provider
+			LinkedHashMap<Long, OfficeVisitBean> mostRecentVisits = new LinkedHashMap<Long, OfficeVisitBean>();
+			for (OfficeVisitBean ov: ovlist) {
+				long id = ov.getHcpID();
+				if (!mostRecentVisits.containsKey(id)) {
+					mostRecentVisits.put(id,ov);
+				} else {
+					OfficeVisitBean old = mostRecentVisits.get(id);
+					Date ovDate = ov.getVisitDate();
+					Date oldDate = old.getVisitDate();
+					if (oldDate.before(ovDate)) {
+						mostRecentVisits.put(id, ov);
 					}
 				}
 			}
+			
+			// Get visited HCPs.
+			for (OfficeVisitBean ov: mostRecentVisits.values()) {
+				long hcpid = ov.getHcpID();
+				PersonnelBean pb = docDAO.getPersonnel(hcpid);
+				if (matchPersonnel(pb, lastName, specialty, zip)) {
+					HCPVisitBean visitBean = makeHCPVisitBean(pb, mostRecentVisits.get(hcpid).getVisitDateStr());
+					visits.add(visitBean);
+				}
+			}
+			
+			// Get all designated HCPs.  Because a designated HCP may have been 
+			// visited, we will ensure the HCP is not already in the list.
+			List<PersonnelBean> dhcps = patientDAO.getDeclaredHCPs(patientMID);
+		next:
+			for (PersonnelBean pb: dhcps) {
+				if (matchPersonnel(pb, lastName, specialty, zip)) {
+					long hcpid = pb.getMID();
+					// if HCP is already in visits list, skip here
+					for (HCPVisitBean hv: visits) {
+						if (hv.getHCPMID() == hcpid) {
+							continue next;
+						}
+					}
+					String date = "";
+					HCPVisitBean visitBean = makeHCPVisitBean(pb, date);
+					visits.add(visitBean);
+				}
+			}
+		} catch (DBException dbe) {
+			throw new iTrustException(dbe.getMessage());
+		}
+		
+		return visits;
+	}
+	
+	/**
+	 * Returns a list of all the visited and/or designated HCPs.
+	 * @return list of all the visited HCPs
+	 */
+	public List<HCPVisitBean> getVisitedHCPs() {
+		List<HCPVisitBean> visits;
+		try {
+			visits = getAllVisitedHCPs(null, null, null);
 		}
 		catch (iTrustException ie) {
-			
+			visits = new ArrayList<HCPVisitBean>();
 		}
 			
 		return visits;
 	}
 	
+	
 	/**
-	 * Set a given HCP as undeclared
+	 * Given an HCP's name, return the corresponding HCPVisitBean.
+	 * @param name
+	 * @return
+	 */
+	public HCPVisitBean getNamedHCP(String name) {
+		HCPVisitBean r = new HCPVisitBean();
+		for (HCPVisitBean bean : getVisitedHCPs()) {
+			if (name.equals(bean.getHCPName())) {
+				r = bean;
+				break;
+			}
+		}
+		return r;
+	}
+	
+	/**
+	 * Set a given HCP as undeclared.
 	 * 
-	 * @param name HCP to undeclare
+	 * @param name HCP to undeclare.
 	 * @return An empty string.
 	 * @throws iTrustException
 	 */
 	public String undeclareHCP(String name) throws iTrustException {
-
-		HCPVisitBean remove = null;
 		
-		for (HCPVisitBean visit: visits) {
+		for (HCPVisitBean visit: getVisitedHCPs()) {
 			if (0 == visit.getHCPName().toLowerCase().compareTo(name.toLowerCase())) {
 				Long mid = Long.valueOf(visit.getHCPMID());
 
 				//if (patientDAO.checkDeclaredHCP(patientMID, visit.getHCPMID())) {
-					declareAction.undeclareHCP(mid.toString());
+					String r = declareAction.undeclareHCP(mid.toString());
 				//}
 				visit.setDesignated(false);
 				
-				if (0 == visit.getOVDate().compareTo("")) {
+				/*if (0 == visit.getOVDate().compareTo("")) {
 					remove = visit;
-				}
+				}*/
 			}
 		}
 		
-		if (null != remove) {
-			visits.remove(remove);
-		}
+		/*if (null != remove) {
+			boolean r = visits.remove(remove);
+			System.out.println("visits.remove() returned: " + r);
+		}*/
 				
 		return "";
 	}
@@ -173,7 +234,7 @@ public class ViewVisitedHCPsAction {
 	 */
 	public String declareHCP(String name) throws iTrustException {
 		boolean match = false;
-		for (HCPVisitBean visit: visits) {
+		for (HCPVisitBean visit: getVisitedHCPs()) {
 			if (0 == visit.getHCPName().toLowerCase().compareTo(name.toLowerCase())) {
 				match = true;
 				Long mid = Long.valueOf(visit.getHCPMID());
@@ -201,11 +262,10 @@ public class ViewVisitedHCPsAction {
 						Long mid = Long.valueOf(ele.getMID());
 						if (!patientDAO.checkDeclaredHCP(patientMID, mid)) {
 							declareAction.declareHCP(mid.toString());
-							visits.add(visitBean);
+							//visits.add(visitBean);
 						}
 					}
 				}
-			
 		}
 		return "";
 	}
@@ -215,56 +275,29 @@ public class ViewVisitedHCPsAction {
 	 * @param mid HCP to check
 	 * @return true if the HCP is declared, otherwise false
 	 */
-	public boolean checkDeclared(long mid) {
-		
-		try {
-			return patientDAO.checkDeclaredHCP(patientMID, mid);
-		} catch (DBException dbe) {
-			return false;
-		}
+	public boolean checkDeclared(long mid) throws DBException {
+		return patientDAO.checkDeclaredHCP(patientMID, mid);
 	}
 	
 	/**
 	 * Filter the list of HCPs by last name, specialty, or zip code. 
-	 * @param doc sort by last name
-	 * @param specialty sort by specialty
-	 * @param zip sort by zip
-	 * @return sorted list of HCPs
+	 * @param doc Filter by lastName.  May be null or the empty string to 
+	 * 			  ignore.
+	 * @param specialty Filter by specialty.  May be null or the empty string 
+	 *   			    to ignore.
+	 * @param zip Filter by zip.  May be null or the empty string to ignore.
+	 * @return Filtered list of HCPs.
 	 */
-	public List<PersonnelBean> filterHCPList(String doc, String specialty, String zip) {
-		List<PersonnelBean> doclist;
-			
+	public List<HCPVisitBean> filterHCPList(String lastName, String specialty, String zip) {
+		List<HCPVisitBean> visits;
 		try {
-			doclist = docDAO.getAllPersonnel();
-			for (PersonnelBean ele: doclist) {
-				if (ele.getLastName().toLowerCase().contains(doc.toLowerCase())) {
-					if (null != specialty && !specialty.equals("")) {
-						if (0 == specialty.toLowerCase().compareTo(ele.getSpecialty().toLowerCase())) {
-							if (null != zip && !zip.equals("")) {
-								if (ele.getZip().contains(zip.substring(0, 2))) {
-									filterList.add(ele);
-								}
-							}
-							else {	
-								filterList.add(ele);
-							}
-						}
-					}
-					else if (null != zip && !zip.equals("")) {
-						if (ele.getZip().contains(zip.substring(0, 2))) {
-							filterList.add(ele);
-						}
-					}
-					else {
-						filterList.add(ele);
-					}
-				}
-			}
+			visits = getAllVisitedHCPs(lastName, specialty, zip);
 		}
-		catch (DBException dbe) {
+		catch (iTrustException ie) {
+			visits = new ArrayList<HCPVisitBean>();
+		}
 			
-		}
-		return filterList;
+		return visits;
 	}
 
 }

@@ -3,11 +3,15 @@
 <%@page import="edu.ncsu.csc.itrust.dao.DAOFactory"%>
 <%@page import="edu.ncsu.csc.itrust.beans.DiagnosisBean"%>
 <%@page import="edu.ncsu.csc.itrust.beans.ProcedureBean"%>
+<%@page import="edu.ncsu.csc.itrust.beans.LabProcedureBean"%>
 <%@page import="edu.ncsu.csc.itrust.beans.PrescriptionBean"%>
+<%@page import="edu.ncsu.csc.itrust.beans.PatientBean"%>
 <%@page import="edu.ncsu.csc.itrust.beans.PersonnelBean"%>
+<%@page import="edu.ncsu.csc.itrust.dao.mysql.PatientDAO"%>
 <%@page import="edu.ncsu.csc.itrust.dao.mysql.PersonnelDAO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
+<%@page import="java.text.DateFormat"%>
 
 <%@page errorPage="/auth/exceptionHandler.jsp" %>
 <%@taglib prefix="itrust" uri="/WEB-INF/tags.tld" %>
@@ -35,19 +39,23 @@ session.removeAttribute("personnelList");
 		
 	loggingAction.logEvent(TransactionType.OFFICE_VISIT_VIEW, loggedInMID.longValue(), logMID, "Office Visit: " + ovID);
 	
-	ViewOfficeVisitAction action = null;
+	ViewOfficeVisitAction ovaction = null;
 	
 	if(repMID != null){
 		//This constructor checks that the representative is correct
-		action = new ViewOfficeVisitAction(prodDAO, loggedInMID.longValue(), repMID, ovID);
+		ovaction = new ViewOfficeVisitAction(prodDAO, loggedInMID.longValue(), repMID, ovID);
 	} else{
-		action = new ViewOfficeVisitAction(prodDAO, loggedInMID.longValue(),ovID);
+		ovaction = new ViewOfficeVisitAction(prodDAO, loggedInMID.longValue(),ovID);
 	}
 
 	/* (if(request.getParameter() */
+	PatientBean patient = new PatientDAO(prodDAO).getPatient(loggedInMID.longValue());	
+	DateFormat df = DateFormat.getDateInstance();
+	OfficeVisitBean ovbean = ovaction.getOfficeVisit();	
+	String hcpName = ovaction.getHCPName(ovbean.getHcpID());
 	
-	OfficeVisitBean ov = action.getOfficeVisit();	
-	String hcpName = action.getHCPName(ov.getHcpID());
+	List<LabProcedureBean> procs = ovaction.getLabProcedures();
+	ovaction.setViewed(procs);
 %>
 
 <br />
@@ -55,7 +63,7 @@ session.removeAttribute("personnelList");
 	<tr><th colspan=2>Office Visit Details</th></tr>
 	<tr>
 		<td  class="subHeader">Date:</td>
-		<td><%= StringEscapeUtils.escapeHtml("" + (ov.getVisitDateStr())) %></td>
+		<td><%= StringEscapeUtils.escapeHtml("" + (ovbean.getVisitDateStr())) %></td>
 	</tr>
 	<tr>
 		<td  class="subHeader">HCP:</td>
@@ -65,7 +73,7 @@ session.removeAttribute("personnelList");
 %>
 		<td><a href="/iTrust/auth/viewPersonnel.jsp?personnel=<%= StringEscapeUtils.escapeHtml("" + (index)) %>"><%= StringEscapeUtils.escapeHtml("" + (hcpName)) %></a></td>
 <%
-		PersonnelBean personnel = new PersonnelDAO(prodDAO).getPersonnel(ov.getHcpID());
+		PersonnelBean personnel = new PersonnelDAO(prodDAO).getPersonnel(ovbean.getHcpID());
 		personnelList.add(personnel);
 		index++;
 		session.setAttribute("personnelList", personnelList);
@@ -74,7 +82,7 @@ session.removeAttribute("personnelList");
 	<tr>
 		<td  class="subHeader">Notes:</td>
 		<td>
-			<%= StringEscapeUtils.escapeHtml("" + ( ov.getNotes() )) %>
+			<%= StringEscapeUtils.escapeHtml("" + ( ovbean.getNotes() )) %>
 		</td>
 	</tr>
 </table>
@@ -87,12 +95,12 @@ session.removeAttribute("personnelList");
 		<th>ICD Code</th>
 		<th>Description</th>
 	</tr>
-	<% if (ov.getDiagnoses().size() == 0) { %>
+	<% if (ovaction.getDiagnoses().size() == 0) { %>
 	<tr>
 		<td colspan="2" >No Diagnoses for this visit</td>
 	</tr>
 	<% } else { 
-		for(DiagnosisBean d : ov.getDiagnoses()) {%>
+		for(DiagnosisBean d : ovaction.getDiagnoses()) {%>
 		<tr>
 			<td ><itrust:icd9cm code="<%= StringEscapeUtils.escapeHtml(d.getICDCode()) %>"/></td>
 			<td  style="white-space: nowrap;"><%= StringEscapeUtils.escapeHtml("" + (d.getDescription() )) %></td>
@@ -103,7 +111,7 @@ session.removeAttribute("personnelList");
 <br /><br />
 <table class="fTable" align="center" >
 	<tr>
-		<th colspan="5" style="background-color:silver;">Medications</th>
+		<th colspan="5">Medications</th>
 	</tr>
 	<tr class="subHeader">
 		<td>NDCode</td>
@@ -112,12 +120,12 @@ session.removeAttribute("personnelList");
 		<td>Dosage</td>
 		<td>Instructions</td>
 	</tr>
-	<% if (ov.getPrescriptions().size() == 0) { %>
+	<% if (ovaction.getPrescriptions().size() == 0) { %>
 	<tr>
 		<td colspan="5" class = "valueCell" align="center">No Medications on record</td>
 	</tr>
 	<% } else { 
-		for(PrescriptionBean m : ov.getPrescriptions()) { %>
+		for(PrescriptionBean m : ovaction.getPrescriptions()) { %>
 		<tr>
 			<td class = "valueCell"><%= StringEscapeUtils.escapeHtml("" + (m.getMedication().getNDCodeFormatted())) %></td>
 			<td class = "valueCell"><%= StringEscapeUtils.escapeHtml("" + (m.getMedication().getDescription() )) %></td>
@@ -131,18 +139,18 @@ session.removeAttribute("personnelList");
 <br /><br />
 <table class="fTable" align="center" >
 	<tr>
-		<th colspan="2" style="background-color:silver;">Procedures</th>
+		<th colspan="2">Procedures</th>
 	</tr>
 	<tr class="subHeader">
 		<td>CPT Code</td>
 		<td>Description</td>
 	</tr>
-	<% if (ov.getProcedures().size() == 0) { %>
+	<% if (ovaction.getProcedures().size() == 0) { %>
 	<tr>
 		<td colspan="2" >No Procedures on record</td>
 	</tr>
 	<% } else { 
-		for(ProcedureBean p : ov.getProcedures()) {%>
+		for(ProcedureBean p : ovaction.getAllProcedures()) {%>
 		<tr>
 			<td ><%= StringEscapeUtils.escapeHtml("" + (p.getCPTCode() )) %></td>
 			<td ><%= StringEscapeUtils.escapeHtml("" + (p.getDescription() )) %></td>
@@ -151,5 +159,57 @@ session.removeAttribute("personnelList");
 	   }  %>
 </table>
 <br />
-
+<table class="fTable" align="center">
+	<tr>
+		<th colspan="8">Lab Procedures</th>
+	</tr>
+	<tr class="subHeader">
+        <td>Patient</td>
+        <td>Lab Code</td>
+        <td>Status</td>
+        <td>Commentary</td>
+        <td>Numerical<br/>Result</td>
+        <td colspan="2">Confidence<br/>Interval</td>
+        <td>Updated Date</td>
+	</tr>
+<%
+	if(procs.size() > 0 ) {
+		for (LabProcedureBean bean : procs) {
+			String status = bean.getStatus();
+			String commentary = "";
+			String numericalResult = "";
+			String lowerBound = "";
+			String upperBound = "";
+			if (status.equals(LabProcedureBean.Completed)) {
+	            commentary =       StringEscapeUtils.escapeHtml("" + (bean.getCommentary()));
+	            numericalResult =  StringEscapeUtils.escapeHtml("" + (bean.getNumericalResult()));
+	            lowerBound =       StringEscapeUtils.escapeHtml("" + (bean.getLowerBound()));
+	            upperBound =       StringEscapeUtils.escapeHtml("" + (bean.getUpperBound()));
+			}
+%>
+			<tr>
+				<td><%= StringEscapeUtils.escapeHtml("" + (patient.getFullName())) %></td>
+				<td><%= StringEscapeUtils.escapeHtml("" + (bean.getLoinc())) %></td>
+		        <td><%= status %></td>
+		        <td><%= commentary %></td>
+		        <td><%= numericalResult %></td>
+		        <td><%= lowerBound %></td>
+		        <td><%= upperBound %></td>
+		        <td><%= StringEscapeUtils.escapeHtml("" + (bean.getTimestamp())) %></td>
+			</tr>
+<%
+		}
+	}
+	else {
+%>
+		<tr>
+			<td colspan=8 align=center>
+				No Data
+			</td>
+		</tr>
+<%
+	}
+%>
+</table>
+<br />
 <%@include file="/footer.jsp"%>

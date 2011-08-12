@@ -47,7 +47,7 @@ if (lpid != null && !lpid.equals("")) {
 		try{
 		action2.updateProcedure(lbean);
 		LabProcedureBean bean = prodDAO.getLabProcedureDAO().getLabProcedure(requestID);
-		loggingAction.logEvent(TransactionType.LAB_RESULTS_EDIT, loggedInMID.longValue(), bean.getPid(), "HCP updated procedure id: "+lpid);
+		loggingAction.logEvent(TransactionType.LAB_PROCEDURE_EDIT, loggedInMID.longValue(), bean.getPid(), "HCP updated procedure id: "+lpid);
 		%>
 		<span>Information Updated Successfully</span>
 		<% } catch(FormValidationException e){
@@ -93,7 +93,7 @@ if (lpid != null && !lpid.equals("")) {
 			</tr>
 </table>
 
-
+<%-- 
 <form action="UpdateLabProc.jsp?ID=<%= StringEscapeUtils.escapeHtml("" + (lpid)) %>"&message="Updated Laboratory Procedure" method="post"><input type="hidden"
 	name="formIsFilled" value="true"> <br />
 <br />
@@ -107,9 +107,11 @@ if (lpid != null && !lpid.equals("")) {
 		<td>Status:</td>
 		<td>
 		<select name="Status">
-		<option value="NOT YET RECEIVED"><%= StringEscapeUtils.escapeHtml("" + (lbean.Not_Received )) %></option>
-		<option value="PENDING"><%= StringEscapeUtils.escapeHtml("" + (lbean.Pending )) %></option>
-		<option value="COMPLETED"><%= StringEscapeUtils.escapeHtml("" + (lbean.Completed )) %></option>
+		<option value="In Transit"><%= StringEscapeUtils.escapeHtml("" + (lbean.In_Transit )) %></option>
+		<option value="Received"><%= StringEscapeUtils.escapeHtml("" + (lbean.Received )) %></option>
+		<option value="Testing"><%= StringEscapeUtils.escapeHtml("" + (lbean.Testing )) %></option>
+		<option value="Pending"><%= StringEscapeUtils.escapeHtml("" + (lbean.Pending )) %></option>
+		<option value="Completed"><%= StringEscapeUtils.escapeHtml("" + (lbean.Completed )) %></option>
 		</select>
 		</td>
 	</tr>
@@ -127,6 +129,7 @@ if (lpid != null && !lpid.equals("")) {
 	</tr>
 </table>
 </form>
+ --%>
 <br />
 
 <a href="../hcp/LabProcHCP.jsp">Go to View Laboratory Procedures</a>

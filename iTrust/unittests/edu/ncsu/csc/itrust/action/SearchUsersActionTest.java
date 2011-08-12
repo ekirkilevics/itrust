@@ -14,6 +14,7 @@ public class SearchUsersActionTest extends TestCase {
 	private TestDataGenerator gen = new TestDataGenerator();
 	private DAOFactory factory = TestDAOFactory.getTestInstance();
 	private DAOFactory evil = EvilDAOFactory.getEvilInstance();
+	@Override
 	public void setUp() throws Exception {
 		gen.clearAllTables();
 		gen.standardData();
@@ -55,6 +56,7 @@ public class SearchUsersActionTest extends TestCase {
 		assertEquals(null, personnel);
 	}
 	
+	@Override
 	public void tearDown() throws Exception {
 	}
 	

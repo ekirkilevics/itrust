@@ -9,6 +9,7 @@ import edu.ncsu.csc.itrust.enums.TransactionType;
 
 public class ViewMyReportRequestsTest extends iTrustHTTPTest {
 
+	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
 		gen.hcp0();

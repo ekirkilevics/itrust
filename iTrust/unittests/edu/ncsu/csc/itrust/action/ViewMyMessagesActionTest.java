@@ -7,6 +7,7 @@ import edu.ncsu.csc.itrust.beans.MessageBean;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
 import edu.ncsu.csc.itrust.dao.mysql.MessageDAO;
 import edu.ncsu.csc.itrust.datagenerators.TestDataGenerator;
+import edu.ncsu.csc.itrust.exception.DBException;
 import edu.ncsu.csc.itrust.exception.FormValidationException;
 import edu.ncsu.csc.itrust.exception.iTrustException;
 import edu.ncsu.csc.itrust.testutils.TestDAOFactory;
@@ -20,6 +21,7 @@ public class ViewMyMessagesActionTest extends TestCase {
 	private long mId = 2L;
 	private long hcpId = 9000000000L;
 	
+	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
 		
@@ -169,6 +171,15 @@ public class ViewMyMessagesActionTest extends TestCase {
 		
 		mbList = action2.filterMessages(mbList, "Random Person,Appointment,Appointment,Lab,01/01/2010,01/31/2010");
 		assertEquals(1, mbList.size());
+	}
+	
+	public void testGetUnreadCount() throws SQLException {
+		assertEquals(1, action.getUnreadCount());
+		assertEquals(12, action2.getUnreadCount());
+	}
+	
+	public void testLinkedToReferral() throws DBException {
+		assertEquals(0, action.linkedToReferral(1));
 	}
 	
 }

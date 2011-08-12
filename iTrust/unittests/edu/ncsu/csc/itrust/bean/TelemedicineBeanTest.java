@@ -5,6 +5,7 @@ import edu.ncsu.csc.itrust.beans.TelemedicineBean;
 
 public class TelemedicineBeanTest extends TestCase {
 	TelemedicineBean tBean;
+	@Override
 	protected void setUp() throws Exception {
 		tBean = new TelemedicineBean();
 	}

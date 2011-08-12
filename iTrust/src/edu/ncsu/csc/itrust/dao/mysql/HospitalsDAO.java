@@ -213,5 +213,33 @@ public class HospitalsDAO {
 			DBUtil.closeConnection(conn, ps);
 		}
 	}
+	
+	/**
+	 * Checks to see if the LT has an assigned hospital
+	 * 
+	 * @param hcpID The MID of the LT.
+	 * @return true If the LT has an assigned hospital to them
+	 * @return false If the LT does not have an assigned hospital to them
+	 * @throws DBException
+	 */
+	public boolean checkLTHasHospital(long hcpID) throws DBException{
+		Connection conn = null;
+		PreparedStatement ps = null;
+		try{
+			conn = factory.getConnection();
+			ps = conn.prepareStatement("SELECT * FROM HCPAssignedHos WHERE HCPID = ?");
+			ps.setLong(1, hcpID);
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()){
+				return true;
+			}
+			return false;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DBException(e);
+		} finally {
+			DBUtil.closeConnection(conn, ps);
+		}
+	}
 
 }

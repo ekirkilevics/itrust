@@ -19,10 +19,12 @@ public class SmokingFactor extends PatientRiskFactor {
 		this.patientID = patientID;
 	}
 
+	@Override
 	public String getDescription() {
 		return "Patient is or was a smoker";
 	}
 
+	@Override
 	public boolean hasFactor() {
 		try {
 			return factory.getRiskDAO().hasSmoked(patientID);

@@ -39,7 +39,6 @@ public class LabProcHCPAction extends LabProcUAPAction {
 		ovDAO = factory.getOfficeVisitDAO();
 		this.loggedInMID = loggedInMID;
 		validator = new LabProcedureValidator();
-
 	}
 
 	/**
@@ -103,6 +102,13 @@ public class LabProcHCPAction extends LabProcUAPAction {
 		LabProcedureBean pb = lpDAO.getLabProcedure(x);
 		OfficeVisitBean ovbean = ovDAO.getOfficeVisit(pb.getOvID());
 		return (loggedInMID == ovbean.getHcpID());
-
+	}
+	
+	public int getPendingCount() throws DBException {
+		return lpDAO.getHCPPendingCount(loggedInMID);
+	}
+	
+	public List<LabProcedureBean> viewProceduresByHCP() throws DBException {
+		return lpDAO.getHCPLabProcedures(loggedInMID);
 	}
 }

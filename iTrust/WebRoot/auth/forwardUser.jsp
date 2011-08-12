@@ -14,8 +14,9 @@
 <%
 
 if(request.getUserPrincipal() != null) {
+	
 	long mid = Long.valueOf(request.getUserPrincipal().getName());
-	//loggingAction.logEvent(TransactionType.LOGIN_SUCCESS, mid, mid, "");
+	
 	if (request.isUserInRole("patient")) {
 		response.sendRedirect("patient/home.jsp");
 		return;
@@ -44,6 +45,10 @@ if(request.getUserPrincipal() != null) {
 		response.sendRedirect("tester/home.jsp"); //operationprofile
 		return;
 	}
+	else if (request.isUserInRole("lt")) {
+		response.sendRedirect("lt/home.jsp");
+		return;
+	}
 	else if(!validSession) {
 		session.invalidate();
 		response.sendRedirect("/iTrust/");
@@ -53,6 +58,7 @@ if(request.getUserPrincipal() != null) {
 		session.invalidate();
 	}
 	else {
+		
 		response.sendRedirect("errors/noaccess.jsp");
 	}
 }

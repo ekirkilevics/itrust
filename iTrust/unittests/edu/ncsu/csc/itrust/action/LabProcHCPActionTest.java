@@ -57,7 +57,7 @@ public class LabProcHCPActionTest extends TestCase {
 		assertEquals("No abnormal results", procedures.getResults());
 		List<Email> list = feDAO.getAllEmails();
 		assertEquals(
-				"Dear Andy Programmer, \n Your Lab Procedure (10763-1) has a new updated status of COMPLETED. Log on to iTrust to view.",
+				"Dear Andy Programmer, \n Your Lab Procedure (10763-1) has a new updated status of Completed. Log on to iTrust to view.",
 				list.get(0).getBody());
 	}
 

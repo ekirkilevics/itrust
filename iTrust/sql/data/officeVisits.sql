@@ -9,10 +9,10 @@ INSERT INTO OVDiagnosis(ID, ICDCode, VisitID)
 	ON DUPLICATE KEY UPDATE id = id;
 
 		   
-INSERT INTO OVProcedure(CPTCode, VisitID) 
-	VALUES ('1270F', 20000),
-			('90657', 20000),
-			('1270F', 20001);
+INSERT INTO OVProcedure(ID, VisitID, CPTCode) 
+	VALUES (20010, 20000, '1270F'),
+			(20011, 20000, '90657'),
+			(20012, 20001, '1270F');
 			
 INSERT INTO OVMedication(NDCode, VisitID, StartDate,EndDate,Dosage,Instructions)
 	VALUES ('664662530', 20001, CONCAT(YEAR(NOW()), '-',  MONTH(NOW()), '-21'), CONCAT(ADDDATE(CURDATE(),60)), 250, 'Administer every 6 hours after meals.'	);

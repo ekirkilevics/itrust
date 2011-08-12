@@ -20,6 +20,7 @@ public class AddSurveyTest extends TestCase {
 	private SurveyDAO surveyDAO = factory.getSurveyDAO();
 
 	
+	@Override
 	protected void setUp() throws Exception {
 		TestDataGenerator gen = new TestDataGenerator();
 		gen.clearAllTables();

@@ -25,6 +25,13 @@
 		document.getElementById("removeID").value = HCPID;
 		document.getElementById(formID).submit();
 	}
+    function hcp_checkbox(index, HCPID, formID) {
+    	if (document.getElementsByName('doctor')[index].checked) {
+    	} else {
+    		document.getElementById("removeID").value = HCPID;
+    	}
+        document.getElementById(formID).submit();
+    }
 </script>
 
 <%
@@ -38,20 +45,23 @@ String removeID = request.getParameter("removeID");
 boolean filtered = false;
 
 ViewVisitedHCPsAction action = new ViewVisitedHCPsAction(DAOFactory.getProductionInstance(),loggedInMID.longValue());
-List<HCPVisitBean> hcpVisits = action.getVisitedHCPs();
 
 String confirm = "";
 try {
+	/* Remove designated HCP, if one was selected. */
 	if (removeID != null && !removeID.equals("")) {
 		confirm = action.undeclareHCP(removeID);
-		loggingAction.logEvent(TransactionType.LHCP_UNDECLARE_DLHCP, loggedInMID, loggedInMID, "Undeclared "+removeID);
+		long hcpid = action.getNamedHCP(removeID).getHCPMID();
+		loggingAction.logEvent(TransactionType.LHCP_UNDECLARE_DLHCP, loggedInMID, hcpid, "Undeclared "+removeID);
 	}
+	/* Set designated HCPs, if one was selected. */
 	else if (designateHCPs != null && !designateHCPs[0].equals("")) {
 		for (String designateHCP : designateHCPs) {
 			confirm = action.declareHCP(designateHCP);
-			loggingAction.logEvent(TransactionType.LHCP_DECLARE_DLHCP, loggedInMID, loggedInMID, "Declared "+designateHCP);
+			loggingAction.logEvent(TransactionType.LHCP_DECLARE_DLHCP, loggedInMID, Long.parseLong(designateHCP), "Declared "+designateHCP);
 		}
 	}
+	/* Otherwise, just view the designated HCPs. */
 	else {
 		loggingAction.logEvent(TransactionType.LHCP_VIEW, loggedInMID, 0L, "");
 	}
@@ -63,19 +73,13 @@ catch (iTrustException ie) {
 }
 if(!"".equals(confirm)){%><span><%= StringEscapeUtils.escapeHtml("" + (confirm)) %></span><%}
 
-List<PersonnelBean> personnel = null;
-if (filterName != null && !filterName.equals("")) {
-	filtered = true;
-	personnel = action.filterHCPList(filterName, filterSpecialty, filterZip);
-}
- 
+List<HCPVisitBean> hcplist = action.filterHCPList(filterName, filterSpecialty, filterZip);
 %>
 
 
 <br />
 
 <div align=center>
-<% if (!filtered) { %>
 	<h3>Provider list for <%= StringEscapeUtils.escapeHtml("" + (patient.getFullName())) %></h3>
 	<br />
 
@@ -94,7 +98,7 @@ if (filterName != null && !filterName.equals("")) {
 <%
 	
 	int i = 0; 
-	for (HCPVisitBean vb: hcpVisits) { 
+	for (HCPVisitBean vb: hcplist) { 
 %>
 			<tr>
 				<td><%= StringEscapeUtils.escapeHtml("" + (vb.getHCPName())) %></td>
@@ -103,16 +107,14 @@ if (filterName != null && !filterName.equals("")) {
 				<td><%= StringEscapeUtils.escapeHtml("" + (vb.getOVDate())) %></td>
 				<td>
 					<input name="doctor" value="<%= StringEscapeUtils.escapeHtml("" + (vb.getHCPName())) %>" 
-							type="checkbox"<%= StringEscapeUtils.escapeHtml("" + (vb.isDesignated()?"checked=\"checked\"":"")) %> 
-							onClick="if(document.getElementsByName('doctor')[<%= StringEscapeUtils.escapeHtml("" + (i)) %>].checked) {this.form.submit();} else {removeHCP('<%= StringEscapeUtils.escapeHtml("" + (vb.getHCPName())) %>', 'mainForm');}"/>
+							type="checkbox" <%= StringEscapeUtils.escapeHtml("" + (vb.isDesignated()?"checked=\"checked\"":"")) %> 
+							onClick="hcp_checkbox(<%= StringEscapeUtils.escapeHtml("" + (i)) %>,'<%= StringEscapeUtils.escapeHtml("" + (vb.getHCPName())) %>','mainForm');"
+							/>
 				</td>
 			</tr> 
 <%
 		i++;
 	}
-
-	
-	
 %>
 			<tr>
 				<td colspan="5" style="color: #CC3333; text-align: right; font-weight: bold; font-size: 12px;">
@@ -121,59 +123,7 @@ if (filterName != null && !filterName.equals("")) {
 			</tr>
 		</table>
 	</form>
-<%
-} 
-else {
-%>
 
-	<form name="filterForm" id="filterForm" action="viewVisitedHCPs.jsp" method="post" onSubmit="return false;" target="_top">
-		<table id="filter_hcp_table" class="fTable">
-			<tr>
-				<th>HCP Name</th>
-				<th>Specialty</th>
-				<th>Address</th>
-				<th>Designated HCP?</th>
-			</tr>
-<% 
-	List<PersonnelBean> added = null;
-	if (null != personnel) {
-		int i = 0; 
-		for (PersonnelBean ele: personnel) {
-		
-%>
-			<tr>
-				<td><%= StringEscapeUtils.escapeHtml("" + (ele.getFullName() )) %></td>
-				<td><%= StringEscapeUtils.escapeHtml("" + (ele.getSpecialty() == null?"none":ele.getSpecialty())) %></td>
-				<td><%= StringEscapeUtils.escapeHtml("" + (new String(ele.getStreetAddress1() +" "+ ele.getStreetAddress2() +" "+ ele.getCity() +", "+ ele.getState() +" "+ ele.getZip()) )) %></td>
-				<td>
-					<input name="doctor" value="<%= StringEscapeUtils.escapeHtml("" + (ele.getFullName())) %>" 
-							type="checkbox"<%= StringEscapeUtils.escapeHtml("" + (action.checkDeclared(ele.getMID())?"checked=\"checked\"":"")) %> 
-							onClick="if(document.getElementsByName('doctor')[<%= StringEscapeUtils.escapeHtml("" + (i)) %>].checked) {this.form.submit();} else {removeHCP('<%= StringEscapeUtils.escapeHtml("" + (ele.getFullName())) %>','filterForm');}"/>
-				</td>
-			</tr> 
-<%
-
-			i++;
-			
-		}
-	
-	
-		
-	}
-%>
-			<tr>
-				<td colspan="5" style="color: #CC3333; text-align: right; font-weight: bold; font-size: 12px;">
-					Select checkbox to update designated HCP
-				</td>
-			</tr>
-		</table>
-		
-		<input type="hidden" id="removeID" name="removeID" value="" >
-	</form>
-
-<%
-}
-%>
 </div>
 
 <br /><br />

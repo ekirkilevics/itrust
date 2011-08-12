@@ -23,10 +23,12 @@ public class PriorDiagnosisFactor extends PatientRiskFactor {
 		this.upperICDCode = upperICDCode;
 	}
 
+	@Override
 	public String getDescription() {
 		return "Patient has had related diagnoses";
 	}
 
+	@Override
 	public boolean hasFactor() {
 		try {
 			return factory.getRiskDAO().hadPriorDiagnoses(patientID, lowerICDCode, upperICDCode);

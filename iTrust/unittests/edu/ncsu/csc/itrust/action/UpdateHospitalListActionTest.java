@@ -114,7 +114,7 @@ public class UpdateHospitalListActionTest extends TestCase {
 		HospitalBean hosp = new HospitalBean(id, "shouldn't be here");
 		assertEquals("Error: Hospital not found.", action.updateInformation(hosp));
 		assertEquals(null, factory.getHospitalsDAO().getHospital(id));
-		assertEquals(4, factory.getHospitalsDAO().getAllHospitals().size());
+		assertEquals(7, factory.getHospitalsDAO().getAllHospitals().size());
 	}
 
 }

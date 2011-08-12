@@ -19,10 +19,12 @@ public class CholesterolFactor extends PatientRiskFactor {
 		this.record = currentHealthRecord;
 	}
 
+	@Override
 	public String getDescription() {
 		return "Patient has bad cholesterol";
 	}
 
+	@Override
 	public boolean hasFactor() {
 		return (record.getCholesterolHDL() < hdlThreshold) || (record.getCholesterolLDL() > ldlThreshold)
 				|| (record.getCholesterolTri() > triThreshold);

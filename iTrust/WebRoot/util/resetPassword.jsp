@@ -46,6 +46,7 @@
 				<option value="uap">UAP</option>
 				<option value="er">ER</option>
 				<option value="pha">PHA</option>
+				<option value="lt">LT</option>
 			</select>
 		</td>
 	</tr>

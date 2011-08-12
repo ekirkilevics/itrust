@@ -17,6 +17,7 @@ public class MedicationBeanLoader implements BeanLoader<MedicationBean> {
 	public MedicationBeanLoader() {
 	}
 
+	
 	public List<MedicationBean> loadList(ResultSet rs) throws SQLException {
 		ArrayList<MedicationBean> list = new ArrayList<MedicationBean>();
 		while (rs.next()) {

@@ -26,6 +26,7 @@ public class SendMessageActionTest extends TestCase {
 	private long pateientId;
 	private long hcpId;
 	
+	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
 		gen = new TestDataGenerator();

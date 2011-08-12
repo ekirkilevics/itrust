@@ -113,6 +113,7 @@ public class AuthDAO {
 			case ADMIN:
 			case UAP:
 			case ER:
+			case LT:
 				return factory.getPersonnelDAO().getName(mid);
 			case PATIENT:
 				return factory.getPatientDAO().getName(mid);

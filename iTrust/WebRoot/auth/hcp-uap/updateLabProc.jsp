@@ -45,7 +45,7 @@ if (lpid != null && !lpid.equals("")) {
 		try{
 		action2.updateProcedure(lbean);
 		LabProcedureBean bean = prodDAO.getLabProcedureDAO().getLabProcedure(requestID);
-		loggingAction.logEvent(TransactionType.LAB_RESULTS_EDIT, loggedInMID.longValue(), bean.getPid() , "Procedure: " + lpid);
+		loggingAction.logEvent(TransactionType.LAB_PROCEDURE_EDIT, loggedInMID.longValue(), bean.getPid() , "Procedure: " + lpid);
 %>
 	<br />
 	<div align=center>
@@ -106,7 +106,7 @@ if (request.getParameter("message") != null) {
 			</tr>
 </table>
 
-
+<%--
 <form action="updateLabProc.jsp?ID=<%= StringEscapeUtils.escapeHtml("" + (lpid)) %>"&message="Updated Laboratory Procedure" method="post"><input type="hidden"
 	name="formIsFilled" value="true"> <br />
 <br />
@@ -120,9 +120,11 @@ if (request.getParameter("message") != null) {
 		<td class="subHeaderVertical">Status:</td>
 		<td>
 		<select name="Status">
-		<option value="NOT YET RECEIVED"><%= StringEscapeUtils.escapeHtml("" + (lbean.Not_Received )) %></option>
-		<option value="PENDING"><%= StringEscapeUtils.escapeHtml("" + (lbean.Pending )) %></option>
-		<option value="COMPLETED"><%= StringEscapeUtils.escapeHtml("" + (lbean.Completed )) %></option>
+		<option value="<%= LabProcedureBean.In_Transit %>"><%= StringEscapeUtils.escapeHtml("" + (lbean.In_Transit )) %></option>
+        <option value="<%= LabProcedureBean.Received %>"><%= StringEscapeUtils.escapeHtml("" + (lbean.Received )) %></option>
+        <option value="<%= LabProcedureBean.Testing %>"><%= StringEscapeUtils.escapeHtml("" + (lbean.Testing )) %></option>
+		<option value="<%= LabProcedureBean.Pending %>"><%= StringEscapeUtils.escapeHtml("" + (lbean.Pending )) %></option>
+		<option value="<%= LabProcedureBean.Completed %>"><%= StringEscapeUtils.escapeHtml("" + (lbean.Completed )) %></option>
 		</select>
 		</td>
 	</tr>
@@ -139,6 +141,7 @@ if (request.getParameter("message") != null) {
 <input type="submit" style="font-size: 14pt; font-weight: bold;" value="Update">
 </div>
 </form>
+--%>
 <br />
 
 <%@include file="/footer.jsp" %>

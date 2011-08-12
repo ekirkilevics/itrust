@@ -11,6 +11,7 @@ import edu.ncsu.csc.itrust.beans.LabProcedureBean;
 import edu.ncsu.csc.itrust.beans.OfficeVisitBean;
 import edu.ncsu.csc.itrust.beans.PatientBean;
 import edu.ncsu.csc.itrust.beans.PersonnelBean;
+import edu.ncsu.csc.itrust.beans.ProcedureBean;
 import edu.ncsu.csc.itrust.beans.ReportRequestBean;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
 import edu.ncsu.csc.itrust.dao.mysql.AllergyDAO;
@@ -21,6 +22,7 @@ import edu.ncsu.csc.itrust.dao.mysql.LabProcedureDAO;
 import edu.ncsu.csc.itrust.dao.mysql.OfficeVisitDAO;
 import edu.ncsu.csc.itrust.dao.mysql.PatientDAO;
 import edu.ncsu.csc.itrust.dao.mysql.PersonnelDAO;
+import edu.ncsu.csc.itrust.dao.mysql.ProceduresDAO;
 import edu.ncsu.csc.itrust.dao.mysql.ReportRequestDAO;
 import edu.ncsu.csc.itrust.dao.mysql.SurveyDAO;
 import edu.ncsu.csc.itrust.dao.mysql.ICDCodesDAO;
@@ -45,6 +47,7 @@ public class ViewMyRecordsAction {
 	private FakeEmailDAO emailDAO;
 	private ICDCodesDAO icdDAO;
 	private ReportRequestDAO reportRequestDAO;
+	private ProceduresDAO procDAO;
 	private long loggedInMID;
 
 	/**
@@ -64,6 +67,7 @@ public class ViewMyRecordsAction {
 		this.emailDAO = factory.getFakeEmailDAO();
 		this.reportRequestDAO = factory.getReportRequestDAO();
 		this.icdDAO = factory.getICDCodesDAO();
+		this.procDAO = factory.getProceduresDAO();
 		this.loggedInMID = loggedInMID;
 	}
 
@@ -251,6 +255,10 @@ public class ViewMyRecordsAction {
 		return ovDAO.getOfficeVisit(visitID);
 	}
 	
+	public List<ProcedureBean> getProcedures(long visitID) throws DBException {
+		return procDAO.getList(visitID);
+	}
+	
 	/**
 	 * Returns a list of PatientBeans of all patients the currently logged in patient represents
 	 * 
@@ -290,7 +298,13 @@ public class ViewMyRecordsAction {
 	 */
 	public List<LabProcedureBean> getLabs() throws iTrustException {
 		return labDAO.getLabProceduresForPatient(loggedInMID);
-
+	}
+	
+	public void setViewed(List<LabProcedureBean> procs) throws DBException {
+		for (LabProcedureBean b : procs) {
+			b.setViewedByPatient(true);
+			labDAO.markViewed(b);
+		}
 	}
 
 	/**

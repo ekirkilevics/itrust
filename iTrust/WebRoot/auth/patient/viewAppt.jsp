@@ -93,8 +93,9 @@ pageTitle = "iTrust - View Message";
 			
 			loggingAction.logEvent(TransactionType.APPOINTMENT_VIEW, loggedInMID, original.getPatient(), "");
 		%>
+	    <div align="center">
 			<div>
-				<table width="99%">
+				<table>
 					<tr>
 						<th>Appointment Info</th>
 					</tr>
@@ -124,6 +125,7 @@ pageTitle = "iTrust - View Message";
 					<td colspan="2"><%= StringEscapeUtils.escapeHtml("" + ( (original.getComment()== null)?"No Comment":original.getComment() )) %></td>
 				</tr>
 			</table>
+	    </div>
 <%
 		} else {
 %>

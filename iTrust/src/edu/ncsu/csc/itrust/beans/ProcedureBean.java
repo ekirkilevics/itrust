@@ -12,6 +12,7 @@ import java.sql.Date;
  */
 public class ProcedureBean {
 
+	private long visitID;
 	private long ovProcedureID = 0L;
 	private String CPTCode;
 	private String description;
@@ -44,6 +45,14 @@ public class ProcedureBean {
 		this.hcpid = hcpid;
 	}
 	
+	public long getID() {
+		return ovProcedureID;
+	}
+
+	public void setID(long id) {
+		this.ovProcedureID = id;
+	}
+	
 	/**
 	 * Gets the CPT Code for this procedure
 	 * 
@@ -55,6 +64,13 @@ public class ProcedureBean {
 
 	public void setCPTCode(String code) {
 		CPTCode = code;
+	}
+	
+	public long getVisitID() {
+		return visitID;
+	}
+	public void setVisitID(long visitID) {
+		this.visitID = visitID;
 	}
 	
 	/**

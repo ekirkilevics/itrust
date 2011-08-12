@@ -2,36 +2,7 @@ package edu.ncsu.csc.itrust.dao;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import edu.ncsu.csc.itrust.dao.mysql.AccessDAO;
-import edu.ncsu.csc.itrust.dao.mysql.AdverseEventDAO;
-import edu.ncsu.csc.itrust.dao.mysql.AllergyDAO;
-import edu.ncsu.csc.itrust.dao.mysql.ApptDAO;
-import edu.ncsu.csc.itrust.dao.mysql.ApptTypeDAO;
-import edu.ncsu.csc.itrust.dao.mysql.AuthDAO;
-import edu.ncsu.csc.itrust.dao.mysql.CPTCodesDAO;
-import edu.ncsu.csc.itrust.dao.mysql.DrugInteractionDAO;
-import edu.ncsu.csc.itrust.dao.mysql.FakeEmailDAO;
-import edu.ncsu.csc.itrust.dao.mysql.FamilyDAO;
-import edu.ncsu.csc.itrust.dao.mysql.HealthRecordsDAO;
-import edu.ncsu.csc.itrust.dao.mysql.HospitalsDAO;
-import edu.ncsu.csc.itrust.dao.mysql.ICDCodesDAO;
-import edu.ncsu.csc.itrust.dao.mysql.LOINCDAO;
-import edu.ncsu.csc.itrust.dao.mysql.LabProcedureDAO;
-import edu.ncsu.csc.itrust.dao.mysql.MessageDAO;
-import edu.ncsu.csc.itrust.dao.mysql.NDCodesDAO;
-import edu.ncsu.csc.itrust.dao.mysql.OfficeVisitDAO;
-import edu.ncsu.csc.itrust.dao.mysql.PatientDAO;
-import edu.ncsu.csc.itrust.dao.mysql.PersonnelDAO;
-import edu.ncsu.csc.itrust.dao.mysql.ProfilePhotoDAO;
-import edu.ncsu.csc.itrust.dao.mysql.ReasonCodesDAO;
-import edu.ncsu.csc.itrust.dao.mysql.ReferralDAO;
-import edu.ncsu.csc.itrust.dao.mysql.RemoteMonitoringDAO;
-import edu.ncsu.csc.itrust.dao.mysql.ReportRequestDAO;
-import edu.ncsu.csc.itrust.dao.mysql.RiskDAO;
-import edu.ncsu.csc.itrust.dao.mysql.SurveyDAO;
-import edu.ncsu.csc.itrust.dao.mysql.SurveyResultDAO;
-import edu.ncsu.csc.itrust.dao.mysql.TransactionDAO;
-import edu.ncsu.csc.itrust.dao.mysql.VisitRemindersDAO;
+import edu.ncsu.csc.itrust.dao.mysql.*;
 import edu.ncsu.csc.itrust.testutils.EvilDAOFactory;
 import edu.ncsu.csc.itrust.testutils.TestDAOFactory;
 
@@ -185,8 +156,28 @@ public class DAOFactory {
 		return new RemoteMonitoringDAO(this);
 	}
 
+	public PrescriptionsDAO getPrescriptionsDAO() {
+		return new PrescriptionsDAO(this);
+	}
+
+	public DiagnosesDAO getDiagnosesDAO() {
+		return new DiagnosesDAO(this);
+	}
+
+	public ProceduresDAO getProceduresDAO() {
+		return new ProceduresDAO(this);
+	}
+
+	public PrescriptionReportDAO getPrescriptionReportDAO() {
+		return new PrescriptionReportDAO(this);
+	}
+
 	public ReasonCodesDAO getORCodesDAO() {
 		return new ReasonCodesDAO(this);
+	}
+
+	public PatientInstructionsDAO getPatientInstructionsDAO() {
+		return new PatientInstructionsDAO(this);
 	}
 	
 }
