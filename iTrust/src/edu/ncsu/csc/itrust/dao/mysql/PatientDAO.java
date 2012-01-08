@@ -210,7 +210,7 @@ public class PatientDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("INSERT INTO historypatients SELECT null, CURDATE(), ?, p.* FROM itrust2.patients p WHERE p.mid=?");
+			ps = conn.prepareStatement("INSERT INTO historypatients SELECT null, CURDATE(), ?, p.* FROM itrust.patients p WHERE p.mid=?");
 			ps.setLong(1, hcpid);
 			ps.setLong(2, pid);
 			ps.executeUpdate();
