@@ -7225,6 +7225,7 @@ E1">
     </expectedResults>
     <actualResults>A table of patient history is shown with the most recent update showing all the data, who edited it, and when it was edited. 
     </actualResults>
+    </description>
   </test>
   
   <test id="testBasicHealthSmokingStatus">
@@ -7241,6 +7242,7 @@ E1">
     </expectedResults>
     <actualResults>The patient's Smoking Status Code and Description are listed under Basic Health Records
     </actualResults>
+    </description>
   </test>
 
 </BlackBoxTestPlan>
