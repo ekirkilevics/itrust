@@ -264,7 +264,6 @@ public class ViewDiagnosisStatisticsAction {
 			return false;
 		}
 		cal.set(Calendar.YEAR, startData.getYear()+1900);
-		System.out.println();
 
 		while( cal.getTime().before(wkDate) && cal.get(Calendar.YEAR) != wkDate.getYear()+1900) {
 			

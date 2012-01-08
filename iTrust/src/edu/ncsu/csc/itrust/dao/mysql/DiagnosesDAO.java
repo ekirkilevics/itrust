@@ -83,7 +83,7 @@ public class DiagnosesDAO {
 		DiagnosisStatisticsBean dsBean = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("SELECT * FROM itrust.ovdiagnosis INNER JOIN itrust.officevisits ON itrust.ovdiagnosis.VisitID=itrust.officevisits.ID INNER JOIN itrust.patients ON itrust.officevisits.PatientID=itrust.patients.MID WHERE ICDCode=? AND zip1=? AND visitDate >= ? AND visitDate <= ? ");
+			ps = conn.prepareStatement("SELECT * FROM ovdiagnosis INNER JOIN officevisits ON ovdiagnosis.VisitID=officevisits.ID INNER JOIN patients ON officevisits.PatientID=patients.MID WHERE ICDCode=? AND zip1=? AND visitDate >= ? AND visitDate <= ? ");
 			ps.setString(1, icdCode);
 			ps.setString(2, zipCode);
 			ps.setTimestamp(3, new Timestamp(lower.getTime()));
@@ -94,7 +94,7 @@ public class DiagnosesDAO {
 			rs.last();
 			int local = rs.getRow();
 
-			ps = conn.prepareStatement("SELECT * FROM itrust.ovdiagnosis INNER JOIN itrust.officevisits ON itrust.ovdiagnosis.VisitID=itrust.officevisits.ID INNER JOIN itrust.patients ON itrust.officevisits.PatientID=itrust.patients.MID WHERE ICDCode=? AND zip1 LIKE ? AND visitDate >= ? AND visitDate <= ? ");
+			ps = conn.prepareStatement("SELECT * FROM ovdiagnosis INNER JOIN officevisits ON ovdiagnosis.VisitID=itrust.officevisits.ID INNER JOIN patients ON officevisits.PatientID=itrust.patients.MID WHERE ICDCode=? AND zip1 LIKE ? AND visitDate >= ? AND visitDate <= ? ");
 			ps.setString(1, icdCode);
 			ps.setString(2, zipCode.substring(0, 3) + "%");
 			ps.setTimestamp(3, new Timestamp(lower.getTime()));
