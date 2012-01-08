@@ -1,6 +1,7 @@
 package edu.ncsu.csc.itrust.action;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import edu.ncsu.csc.itrust.beans.DiagnosisBean;
 import edu.ncsu.csc.itrust.beans.DiagnosisStatisticsBean;
@@ -14,6 +15,8 @@ public class ViewDiagnosisStatisticsActionTest extends TestCase {
 
 	private TestDataGenerator gen = new TestDataGenerator();
 	private ViewDiagnosisStatisticsAction action;
+	
+	private int thisYear = Calendar.getInstance().get(Calendar.YEAR);
 	
 	protected void setUp() throws Exception {
 		gen.clearAllTables();
@@ -83,19 +86,19 @@ public class ViewDiagnosisStatisticsActionTest extends TestCase {
 	
 	public void testIsMalariaEpidemic() throws Exception {
 		gen.malaria_epidemic();
-		assertTrue(action.isMalariaEpidemic("11/02/2011", "27606", "110"));
-		assertFalse(action.isMalariaEpidemic("11/16/2011", "27606", "110"));
+		assertTrue(action.isMalariaEpidemic("11/02/" + thisYear, "27606", "110"));
+		assertFalse(action.isMalariaEpidemic("11/16/" + thisYear, "27606", "110"));
 	}
 	
 	public void testIsFluEpidemic() throws Exception {
 		gen.influenza_epidemic();
-		assertTrue(action.isFluEpidemic("11/02/2011", "27606"));
-		assertFalse(action.isFluEpidemic("11/16/2011", "27606"));
+		assertTrue(action.isFluEpidemic("11/02/" + thisYear, "27606"));
+		assertFalse(action.isFluEpidemic("11/16/" + thisYear, "27606"));
 	}
 	
 	public void testGetEpidemicStatistics() throws Exception {
 		gen.malaria_epidemic();
-		ArrayList<DiagnosisStatisticsBean> dsList = action.getEpidemicStatistics("11/02/2011", "84.50", "27606");
+		ArrayList<DiagnosisStatisticsBean> dsList = action.getEpidemicStatistics("11/02/" + thisYear, "84.50", "27606");
 		assertEquals(5, dsList.get(0).getRegionStats());
 		assertEquals(4, dsList.get(0).getZipStats());
 	}

@@ -1,6 +1,7 @@
 package edu.ncsu.csc.itrust.dao.officevisit;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import junit.framework.TestCase;
@@ -23,7 +24,8 @@ import edu.ncsu.csc.itrust.testutils.TestDAOFactory;
 public class OVDiagnosesTest extends TestCase {
 	//private OfficeVisitDAO ovDAO = TestDAOFactory.getTestInstance().getOfficeVisitDAO();
 	private DiagnosesDAO diagDAO = TestDAOFactory.getTestInstance().getDiagnosesDAO();
-
+	private int thisYear = Calendar.getInstance().get(Calendar.YEAR);
+	
 	@Override
 	protected void setUp() throws Exception {
 		TestDataGenerator gen = new TestDataGenerator();
@@ -108,8 +110,7 @@ public class OVDiagnosesTest extends TestCase {
 		
 		ViewDiagnosisStatisticsAction a = new ViewDiagnosisStatisticsAction(factory);
 		
-		Date lower = new SimpleDateFormat("MM/dd/yyyy").parse("11/02/2011");
-		assertTrue(a.isMalariaEpidemic("11/02/2011", "27607", "110"));
+		assertTrue(a.isMalariaEpidemic("11/02/" + thisYear, "27607", "110"));
 		
 	}
 	
