@@ -7205,6 +7205,7 @@ E1">
     </expectedResults>
     <actualResults>A message stating that the information is recorded, is displayed
     </actualResults>
+    </description>
   </test>
   
   <test id="TestViewDemographicsHistory">
