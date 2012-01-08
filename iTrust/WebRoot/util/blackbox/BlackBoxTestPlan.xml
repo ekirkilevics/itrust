@@ -127,7 +127,7 @@
 		<usecase>37</usecase>
 		<description>
 			<precondition>The following test data has been loaded: StandardData.The HCP Kelly Doctor is successfully logged into iTrust.</precondition>
-			<precondiiton>From the main iTrust page, click on Document Office Visit.</precondiiton>
+			<precondition>From the main iTrust page, click on Document Office Visit.</precondition>
 			<step>Enter the first name “Andy” and last name “Programmer” and click “User Search”.Click on the button labeled “2”.On the resulting page, click “Yes, Document Office Visit”.</step>
 			<step>For “Date of Visit,” select February 2, 2011.For “Notes,” enter “It’s a sunny day”.Click the “Update” button.</step>
 			<step>Add a new prescription with the following information:Medication: Penicillin.Dosage: 200mg.Dates: Feb 2, 2011 to Feb 9, 2011</step>
@@ -2122,7 +2122,7 @@ S3">
     <description>
     	<precondition>Admin 9000000001 is a registered user of the iTrust system.</precondition>
     	<precondition>Drug “Tetracycline” (code: 00904-2407) has been added to the ND Code database in iTrust.</precondition>
-    	<precondiiton>Drug “Isotretinoin” (code: 54868-0955) has been added to the ND Code database in iTrust.</precondiiton>
+    	<precondition>Drug “Isotretinoin” (code: 54868-0955) has been added to the ND Code database in iTrust.</precondition>
     	<precondition>A drug interaction between Tetracycline and Isotretinoin has been recorded with description “May increase the risk of pseudotumor cerebri, or benign intracranial hypertension.”</precondition>
     	<precondition>Admin 9000000001 has authenticated successfully.</precondition>
     	<step>Admin 9000000001 clicks the “Edit ND Codes” link under the “Edit” menu subheading.</step>
@@ -7140,7 +7140,7 @@ E1">
     <description>
     	<precondition>HCP Kelly Doctor ( MID 90000000000 ), patient Andy Programmer ( MID 2 ), and Lab Tech. Lab Dude ( MID 5000000001 ) are registered users of the iTrust system.</precondition>
     	<precondition>Kelly Doctor has an office visit for Andy Programmer for 11/20/2011.</precondition>
-   		<precondition>There is a lab procedure for Andy Programmer on 11/20/2011 completed by Lab Dude.</precondiiton>
+   		<precondition>There is a lab procedure for Andy Programmer on 11/20/2011 completed by Lab Dude.</precondition>
     	<step>Authenticate as Andy Programmer</step>
     	<step>Click "My Lab Procedures" on the navigation sidebar</step>
     </description>
@@ -7158,7 +7158,7 @@ E1">
     <description>
     	<precondition>HCP Kelly Doctor ( MID 90000000000 ), Random Person ( MID 1 ), and Lab Tech. Lab Dude ( MID 5000000001 ) are registered users of the iTrust system.</precondition>
     	<precondition>Kelly Doctor has an office visit for Random Person for 10/20/2011.</precondition>
-   		<precondition>There is a lab procedure for Random Person on 10/20/2011 completed by Lab Dude.</precondiiton>
+   		<precondition>There is a lab procedure for Random Person on 10/20/2011 completed by Lab Dude.</precondition>
     	<step>Authenticate as Random Person.</step>
     	<step>Click "My Lab Procedures" on the navigation sidebar</step>
     </description>
@@ -7176,7 +7176,7 @@ E1">
     <description>
     	<precondition>HCP Kelly Doctor ( MID 90000000000 ), patient Princess Peach ( MID 21 ), and Lab Tech. Lab Dude ( MID 5000000001 ) are registered users of the iTrust system.</precondition>
     	<precondition>Kelly Doctor has office visits for Princess Peach for 9/20/2011, 3/20/2011, and 11/16/2010.</precondition>
-   		<precondition>There are completed lab procedures for Princess Peach on 9/20/2011, 3/20/2011, and 11/16/2010 by Lab Dude.</precondiiton>
+   		<precondition>There are completed lab procedures for Princess Peach on 9/20/2011, 3/20/2011, and 11/16/2010 by Lab Dude.</precondition>
     	<step>Authenticate as Princess Peach</step>
     	<step>Click "My Lab Procedures" on the navigation sidebar</step>
     	<step>Click on the (View Chart) link at the end of the row in the lab procedures table containing the 9/20/2011 lab procedure</step>
