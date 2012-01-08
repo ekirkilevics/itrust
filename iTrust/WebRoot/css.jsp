@@ -1,4 +1,4 @@
-<%@page contentType="text/css" %>
+ <%@page contentType="text/css" %>
 
 <%@page import="edu.ncsu.csc.itrust.action.ViewHelperAction"%>
 
