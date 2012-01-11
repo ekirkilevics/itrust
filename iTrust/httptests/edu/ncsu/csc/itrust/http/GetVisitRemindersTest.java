@@ -4,6 +4,7 @@ import com.meterware.httpunit.WebConversation;
 import com.meterware.httpunit.WebForm;
 import com.meterware.httpunit.WebResponse;
 import com.meterware.httpunit.WebTable;
+import edu.ncsu.csc.itrust.DateUtil;
 
 /**
  * Use Case 17
@@ -11,7 +12,7 @@ import com.meterware.httpunit.WebTable;
 public class GetVisitRemindersTest extends iTrustHTTPTest {
 	protected void setUp() throws Exception{
 		super.setUp();
-		gen.clearAllTables();
+		//gen.clearAllTables();
 		gen.hcp0();
 	}
 	
@@ -80,25 +81,30 @@ public class GetVisitRemindersTest extends iTrustHTTPTest {
 		assertEquals("iTrust - Visit Reminders", wr.getTitle());
 		assertEquals(4, wr.getTables().length);
 		
+		boolean thisYear = DateUtil.currentlyInMonthRange(8, 11);
+		String pretext = "Missed";
+		if (thisYear)
+			pretext = "Currently Missing";
+		
 		WebTable table = wr.getTables()[0];
 		assertEquals("NoRecords Has", table.getCellAsText(1, 1));
 		assertEquals("919-971-0000", table.getCellAsText(2, 1));
-		assertEquals("Currently Missing Medication:    Flu Shot", table.getCellAsText(3,1));
+		assertEquals(pretext + " Medication:    Flu Shot", table.getCellAsText(3,1));
 
 		table = wr.getTables()[1];
 		assertEquals("Bad Horse", table.getCellAsText(1, 1));
 		assertEquals("919-123-4567", table.getCellAsText(2, 1));
-		assertEquals("Currently Missing Medication:    Flu Shot", table.getCellAsText(3,1));
+		assertEquals(pretext + " Medication:    Flu Shot", table.getCellAsText(3,1));
 		
 		table = wr.getTables()[2];
 		assertEquals("Care Needs", table.getCellAsText(1, 1));
 		assertEquals("919-971-0000", table.getCellAsText(2, 1));
-		assertEquals("Currently Missing Medication:    Flu Shot", table.getCellAsText(3,1));
+		assertEquals(pretext + " Medication:    Flu Shot", table.getCellAsText(3,1));
 		
 		table = wr.getTables()[3];
 		assertEquals("Random Person", table.getCellAsText(1, 1));
 		assertEquals("919-971-0000", table.getCellAsText(2, 1));
-		assertEquals("Currently Missing Medication:    Flu Shot", table.getCellAsText(3,1));
+		assertEquals(pretext + " Medication:    Flu Shot", table.getCellAsText(3,1));
 	}
 	
 	public void testGetVisitReminders_ImmunizationNeeders() throws Exception {
