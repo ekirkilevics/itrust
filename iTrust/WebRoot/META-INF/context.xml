@@ -16,7 +16,7 @@
 		-->
 <Resource
 	username="root" 
-	password="h0m3pl4t3"
+	password=""
 	url="jdbc:mysql://localhost:3306/itrust?createDatabaseIfNotExist=true"		
 	name="jdbc/itrust"
 	auth="Container"
