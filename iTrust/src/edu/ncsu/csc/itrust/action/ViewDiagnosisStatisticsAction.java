@@ -117,7 +117,7 @@ public class ViewDiagnosisStatisticsAction {
 		if (! (icdCode.equals("84.50") || icdCode.equals("487.00")) ) {
 			throw new FormValidationException("Exception");
 		}
-		Date lower;
+		Date lower;  //lower, which is parsed to startDate
 		try {
 			lower = new SimpleDateFormat("MM/dd/yyyy").parse(startDate);
 		} catch (ParseException e) {
@@ -132,20 +132,25 @@ public class ViewDiagnosisStatisticsAction {
 		
 		Calendar cal = Calendar.getInstance();
 		
-		Date start = diagnosesDAO.findEarliestIncident(icdCode);
+		Date start = diagnosesDAO.findEarliestIncident(icdCode); //start, which is set to earliest incident
+		Calendar startCal = Calendar.getInstance();
+		startCal.setTime(start);
+		
 		ArrayList<DiagnosisStatisticsBean> ret = new ArrayList<DiagnosisStatisticsBean>();
 		if (start == null) {
 			ret.add(dbWeek);
 			ret.add(dbAvg);
 			return ret;
 		}
-		cal.setTime(lower);
+		cal.setTime(lower); //cal, which is set to lower
+		Calendar lowerCal = Calendar.getInstance();
+		lowerCal.setTime(lower);
 		int weekOfYr = cal.get(Calendar.WEEK_OF_YEAR);
 		
-		cal.set(Calendar.YEAR, start.getYear()+1900);
+		cal.set(Calendar.YEAR, startCal.get(Calendar.YEAR));  //cal's year then gets set to start's year
 		ArrayList<DiagnosisStatisticsBean> dbList = new ArrayList<DiagnosisStatisticsBean>();
 		
-		while( cal.getTime().before(lower) && cal.get(Calendar.YEAR) != lower.getYear()+1900) {
+		while( cal.getTime().before(lower) && cal.get(Calendar.YEAR) != lowerCal.get(Calendar.YEAR)) {
 			dbList.add( diagnosesDAO.getCountForWeekOf(icdCode, zip, cal.getTime()) );
 			cal.add(Calendar.YEAR, 1);
 			cal.set(Calendar.WEEK_OF_YEAR, weekOfYr);
@@ -263,9 +268,13 @@ public class ViewDiagnosisStatisticsAction {
 			}
 			return false;
 		}
-		cal.set(Calendar.YEAR, startData.getYear()+1900);
+		Calendar startDateCal = Calendar.getInstance();
+		startDateCal.setTime(startData);
+		Calendar wkDateCal = Calendar.getInstance();
+		wkDateCal.setTime(wkDate);
+		cal.set(Calendar.YEAR, startDateCal.get(Calendar.YEAR));
 
-		while( cal.getTime().before(wkDate) && cal.get(Calendar.YEAR) != wkDate.getYear()+1900) {
+		while( cal.getTime().before(wkDate) && cal.get(Calendar.YEAR) != wkDateCal.get(Calendar.YEAR)) {
 			
 			dbList.add( diagnosesDAO.getCountForWeekOf(ICD_MALARIA, zip, cal.getTime()) );
 			cal.add(Calendar.HOUR, -7*24);
