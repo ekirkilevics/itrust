@@ -6,8 +6,7 @@ import junitx.util.DirectorySuiteBuilder;
 import junitx.util.SimpleTestFilter;
 
 public class AllTests {
-	// Turns out that the unchecked warning is from the junit-addons, not us, so we can suppress it
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("rawtypes")
 	public static Test suite() throws Exception {
 		DBBuilder.rebuildAll();
 		DirectorySuiteBuilder builder = new DirectorySuiteBuilder();

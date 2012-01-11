@@ -2,13 +2,10 @@ package edu.ncsu.csc.itrust.action;
 
 import java.util.List;
 import junit.framework.TestCase;
-import edu.ncsu.csc.itrust.beans.Email;
 import edu.ncsu.csc.itrust.beans.LabProcedureBean;
-import edu.ncsu.csc.itrust.beans.OfficeVisitBean;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
 import edu.ncsu.csc.itrust.dao.mysql.FakeEmailDAO;
 import edu.ncsu.csc.itrust.dao.mysql.LabProcedureDAO;
-import edu.ncsu.csc.itrust.dao.mysql.OfficeVisitDAO;
 import edu.ncsu.csc.itrust.datagenerators.TestDataGenerator;
 import edu.ncsu.csc.itrust.testutils.TestDAOFactory;
 

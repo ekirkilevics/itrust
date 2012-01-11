@@ -1,13 +1,11 @@
 package edu.ncsu.csc.itrust.http;
 
 import com.meterware.httpunit.Button;
-import com.meterware.httpunit.TableCell;
 import com.meterware.httpunit.TableRow;
 import com.meterware.httpunit.WebConversation;
 import com.meterware.httpunit.WebForm;
 import com.meterware.httpunit.WebResponse;
 import com.meterware.httpunit.WebTable;
-import edu.ncsu.csc.itrust.beans.LabProcedureBean;
 import edu.ncsu.csc.itrust.enums.TransactionType;
 
 public class LabProceduresTest extends iTrustHTTPTest {

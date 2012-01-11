@@ -1,9 +1,5 @@
 package edu.ncsu.csc.itrust.http;
 
-import com.meterware.httpunit.WebConversation;
-import com.meterware.httpunit.WebResponse;
-import edu.ncsu.csc.itrust.enums.TransactionType;
-
 public class ConsultationTest extends iTrustHTTPTest {
 	@Override
 	protected void setUp() throws Exception {

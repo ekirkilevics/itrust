@@ -2,11 +2,8 @@ package edu.ncsu.csc.itrust.http;
 
 import com.meterware.httpunit.WebConversation;
 import com.meterware.httpunit.WebForm;
-import com.meterware.httpunit.WebTable;
-//import com.meterware.httpunit.WebForm;
 import com.meterware.httpunit.WebResponse;
 import edu.ncsu.csc.itrust.enums.TransactionType;
-import junit.framework.TestCase;
 
 public class PrescriptionDateTest extends iTrustHTTPTest 
 {

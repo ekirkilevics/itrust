@@ -1,16 +1,7 @@
 package edu.ncsu.csc.itrust.http;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import com.meterware.httpunit.Button;
-import com.meterware.httpunit.TableCell;
-import com.meterware.httpunit.TableRow;
 import com.meterware.httpunit.WebConversation;
-import com.meterware.httpunit.WebForm;
 import com.meterware.httpunit.WebResponse;
-import com.meterware.httpunit.WebTable;
-import edu.ncsu.csc.itrust.beans.ReferralBean;
-import edu.ncsu.csc.itrust.enums.TransactionType;
 
 public class GetPatientIDTest extends iTrustHTTPTest {
 

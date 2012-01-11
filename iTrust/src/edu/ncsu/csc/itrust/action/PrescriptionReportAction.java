@@ -141,8 +141,7 @@ public class PrescriptionReportAction extends PatientBaseAction {
 	 * @throws FormValidationException
 	 * @throws DBException
 	 */
-	// suppressing warnings because JSP doesn't have a generic for request.getParameterMap()
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("rawtypes")
 	public String getQueryString(Map paramMap, List<OfficeVisitBean> officeVisits)
 			throws FormValidationException, DBException {
 		HashMap<String, String> myParams = ParameterUtil.convertMap(paramMap);
