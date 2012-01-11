@@ -5,7 +5,6 @@ import edu.ncsu.csc.itrust.beans.PersonnelBean;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
 import edu.ncsu.csc.itrust.dao.mysql.AuthDAO;
 import edu.ncsu.csc.itrust.dao.mysql.PatientDAO;
-import edu.ncsu.csc.itrust.dao.mysql.TransactionDAO;
 import edu.ncsu.csc.itrust.enums.Role;
 import edu.ncsu.csc.itrust.exception.iTrustException;
 
@@ -16,7 +15,6 @@ import edu.ncsu.csc.itrust.exception.iTrustException;
  * 
  */
 public class DeclareHCPAction {
-	private TransactionDAO transDAO;
 	private PatientDAO patientDAO;
 	private AuthDAO authDAO;
 	private long loggedInMID;
@@ -31,7 +29,6 @@ public class DeclareHCPAction {
 	 */
 	public DeclareHCPAction(DAOFactory factory, long loggedInMID) {
 		this.loggedInMID = loggedInMID;
-		this.transDAO = factory.getTransactionDAO();
 		this.patientDAO = factory.getPatientDAO();
 		this.authDAO = factory.getAuthDAO();
 	}

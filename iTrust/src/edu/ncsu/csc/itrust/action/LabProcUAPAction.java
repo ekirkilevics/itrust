@@ -9,7 +9,6 @@ import edu.ncsu.csc.itrust.beans.PatientBean;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
 import edu.ncsu.csc.itrust.dao.mysql.LabProcedureDAO;
 import edu.ncsu.csc.itrust.dao.mysql.PatientDAO;
-import edu.ncsu.csc.itrust.dao.mysql.TransactionDAO;
 import edu.ncsu.csc.itrust.exception.DBException;
 import edu.ncsu.csc.itrust.exception.FormValidationException;
 import edu.ncsu.csc.itrust.validate.LabProcedureValidator;
@@ -17,7 +16,6 @@ import edu.ncsu.csc.itrust.validate.LabProcedureValidator;
  * Class for LabProcUAP.jsp.  Handles lab procedures for UAPs
  */
 public class LabProcUAPAction {
-	private TransactionDAO transDAO;
 	private LabProcedureDAO lpDAO;
 	long loggedInMID;
 	private LabProcedureValidator validator;
@@ -29,7 +27,7 @@ public class LabProcUAPAction {
  * @param loggedInMID UAP who is logged in
  */
 	public LabProcUAPAction(DAOFactory factory, long loggedInMID) {
-		transDAO = factory.getTransactionDAO();
+		factory.getTransactionDAO();
 		lpDAO = factory.getLabProcedureDAO();
 		this.loggedInMID = loggedInMID;
 		validator = new LabProcedureValidator();

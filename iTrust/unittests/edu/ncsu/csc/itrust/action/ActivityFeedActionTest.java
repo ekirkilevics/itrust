@@ -44,7 +44,7 @@ public class ActivityFeedActionTest extends TestCase {
 		Timestamp tsNow = new Timestamp(dNow.getTime());
 		Timestamp tsYesterday = new Timestamp(dNow.getTime() - 1000*60*60*24);
 		Timestamp tsLongAgo = new Timestamp(dNow.getTime() - 1000*60*60*24*10);
-		SimpleDateFormat formatter = new SimpleDateFormat();
+		new SimpleDateFormat();
 		
 		String msg;
 		

@@ -2,7 +2,6 @@ package edu.ncsu.csc.itrust.http;
 
 import com.meterware.httpunit.WebConversation;
 import com.meterware.httpunit.WebForm;
-import com.meterware.httpunit.*;
 import com.meterware.httpunit.WebResponse;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -82,7 +81,7 @@ public class ActivityFeedTest extends iTrustHTTPTest {
 
 		Date d = new Date();
 		d.setTime(d.getTime() - 3*24*60*60*1000);
-		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+		new SimpleDateFormat("MM/dd/yyyy");
 
 		assertTrue(s.contains("Kelly Doctor</a> viewed your prescription report yesterday at 8:15AM."));
 		assertTrue(s.contains("Andy Programmer viewed your prescription report yesterday at 9:43AM."));
@@ -149,7 +148,7 @@ public class ActivityFeedTest extends iTrustHTTPTest {
 		wr = wr.getLinkWith("My Providers").click();
 		assertEquals("iTrust - My Providers", wr.getTitle());
 		
-		WebTable hcpTable = wr.getTableWithID("hcp_table");
+		wr.getTableWithID("hcp_table");
 		WebForm hcpForm = wr.getFormWithID("mainForm");
 		hcpForm.setCheckbox("doctor", "Gandalf Stormcrow", false);
 		wr = wr.getForms()[0].submit();
@@ -157,7 +156,7 @@ public class ActivityFeedTest extends iTrustHTTPTest {
 		assertEquals("iTrust - My Providers", wr.getTitle());
 		
 		
-		hcpTable = wr.getTableWithID("hcp_table");
+		wr.getTableWithID("hcp_table");
 		hcpForm = wr.getFormWithID("mainForm");
 		hcpForm.setCheckbox("doctor", "Kelly Doctor", true);
 		wr = wr.getForms()[0].submit();
@@ -165,7 +164,7 @@ public class ActivityFeedTest extends iTrustHTTPTest {
 		assertEquals("iTrust - My Providers", wr.getTitle());
 		
 		
-		String monkeys = wr.getText();
+		wr.getText();
 
 		wr = wr.getLinkWith("Logout").click();
 		assertEquals("iTrust - Login", wr.getTitle());

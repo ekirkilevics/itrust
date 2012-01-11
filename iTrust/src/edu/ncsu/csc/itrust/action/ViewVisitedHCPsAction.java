@@ -206,8 +206,7 @@ public class ViewVisitedHCPsAction {
 			if (0 == visit.getHCPName().toLowerCase().compareTo(name.toLowerCase())) {
 				Long mid = Long.valueOf(visit.getHCPMID());
 
-				//if (patientDAO.checkDeclaredHCP(patientMID, visit.getHCPMID())) {
-					String r = declareAction.undeclareHCP(mid.toString());
+				declareAction.undeclareHCP(mid.toString());
 				//}
 				visit.setDesignated(false);
 				

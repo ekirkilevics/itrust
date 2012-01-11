@@ -7,7 +7,6 @@ import edu.ncsu.csc.itrust.beans.OfficeVisitBean;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
 import edu.ncsu.csc.itrust.dao.mysql.LabProcedureDAO;
 import edu.ncsu.csc.itrust.dao.mysql.OfficeVisitDAO;
-import edu.ncsu.csc.itrust.dao.mysql.TransactionDAO;
 import edu.ncsu.csc.itrust.exception.DBException;
 import edu.ncsu.csc.itrust.exception.FormValidationException;
 import edu.ncsu.csc.itrust.validate.LabProcedureValidator;
@@ -18,7 +17,6 @@ import edu.ncsu.csc.itrust.validate.LabProcedureValidator;
  * @extends LabProcUAPAction
  */
 public class LabProcHCPAction extends LabProcUAPAction {
-	private TransactionDAO transDAO;
 	private LabProcedureDAO lpDAO;
 	private OfficeVisitDAO ovDAO;
 	long loggedInMID;
@@ -34,7 +32,6 @@ public class LabProcHCPAction extends LabProcUAPAction {
 	
 	public LabProcHCPAction(DAOFactory factory, long loggedInMID) {
 		super(factory, loggedInMID);
-		transDAO = factory.getTransactionDAO();
 		lpDAO = factory.getLabProcedureDAO();
 		ovDAO = factory.getOfficeVisitDAO();
 		this.loggedInMID = loggedInMID;

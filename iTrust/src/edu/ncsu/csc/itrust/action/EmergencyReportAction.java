@@ -13,7 +13,6 @@ import edu.ncsu.csc.itrust.beans.OfficeVisitBean;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
 import edu.ncsu.csc.itrust.dao.mysql.AllergyDAO;
 import edu.ncsu.csc.itrust.dao.mysql.PatientDAO;
-import edu.ncsu.csc.itrust.dao.mysql.TransactionDAO;
 import edu.ncsu.csc.itrust.dao.mysql.OfficeVisitDAO;
 import edu.ncsu.csc.itrust.enums.PrescriptionAlerts;
 import edu.ncsu.csc.itrust.exception.DBException;
@@ -28,14 +27,11 @@ import edu.ncsu.csc.itrust.beans.ProcedureBean;
  * 
  */
 public class EmergencyReportAction extends PatientBaseAction {
-	private TransactionDAO transDAO;
 	private PatientDAO patientDAO;
 	private AllergyDAO allergyDAO;
 	private OfficeVisitDAO ovDAO;
 	private PatientBean pb;
 	private EmailUtil emailutil;
-	private long loggedInMID;
-
 	/**
 	 * The super class handles validating the pid Logs viewing of the report
 	 * 
@@ -48,9 +44,7 @@ public class EmergencyReportAction extends PatientBaseAction {
 		super(factory, pidString);
 		this.patientDAO = factory.getPatientDAO();
 		this.allergyDAO = factory.getAllergyDAO();
-		this.transDAO = factory.getTransactionDAO();
 		this.ovDAO = factory.getOfficeVisitDAO();
-		this.loggedInMID = loggedInMID;
 		emailutil = new EmailUtil(factory);
 		
 		pb = patientDAO.getPatient(this.pid);

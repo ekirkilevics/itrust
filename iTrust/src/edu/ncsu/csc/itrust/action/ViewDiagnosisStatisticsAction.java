@@ -186,7 +186,7 @@ public class ViewDiagnosisStatisticsAction {
 	 * @throws DBException
 	 */
 	public boolean isFluEpidemic(String curDateStr, String zip) throws ParseException, DBException {
-		Date thresh = new SimpleDateFormat("MM/dd/yyyy").parse("01/04/1998");
+		new SimpleDateFormat("MM/dd/yyyy").parse("01/04/1998");
 		Date curDate = new SimpleDateFormat("MM/dd/yyyy").parse(curDateStr);
 		
 		Calendar cal = Calendar.getInstance();
@@ -287,16 +287,14 @@ public class ViewDiagnosisStatisticsAction {
 		}
 		
 		long total = 0;
-		long totalL = 0;
-		long totalN = 0;
 		for (DiagnosisStatisticsBean d : dbList) {
 			total += d.getRegionStats();
 		}
 		for (DiagnosisStatisticsBean d : dbListL) {
-			totalL += d.getRegionStats();
+			d.getRegionStats();
 		}
 		for (DiagnosisStatisticsBean d : dbListN) {
-			totalN += d.getRegionStats();
+			d.getRegionStats();
 		}
 		
 		long avg = 0;

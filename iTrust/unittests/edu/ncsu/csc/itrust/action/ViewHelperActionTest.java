@@ -6,8 +6,6 @@ import edu.ncsu.csc.itrust.exception.iTrustException;
 import junit.framework.TestCase;
 
 public class ViewHelperActionTest extends TestCase {
-	private long mid = 1L;
-	
 	@Override
 	protected void setUp() throws Exception {
 	}

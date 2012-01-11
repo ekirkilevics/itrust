@@ -6,7 +6,6 @@ import edu.ncsu.csc.itrust.beans.TelemedicineBean;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
 import edu.ncsu.csc.itrust.dao.mysql.AuthDAO;
 import edu.ncsu.csc.itrust.dao.mysql.RemoteMonitoringDAO;
-import edu.ncsu.csc.itrust.dao.mysql.TransactionDAO;
 import edu.ncsu.csc.itrust.exception.DBException;
 import edu.ncsu.csc.itrust.exception.iTrustException;
 
@@ -16,7 +15,6 @@ import edu.ncsu.csc.itrust.exception.iTrustException;
  */
 public class EditMonitoringListAction {
 	private RemoteMonitoringDAO rmDAO;
-	private TransactionDAO transDAO;
 	private AuthDAO authDAO;
 	private long loggedInMID;
 
@@ -29,7 +27,6 @@ public class EditMonitoringListAction {
 	public EditMonitoringListAction(DAOFactory factory, long loggedInMID) {
 		this.loggedInMID = loggedInMID;
 		this.rmDAO = factory.getRemoteMonitoringDAO();
-		this.transDAO = factory.getTransactionDAO();
 		this.authDAO = factory.getAuthDAO();
 	}
 

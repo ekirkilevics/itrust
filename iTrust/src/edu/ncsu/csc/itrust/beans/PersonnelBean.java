@@ -17,7 +17,6 @@ public class PersonnelBean implements Serializable {
 	
 	private long MID = 0;
 	private long AMID = 0;
-	private Role role;
 	private String roleString;
 	private String firstName = "";
 	private String lastName = "";
@@ -239,8 +238,7 @@ public class PersonnelBean implements Serializable {
 		return Role.parse(roleString);
 	}
 
-	public void setRole(Role role) {
-		this.role = role;		
+	public void setRole(Role role) {		
 	}
 
 }

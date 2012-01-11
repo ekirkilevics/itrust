@@ -3,7 +3,6 @@ package edu.ncsu.csc.itrust.action;
 import edu.ncsu.csc.itrust.beans.MedicationBean;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
 import edu.ncsu.csc.itrust.dao.mysql.NDCodesDAO;
-import edu.ncsu.csc.itrust.dao.mysql.TransactionDAO;
 import edu.ncsu.csc.itrust.exception.DBException;
 import edu.ncsu.csc.itrust.exception.FormValidationException;
 import edu.ncsu.csc.itrust.exception.iTrustException;
@@ -19,8 +18,6 @@ import edu.ncsu.csc.itrust.validate.MedicationBeanValidator;
  * @author laurenhayward
  */
 public class UpdateNDCodeListAction {
-	private long performerID = 0;
-	private TransactionDAO transDAO;
 	private NDCodesDAO ndDAO;
 	private MedicationBeanValidator validator = new MedicationBeanValidator();
 
@@ -31,9 +28,7 @@ public class UpdateNDCodeListAction {
 	 * @param performerID The MID of the user updating the ND lists.
 	 */
 	public UpdateNDCodeListAction(DAOFactory factory, long performerID) {
-		this.performerID = performerID;
 		ndDAO = factory.getNDCodesDAO();
-		transDAO = factory.getTransactionDAO();
 	}
 
 	/**

@@ -17,7 +17,6 @@ import edu.ncsu.csc.itrust.testutils.TestDAOFactory;
 
 public class AddPHAActionTest extends ActionTestWithMocks {
 	private DAOFactory factory = TestDAOFactory.getTestInstance();
-	private AddPHAAction action;
 	private PersonnelBean personnel;
 	private TestDataGenerator gen;
 

@@ -165,7 +165,6 @@ public class DiagnosesDAO {
 	public Date findEarliestIncident(String icdCode) throws DBException{
 		Connection conn = null;
 		PreparedStatement ps = null;
-		DiagnosisStatisticsBean dsBean = null;
 		try {
 			conn = factory.getConnection();
 			ps = conn.prepareStatement("SELECT MIN(visitDate) AS visitDate FROM ovdiagnosis d INNER JOIN officevisits o " +

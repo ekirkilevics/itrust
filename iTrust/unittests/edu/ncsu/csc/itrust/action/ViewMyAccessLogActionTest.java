@@ -49,7 +49,7 @@ public class ViewMyAccessLogActionTest extends TestCase {
 		action = new ViewMyAccessLogAction(TestDAOFactory.getTestInstance(), 24L);
 		String today = new SimpleDateFormat("MM/dd/yyyy").format(new Date());
 		try {
-			List<TransactionBean> accesses = action.getAccesses(today, today, "2", false);
+			action.getAccesses(today, today, "2", false);
 			fail("exception should have been thrown");
 		} catch (FormValidationException e) {
 			assertEquals(1, e.getErrorList().size());

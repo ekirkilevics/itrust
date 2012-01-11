@@ -3,7 +3,6 @@ package edu.ncsu.csc.itrust.action;
 import edu.ncsu.csc.itrust.beans.HospitalBean;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
 import edu.ncsu.csc.itrust.dao.mysql.HospitalsDAO;
-import edu.ncsu.csc.itrust.dao.mysql.TransactionDAO;
 import edu.ncsu.csc.itrust.exception.DBException;
 import edu.ncsu.csc.itrust.exception.FormValidationException;
 import edu.ncsu.csc.itrust.exception.iTrustException;
@@ -16,9 +15,7 @@ import edu.ncsu.csc.itrust.validate.HospitalBeanValidator;
  * 
  */
 public class UpdateHospitalListAction {
-	private long performerID;
 	private HospitalsDAO hospDAO;
-	private TransactionDAO transDAO;
 
 	/**
 	 * Set up
@@ -28,8 +25,6 @@ public class UpdateHospitalListAction {
 	 */
 	public UpdateHospitalListAction(DAOFactory factory, long performerID) {
 		this.hospDAO = factory.getHospitalsDAO();
-		this.transDAO = factory.getTransactionDAO();
-		this.performerID = performerID;
 	}
 
 	/**

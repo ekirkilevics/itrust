@@ -10,7 +10,6 @@ import edu.ncsu.csc.itrust.dao.DAOFactory;
 import edu.ncsu.csc.itrust.dao.mysql.AdverseEventDAO;
 import edu.ncsu.csc.itrust.dao.mysql.PatientDAO;
 import edu.ncsu.csc.itrust.dao.mysql.PersonnelDAO;
-import edu.ncsu.csc.itrust.dao.mysql.TransactionDAO;
 import edu.ncsu.csc.itrust.exception.DBException;
 import edu.ncsu.csc.itrust.exception.iTrustException;
 import edu.ncsu.csc.itrust.validate.AdverseEventValidator;
@@ -23,7 +22,6 @@ public class ReportAdverseEventAction {
 	private PatientDAO patientDAO;
 	private PersonnelDAO personnelDAO;
 	private AdverseEventDAO adverseEventDAO;
-	private TransactionDAO transactionDAO;
 	private long hcpID;
 	private AdverseEventValidator validator;
 	
@@ -33,7 +31,6 @@ public class ReportAdverseEventAction {
 		this.personnelDAO = factory.getPersonnelDAO();
 		this.emailer = new EmailUtil(factory);
 		this.adverseEventDAO = factory.getAdverseEventDAO();
-		this.transactionDAO = factory.getTransactionDAO();
 		this.hcpID = Long.parseLong(hcpID);
 		this.validator = new AdverseEventValidator();
 		
@@ -49,7 +46,6 @@ public class ReportAdverseEventAction {
 		this.personnelDAO = factory.getPersonnelDAO();
 		this.emailer = new EmailUtil(factory);
 		this.adverseEventDAO = factory.getAdverseEventDAO();
-		this.transactionDAO = factory.getTransactionDAO();
 		this.validator = new AdverseEventValidator();
 	}
 	/**

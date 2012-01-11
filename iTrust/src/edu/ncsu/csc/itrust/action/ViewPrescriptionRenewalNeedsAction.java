@@ -5,7 +5,6 @@ import java.util.List;
 import edu.ncsu.csc.itrust.beans.PatientBean;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
 import edu.ncsu.csc.itrust.dao.mysql.PatientDAO;
-import edu.ncsu.csc.itrust.dao.mysql.TransactionDAO;
 import edu.ncsu.csc.itrust.exception.DBException;
 import edu.ncsu.csc.itrust.Messages;
 
@@ -16,7 +15,6 @@ import edu.ncsu.csc.itrust.Messages;
  */
 public class ViewPrescriptionRenewalNeedsAction {
 	private PatientDAO patientDAO;
-	private TransactionDAO transDAO;
 	private long loggedInMID;
 
 	/**
@@ -27,7 +25,6 @@ public class ViewPrescriptionRenewalNeedsAction {
 	 */
 	public ViewPrescriptionRenewalNeedsAction(DAOFactory factory, long loggedInMID) {
 		this.patientDAO = factory.getPatientDAO();
-		this.transDAO = factory.getTransactionDAO();
 		this.loggedInMID = loggedInMID;
 	}
 	

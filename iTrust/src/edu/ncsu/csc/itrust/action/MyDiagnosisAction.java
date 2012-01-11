@@ -12,7 +12,6 @@ import edu.ncsu.csc.itrust.beans.LabProcedureBean;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
 import edu.ncsu.csc.itrust.dao.mysql.PatientDAO;
 import edu.ncsu.csc.itrust.dao.mysql.PrescriptionsDAO;
-import edu.ncsu.csc.itrust.dao.mysql.TransactionDAO;
 import edu.ncsu.csc.itrust.dao.mysql.OfficeVisitDAO;
 import edu.ncsu.csc.itrust.dao.mysql.SurveyDAO;
 import edu.ncsu.csc.itrust.dao.mysql.PersonnelDAO;
@@ -32,7 +31,6 @@ public class MyDiagnosisAction {
 	private PatientDAO patientDAO;
 	private PersonnelDAO personnelDAO;
 	private SurveyDAO surveyDAO;
-	private TransactionDAO transactionDAO;
 	private LabProcedureDAO labprocDAO;
 	private PrescriptionsDAO prescriptionsDAO;
 	private long loggedInMID;
@@ -50,7 +48,6 @@ public class MyDiagnosisAction {
 		this.officeVisitDAO = factory.getOfficeVisitDAO();
 		this.personnelDAO = factory.getPersonnelDAO();
 		this.surveyDAO = factory.getSurveyDAO();
-		this.transactionDAO = factory.getTransactionDAO();
 		this.labprocDAO = factory.getLabProcedureDAO();
 		this.prescriptionsDAO = factory.getPrescriptionsDAO();
 	}

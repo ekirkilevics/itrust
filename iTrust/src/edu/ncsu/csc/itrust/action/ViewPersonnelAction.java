@@ -6,7 +6,6 @@ import edu.ncsu.csc.itrust.beans.PersonnelBean;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
 import edu.ncsu.csc.itrust.dao.mysql.FakeEmailDAO;
 import edu.ncsu.csc.itrust.dao.mysql.PersonnelDAO;
-import edu.ncsu.csc.itrust.dao.mysql.TransactionDAO;
 import edu.ncsu.csc.itrust.exception.iTrustException;
 import edu.ncsu.csc.itrust.Messages;
 
@@ -18,7 +17,6 @@ import edu.ncsu.csc.itrust.Messages;
  */
 public class ViewPersonnelAction {
 	private PersonnelDAO personnelDAO;
-	private TransactionDAO transDAO;
 	private FakeEmailDAO emailDAO;
 	private long loggedInMID;
 
@@ -31,7 +29,6 @@ public class ViewPersonnelAction {
 	public ViewPersonnelAction(DAOFactory factory, long loggedInMID) {
 		this.emailDAO = factory.getFakeEmailDAO();
 		this.personnelDAO = factory.getPersonnelDAO();
-		this.transDAO = factory.getTransactionDAO();
 		this.loggedInMID = loggedInMID;
 	}
 

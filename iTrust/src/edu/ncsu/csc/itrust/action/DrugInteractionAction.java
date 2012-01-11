@@ -4,7 +4,6 @@ import java.util.List;
 import edu.ncsu.csc.itrust.beans.DrugInteractionBean;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
 import edu.ncsu.csc.itrust.dao.mysql.DrugInteractionDAO;
-import edu.ncsu.csc.itrust.dao.mysql.TransactionDAO;
 import edu.ncsu.csc.itrust.exception.DBException;
 import edu.ncsu.csc.itrust.exception.FormValidationException;
 import edu.ncsu.csc.itrust.exception.iTrustException;
@@ -16,7 +15,6 @@ import edu.ncsu.csc.itrust.validate.DrugInteractionValidator;
  */
 public class DrugInteractionAction {
 	private DrugInteractionDAO drugDAO;
-	private TransactionDAO tranDAO;
 	private DrugInteractionValidator validator;
 	long loggedInMID;
 
@@ -28,7 +26,6 @@ public class DrugInteractionAction {
 	 */
 	public DrugInteractionAction(DAOFactory factory, long loggedInMID) {
 		this.drugDAO = factory.getDrugInteractionDAO();
-		this.tranDAO = factory.getTransactionDAO();
 		this.validator = new DrugInteractionValidator();
 		this.loggedInMID = loggedInMID;
 	}

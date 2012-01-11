@@ -3,7 +3,6 @@ package edu.ncsu.csc.itrust.action;
 import edu.ncsu.csc.itrust.beans.DiagnosisBean;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
 import edu.ncsu.csc.itrust.dao.mysql.ICDCodesDAO;
-import edu.ncsu.csc.itrust.dao.mysql.TransactionDAO;
 import edu.ncsu.csc.itrust.exception.DBException;
 import edu.ncsu.csc.itrust.exception.FormValidationException;
 import edu.ncsu.csc.itrust.exception.iTrustException;
@@ -22,9 +21,7 @@ import edu.ncsu.csc.itrust.validate.DiagnosisBeanValidator;
  * 
  */
 public class UpdateICDCodeListAction {
-	private long performerID = 0;
 	private ICDCodesDAO icdDAO;
-	private TransactionDAO transDAO;
 	private DiagnosisBeanValidator validator = new DiagnosisBeanValidator();
 
 	/**
@@ -34,8 +31,6 @@ public class UpdateICDCodeListAction {
 	 * @param performerID The MID of the person udpating the ICDs.
 	 */
 	public UpdateICDCodeListAction(DAOFactory factory, long performerID) {
-		this.performerID = performerID;
-		transDAO = factory.getTransactionDAO();
 		icdDAO = factory.getICDCodesDAO();
 	}
 

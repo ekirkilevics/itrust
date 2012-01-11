@@ -15,7 +15,6 @@ import edu.ncsu.csc.itrust.beans.PatientBean;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
 import edu.ncsu.csc.itrust.dao.mysql.AdverseEventDAO;
 import edu.ncsu.csc.itrust.dao.mysql.PatientDAO;
-import edu.ncsu.csc.itrust.dao.mysql.TransactionDAO;
 import edu.ncsu.csc.itrust.exception.DBException;
 import edu.ncsu.csc.itrust.exception.FormValidationException;
 import edu.ncsu.csc.itrust.exception.iTrustException;
@@ -26,7 +25,6 @@ public class MonitorAdverseEventAction {
 	private EmailUtil emailer;
 	private PatientDAO patientDAO;
 	private AdverseEventDAO adverseEventDAO;
-	private TransactionDAO transactionDAO;
 	private SendMessageAction messenger;
 	
 	/**
@@ -36,7 +34,6 @@ public class MonitorAdverseEventAction {
 	 */
 	public MonitorAdverseEventAction(DAOFactory factory, long loggedInMID){
 		this.loggedInMID = loggedInMID;
-		this.transactionDAO = factory.getTransactionDAO();
 		this.patientDAO = factory.getPatientDAO();
 		this.emailer = new EmailUtil(factory);
 		this.adverseEventDAO = factory.getAdverseEventDAO();

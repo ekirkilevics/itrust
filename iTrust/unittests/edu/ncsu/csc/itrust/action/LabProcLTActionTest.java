@@ -4,7 +4,6 @@ import java.util.List;
 import junit.framework.TestCase;
 import edu.ncsu.csc.itrust.beans.LabProcedureBean;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
-import edu.ncsu.csc.itrust.dao.mysql.FakeEmailDAO;
 import edu.ncsu.csc.itrust.dao.mysql.LabProcedureDAO;
 import edu.ncsu.csc.itrust.datagenerators.TestDataGenerator;
 import edu.ncsu.csc.itrust.testutils.TestDAOFactory;
@@ -13,7 +12,6 @@ public class LabProcLTActionTest extends TestCase {
 
 	private DAOFactory factory = TestDAOFactory.getTestInstance();
 	private LabProcedureDAO lpDAO = factory.getLabProcedureDAO();
-	private FakeEmailDAO feDAO = factory.getFakeEmailDAO();
 	private TestDataGenerator gen;
 	LabProcLTAction action;
 	LabProcLTAction action2;
@@ -122,7 +120,7 @@ public class LabProcLTActionTest extends TestCase {
 		long id = lpDAO.addLabProcedure(lp);
 		lp.setProcedureID(id);
 		
-		LabProcedureBean procedures = lpDAO.getLabProcedure(id);
+		lpDAO.getLabProcedure(id);
 		
 		assertEquals("Kelly Doctor", action.getHCPName(902L));
 		

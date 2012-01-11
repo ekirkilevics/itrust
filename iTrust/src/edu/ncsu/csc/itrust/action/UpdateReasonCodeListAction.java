@@ -3,7 +3,6 @@ package edu.ncsu.csc.itrust.action;
 import edu.ncsu.csc.itrust.beans.OverrideReasonBean;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
 import edu.ncsu.csc.itrust.dao.mysql.ReasonCodesDAO;
-import edu.ncsu.csc.itrust.dao.mysql.TransactionDAO;
 import edu.ncsu.csc.itrust.exception.DBException;
 import edu.ncsu.csc.itrust.exception.FormValidationException;
 import edu.ncsu.csc.itrust.exception.iTrustException;
@@ -18,8 +17,6 @@ import edu.ncsu.csc.itrust.validate.OverrideReasonBeanValidator;
  * @see http://archinte.ama-assn.org/cgi/content/full/163/21/2625/TABLEIOI20692T4
  */
 public class UpdateReasonCodeListAction {
-	private long performerID = 0;
-	private TransactionDAO transDAO;
 	private ReasonCodesDAO orcDAO;
 	private OverrideReasonBeanValidator validator = new OverrideReasonBeanValidator();
 
@@ -30,9 +27,7 @@ public class UpdateReasonCodeListAction {
 	 * @param performerID The MID of the user updating the ND lists.
 	 */
 	public UpdateReasonCodeListAction(DAOFactory factory, long performerID) {
-		this.performerID = performerID;
 		orcDAO = factory.getORCodesDAO();
-		transDAO = factory.getTransactionDAO();
 	}
 
 	/**

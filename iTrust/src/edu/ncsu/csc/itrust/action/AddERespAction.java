@@ -5,7 +5,6 @@ import edu.ncsu.csc.itrust.beans.PersonnelBean;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
 import edu.ncsu.csc.itrust.dao.mysql.AuthDAO;
 import edu.ncsu.csc.itrust.dao.mysql.PersonnelDAO;
-import edu.ncsu.csc.itrust.dao.mysql.TransactionDAO;
 import edu.ncsu.csc.itrust.enums.Role;
 import edu.ncsu.csc.itrust.exception.FormValidationException;
 import edu.ncsu.csc.itrust.exception.iTrustException;
@@ -25,10 +24,7 @@ import edu.ncsu.csc.itrust.validate.AddPersonnelValidator;
 public class AddERespAction {
 	private PersonnelDAO personnelDAO;
 	private AuthDAO authDAO;
-	private TransactionDAO transDAO;
-	private long loggedInMID;
-
-/**
+	/**
  * Sets up the defaults for the class
  * 
  * @param factory factory for creating the defaults.
@@ -39,8 +35,6 @@ public class AddERespAction {
 	public AddERespAction(DAOFactory factory, long loggedInMID) {
 		this.personnelDAO = factory.getPersonnelDAO();
 		this.authDAO = factory.getAuthDAO();
-		this.transDAO = factory.getTransactionDAO();
-		this.loggedInMID = loggedInMID;
 	}
 
 	/**

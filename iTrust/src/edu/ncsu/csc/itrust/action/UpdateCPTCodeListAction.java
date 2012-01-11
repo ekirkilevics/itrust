@@ -3,7 +3,6 @@ package edu.ncsu.csc.itrust.action;
 import edu.ncsu.csc.itrust.beans.ProcedureBean;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
 import edu.ncsu.csc.itrust.dao.mysql.CPTCodesDAO;
-import edu.ncsu.csc.itrust.dao.mysql.TransactionDAO;
 import edu.ncsu.csc.itrust.exception.DBException;
 import edu.ncsu.csc.itrust.exception.FormValidationException;
 import edu.ncsu.csc.itrust.exception.iTrustException;
@@ -21,8 +20,6 @@ import edu.ncsu.csc.itrust.validate.ProcedureBeanValidator;
  * @author laurenhayward
  */
 public class UpdateCPTCodeListAction {
-	private long loggedInMID;
-	private TransactionDAO transDAO;
 	private CPTCodesDAO cptDAO;
 	private ProcedureBeanValidator validator = new ProcedureBeanValidator();
 
@@ -32,8 +29,6 @@ public class UpdateCPTCodeListAction {
 	 * @param loggedInMID The MID of the administrator who is updating the CPTs.
 	 */
 	public UpdateCPTCodeListAction(DAOFactory factory, long loggedInMID) {
-		this.loggedInMID = loggedInMID;
-		this.transDAO = factory.getTransactionDAO();
 		this.cptDAO = factory.getCPTCodesDAO();
 	}
 

@@ -4,7 +4,6 @@ import java.util.List;
 import junit.framework.TestCase;
 import edu.ncsu.csc.itrust.beans.MedicationBean;
 import edu.ncsu.csc.itrust.beans.PrescriptionBean;
-import edu.ncsu.csc.itrust.dao.mysql.OfficeVisitDAO;
 import edu.ncsu.csc.itrust.dao.mysql.PrescriptionsDAO;
 import edu.ncsu.csc.itrust.datagenerators.TestDataGenerator;
 import edu.ncsu.csc.itrust.exception.DBException;
@@ -17,7 +16,6 @@ import edu.ncsu.csc.itrust.testutils.TestDAOFactory;
  *
  */
 public class OVMedicationsTest extends TestCase {
-	private OfficeVisitDAO ovDAO = TestDAOFactory.getTestInstance().getOfficeVisitDAO();
 	private PrescriptionsDAO dao = TestDAOFactory.getTestInstance().getPrescriptionsDAO();
 	private PrescriptionBean pres;
 

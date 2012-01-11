@@ -4,7 +4,6 @@ import java.util.List;
 import edu.ncsu.csc.itrust.beans.SurveyResultBean;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
 import edu.ncsu.csc.itrust.dao.mysql.SurveyResultDAO;
-import edu.ncsu.csc.itrust.dao.mysql.TransactionDAO;
 import edu.ncsu.csc.itrust.exception.FormValidationException;
 import edu.ncsu.csc.itrust.exception.iTrustException;
 import edu.ncsu.csc.itrust.validate.SurveySearchValidator;
@@ -15,7 +14,6 @@ import edu.ncsu.csc.itrust.validate.SurveySearchValidator;
 public class ViewSurveyResultAction {
 	
 	private SurveyResultDAO surveyResultDAO;
-	private TransactionDAO transDAO;
 	private SurveySearchValidator validator;
 	long loggedInMID;
 	
@@ -25,7 +23,6 @@ public class ViewSurveyResultAction {
 	 * @param loggedInMID The MID of the person retrieving survey results.
 	 */
 	public ViewSurveyResultAction(DAOFactory factory, long loggedInMID) {
-		transDAO = factory.getTransactionDAO();
 		surveyResultDAO = factory.getSurveyResultDAO();
 		this.loggedInMID = loggedInMID;
 		validator = new SurveySearchValidator();

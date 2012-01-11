@@ -12,7 +12,6 @@ import edu.ncsu.csc.itrust.dao.DAOFactory;
 import edu.ncsu.csc.itrust.dao.mysql.MessageDAO;
 import edu.ncsu.csc.itrust.dao.mysql.PatientDAO;
 import edu.ncsu.csc.itrust.dao.mysql.PersonnelDAO;
-import edu.ncsu.csc.itrust.dao.mysql.TransactionDAO;
 import edu.ncsu.csc.itrust.exception.DBException;
 import edu.ncsu.csc.itrust.exception.FormValidationException;
 import edu.ncsu.csc.itrust.exception.iTrustException;
@@ -31,7 +30,6 @@ public class SendMessageAction {
 	private PatientDAO patientDAO;
 	private PersonnelDAO personnelDAO;
 	private MessageDAO messageDAO;
-	private TransactionDAO transactionDAO;
 	private EMailValidator emailVal;
 	private MessageValidator messVal;
 
@@ -47,7 +45,6 @@ public class SendMessageAction {
 		this.personnelDAO = factory.getPersonnelDAO();
 		this.emailer = new EmailUtil(factory);
 		this.messageDAO = factory.getMessageDAO();
-		this.transactionDAO = factory.getTransactionDAO();
 		this.emailVal = new EMailValidator();
 		this.messVal = new MessageValidator();
 	}

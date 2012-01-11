@@ -21,7 +21,6 @@ import edu.ncsu.csc.itrust.dao.mysql.ICDCodesDAO;
 import edu.ncsu.csc.itrust.dao.mysql.OfficeVisitDAO;
 import edu.ncsu.csc.itrust.dao.mysql.PatientDAO;
 import edu.ncsu.csc.itrust.dao.mysql.ProceduresDAO;
-import edu.ncsu.csc.itrust.dao.mysql.TransactionDAO;
 import edu.ncsu.csc.itrust.dao.mysql.PersonnelDAO;
 import edu.ncsu.csc.itrust.exception.DBException;
 import edu.ncsu.csc.itrust.exception.FormValidationException;
@@ -44,10 +43,8 @@ public class EditPHRAction extends PatientBaseAction {
 	private FamilyDAO familyDAO;
 	private HealthRecordsDAO hrDAO;
 	private OfficeVisitDAO ovDAO;
-	private TransactionDAO transDAO;
 	private ICDCodesDAO icdDAO;
 	private ProceduresDAO procDAO;
-	private long loggedInMID;
 	private ChronicDiseaseMediator diseaseMediator;
 	private PersonnelDAO personnelDAO;
 	private PersonnelBean HCPUAP;
@@ -72,9 +69,7 @@ public class EditPHRAction extends PatientBaseAction {
 		this.familyDAO = factory.getFamilyDAO();
 		this.hrDAO = factory.getHealthRecordsDAO();
 		this.ovDAO = factory.getOfficeVisitDAO();
-		this.transDAO = factory.getTransactionDAO();
 		this.icdDAO = factory.getICDCodesDAO();
-		this.loggedInMID = loggedInMID;
 		this.personnelDAO = factory.getPersonnelDAO();
 		this.HCPUAP = personnelDAO.getPersonnel(loggedInMID);
 		this.patient = patientDAO.getPatient(pid);

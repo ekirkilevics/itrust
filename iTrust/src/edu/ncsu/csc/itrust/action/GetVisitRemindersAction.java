@@ -322,7 +322,7 @@ public class GetVisitRemindersAction {
 	public static String testHPV(int count, Date patientDOB, long time) {
 		String reason = "";
 		long weeks = (Calendar.getInstance().getTimeInMillis() - time) / (1000 * 60 * 60 * 24 * 7);
-		Date now = new Date();
+		new Date();
 		
 		
 		

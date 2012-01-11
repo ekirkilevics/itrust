@@ -12,7 +12,6 @@ import edu.ncsu.csc.itrust.dao.DAOFactory;
 import edu.ncsu.csc.itrust.dao.mysql.OfficeVisitDAO;
 import edu.ncsu.csc.itrust.dao.mysql.PatientDAO;
 import edu.ncsu.csc.itrust.dao.mysql.PersonnelDAO;
-import edu.ncsu.csc.itrust.dao.mysql.TransactionDAO;
 import edu.ncsu.csc.itrust.exception.DBException;
 import edu.ncsu.csc.itrust.exception.iTrustException;
 
@@ -24,7 +23,6 @@ import edu.ncsu.csc.itrust.exception.iTrustException;
 public class ViewPatientOfficeVisitHistoryAction {
 	private long loggedInMID;
 	private PatientDAO patientDAO;
-	private TransactionDAO transDAO;
 	private PersonnelDAO personnelDAO;
 	private OfficeVisitDAO officevisitDAO;
 	private ArrayList<PatientVisitBean> visits;
@@ -37,7 +35,6 @@ public class ViewPatientOfficeVisitHistoryAction {
 	public ViewPatientOfficeVisitHistoryAction(DAOFactory factory, long loggedInMID) {
 		this.loggedInMID = loggedInMID;
 		this.personnelDAO = factory.getPersonnelDAO();
-		this.transDAO = factory.getTransactionDAO();
 		officevisitDAO = factory.getOfficeVisitDAO();
 		this.patientDAO = factory.getPatientDAO();
 		

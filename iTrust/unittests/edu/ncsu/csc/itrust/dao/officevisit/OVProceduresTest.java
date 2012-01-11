@@ -3,7 +3,6 @@ package edu.ncsu.csc.itrust.dao.officevisit;
 import java.util.List;
 import junit.framework.TestCase;
 import edu.ncsu.csc.itrust.beans.ProcedureBean;
-import edu.ncsu.csc.itrust.dao.mysql.OfficeVisitDAO;
 import edu.ncsu.csc.itrust.dao.mysql.ProceduresDAO;
 import edu.ncsu.csc.itrust.datagenerators.TestDataGenerator;
 import edu.ncsu.csc.itrust.exception.DBException;
@@ -16,7 +15,6 @@ import edu.ncsu.csc.itrust.testutils.TestDAOFactory;
  *
  */
 public class OVProceduresTest extends TestCase{
-	private OfficeVisitDAO ovDAO = TestDAOFactory.getTestInstance().getOfficeVisitDAO();
 	private ProceduresDAO procDAO = TestDAOFactory.getTestInstance().getProceduresDAO();
 
 	@Override

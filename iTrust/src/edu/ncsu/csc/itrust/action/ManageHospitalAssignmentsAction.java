@@ -5,7 +5,6 @@ import edu.ncsu.csc.itrust.beans.HospitalBean;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
 import edu.ncsu.csc.itrust.dao.mysql.HospitalsDAO;
 import edu.ncsu.csc.itrust.dao.mysql.PersonnelDAO;
-import edu.ncsu.csc.itrust.dao.mysql.TransactionDAO;
 import edu.ncsu.csc.itrust.exception.iTrustException;
 
 /**
@@ -15,11 +14,8 @@ import edu.ncsu.csc.itrust.exception.iTrustException;
  * 
  */
 public class ManageHospitalAssignmentsAction {
-	private TransactionDAO transDAO;
 	private PersonnelDAO personnelDAO;
 	private HospitalsDAO hospitalsDAO;
-	private long loggedInMID;
-
 	/**
 	 * Set up defaults
 	 * 
@@ -29,8 +25,6 @@ public class ManageHospitalAssignmentsAction {
 	 *            The MID of the user managing hospitals.
 	 */
 	public ManageHospitalAssignmentsAction(DAOFactory factory, long loggedInMID) {
-		this.loggedInMID = loggedInMID;
-		this.transDAO = factory.getTransactionDAO();
 		this.personnelDAO = factory.getPersonnelDAO();
 		this.hospitalsDAO = factory.getHospitalsDAO();
 	}

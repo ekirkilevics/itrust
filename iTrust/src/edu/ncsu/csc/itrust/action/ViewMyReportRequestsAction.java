@@ -7,7 +7,6 @@ import edu.ncsu.csc.itrust.beans.ReportRequestBean;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
 import edu.ncsu.csc.itrust.dao.mysql.PersonnelDAO;
 import edu.ncsu.csc.itrust.dao.mysql.ReportRequestDAO;
-import edu.ncsu.csc.itrust.dao.mysql.TransactionDAO;
 import edu.ncsu.csc.itrust.exception.iTrustException;
 
 /**
@@ -17,7 +16,6 @@ public class ViewMyReportRequestsAction {
 	private long loggedInMID;
 	private ReportRequestDAO reportRequestDAO;
 	private PersonnelDAO personnelDAO;
-	private TransactionDAO transDAO;
 	//private DAOFactory factory;
 
 	/**
@@ -30,7 +28,6 @@ public class ViewMyReportRequestsAction {
 		this.loggedInMID = loggedInMID;
 		this.reportRequestDAO = factory.getReportRequestDAO();
 		this.personnelDAO = factory.getPersonnelDAO();
-		this.transDAO = factory.getTransactionDAO();
 		//this.factory = factory;
 	}
 

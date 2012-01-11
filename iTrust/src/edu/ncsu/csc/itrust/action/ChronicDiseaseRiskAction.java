@@ -4,7 +4,6 @@ import java.util.List;
 import edu.ncsu.csc.itrust.action.base.PatientBaseAction;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
 import edu.ncsu.csc.itrust.dao.mysql.AuthDAO;
-import edu.ncsu.csc.itrust.dao.mysql.TransactionDAO;
 import edu.ncsu.csc.itrust.exception.DBException;
 import edu.ncsu.csc.itrust.exception.NoHealthRecordsException;
 import edu.ncsu.csc.itrust.exception.iTrustException;
@@ -21,9 +20,7 @@ import edu.ncsu.csc.itrust.risk.RiskChecker;
  */
 public class ChronicDiseaseRiskAction extends PatientBaseAction {
 	private AuthDAO authDAO;
-	private long loggedInMID;
 	private ChronicDiseaseMediator diseaseMediator;
-	private TransactionDAO transDAO;
 
 	/**
 	 * 
@@ -42,8 +39,6 @@ public class ChronicDiseaseRiskAction extends PatientBaseAction {
 			throws iTrustException, DBException, NoHealthRecordsException {
 		super(factory, pidString);
 		this.authDAO = factory.getAuthDAO();
-		this.transDAO = factory.getTransactionDAO();
-		this.loggedInMID = loggedInMID;
 		this.diseaseMediator = new ChronicDiseaseMediator(factory, pid);
 	}
 

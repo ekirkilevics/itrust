@@ -7,7 +7,6 @@ import edu.ncsu.csc.itrust.beans.forms.HealthRecordForm;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
 import edu.ncsu.csc.itrust.dao.mysql.AuthDAO;
 import edu.ncsu.csc.itrust.dao.mysql.HealthRecordsDAO;
-import edu.ncsu.csc.itrust.dao.mysql.TransactionDAO;
 import edu.ncsu.csc.itrust.exception.DBException;
 import edu.ncsu.csc.itrust.exception.FormValidationException;
 import edu.ncsu.csc.itrust.exception.iTrustException;
@@ -20,7 +19,6 @@ import edu.ncsu.csc.itrust.validate.HealthRecordFormValidator;
  * 
  */
 public class EditHealthHistoryAction extends PatientBaseAction {
-	private TransactionDAO transDAO;
 	private HealthRecordsDAO hrDAO;
 	private AuthDAO authDAO;
 	private long loggedInMID;
@@ -39,7 +37,6 @@ public class EditHealthHistoryAction extends PatientBaseAction {
 		super(factory, pidString);
 		this.hrDAO = factory.getHealthRecordsDAO();
 		this.authDAO = factory.getAuthDAO();
-		this.transDAO = factory.getTransactionDAO();
 		this.loggedInMID = loggedInMID;
 	}
 

@@ -13,7 +13,6 @@ import edu.ncsu.csc.itrust.dao.DAOFactory;
 import edu.ncsu.csc.itrust.dao.mysql.OfficeVisitDAO;
 import edu.ncsu.csc.itrust.dao.mysql.PatientDAO;
 import edu.ncsu.csc.itrust.dao.mysql.PrescriptionReportDAO;
-import edu.ncsu.csc.itrust.dao.mysql.TransactionDAO;
 import edu.ncsu.csc.itrust.exception.DBException;
 import edu.ncsu.csc.itrust.exception.FormValidationException;
 import edu.ncsu.csc.itrust.exception.NoHealthRecordsException;
@@ -31,7 +30,6 @@ public class PrescriptionReportAction extends PatientBaseAction {
 	private boolean isRepresenting = false;
 	private OfficeVisitDAO ovDAO;
 	private PrescriptionReportDAO prDAO;
-	private TransactionDAO transDAO;
 	private PatientDAO patientDAO;
 	private long loggedInMID;
 
@@ -48,7 +46,6 @@ public class PrescriptionReportAction extends PatientBaseAction {
 	public PrescriptionReportAction(DAOFactory factory, long loggedInMID, String pidString)
 			throws iTrustException, DBException, NoHealthRecordsException {
 		super(factory, pidString);
-		this.transDAO = factory.getTransactionDAO();
 		this.ovDAO = factory.getOfficeVisitDAO();
 		this.patientDAO = factory.getPatientDAO();
 		this.prDAO = factory.getPrescriptionReportDAO();

@@ -65,8 +65,6 @@ public class LabProcedureValidatorTest extends TestCase {
 		bean.statusPending();
 		bean.allow();
 		
-		String expected_message = "";
-		
 		bean.setNumericalResult("123456789012345678901"); // Too long
 		try {
 			validator.validate(bean);

@@ -10,7 +10,6 @@ import edu.ncsu.csc.itrust.beans.PrescriptionBean;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
 import edu.ncsu.csc.itrust.dao.mysql.PatientDAO;
 import edu.ncsu.csc.itrust.dao.mysql.PersonnelDAO;
-import edu.ncsu.csc.itrust.dao.mysql.TransactionDAO;
 import edu.ncsu.csc.itrust.exception.iTrustException;
 
 /**
@@ -22,7 +21,6 @@ import edu.ncsu.csc.itrust.exception.iTrustException;
 public class ViewExpiredPrescriptionsAction {
 	private PatientDAO patientDAO;
 	private PersonnelDAO personnelDAO;
-	private TransactionDAO transDAO;
 	private EmailUtil emailer;
 	private long loggedInMID;
 
@@ -36,7 +34,6 @@ public class ViewExpiredPrescriptionsAction {
 		this.emailer = new EmailUtil(factory);
 		this.patientDAO = factory.getPatientDAO();
 		this.personnelDAO = factory.getPersonnelDAO();
-		this.transDAO = factory.getTransactionDAO();
 		this.loggedInMID = loggedInMID;
 	}
 	

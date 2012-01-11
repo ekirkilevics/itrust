@@ -6,7 +6,6 @@ import java.util.List;
 import junit.framework.TestCase;
 import edu.ncsu.csc.itrust.beans.DiagnosisBean;
 import edu.ncsu.csc.itrust.dao.mysql.DiagnosesDAO;
-import edu.ncsu.csc.itrust.dao.mysql.OfficeVisitDAO;
 import edu.ncsu.csc.itrust.datagenerators.TestDataGenerator;
 import edu.ncsu.csc.itrust.exception.DBException;
 import edu.ncsu.csc.itrust.testutils.TestDAOFactory;
@@ -19,7 +18,6 @@ import edu.ncsu.csc.itrust.testutils.TestDAOFactory;
  * @ author David white
  */
 public class UpdatePrivacyLevelTest extends TestCase {
-	private OfficeVisitDAO ovDAO = TestDAOFactory.getTestInstance().getOfficeVisitDAO();
 	private DiagnosesDAO diagDAO = TestDAOFactory.getTestInstance().getDiagnosesDAO();
 	private TestDataGenerator gen;
 

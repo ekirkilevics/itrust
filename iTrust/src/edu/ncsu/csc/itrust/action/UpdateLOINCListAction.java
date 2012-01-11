@@ -4,7 +4,6 @@ import java.util.List;
 import edu.ncsu.csc.itrust.beans.LOINCbean;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
 import edu.ncsu.csc.itrust.dao.mysql.LOINCDAO;
-import edu.ncsu.csc.itrust.dao.mysql.TransactionDAO;
 import edu.ncsu.csc.itrust.exception.DBException;
 import edu.ncsu.csc.itrust.exception.FormValidationException;
 import edu.ncsu.csc.itrust.exception.iTrustException;
@@ -19,9 +18,7 @@ import edu.ncsu.csc.itrust.validate.LOINCBeanValidator;
  * @see http://loinc.org/
  */
 public class UpdateLOINCListAction {
-	private long performerID = 0;
 	private LOINCDAO lDAO;
-	private TransactionDAO transDAO;
 	private LOINCBeanValidator validator = new LOINCBeanValidator();
 
 	/**
@@ -31,8 +28,6 @@ public class UpdateLOINCListAction {
 	 * @param performerID The MID of the person updating the LOINCs.
 	 */
 	public UpdateLOINCListAction(DAOFactory factory, long performerID) {
-		this.performerID = performerID;
-		transDAO = factory.getTransactionDAO();
 		lDAO = factory.getLOINCDAO();
 	}
 	

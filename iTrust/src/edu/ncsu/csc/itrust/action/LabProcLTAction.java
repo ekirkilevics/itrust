@@ -7,7 +7,6 @@ import edu.ncsu.csc.itrust.dao.DAOFactory;
 import edu.ncsu.csc.itrust.dao.mysql.LabProcedureDAO;
 import edu.ncsu.csc.itrust.dao.mysql.OfficeVisitDAO;
 import edu.ncsu.csc.itrust.dao.mysql.PersonnelDAO;
-import edu.ncsu.csc.itrust.dao.mysql.TransactionDAO;
 import edu.ncsu.csc.itrust.exception.DBException;
 import edu.ncsu.csc.itrust.exception.FormValidationException;
 import edu.ncsu.csc.itrust.exception.iTrustException;
@@ -15,25 +14,20 @@ import edu.ncsu.csc.itrust.exception.iTrustException;
  * Class for LabProcLT.jsp.  Handles lab procedures for LTs
  */
 public class LabProcLTAction {
-	private TransactionDAO transDAO;
 	private LabProcedureDAO lpDAO;
 	private OfficeVisitDAO ovDAO;
 	private PersonnelDAO personDAO;
 	long loggedInMID;
-	private DAOFactory factory;
-
-/**
+	/**
  * Setup 
  * @param factory The DAOFactory used to create the DAOs used in this action.
  * @param loggedInMID LT who is logged in
  */
 	public LabProcLTAction(DAOFactory factory, long loggedInMID) {
-		transDAO = factory.getTransactionDAO();
 		ovDAO = factory.getOfficeVisitDAO();
 		lpDAO = factory.getLabProcedureDAO();
 		personDAO = factory.getPersonnelDAO();
 		this.loggedInMID = loggedInMID;
-		this.factory = factory;
 	}
 	
 	public List<LabProcedureBean> viewInTransitProcedures(long id) throws DBException{

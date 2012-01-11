@@ -9,7 +9,6 @@ import edu.ncsu.csc.itrust.beans.PatientHistoryBean;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
 import edu.ncsu.csc.itrust.dao.mysql.PatientDAO;
 import edu.ncsu.csc.itrust.dao.mysql.PersonnelDAO;
-import edu.ncsu.csc.itrust.dao.mysql.TransactionDAO;
 import edu.ncsu.csc.itrust.exception.DBException;
 import edu.ncsu.csc.itrust.exception.FormValidationException;
 import edu.ncsu.csc.itrust.exception.iTrustException;
@@ -24,7 +23,6 @@ import edu.ncsu.csc.itrust.EmailUtil;
  * 
  */
 public class EditPatientAction extends PatientBaseAction {
-	private TransactionDAO transDAO;
 	private PatientValidator validator = new PatientValidator();
 	private PatientDAO patientDAO;
 	private PersonnelDAO personnelDAO;
@@ -43,7 +41,6 @@ public class EditPatientAction extends PatientBaseAction {
 		super(factory, pidString);
 		this.patientDAO = factory.getPatientDAO();
 		this.personnelDAO = factory.getPersonnelDAO();
-		this.transDAO = factory.getTransactionDAO();
 		this.loggedInMID = loggedInMID;
 		emailutil = new EmailUtil(factory);
 	}

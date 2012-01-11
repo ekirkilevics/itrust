@@ -5,21 +5,16 @@ import java.util.List;
 import edu.ncsu.csc.itrust.beans.ApptTypeBean;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
 import edu.ncsu.csc.itrust.dao.mysql.ApptTypeDAO;
-import edu.ncsu.csc.itrust.dao.mysql.TransactionDAO;
 import edu.ncsu.csc.itrust.exception.DBException;
 import edu.ncsu.csc.itrust.exception.FormValidationException;
 import edu.ncsu.csc.itrust.validate.ApptTypeBeanValidator;
 
 public class EditApptTypeAction {
-	private long loggedInMID;
 	private ApptTypeDAO apptTypeDAO;
-	private TransactionDAO transDAO;
 	private ApptTypeBeanValidator validator = new ApptTypeBeanValidator();
 	
 	public EditApptTypeAction(DAOFactory factory, long loggedInMID) {
-		this.loggedInMID = loggedInMID;
 		this.apptTypeDAO = factory.getApptTypeDAO();
-		this.transDAO = factory.getTransactionDAO();
 	}
 	
 	public List<ApptTypeBean> getApptTypes() throws SQLException {

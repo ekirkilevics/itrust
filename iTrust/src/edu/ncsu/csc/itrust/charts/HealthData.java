@@ -126,8 +126,7 @@ public class HealthData implements DatasetProducer, CategoryToolTipGenerator, Ca
      * @return A dataset containing information to be graphed
      * @throws DatasetProduceException
      */
-    @SuppressWarnings("unchecked")
-	public Object produceDataset(Map params) throws DatasetProduceException {
+    public Object produceDataset(Map params) throws DatasetProduceException {
     	// The DefaultCategoryDataset is used for bar charts.
     	// This dataset class may change based on the type of chart you wish to produce.
         DefaultCategoryDataset dataset = new DefaultCategoryDataset(){

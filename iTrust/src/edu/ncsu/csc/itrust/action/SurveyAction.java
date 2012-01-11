@@ -5,7 +5,6 @@ import edu.ncsu.csc.itrust.beans.SurveyBean;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
 import edu.ncsu.csc.itrust.dao.mysql.OfficeVisitDAO;
 import edu.ncsu.csc.itrust.dao.mysql.SurveyDAO;
-import edu.ncsu.csc.itrust.dao.mysql.TransactionDAO;
 import edu.ncsu.csc.itrust.exception.DBException;
 
 /**
@@ -14,7 +13,6 @@ import edu.ncsu.csc.itrust.exception.DBException;
  *
  */
 public class SurveyAction {
-	private TransactionDAO transDAO;
 	private SurveyDAO surveyDAO;
 	private OfficeVisitDAO ovDAO;
 	long loggedInMID;
@@ -25,7 +23,6 @@ public class SurveyAction {
 	 * @param loggedInMID The MID of the user taking the survey.
 	 */
 	public SurveyAction(DAOFactory factory, long loggedInMID) {
-		transDAO = factory.getTransactionDAO();
 		surveyDAO = factory.getSurveyDAO();
 		ovDAO = factory.getOfficeVisitDAO();
 		this.loggedInMID = loggedInMID;

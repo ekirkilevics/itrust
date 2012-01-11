@@ -5,7 +5,6 @@ import edu.ncsu.csc.itrust.action.base.PatientBaseAction;
 import edu.ncsu.csc.itrust.beans.OfficeVisitBean;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
 import edu.ncsu.csc.itrust.dao.mysql.OfficeVisitDAO;
-import edu.ncsu.csc.itrust.dao.mysql.TransactionDAO;
 import edu.ncsu.csc.itrust.exception.DBException;
 import edu.ncsu.csc.itrust.exception.iTrustException;
 
@@ -21,7 +20,6 @@ import edu.ncsu.csc.itrust.exception.iTrustException;
 public class AddOfficeVisitAction extends PatientBaseAction {
 	private DAOFactory factory;
 	private OfficeVisitDAO ovDAO;
-	private TransactionDAO transDAO;
 
 	/**
 	 * Sets up the defaults for the class
@@ -33,7 +31,6 @@ public class AddOfficeVisitAction extends PatientBaseAction {
 	public AddOfficeVisitAction(DAOFactory factory, String pidString) throws iTrustException {
 		super(factory, pidString);
 		this.factory = factory;
-		this.transDAO = factory.getTransactionDAO();
 		ovDAO = factory.getOfficeVisitDAO();
 	}
 

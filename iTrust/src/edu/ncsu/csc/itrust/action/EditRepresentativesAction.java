@@ -6,7 +6,6 @@ import edu.ncsu.csc.itrust.beans.PatientBean;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
 import edu.ncsu.csc.itrust.dao.mysql.AuthDAO;
 import edu.ncsu.csc.itrust.dao.mysql.PatientDAO;
-import edu.ncsu.csc.itrust.dao.mysql.TransactionDAO;
 import edu.ncsu.csc.itrust.enums.Role;
 import edu.ncsu.csc.itrust.exception.iTrustException;
 
@@ -18,10 +17,7 @@ import edu.ncsu.csc.itrust.exception.iTrustException;
  */
 public class EditRepresentativesAction extends PatientBaseAction {
 	private PatientDAO patientDAO;
-	private TransactionDAO transDAO;
 	private AuthDAO authDAO;
-	private long loggedInMID;
-
 	/**
 	 * Super class validates the patient mid
 	 * 
@@ -33,8 +29,6 @@ public class EditRepresentativesAction extends PatientBaseAction {
 	public EditRepresentativesAction(DAOFactory factory, long loggedInMID, String pidString)
 			throws iTrustException {
 		super(factory, pidString);
-		this.loggedInMID = loggedInMID;
-		this.transDAO = factory.getTransactionDAO();
 		this.patientDAO = factory.getPatientDAO();
 		this.authDAO = factory.getAuthDAO();
 	}
