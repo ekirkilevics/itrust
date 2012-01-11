@@ -7,8 +7,7 @@ import edu.ncsu.csc.itrust.DBBuilder;
 
 public class AllHTTPTests {
 
-	// Turns out that the unchecked warning is from the junit-addons, not us, so we can suppress it
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("rawtypes")
 	public static Test suite() throws Exception {
 		DBBuilder.rebuildAll();
 		DirectorySuiteBuilder builder = new DirectorySuiteBuilder();
