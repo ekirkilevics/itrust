@@ -1,7 +1,6 @@
 package edu.ncsu.csc.itrust.validate;
 
 import edu.ncsu.csc.itrust.action.UpdateNDCodeListAction;
-import edu.ncsu.csc.itrust.beans.ProcedureBean;
 import edu.ncsu.csc.itrust.beans.ReferralBean;
 import edu.ncsu.csc.itrust.exception.ErrorList;
 import edu.ncsu.csc.itrust.exception.FormValidationException;

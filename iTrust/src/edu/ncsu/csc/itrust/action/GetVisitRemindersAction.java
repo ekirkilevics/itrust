@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Calendar;
 import edu.ncsu.csc.itrust.beans.forms.VisitReminderReturnForm;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
-import edu.ncsu.csc.itrust.dao.mysql.TransactionDAO;
 import edu.ncsu.csc.itrust.dao.mysql.VisitRemindersDAO;
 import edu.ncsu.csc.itrust.dao.mysql.PatientDAO;
 import edu.ncsu.csc.itrust.beans.ProcedureBean;

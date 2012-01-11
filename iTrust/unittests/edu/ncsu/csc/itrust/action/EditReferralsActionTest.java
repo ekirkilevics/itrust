@@ -1,6 +1,5 @@
 package edu.ncsu.csc.itrust.action;
 
-import java.util.List;
 import edu.ncsu.csc.itrust.beans.ReferralBean;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
 import edu.ncsu.csc.itrust.datagenerators.TestDataGenerator;

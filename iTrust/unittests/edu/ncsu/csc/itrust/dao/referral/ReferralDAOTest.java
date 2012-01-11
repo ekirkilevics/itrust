@@ -1,7 +1,5 @@
 package edu.ncsu.csc.itrust.dao.referral;
 
-import edu.ncsu.csc.itrust.beans.ReferralBean;
-import edu.ncsu.csc.itrust.beans.VerboseReferralBean;
 import edu.ncsu.csc.itrust.dao.mysql.ReferralDAO;
 import edu.ncsu.csc.itrust.datagenerators.TestDataGenerator;
 import edu.ncsu.csc.itrust.testutils.TestDAOFactory;

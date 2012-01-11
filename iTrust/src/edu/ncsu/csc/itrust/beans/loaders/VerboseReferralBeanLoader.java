@@ -3,13 +3,10 @@ package edu.ncsu.csc.itrust.beans.loaders;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import edu.ncsu.csc.itrust.beans.ReferralBean;
 import edu.ncsu.csc.itrust.beans.VerboseReferralBean;
-import edu.ncsu.csc.itrust.exception.iTrustException;
 
 /**
  * A loader for ReferralBeans.

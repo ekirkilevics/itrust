@@ -3,7 +3,6 @@ package edu.ncsu.csc.itrust.action;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Date;
 import junit.framework.TestCase;
 import edu.ncsu.csc.itrust.action.GetVisitRemindersAction.ReminderType;
 import edu.ncsu.csc.itrust.beans.VisitFlag;

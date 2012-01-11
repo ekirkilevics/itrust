@@ -14,7 +14,6 @@ import edu.ncsu.csc.itrust.datagenerators.TestDataGenerator;
 import edu.ncsu.csc.itrust.enums.Role;
 import edu.ncsu.csc.itrust.testutils.ActionTestWithMocks; // Need this for the mock object stuff
 import edu.ncsu.csc.itrust.testutils.TestDAOFactory;
-import static org.easymock.classextension.EasyMock.*;
 
 public class AddPHAActionTest extends ActionTestWithMocks {
 	private DAOFactory factory = TestDAOFactory.getTestInstance();

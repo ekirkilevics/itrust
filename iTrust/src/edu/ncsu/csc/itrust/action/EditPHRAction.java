@@ -29,7 +29,6 @@ import edu.ncsu.csc.itrust.exception.NoHealthRecordsException;
 import edu.ncsu.csc.itrust.exception.iTrustException;
 import edu.ncsu.csc.itrust.risk.ChronicDiseaseMediator;
 import edu.ncsu.csc.itrust.risk.RiskChecker;
-import edu.ncsu.csc.itrust.validate.AllergyBeanValidator;
 
 
 /**

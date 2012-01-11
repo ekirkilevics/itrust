@@ -7,7 +7,6 @@ import com.meterware.httpunit.WebForm;
 import com.meterware.httpunit.WebResponse;
 import com.meterware.httpunit.WebTable;
 import edu.ncsu.csc.itrust.enums.TransactionType;
-import java.util.Date;
 
 public class ViewAccessLogTest extends iTrustHTTPTest {
 

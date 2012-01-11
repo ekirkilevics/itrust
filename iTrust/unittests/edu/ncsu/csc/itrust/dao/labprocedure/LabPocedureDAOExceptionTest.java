@@ -1,8 +1,6 @@
 package edu.ncsu.csc.itrust.dao.labprocedure;
 
-import edu.ncsu.csc.itrust.beans.LOINCbean;
 import edu.ncsu.csc.itrust.beans.LabProcedureBean;
-import edu.ncsu.csc.itrust.dao.mysql.LOINCDAO;
 import edu.ncsu.csc.itrust.dao.mysql.LabProcedureDAO;
 import edu.ncsu.csc.itrust.exception.DBException;
 import edu.ncsu.csc.itrust.testutils.EvilDAOFactory;

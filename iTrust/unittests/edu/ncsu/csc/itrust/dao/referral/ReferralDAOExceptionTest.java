@@ -1,14 +1,11 @@
 package edu.ncsu.csc.itrust.dao.referral;
 
 import edu.ncsu.csc.itrust.beans.ReferralBean;
-import edu.ncsu.csc.itrust.beans.VerboseReferralBean;
 import edu.ncsu.csc.itrust.dao.mysql.ReferralDAO;
 import edu.ncsu.csc.itrust.dao.mysql.ReferralDAO.ReferralListQuery;
-import edu.ncsu.csc.itrust.datagenerators.TestDataGenerator;
 import edu.ncsu.csc.itrust.enums.SortDirection;
 import edu.ncsu.csc.itrust.exception.DBException;
 import edu.ncsu.csc.itrust.testutils.EvilDAOFactory;
-import edu.ncsu.csc.itrust.testutils.TestDAOFactory;
 import junit.framework.TestCase;
 
 public class ReferralDAOExceptionTest extends TestCase {

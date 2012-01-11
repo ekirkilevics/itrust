@@ -11,9 +11,7 @@ import edu.ncsu.csc.itrust.dao.mysql.LOINCDAO;
 import edu.ncsu.csc.itrust.dao.mysql.LabProcedureDAO;
 import edu.ncsu.csc.itrust.dao.mysql.PersonnelDAO;
 import edu.ncsu.csc.itrust.exception.DBException;
-import edu.ncsu.csc.itrust.exception.ErrorList;
 import edu.ncsu.csc.itrust.exception.iTrustException;
-import edu.ncsu.csc.itrust.exception.FormValidationException;
 
 /**
  * Handles lab procedures
