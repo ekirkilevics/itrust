@@ -72,13 +72,13 @@ public class DrugInteractionTest extends iTrustHTTPTest {
 		// Click Tetracycline
 		wr = wc.getCurrentPage();
 		wr = wr.getLinkWith("Tetracycline").click();
-		System.out.println(wr.getElementWithID("intDesc").getAttribute("visibility"));
+		assertEquals(wr.getElementWithID("intDesc").getAttribute("visibility"), "");
 		
 		
 		//System.out.println(wr.getText());
 		//assertTrue(wr.getText().contains("May increase the risk of pseudotumor cerebri, or benign intracranial hypertension"));
 		WebForm form = wr.getForms()[0];
-		form.getScriptableObject().setParameterValue("delete", "548680955");
+		form.getScriptableObject().setParameterValue("codeToDelete", "548680955");
 		form.getSubmitButton("delete").click();
 		wr = wc.getCurrentPage();
 		assertTrue(wr.getText().contains("Interaction deleted successfully"));
