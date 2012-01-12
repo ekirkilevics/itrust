@@ -47,7 +47,7 @@ public class DiagnosisTrendDataTest extends TestCase {
 		dsBean.setStartDate(cal.getTime());
 		dsBean.setEndDate(cal.getTime());
 		
-		Map params = new HashMap();
+		Map<String, String> params = new HashMap<String, String>();
 		
 		try {
 			
@@ -92,7 +92,7 @@ public class DiagnosisTrendDataTest extends TestCase {
 		dsBean.setStartDate(cal.getTime());
 		dsBean.setEndDate(cal.getTime());
 		
-		Map params = new HashMap();
+		Map<String, String> params = new HashMap<String, String>();
 		
 		try {
 			
@@ -131,7 +131,7 @@ public class DiagnosisTrendDataTest extends TestCase {
 		dsBean.setStartDate(cal.getTime());
 		dsBean.setEndDate(cal2.getTime());
 		
-		Map params = new HashMap();
+		Map<String, String> params = new HashMap<String, String>();
 		
 		try {
 			

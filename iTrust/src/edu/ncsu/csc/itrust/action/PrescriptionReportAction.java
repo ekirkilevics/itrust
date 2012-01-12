@@ -95,7 +95,7 @@ public class PrescriptionReportAction extends PatientBaseAction {
 	 * @return list of PrescriptionReportBeans
 	 * @throws DBException
 	 */
-	public List<PrescriptionReportBean> getPrescriptionReports(Map params, List<OfficeVisitBean> officeVisits)
+	public List<PrescriptionReportBean> getPrescriptionReports(Map<String, String> params, List<OfficeVisitBean> officeVisits)
 			throws DBException {
 		HashMap<String, String> myParams = ParameterUtil.convertMap(params);
 		List<Long> ovIDs = new ArrayList<Long>();

@@ -39,7 +39,7 @@ public class PatientLabResultsTest extends TestCase {
 		lp.setTimestamp(new Timestamp(mytime.getTime().getTime()));
 		lpBeans.add(lp);
 		
-		Map params = new HashMap();
+		Map<String, String> params = new HashMap<String, String>();
 		SimpleDateFormat sdf = new SimpleDateFormat("yy");
 		
 		try {

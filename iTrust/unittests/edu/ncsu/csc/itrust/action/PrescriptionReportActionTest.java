@@ -30,7 +30,7 @@ public class PrescriptionReportActionTest extends TestCase {
 	public void testEmptyParamMap() throws Exception {
 		action = new PrescriptionReportAction(factory, 9000000000L, "2");
 		List<OfficeVisitBean> officeVisits = action.getAllOfficeVisits();
-		Map params = new HashMap();
+		Map<String, String> params = new HashMap<String, String>();
 		assertEquals("", action.getQueryString(params, officeVisits));
 	}
 

@@ -38,7 +38,7 @@ public class HealthDataTest extends TestCase {
 		hRecord.setDateRecorded(new Timestamp(mytime.getTime().getTime()));
 		healthRecordBeans.add(hRecord);
 		
-		Map params = new HashMap();
+		Map<String,String> params = new HashMap<String,String>();
 		SimpleDateFormat sdf = new SimpleDateFormat("yy");
 		
 		try {
@@ -67,7 +67,7 @@ public class HealthDataTest extends TestCase {
 		hRecord.setDateRecorded(new Timestamp(mytime.getTime().getTime()));
 		healthRecordBeans.add(hRecord);
 		
-		Map params = new HashMap();
+		Map<String, String> params = new HashMap<String, String>();
 		SimpleDateFormat sdf = new SimpleDateFormat("yy");
 		
 		try {

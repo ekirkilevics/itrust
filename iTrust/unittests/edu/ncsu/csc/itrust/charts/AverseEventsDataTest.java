@@ -33,7 +33,7 @@ public class AverseEventsDataTest extends TestCase {
 		event.setStatus("Active");
 		event.setDate("2010-08-15 08:47:00");
 		adEvents.add(event);
-		Map params = new HashMap();
+		Map<String, String> params = new HashMap<String, String>();
 		try {
 			chart.setAdverseEventsList(adEvents, codeName);
 			DefaultCategoryDataset data = (DefaultCategoryDataset)chart.produceDataset(params);
