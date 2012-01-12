@@ -95,8 +95,6 @@ public class PrescriptionReportAction extends PatientBaseAction {
 	 * @return list of PrescriptionReportBeans
 	 * @throws DBException
 	 */
-	// suppressing warnings because JSP doesn't have a generic for request.getParameterMap()
-	@SuppressWarnings("unchecked")
 	public List<PrescriptionReportBean> getPrescriptionReports(Map params, List<OfficeVisitBean> officeVisits)
 			throws DBException {
 		HashMap<String, String> myParams = ParameterUtil.convertMap(params);

@@ -60,7 +60,6 @@ public class AdverseEventsData implements DatasetProducer, CategoryToolTipGenera
     /**
      * This method parses the list of Adverse Event Beans to initialize the chart dataset.
      */
-    @SuppressWarnings("unchecked")
 	public Object produceDataset(Map params) throws DatasetProduceException {
     	// The DefaultCategoryDataset is used for bar charts.
     	// This dataset class may change based on the type of chart you wish to produce.
@@ -114,7 +113,6 @@ public class AdverseEventsData implements DatasetProducer, CategoryToolTipGenera
      * This producer's data is invalidated after 5 seconds. By this method the
      * producer can influence Cewolf's caching behaviour the way it wants to.
      */
-	@SuppressWarnings("unchecked")
 	public boolean hasExpired(Map params, Date since) {		
 		return (System.currentTimeMillis() - since.getTime())  > 5000;
 	}

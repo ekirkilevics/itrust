@@ -15,7 +15,6 @@ public class ParameterUtil {
 	 * @param params Map to convert
 	 * @return converted Map
 	 */
-	@SuppressWarnings("unchecked")
 	public static HashMap<String, String> convertMap(Map params) {
 		HashMap<String, String> myMap = new HashMap<String, String>();
 		for (Object key : params.keySet()) {

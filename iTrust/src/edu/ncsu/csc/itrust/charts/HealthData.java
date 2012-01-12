@@ -189,7 +189,6 @@ public class HealthData implements DatasetProducer, CategoryToolTipGenerator, Ca
      * This producer's data is invalidated after 5 seconds. By this method the
      * producer can influence Cewolf's caching behavior the way it wants to.
      */
-	@SuppressWarnings("unchecked")
 	public boolean hasExpired(Map params, Date since) {		
 		return (System.currentTimeMillis() - since.getTime())  > 5000;
 	}

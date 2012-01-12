@@ -87,7 +87,6 @@ public class DiagnosisTrendData implements DatasetProducer, CategoryToolTipGener
 	     * @return A data set containing information to be graphed
 	     * @throws DatasetProduceException
 	     */
-	    @SuppressWarnings("unchecked")
 		public Object produceDataset(Map params) throws DatasetProduceException {
 	    	// The DefaultCategoryDataset is used for bar charts.
 	    	// This data set class may change based on the type of chart you wish to produce.
@@ -139,7 +138,6 @@ public class DiagnosisTrendData implements DatasetProducer, CategoryToolTipGener
 	     * This producer's data is invalidated after 5 seconds. By this method the
 	     * producer can influence Cewolf's caching behavior the way it wants to.
 	     */
-		@SuppressWarnings("unchecked")
 		public boolean hasExpired(Map params, Date since) {		
 			return (System.currentTimeMillis() - since.getTime())  > 5000;
 		}

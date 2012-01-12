@@ -23,7 +23,6 @@ public class BeanBuilder<T> {
 	 *             Several exceptions are thrown here, so promotion seemed fitting
 	 */
 	// this warning is only suppressed because Map isn't parameterized (old JSP)
-	@SuppressWarnings("unchecked")
 	public T build(Map map, T bean) throws Exception {
 		// JavaBeans should not have overloaded methods, according to their API
 		// (a stupid limitation!)
