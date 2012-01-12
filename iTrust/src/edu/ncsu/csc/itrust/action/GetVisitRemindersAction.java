@@ -629,25 +629,4 @@ public class GetVisitRemindersAction {
 		return (startTime.compareTo(endTime) <= 0); //startTime.before(endTime);
 	}
 	
-	/**
-	 * Removes duplicates from a list of VisitReminderReturnForms
-	 * 
-	 * @param patients list of visit remindersto be cleaned up
-	 * @return cleaned up list of visit reminders
-	 */
-	private List<VisitReminderReturnForm> stripDupes(List<VisitReminderReturnForm> patients) {
-		if (null == patients)
-			return null;
-		if (0 == patients.size())
-			return patients;
-		List<VisitReminderReturnForm> retPatients = new ArrayList<VisitReminderReturnForm>();
-		VisitReminderReturnForm temp = patients.get(0);
-		retPatients.add(temp);
-		for (VisitReminderReturnForm vr : patients) {
-			if (vr.getPatientID() != temp.getPatientID())
-				retPatients.add(vr);
-			temp = vr;
-		}
-		return retPatients;
-	}
 }
