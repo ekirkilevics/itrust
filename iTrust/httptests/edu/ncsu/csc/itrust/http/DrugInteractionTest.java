@@ -1,9 +1,6 @@
 package edu.ncsu.csc.itrust.http;
 
-import com.meterware.httpunit.HTMLElement;
-import com.meterware.httpunit.HTMLElementPredicate;
 import com.meterware.httpunit.HttpUnitOptions;
-import com.meterware.httpunit.TextBlock;
 import com.meterware.httpunit.WebConversation;
 import com.meterware.httpunit.WebForm;
 import com.meterware.httpunit.WebResponse;
