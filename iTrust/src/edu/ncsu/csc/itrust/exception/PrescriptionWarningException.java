@@ -6,8 +6,8 @@ package edu.ncsu.csc.itrust.exception;
 import java.util.List;
 
 /**
- * @author David White
- *@Nazaire Gnassounou
+ * @author student
+ *@author student
  */
 
 public class PrescriptionWarningException extends iTrustException {

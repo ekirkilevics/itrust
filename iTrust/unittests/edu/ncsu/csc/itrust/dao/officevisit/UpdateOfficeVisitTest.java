@@ -8,8 +8,6 @@ import edu.ncsu.csc.itrust.testutils.TestDAOFactory;
 
 /**
  * Test update office visit
- * @author David White
- * @ author Nazaire Gnassounou
  *
  */
 public class UpdateOfficeVisitTest extends TestCase{

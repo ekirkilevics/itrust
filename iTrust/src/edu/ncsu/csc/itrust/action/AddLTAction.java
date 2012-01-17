@@ -14,7 +14,6 @@ import edu.ncsu.csc.itrust.validate.AddPersonnelValidator;
  * Used for Add Personnel page (addPersonnel.jsp). This just adds an empty LT, creates a random password
  * for them.
  * 
- * @author Michael Lee
  * 
  */
 public class AddLTAction {
@@ -24,8 +23,7 @@ public class AddLTAction {
 	 * Sets up the defaults for the class
 	 * 
 	 * @param factory factory for creating the defaults.
-	 * @param loggedInMID person currently logged in 
-	 * @author Michael Lee	
+	 * @param loggedInMID person currently logged in 	
 	 */	
 	
 	public AddLTAction(DAOFactory factory, long loggedInMID) {

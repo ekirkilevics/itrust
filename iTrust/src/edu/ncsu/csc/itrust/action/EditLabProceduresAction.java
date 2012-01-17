@@ -18,8 +18,8 @@ import edu.ncsu.csc.itrust.exception.iTrustException;
  * add lab procedure
  * Edit lab procedure
  * Remove lab procedure
- * @author David White
- * @author Nazaire Gnassounou
+ * @author student
+ * @author student
  *
  */
 public class EditLabProceduresAction extends EditOfficeVisitBaseAction {

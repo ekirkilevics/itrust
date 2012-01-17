@@ -9,7 +9,7 @@ import com.meterware.httpunit.WebResponse;
 import edu.ncsu.csc.itrust.enums.TransactionType;
 
 /**
- * @author Paul Goodrich
+ * @author student
  *
  */
 public class NDCodeTest extends iTrustHTTPTest {

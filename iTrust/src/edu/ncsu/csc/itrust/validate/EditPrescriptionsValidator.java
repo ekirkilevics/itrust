@@ -11,7 +11,7 @@ import edu.ncsu.csc.itrust.exception.ErrorList;
 import edu.ncsu.csc.itrust.exception.FormValidationException;
 
 /**
- * @author David
+ * @author student
  *
  */
 public class EditPrescriptionsValidator extends BeanValidator<EditPrescriptionsForm> {

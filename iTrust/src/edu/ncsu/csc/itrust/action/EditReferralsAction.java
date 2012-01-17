@@ -17,7 +17,7 @@ import edu.ncsu.csc.itrust.exception.iTrustException;
 /**
  * Class for creating and editing referrals associated with a particular office 
  * visit.
- * @author David
+ * @author student
  */
 public class EditReferralsAction extends EditOfficeVisitBaseAction {
 	

@@ -4,8 +4,8 @@
 package edu.ncsu.csc.itrust.exception;
 
 /**
- * @author David White
- * @ Nazaire Gnassounou
+ * @author student
+ * @author student
  */
 public class PrescriptionFieldException extends iTrustException {
 	/**

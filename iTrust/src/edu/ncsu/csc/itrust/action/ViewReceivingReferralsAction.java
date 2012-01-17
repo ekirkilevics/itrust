@@ -10,7 +10,6 @@ import edu.ncsu.csc.itrust.exception.DBException;
 import edu.ncsu.csc.itrust.exception.iTrustException;
 
 /**
- * @author Steven Elliott
  */
 public class ViewReceivingReferralsAction {
 

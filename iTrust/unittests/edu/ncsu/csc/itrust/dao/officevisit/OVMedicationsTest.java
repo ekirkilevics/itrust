@@ -11,8 +11,6 @@ import edu.ncsu.csc.itrust.testutils.TestDAOFactory;
 
 /**
  * Test client OV medications
- * @author David White
- * @ author Nazaire Gnassounou
  *
  */
 public class OVMedicationsTest extends TestCase {

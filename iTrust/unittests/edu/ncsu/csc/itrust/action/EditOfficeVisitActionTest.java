@@ -16,8 +16,6 @@ import edu.ncsu.csc.itrust.testutils.TestDAOFactory;
 
 /**
  * Test all office visit by doctors
- * @author David White
- * @ author Nazaire Gnassounou
  *
  */
 public class EditOfficeVisitActionTest extends TestCase {

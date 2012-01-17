@@ -11,8 +11,8 @@ import edu.ncsu.csc.itrust.enums.TransactionType;
 /**
  * Use Case 6
  * Test designatedand ViewHCPCase 
- * @author David White
- * @ author Nazaire Gnassounou
+ * @author student
+ * @ author student
  *
  */
 

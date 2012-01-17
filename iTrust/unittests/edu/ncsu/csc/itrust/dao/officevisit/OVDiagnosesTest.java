@@ -16,9 +16,9 @@ import edu.ncsu.csc.itrust.testutils.TestDAOFactory;
 
 /**
  * Test client diagnoses
- * @author David White
- * @ author Nazaire Gnassounou
- * @author Michael Owoc
+ * @author student
+ * @ author student
+ * @author student
  *
  */
 public class OVDiagnosesTest extends TestCase {

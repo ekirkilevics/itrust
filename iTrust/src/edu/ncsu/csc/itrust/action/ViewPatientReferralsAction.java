@@ -15,7 +15,6 @@ import edu.ncsu.csc.itrust.exception.iTrustException;
  * This class is an action class that sits in between the JSP and the DAO The methods help facilitate
  * functionality for the viewPatientReferrals.jsp
  * 
- * @author Steven Elliott
  */
 public class ViewPatientReferralsAction {
 

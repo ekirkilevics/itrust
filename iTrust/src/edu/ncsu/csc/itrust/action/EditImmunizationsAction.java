@@ -15,8 +15,8 @@ import edu.ncsu.csc.itrust.exception.iTrustException;
  * Edit Immunizations
  * Add Immunizations
  * Delete Immunizations
- * @author David White
- * @ Nazaire Gnassounou
+ * @author student
+ * @author student
  */
 public class EditImmunizationsAction extends EditOfficeVisitBaseAction {
 

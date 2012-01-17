@@ -15,9 +15,6 @@ import edu.ncsu.csc.itrust.testutils.TestDAOFactory;
 
 /**
  * Test Hostipal DAO
- * @author David White
- * Nazaire gnassounou
- *
  */
 public class AddEditHospitalDAOTest extends TestCase {
 	private DAOFactory factory = TestDAOFactory.getTestInstance();

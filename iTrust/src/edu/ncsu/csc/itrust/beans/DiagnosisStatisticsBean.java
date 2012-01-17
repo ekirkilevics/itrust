@@ -10,7 +10,7 @@ import java.util.Date;
  * A bean must only have Getters and Setters (Eclipse Hint: Use Source > Generate Getters and Setters� 
  * to create these easily)
  * 
- * @author Michael Owoc
+ * @author student
  */
 public class DiagnosisStatisticsBean {
 

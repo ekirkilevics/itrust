@@ -19,7 +19,7 @@ import edu.ncsu.csc.itrust.exception.iTrustException;
  * Used for the View Diagnosis Statistics page. Can return a list of all Diagnoses
  * and get diagnosis statistics for a specified Zip code, Diagnosis code, and date range.
  * 
- * @author Michael Owoc
+ * @author student
  *
  */
 public class ViewDiagnosisStatisticsAction {

@@ -9,8 +9,8 @@ import edu.ncsu.csc.itrust.enums.TransactionType;
 /**
  * test DocumentOfficeVisit
  * Use Case 11
- *  @author David White
- *  @ author Nazaire Gnassounou
+ *  @author student
+ *  @ author student
  *
  */
 public class DocumentOfficeVisitUseCaseTest extends iTrustHTTPTest {

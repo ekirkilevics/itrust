@@ -16,7 +16,7 @@ import edu.ncsu.csc.itrust.exception.iTrustException;
 
 /**
  * Class for viewing the referrals sent by a particular HCP.
- * @author David White
+ * @author student
  */
 public class ViewSentReferralsAction {
 	

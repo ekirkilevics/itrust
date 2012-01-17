@@ -9,8 +9,6 @@ import edu.ncsu.csc.itrust.testutils.TestDAOFactory;
 
 /**
  * Test Edit Prescription
- * @author David White
- * @author Nazaire Gnassounou
  *
  */
 public class EditPrescriptionsTest extends TestCase {

@@ -10,8 +10,8 @@ import edu.ncsu.csc.itrust.enums.TransactionType;
     /**
 	 *  test prescription and allergy
 	 *  throws Exception
-	 *  @author David White
-	 *  @author Nazaire Gnassounou
+	 *  @author student
+	 *  @author student
 	 *
 	 */
  
@@ -118,8 +118,8 @@ public class PrescriptionInteractionAndAllergyTest extends iTrustHTTPTest {
 	/**
 	 *  test update interaction and allergyPrescribe
 	 *  throws Exception
-	 *  @author David White
-	 *  @author Nazaire Gnassounou
+	 *  @author student
+	 *  @author student
 	 *
 	 */
 	public void testInteractionAndAllergyPrescribe() throws Exception{
@@ -210,8 +210,8 @@ public class PrescriptionInteractionAndAllergyTest extends iTrustHTTPTest {
 	/**
 	 *  test Allergy prescribe override
 	 *  throws Exception
-	 *  @author David White
-	 *  @author Nazaire Gnassounou
+	 *  @author Dstudent
+	 *  @author student
 	 *
 	 */
 	public void testAllergicPrescribeOverride() throws Exception{
@@ -272,8 +272,8 @@ public class PrescriptionInteractionAndAllergyTest extends iTrustHTTPTest {
 	/**
 	 *  test interactionNoprescribe
 	 *  throws Exception
-	 *  @author David White
-	 *  @author Nazaire Gnassounou
+	 *  @author student
+	 *  @author student
 	 *
 	 */
 	public void testInteractionCancel() throws Exception{

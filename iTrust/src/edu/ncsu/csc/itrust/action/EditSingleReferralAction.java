@@ -12,7 +12,7 @@ import edu.ncsu.csc.itrust.exception.iTrustException;
 
 /**
  * Class that allows creating, editing, and deleting of a single referral.
- * @author David
+ * @author student
  *
  */
 public class EditSingleReferralAction {

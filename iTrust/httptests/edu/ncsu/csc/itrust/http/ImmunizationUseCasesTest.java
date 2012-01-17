@@ -8,8 +8,8 @@ import edu.ncsu.csc.itrust.enums.TransactionType;
 
 /**
  * Use Cases 9, 11 & 17
- *  @author David White
- *  @ author Nazaire Gnassounou
+ *  @author student
+ *  @ author student
  *
  */
 public class ImmunizationUseCasesTest extends iTrustHTTPTest {
@@ -98,8 +98,8 @@ public class ImmunizationUseCasesTest extends iTrustHTTPTest {
 	/**
 	 *  test update Immunization
 	 *  throws Exception
-	 *  @author David White
-	 *  @author Nazaire Gnassounou
+	 *  @author student
+	 *  @author student
 	 *
 	 */
 	
@@ -157,8 +157,8 @@ public class ImmunizationUseCasesTest extends iTrustHTTPTest {
 	/**
 	 *  test view Immunization
 	 *  throws Exception
-	 *  @author David White
-	 *  @author Nazaire Gnassounou
+	 *  @author student
+	 *  @author student
 	 *
 	 */
 	public void testViewImmunizationRecord() throws Exception {
@@ -200,8 +200,8 @@ public class ImmunizationUseCasesTest extends iTrustHTTPTest {
 	/**
 	 *  test update ImmunizationRecord
 	 *  throws Exception
-	 *  @author David White
-	 *  @author Nazaire Gnassounou
+	 *  @author student
+	 *  @author student
 	 *
 	 */
 	public void testViewImmunizationRecord2() throws Exception {
@@ -241,8 +241,8 @@ public class ImmunizationUseCasesTest extends iTrustHTTPTest {
 	/**
 	 *  test update Immunization record2
 	 *  throws Exception
-	 *  @author David White
-	 *  @author Nazaire Gnassounou
+	 *  @author student
+	 *  @author student
 	 *
 	 */
 	public void testDocumentImmunization2() throws Exception {

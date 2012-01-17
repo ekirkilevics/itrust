@@ -13,8 +13,6 @@ import junit.framework.TestCase;
 
 /**
  * Test Prescription actions
- * @author Nazaire Gnassounou
- * @ author David White
  *
  */
 public class EditPrescriptionsActionTest extends TestCase {

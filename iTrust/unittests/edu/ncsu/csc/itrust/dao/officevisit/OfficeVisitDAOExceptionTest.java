@@ -8,8 +8,6 @@ import edu.ncsu.csc.itrust.testutils.EvilDAOFactory;
 
 /**
  * Test office visit with exception DAO
- * @author David White
- * @ Nazaire Gnassounou
  * @throw exception
  */
 public class OfficeVisitDAOExceptionTest extends TestCase {

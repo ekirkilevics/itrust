@@ -10,8 +10,8 @@ import edu.ncsu.csc.itrust.exception.iTrustException;
  * Base class for actions used to edit office visits.  This stores the HCP id, 
  * patient id, and office visit id.
  * 
- * @author David White
- * @author Nazaire Gnassounou
+ * @author student
+ * @author student
  */
 
 public class EditOfficeVisitBaseAction extends OfficeVisitBaseAction {

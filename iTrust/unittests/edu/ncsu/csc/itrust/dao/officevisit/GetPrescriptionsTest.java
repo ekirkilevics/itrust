@@ -9,8 +9,6 @@ import edu.ncsu.csc.itrust.datagenerators.TestDataGenerator;
 import edu.ncsu.csc.itrust.testutils.TestDAOFactory;
 
 /**
- * @author David White
- * @author Nazaire Gnassounou
  * Test  prescriptions
  */
 public class GetPrescriptionsTest extends TestCase {

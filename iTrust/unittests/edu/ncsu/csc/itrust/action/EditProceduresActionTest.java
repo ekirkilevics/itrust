@@ -12,8 +12,6 @@ import junit.framework.TestCase;
  * testAddProcedure
  * test Edit Procedure
  * test delete Procedure
- * @author David White
- * @ author Nazaire Gnassounou
  *
  */
 public class EditProceduresActionTest extends TestCase {

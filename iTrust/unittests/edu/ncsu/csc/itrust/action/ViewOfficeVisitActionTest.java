@@ -9,8 +9,6 @@ import edu.ncsu.csc.itrust.exception.DBException;
 
 /**
  * Test All doctor office visit
- * @author David White
- * @ author Nazaire Gnassounou
  *
  */
 public class ViewOfficeVisitActionTest extends TestCase {

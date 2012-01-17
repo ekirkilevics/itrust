@@ -12,8 +12,8 @@ import edu.ncsu.csc.itrust.exception.iTrustException;
 
 /**
  * Edit patiens procedure action
- * @author David White
- * @aurhor Nazaire Gnassounou
+ * @author student
+ * @aurhor student
  */
 public class EditProceduresAction extends EditOfficeVisitBaseAction {
 

@@ -26,7 +26,7 @@ import edu.ncsu.csc.itrust.validate.EditOfficeVisitValidator;
  * is saved, however, the sub actions can be saved.  
  * 
  * @author laurenhayward
- * @author David White
+ * @author student
  * 
  */
 public class EditOfficeVisitAction extends EditOfficeVisitBaseAction {

@@ -18,8 +18,8 @@ import edu.ncsu.csc.itrust.exception.iTrustException;
  * Edit Diagnosis
  * Add Diagnosis
  * Remove Diagnosis
- * @author David
- * @Nazaire Gnassounou
+ * @author student
+ * @author student
  */
 public class EditDiagnosesAction extends EditOfficeVisitBaseAction {
 	

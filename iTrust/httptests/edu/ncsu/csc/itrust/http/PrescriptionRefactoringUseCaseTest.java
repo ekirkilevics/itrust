@@ -20,8 +20,8 @@ import edu.ncsu.csc.itrust.enums.TransactionType;
 import edu.ncsu.csc.itrust.testutils.TestDAOFactory;
 /**
  *  test PrescriptionRefactoring
- *  @author David White
- *  @author Nazaire Gnassounou
+ *  @author student
+ *  @author student
  *
  */
 public class PrescriptionRefactoringUseCaseTest extends iTrustHTTPTest {
@@ -59,8 +59,8 @@ public class PrescriptionRefactoringUseCaseTest extends iTrustHTTPTest {
 	/**
 	 *  test acceptance scenario1
 	 *  throws Exception
-	 *  @author David White
-	 *  @author Nazaire Gnassounou
+	 *  @author student
+	 *  @author student
 	 *
 	 */
 	public void testAcceptanceScenario1() throws Exception {
@@ -123,8 +123,8 @@ public class PrescriptionRefactoringUseCaseTest extends iTrustHTTPTest {
 	/**
 	 *  test acceptance scenario2
 	 *  throws Exception
-	 *  @author David White
-	 *  @author Nazaire Gnassounou
+	 *  @author student
+	 *  @author student
 	 *
 	 */
 	public void testAcceptanceScenario2() throws Exception {
@@ -196,8 +196,8 @@ public class PrescriptionRefactoringUseCaseTest extends iTrustHTTPTest {
 	/**
 	 *  test acceptance scenario3
 	 *  throws Exception
-	 *  @author David White
-	 *  @author Nazaire Gnassounou
+	 *  @author student
+	 *  @author student
 	 *
 	 */
 	public void testAcceptanceScenario3() throws Exception {
@@ -258,8 +258,8 @@ public class PrescriptionRefactoringUseCaseTest extends iTrustHTTPTest {
 	/**
 	 *  test acceptance scenario4
 	 *  throws Exception
-	 *  @author David White
-	 *  @author Nazaire Gnassounou
+	 *  @author student
+	 *  @author student
 	 *
 	 */
 	public void testAcceptanceScenario4() throws Exception {
@@ -323,8 +323,8 @@ public class PrescriptionRefactoringUseCaseTest extends iTrustHTTPTest {
 	/**
 	 *  test acceptance scenario5
 	 *  throws Exception
-	 *  @author David White
-	 *  @author Nazaire Gnassounou
+	 *  @author student
+	 *  @author student
 	 *
 	 */
 	public void testAcceptanceScenario5() throws Exception {
@@ -382,8 +382,8 @@ public class PrescriptionRefactoringUseCaseTest extends iTrustHTTPTest {
 	/**
 	 *  test Prescription logging
 	 *  throws Exception
-	 *  @author David White
-	 *  @author Nazaire Gnassounou
+	 *  @author student
+	 *  @author student
 	 *
 	 */
 	
@@ -456,8 +456,8 @@ public class PrescriptionRefactoringUseCaseTest extends iTrustHTTPTest {
 	/**
 	 *  test illegal characters
 	 *  throws Exception
-	 *  @author David White
-	 *  @author Nazaire Gnassounou
+	 *  @author student
+	 *  @author student
 	 *
 	 */
 	public void testIllegalCharacters() throws Exception {
@@ -496,8 +496,8 @@ public class PrescriptionRefactoringUseCaseTest extends iTrustHTTPTest {
 	/**
 	 *  test Prescrition instructions
 	 *  throws Exception
-	 *  @author David White
-	 *  @author Nazaire Gnassounou
+	 *  @author student
+	 *  @author student
 	 *
 	 */
 	public void testPrescriptionNoInstructions() throws Exception {

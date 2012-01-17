@@ -14,8 +14,6 @@ import edu.ncsu.csc.itrust.testutils.TestDAOFactory;
  * Test privacy level
  * Test privacy level with access
  * and without no access
- * @author nazaire Gnassounou
- * @ author David white
  */
 public class UpdatePrivacyLevelTest extends TestCase {
 	private DiagnosesDAO diagDAO = TestDAOFactory.getTestInstance().getDiagnosesDAO();
