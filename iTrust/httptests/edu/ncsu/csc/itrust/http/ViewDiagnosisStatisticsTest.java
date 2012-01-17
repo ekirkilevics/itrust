@@ -9,7 +9,7 @@ import edu.ncsu.csc.itrust.enums.TransactionType;
 /**
  * Test Diagnosis Trends page
  * 
- * @author Michael Owoc
+ * @author student
  *
  */
 public class ViewDiagnosisStatisticsTest extends iTrustHTTPTest {
