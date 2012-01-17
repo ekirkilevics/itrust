@@ -240,7 +240,7 @@
 		</td>
 		<td width="15px">&nbsp;</td>
 		<td valign=top>
-		<table class="fTable" align=center style="width: 350px;"
+		<table class="fTable" align=center style="width: 350px;">
 			<tr>
 				<th colspan="2">Patient Photo</th>
 			</tr>
