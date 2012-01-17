@@ -66,7 +66,6 @@ public class UpdateORCListActionTest extends TestCase {
 		String result = action.addORCode(orb);
 		
 		assert(result.contains("Success"));
-		System.out.println(orb);
 		orb = factory.getORCodesDAO().getORCode(code);
 		assertEquals(desc, orb.getDescription());
 	}

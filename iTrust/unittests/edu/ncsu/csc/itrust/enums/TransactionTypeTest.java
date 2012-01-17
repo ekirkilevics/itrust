@@ -5,7 +5,6 @@ import junit.framework.TestCase;
 public class TransactionTypeTest extends TestCase {
 	public void testParse() throws Exception {
 		for(TransactionType type : TransactionType.values()){
-			System.out.println(type.getDescription());
 			assertEquals(type, TransactionType.parse(type.getCode()));
 		}
 	}

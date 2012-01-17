@@ -52,7 +52,6 @@ public class MessagingUseCaseTest extends iTrustHTTPTest {
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		Date date = new Date();
 		String stamp = dateFormat.format(date);
-	//	System.out.println(stamp);
 		
 		assertTrue(wr.getText().contains("My Sent Messages"));
 		

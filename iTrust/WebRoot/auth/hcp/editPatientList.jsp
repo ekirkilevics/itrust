@@ -31,9 +31,7 @@ String confirm = "";
 boolean conf_bool = false;
 
 if ("true".equals(request.getParameter("confirmAction"))) {
-	System.out.println(request.getParameter("fSubmit"));
 	if (request.getParameter("fSubmit").equals("Update Permissions")) {
-		System.out.println("Updating permissions");
 		String[] checkBoxes = new String[] {
 				request.getParameter("bloodPressure"),
 				request.getParameter("glucose"),
@@ -54,9 +52,7 @@ if ("true".equals(request.getParameter("confirmAction"))) {
 		tBean.setPedometerReadingAllowed(permissions[4]);
 		
 		conf_bool = action.removeFromList(pid);
-		System.out.println("action.removeFromList(pid): " + conf_bool);
 		boolean conf_bool2 = action.addToList(pid, tBean);
-		System.out.println("action.addToList(pid): " + conf_bool2);
 		if(conf_bool && conf_bool2) {
 			confirm = patientName + "'s Permissions Changed";
 			loggingAction.logEvent(TransactionType.PATIENT_LIST_EDIT, loggedInMID, pid, "");

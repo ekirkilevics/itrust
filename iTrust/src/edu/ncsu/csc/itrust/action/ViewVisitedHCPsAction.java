@@ -216,11 +216,6 @@ public class ViewVisitedHCPsAction {
 			}
 		}
 		
-		/*if (null != remove) {
-			boolean r = visits.remove(remove);
-			System.out.println("visits.remove() returned: " + r);
-		}*/
-				
 		return "";
 	}
 	

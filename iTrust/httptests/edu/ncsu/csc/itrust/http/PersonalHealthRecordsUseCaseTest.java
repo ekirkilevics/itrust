@@ -172,7 +172,6 @@ public class PersonalHealthRecordsUseCaseTest extends iTrustHTTPTest {
 		wf.getScriptableObject().setParameterValue("isSmoker", "1");
 		wr = wf.submit();
 		assertLogged(TransactionType.PATIENT_HEALTH_INFORMATION_EDIT, 9000000000L, 2L, "");
-		System.out.println(wr.getText());
 		assertTrue(wr.getText().contains("Information Recorded"));
 	}
 

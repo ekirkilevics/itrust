@@ -132,7 +132,6 @@ public class EditSingleReferralAction {
 		body.append("Notes: " + bean.getReferralDetails() + "\n");
 		body.append("Created on: " + bean.getTimeStamp() + "\n");
 		
-		//System.out.println("*********\n"+body.toString()+"\n***********");
 		
 		MessageBean senderMsg = new MessageBean();
 		senderMsg.setFrom(bean.getSenderID());

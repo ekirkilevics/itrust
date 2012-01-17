@@ -42,7 +42,6 @@ public class SearchUsersAction {
 			return personnelDAO.searchForPersonnelWithName(firstName, lastName);
 		}
 		catch (DBException e) {
-			System.out.println("DB Exception from SearchUsersAction");
 			e.printStackTrace();
 			return null;
 		}
@@ -64,7 +63,6 @@ public class SearchUsersAction {
 			return patientDAO.searchForPatientsWithName(firstName, lastName);
 		}
 		catch (DBException e) {
-			System.out.println("DB Exception from SearchUsersAction");
 			e.printStackTrace();
 			return null;
 		}

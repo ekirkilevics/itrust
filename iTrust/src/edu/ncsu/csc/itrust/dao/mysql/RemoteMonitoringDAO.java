@@ -283,7 +283,6 @@ public class RemoteMonitoringDAO {
 										+ dataType + "!=? AND DATE(timeLogged)=CURRENT_DATE");
 			ps.setLong(1, patientMID);
 			ps.setInt(2, -1);
-			System.out.println(ps.toString());
 			ResultSet rs = ps.executeQuery();
 			List<RemoteMonitoringDataBean> patients = loader.loadList(rs);
 			return patients.size();

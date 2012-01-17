@@ -205,8 +205,6 @@ public class TransactionDAO {
 			// add 1 day's worth to include the upper
 			ps.setTimestamp(3, new Timestamp(upper.getTime() + 1000L * 60L * 60 * 24L));
 			ps.setLong(4, dlhcpID);
-			System.out.println("ID: " + dlhcpID);
-			System.out.println("MID: " + patientID);
 			ResultSet rs = ps.executeQuery();
 			List<TransactionBean> tbList = loader.loadList(rs);
 			
