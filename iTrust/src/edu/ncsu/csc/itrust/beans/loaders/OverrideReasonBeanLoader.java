@@ -8,7 +8,7 @@ import java.util.List;
 import edu.ncsu.csc.itrust.beans.OverrideReasonBean;
 
 /**
- * A loader for OverrideReasonBeans.
+ * A loader for MedicationBeans.
  * 
  * Loads in information to/from beans using ResultSets and PreparedStatements. Use the superclass to enforce consistency. 
  * For details on the paradigm for a loader (and what its methods do), see {@link BeanLoader}
@@ -17,8 +17,9 @@ public class OverrideReasonBeanLoader implements BeanLoader<OverrideReasonBean> 
 	public OverrideReasonBeanLoader() {
 	}
 
+	
 	public List<OverrideReasonBean> loadList(ResultSet rs) throws SQLException {
-		List<OverrideReasonBean> list = new ArrayList<OverrideReasonBean>();
+		ArrayList<OverrideReasonBean> list = new ArrayList<OverrideReasonBean>();
 		while (rs.next()) {
 			list.add(loadSingle(rs));
 		}
@@ -26,14 +27,12 @@ public class OverrideReasonBeanLoader implements BeanLoader<OverrideReasonBean> 
 	}
 
 	public OverrideReasonBean loadSingle(ResultSet rs) throws SQLException {
-		OverrideReasonBean orc = new OverrideReasonBean(rs.getString("Code"));
-		orc.setDescription(rs.getString("Description"));
-		return orc;
+		OverrideReasonBean reason = new OverrideReasonBean();
+		reason.setORCode(rs.getString("OverrideCode"));
+		return reason;
 	}
 
-	public PreparedStatement loadParameters(PreparedStatement ps, OverrideReasonBean bean)
-			throws SQLException {
-		return null;
+	public PreparedStatement loadParameters(PreparedStatement ps, OverrideReasonBean bean) throws SQLException {
+		throw new IllegalStateException("unimplemented!");
 	}
-
 }
