@@ -20,37 +20,37 @@ public class DocumentERVisitTest extends iTrustHTTPTest {
 	}
 	
 	
-//public void testAddLabProcedure() throws Exception {
-//		
-//		// login UAP
-//		WebConversation wc = login("9000000006", "pw");
-//		WebResponse wr = wc.getCurrentPage();
-//		assertEquals("iTrust - ER Home", wr.getTitle());
-//		// click Document Office Visit
-//		wr = wr.getLinkWith("Document Incident Report").click();
-//		// choose patient 2
-//		WebForm patientForm = wr.getForms()[0];
-//		patientForm.getScriptableObject().setParameterValue("UID_PATIENTID", "2");
-//		patientForm.getButtons()[1].click();
-//		wr = wc.getCurrentPage();
-//		assertEquals(ADDRESS + "auth/hcp-uap-er/documentOfficeVisit.jsp", wr.getURL().toString());
-//		// click 06/10/2007
-//		wr.getLinkWith("06/10/2007").click();
-//		wr = wc.getCurrentPage();
-//		assertEquals(ADDRESS + "auth/hcp-uap-er/editOfficeVisit.jsp?ovID=955", wr.getURL().toString());
-//		assertEquals("iTrust - Document ER Visit", wr.getTitle());
-//		//add new lab procedure
-//		WebForm form = wr.getFormWithID("labProcedureForm");
-//		form.setParameter("loinc", "10666-6");
-//		form.setParameter("labTech", "5000000001");
-//		form.getSubmitButton("addLP").click();
-//		wr = wc.getCurrentPage();
-//		
-//		assertEquals("iTrust - Document ER Visit", wr.getTitle());
-//		assertTrue(wr.getText().contains("information successfully updated"));
-//		assertLogged(TransactionType.LAB_PROCEDURE_ADD_ER, 9000000006L, 2L, "Incident Report");
-//		assertLogged(TransactionType.ER_VISIT_EDIT, 9000000006L, 2L, "Incident Report");
-//	}
+public void testAddLabProcedure() throws Exception {
+		
+		// login UAP
+		WebConversation wc = login("9000000006", "pw");
+		WebResponse wr = wc.getCurrentPage();
+		assertEquals("iTrust - ER Home", wr.getTitle());
+		// click Document Office Visit
+		wr = wr.getLinkWith("Document Incident Report").click();
+		// choose patient 2
+		WebForm patientForm = wr.getForms()[0];
+		patientForm.getScriptableObject().setParameterValue("UID_PATIENTID", "2");
+		patientForm.getButtons()[1].click();
+		wr = wc.getCurrentPage();
+		assertEquals(ADDRESS + "auth/hcp-uap/documentOfficeVisit.jsp", wr.getURL().toString());
+		// click 06/10/2007
+		wr.getLinkWith("06/10/2007").click();
+		wr = wc.getCurrentPage();
+		assertEquals(ADDRESS + "auth/hcp-uap/editOfficeVisit.jsp?ovID=955", wr.getURL().toString());
+		assertEquals("iTrust - Document ER Visit", wr.getTitle());
+		//add new lab procedure
+		WebForm form = wr.getFormWithID("labProcedureForm");
+		form.setParameter("loinc", "10666-6");
+		form.setParameter("labTech", "5000000001");
+		form.getSubmitButton("addLP").click();
+		wr = wc.getCurrentPage();
+		
+		assertEquals("iTrust - Document ER Visit", wr.getTitle());
+		assertTrue(wr.getText().contains("information successfully updated"));
+		assertLogged(TransactionType.LAB_PROCEDURE_ADD_ER, 9000000006L, 2L, "Incident Report");
+		assertLogged(TransactionType.ER_VISIT_EDIT, 9000000006L, 2L, "Incident Report");
+	}
 	
 
 	/*
@@ -75,7 +75,7 @@ public class DocumentERVisitTest extends iTrustHTTPTest {
 		patientForm.getScriptableObject().setParameterValue("UID_PATIENTID", "1");
 		patientForm.getButtons()[1].click();
 		wr = wc.getCurrentPage();
-		assertEquals(ADDRESS + "auth/hcp-uap-er/documentOfficeVisit.jsp", wr.getURL().toString());
+		assertEquals(ADDRESS + "auth/hcp-uap/documentOfficeVisit.jsp", wr.getURL().toString());
 		// click Yes, Document Office Visit
 		WebForm form = wr.getForms()[0];
 		form.getButtons()[0].click();
@@ -115,7 +115,7 @@ public class DocumentERVisitTest extends iTrustHTTPTest {
 		patientForm.getButtons()[1].click();
 		wr = wc.getCurrentPage();
 		
-		assertEquals(ADDRESS + "auth/hcp-uap-er/documentOfficeVisit.jsp", wr.getURL().toString());
+		assertEquals(ADDRESS + "auth/hcp-uap/documentOfficeVisit.jsp", wr.getURL().toString());
 		// click Yes, Document Office Visit
 		WebForm form = wr.getForms()[0];
 		form.getButtons()[0].click();
@@ -155,7 +155,7 @@ public class DocumentERVisitTest extends iTrustHTTPTest {
 		patientForm.getScriptableObject().setParameterValue("UID_PATIENTID", "2");
 		patientForm.getButtons()[1].click();
 		wr = wc.getCurrentPage();
-		assertEquals(ADDRESS + "auth/hcp-uap-er/documentOfficeVisit.jsp", wr.getURL().toString());
+		assertEquals(ADDRESS + "auth/hcp-uap/documentOfficeVisit.jsp", wr.getURL().toString());
 		// click Yes, Document Office Visit
 		WebForm form = wr.getForms()[0];
 		form.getButtons()[0].click();
@@ -183,7 +183,7 @@ public class DocumentERVisitTest extends iTrustHTTPTest {
 		patientForm.getScriptableObject().setParameterValue("UID_PATIENTID", "1");
 		patientForm.getButtons()[1].click();
 		wr = wc.getCurrentPage();
-		assertEquals(ADDRESS + "auth/hcp-uap-er/documentOfficeVisit.jsp", wr.getURL().toString());
+		assertEquals(ADDRESS + "auth/hcp-uap/documentOfficeVisit.jsp", wr.getURL().toString());
 		// click Yes, Document Office Visit
 		WebForm form = wr.getForms()[0];
 		form.getButtons()[0].click();
@@ -221,7 +221,7 @@ public class DocumentERVisitTest extends iTrustHTTPTest {
 		patientForm.getScriptableObject().setParameterValue("UID_PATIENTID", "1");
 		patientForm.getButtons()[1].click();
 		wr = wc.getCurrentPage();
-		assertEquals(ADDRESS + "auth/hcp-uap-er/documentOfficeVisit.jsp", wr.getURL().toString());
+		assertEquals(ADDRESS + "auth/hcp-uap/documentOfficeVisit.jsp", wr.getURL().toString());
 		// click Yes, Document Office Visit
 		WebForm form = wr.getForms()[0];
 		form.getButtons()[0].click();

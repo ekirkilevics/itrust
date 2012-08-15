@@ -21,7 +21,7 @@
 	/* Require a Patient ID first */
 	String pidString = (String) session.getAttribute("pid");
 	if (pidString == null || 1 > pidString.length()) {
-		response.sendRedirect("/iTrust/auth/getPatientID.jsp?forward=/iTrust/auth/hcp-uap-er/documentOfficeVisit.jsp");
+		response.sendRedirect("/iTrust/auth/getPatientID.jsp?forward=/iTrust/auth/hcp-uap/documentOfficeVisit.jsp");
 		return;
 	}
 
@@ -30,7 +30,7 @@
 	long pid = action.getPid();
 	List<OfficeVisitBean> visits = action.getAllOfficeVisits();
 	if ("true".equals(request.getParameter("formIsFilled"))) {
-		response.sendRedirect("/iTrust/auth/hcp-uap-er/editOfficeVisit.jsp");
+		response.sendRedirect("/iTrust/auth/hcp-uap/editOfficeVisit.jsp");
 		return;
 	}
 %>
@@ -51,14 +51,14 @@
 		if (ov.isERIncident()) {
 	%>
 	<a
-		href="/iTrust/auth/hcp-uap-er/editOfficeVisit.jsp?ovID=<%=StringEscapeUtils.escapeHtml("" + (ov.getID()))%>"><%=StringEscapeUtils.escapeHtml("ER: "
+		href="/iTrust/auth/hcp-uap/editOfficeVisit.jsp?ovID=<%=StringEscapeUtils.escapeHtml("" + (ov.getID()))%>"><%=StringEscapeUtils.escapeHtml("ER: "
 							+ (ov.getVisitDateStr()))%></a><br />
 	<%
 		} else {
 				if (!userRole.equals("er")) {
 	%>
 	<a
-		href="/iTrust/auth/hcp-uap-er/editOfficeVisit.jsp?ovID=<%=StringEscapeUtils.escapeHtml(""
+		href="/iTrust/auth/hcp-uap/editOfficeVisit.jsp?ovID=<%=StringEscapeUtils.escapeHtml(""
 								+ (ov.getID()))%>"><%=StringEscapeUtils.escapeHtml(""
 								+ (ov.getVisitDateStr()))%></a><br />
 	<%

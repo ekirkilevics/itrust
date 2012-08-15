@@ -92,10 +92,10 @@ SortDirection sortOrder = SortDirection.parse(sortOrderString);
         <td align="center"><%= StringEscapeUtils.escapeHtml( bean.getTimeStamp() ).replaceFirst(" ","<br/>") %></td>
         <td align="center"><%= StringEscapeUtils.escapeHtml( "" + bean.getPriority() ) %></td>
         <td align="center">
-            <form action="/iTrust/auth/hcp-uap-er/editReferral.jsp" id="editReferralForm" method="post">
+            <form action="/iTrust/auth/hcp-uap/editReferral.jsp" id="editReferralForm" method="post">
                 <input type="hidden" name="ovID" value="<%= bean.getOvid() %>" />
                 <input type="hidden" name="referralID" value="<%= bean.getId() %>" />
-                <input type="hidden" name="returnToURL" value="/iTrust/auth/hcp-uap-er/viewSentReferrals.jsp" />
+                <input type="hidden" name="returnToURL" value="/iTrust/auth/hcp-uap/viewSentReferrals.jsp" />
                 <input type="submit" value="Details" >
             </form>
         </td>

@@ -39,11 +39,11 @@ public class DocumentOfficeVisitUseCaseTest extends iTrustHTTPTest {
 		patientForm.getScriptableObject().setParameterValue("UID_PATIENTID", "2");
 		patientForm.getButtons()[1].click();
 		wr = wc.getCurrentPage();
-		assertEquals(ADDRESS + "auth/hcp-uap-er/documentOfficeVisit.jsp", wr.getURL().toString());
+		assertEquals(ADDRESS + "auth/hcp-uap/documentOfficeVisit.jsp", wr.getURL().toString());
 		// click 06/10/2007
 		wr.getLinkWith("06/10/2007").click();
 		wr = wc.getCurrentPage();
-		assertEquals(ADDRESS + "auth/hcp-uap-er/editOfficeVisit.jsp?ovID=955", wr.getURL().toString());
+		assertEquals(ADDRESS + "auth/hcp-uap/editOfficeVisit.jsp?ovID=955", wr.getURL().toString());
 		assertEquals("iTrust - Document Office Visit", wr.getTitle());
 		//add new lab procedure
 		WebForm form = wr.getFormWithID("labProcedureForm");
@@ -73,11 +73,11 @@ public class DocumentOfficeVisitUseCaseTest extends iTrustHTTPTest {
 		patientForm.getScriptableObject().setParameterValue("UID_PATIENTID", "2");
 		patientForm.getButtons()[1].click();
 		wr = wc.getCurrentPage();
-		assertEquals(ADDRESS + "auth/hcp-uap-er/documentOfficeVisit.jsp", wr.getURL().toString());
+		assertEquals(ADDRESS + "auth/hcp-uap/documentOfficeVisit.jsp", wr.getURL().toString());
 		// click 10/10/2005
 		wr.getLinkWith("06/10/2007").click();
 		wr = wc.getCurrentPage();
-		assertEquals(ADDRESS + "auth/hcp-uap-er/editOfficeVisit.jsp?ovID=955", wr.getURL().toString());
+		assertEquals(ADDRESS + "auth/hcp-uap/editOfficeVisit.jsp?ovID=955", wr.getURL().toString());
 		assertEquals("iTrust - Document Office Visit", wr.getTitle());
 		//remove lab procedure
 		WebTable wt = wr.getTableStartingWith("[Top]Laboratory Procedures");

@@ -48,7 +48,7 @@ pageTitle = "iTrust - Document "+visitName;
 	String pidString = (String)session.getAttribute("pid");
 	
     if (pidString == null || pidString.length() == 0) {
-        response.sendRedirect("/iTrust/auth/getPatientID.jsp?forward=iTrust/auth/hcp-uap-er/editOfficeVisit.jsp?ovID=" + ovIDString);
+        response.sendRedirect("/iTrust/auth/getPatientID.jsp?forward=iTrust/auth/hcp-uap/editOfficeVisit.jsp?ovID=" + ovIDString);
         return;
     }
 	

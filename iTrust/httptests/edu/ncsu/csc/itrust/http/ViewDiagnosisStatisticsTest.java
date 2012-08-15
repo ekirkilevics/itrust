@@ -165,7 +165,7 @@ public class ViewDiagnosisStatisticsTest extends iTrustHTTPTest {
 		patientForm.getScriptableObject().setParameterValue("UID_PATIENTID", "25");
 		patientForm.getButtons()[1].click();
 		wr = wc.getCurrentPage();
-		assertEquals(ADDRESS + "auth/hcp-uap-er/documentOfficeVisit.jsp", wr.getURL().toString());
+		assertEquals(ADDRESS + "auth/hcp-uap/documentOfficeVisit.jsp", wr.getURL().toString());
 		// click Yes, Document Office Visit
 		form = wr.getForms()[0];
 		form.getButtons()[0].click();

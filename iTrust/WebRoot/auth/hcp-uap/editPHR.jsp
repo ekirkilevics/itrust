@@ -262,7 +262,7 @@ function showRisks(){
 				<td align="center">
 					<div style="overflow:auto; height:200px; width:200px;">
 					<% for (OfficeVisitBean ov : officeVisits) { %>
-						<a href="/iTrust/auth/hcp-uap-er/editOfficeVisit.jsp?ovID=<%= StringEscapeUtils.escapeHtml("" + (ov.getVisitID())) %>"><%= StringEscapeUtils.escapeHtml("" + (df.format(ov.getVisitDate()))) %></a><br />
+						<a href="/iTrust/auth/hcp-uap/editOfficeVisit.jsp?ovID=<%= StringEscapeUtils.escapeHtml("" + (ov.getVisitID())) %>"><%= StringEscapeUtils.escapeHtml("" + (df.format(ov.getVisitDate()))) %></a><br />
 					<% } %>
 					</div>
 				</td>

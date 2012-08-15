@@ -45,7 +45,7 @@ if (userRole.equals("hcp")) {
 	<span>Other</span><br />
 	<a href="/iTrust/auth/hcp/hcpConsultation.jsp">Consultations</a><br />
 	<a href="/iTrust/auth/hcp-uap/chronicDiseaseRisks.jsp">Chronic Disease Risks</a><br />
-	<a href="/iTrust/auth/hcp-uap-er/documentOfficeVisit.jsp">Document Office Visit</a><br />
+	<a href="/iTrust/auth/hcp-uap/documentOfficeVisit.jsp">Document Office Visit</a><br />
 	<a href="/iTrust/auth/hcp-uap/showEmailHistory.jsp">Email History</a><br />
 	<a href="/iTrust/auth/hcp/visitReminders.jsp">Office Visit Reminders</a><br />
 	<a href="/iTrust/auth/surveyResults.jsp">Satisfaction Survey Results</a><br />

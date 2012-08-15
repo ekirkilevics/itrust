@@ -313,7 +313,7 @@ public class PersonalHealthRecordsUseCaseTest extends iTrustHTTPTest {
 		patientForm.getButtons()[1].click();
 		//Selects Patient Trend Setter
 		wr = wc.getCurrentPage();
-		assertEquals(ADDRESS + "auth/hcp-uap-er/documentOfficeVisit.jsp", wr.getURL().toString());
+		assertEquals(ADDRESS + "auth/hcp-uap/documentOfficeVisit.jsp", wr.getURL().toString());
 		
 		WebForm form = wr.getForms()[0];
 		form.getButtons()[0].click();
@@ -401,7 +401,7 @@ public class PersonalHealthRecordsUseCaseTest extends iTrustHTTPTest {
 		patientForm.getButtons()[1].click();
 		//Selects Patient Trend Setter
 		wr = wc.getCurrentPage();
-		assertEquals(ADDRESS + "auth/hcp-uap-er/documentOfficeVisit.jsp", wr.getURL().toString());
+		assertEquals(ADDRESS + "auth/hcp-uap/documentOfficeVisit.jsp", wr.getURL().toString());
 		
 		WebForm form = wr.getForms()[0];
 		form.getButtons()[0].click();
