@@ -1,5 +1,7 @@
 package edu.ncsu.csc.itrust.http;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import com.meterware.httpunit.WebConversation;
 import com.meterware.httpunit.WebForm;
 import com.meterware.httpunit.WebResponse;
@@ -418,11 +420,15 @@ public class PersonalHealthRecordsUseCaseTest extends iTrustHTTPTest {
 		assertTrue(wr.getText().contains("Information Successfully Updated"));
 		assertLogged(TransactionType.OFFICE_VISIT_CREATE, 9000000000L, 25L, "Office visit");
 		
+		Calendar cal = Calendar.getInstance();
+		SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
+		cal.add(Calendar.DAY_OF_YEAR, 7);
+		
 		form = wr.getFormWithID("prescriptionForm");
 		form.setParameter("medID", "00882219");
 		form.setParameter("dosage", "100");
 		form.setParameter("startDate", "02/01/2012");
-		form.setParameter("endDate", "08/01/2012");
+		form.setParameter("endDate", format.format(cal.getTime()));
 		form.setParameter("instructions", "Take once daily");
 		form.getButtonWithID("addprescription").click();
 		//Add Lantus RX, 100mg, 02/01/2012 - 08/01/2012, once daily

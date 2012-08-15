@@ -42,6 +42,26 @@ public class ApptDAO {
 		conn = factory.getConnection();
 		
 		if(mid >= 999999999){
+			ps = conn.prepareStatement("SELECT * FROM appointment WHERE doctor_id=? AND sched_date > NOW() ORDER BY sched_date;");
+		}
+		else {
+			ps = conn.prepareStatement("SELECT * FROM appointment WHERE patient_id=? AND sched_date > NOW() ORDER BY sched_date;");
+		}
+		
+		ps.setLong(1, mid);
+		
+		ResultSet rs = ps.executeQuery();
+		List<ApptBean> abList = this.abloader.loadList(rs);
+		DBUtil.closeConnection(conn, ps);
+		return abList;
+	}
+	
+	public List<ApptBean> getAllApptsFor(long mid) throws SQLException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		conn = factory.getConnection();
+		
+		if(mid >= 999999999){
 			ps = conn.prepareStatement("SELECT * FROM appointment WHERE doctor_id=? ORDER BY sched_date;");
 		}
 		else {
