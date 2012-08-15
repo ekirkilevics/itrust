@@ -173,27 +173,7 @@ public enum TransactionType {
 	DIAGNOSIS_TRENDS_VIEW(4500, "View diagnosis statistics", "viewed your diagnosis count", false),
 	DIAGNOSIS_EPIDEMICS_VIEW(4600, "View Epidemic Detection", "viewed epidemic detection", false),
 	
-	GROUP_REPORT_VIEW(4601, "View Group Report", "viewed group report", false),
-	
-	ER_VISIT_CREATE(4700, "Create ER Incident Report", "Created an ER incident report", true),
-	ER_VISIT_VIEW(4701, "View ER Incident Report", "Viewed an ER incident report", true),
-	ER_VISIT_EDIT(4702, "Edit ER Incident Report", "Edited an ER incident report", true),
-	PRESCRIPTION_ADD_ER(4710, "Add Prescription", "Added a prescription to your incident report", true),
-    PRESCRIPTION_EDIT_ER(4711, "Edit Prescription", "Edited a prescription in your incident report", true),
-    PRESCRIPTION_REMOVE_ER(4712, "Remove Prescription", "Removed a prescription from your incident report", true),
-    LAB_PROCEDURE_ADD_ER(4720, "Add Lab Procedure", "Added a lab procedure to your incident report", true),
-    LAB_PROCEDURE_EDIT_ER(4721, "Edit Lab Procedure", "Edited a lab procedure in your incident report", true),
-    LAB_PROCEDURE_REMOVE_ER(4722, "Remove Lab Procedure", "Removed a lab procedure from your incident report", true),
-    DIAGNOSIS_ADD_ER(4730, "Add Diagnosis", "Added a diagnosis to your incident report", true),
-    DIAGNOSIS_REMOVE_ER(4732, "Remove Diagnosis", "Removed a diagnosis from your incident report", true),
-    PROCEDURE_ADD_ER(4740, "Add Procedure", "Added a procedure to your incident report", true),
-    PROCEDURE_EDIT_ER(4741, "Edit Procedure", "Edited a procedure in your incident report", true),
-    PROCEDURE_REMOVE_ER(4742, "Remove Procedure", "Removed a procedure from your incident report", true),
-    IMMUNIZATION_ADD_ER(4750, "Add Immunization", "Added an immunization to your incident report", true),
-    IMMUNIZATION_REMOVE_ER(4752, "Remove Immunization", "Removed an immunization from your incident report", true),
-	
-	OPENID_LOGIN(4801, "Login with OpenID", "Login with OpenID", false),
-	OPENID_LINK(4802, "Link account with OpenID", "Link with OpenID", false);
+	GROUP_REPORT_VIEW(4601, "View Group Report", "viewed group report", false);
     
 	/**
 	 * This string is used in the SQL statement associated with pulling events for
