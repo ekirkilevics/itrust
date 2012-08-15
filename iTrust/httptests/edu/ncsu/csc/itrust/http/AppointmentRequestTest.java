@@ -3,6 +3,8 @@
  */
 package edu.ncsu.csc.itrust.http;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import com.meterware.httpunit.WebConversation;
 import com.meterware.httpunit.WebForm;
 import com.meterware.httpunit.WebResponse;
@@ -27,7 +29,7 @@ public class AppointmentRequestTest extends iTrustHTTPTest {
 		
 		wr = wr.getLinkWith("Appointment Requests").click();
 		assertEquals("iTrust - View My Appointment Requests", wr.getTitle());
-//		assertLogged(TransactionType.APPOINTMENT_REQUEST_VIEW, 9000000010L, 0L, "");
+		assertLogged(TransactionType.APPOINTMENT_REQUEST_VIEW, 9000000010L, 0L, "");
 		
 		assertFalse(wr.getText().contains("Request from: Philip Fry"));
 		
@@ -40,11 +42,14 @@ public class AppointmentRequestTest extends iTrustHTTPTest {
 		
 		wrP = wrP.getLinkWith("Appointment Requests").click();
 		assertEquals("iTrust - Appointment Requests", wrP.getTitle());
-//		assertLogged(TransactionType.APPOINTMENT_REQUEST_VIEW, 26L, 0L, "");
+		
+		Calendar cal = Calendar.getInstance();
+		SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
+		cal.add(Calendar.DAY_OF_YEAR, 7);
 		
 		WebForm wfP = wrP.getForms()[0];
 		wfP.getScriptableObject().setParameterValue("apptType", "General Checkup");
-		wfP.getScriptableObject().setParameterValue("startDate", "8/22/2012");
+		wfP.getScriptableObject().setParameterValue("startDate", format.format(cal.getTime()));
 		wfP.getScriptableObject().setParameterValue("time1", "01");
 		wfP.getScriptableObject().setParameterValue("time2", "45");
 		wfP.getScriptableObject().setParameterValue("time3", "PM");
@@ -55,7 +60,7 @@ public class AppointmentRequestTest extends iTrustHTTPTest {
 		assertTrue(wrP.getText().contains("The following nearby time slots are available"));
 
 		wrP.getForms()[2].submit();
-//		assertLogged(TransactionType.APPOINTMENT_REQUEST_SUBMITTED, 26L, 9000000010L, "");
+		assertLogged(TransactionType.APPOINTMENT_REQUEST_SUBMITTED, 26L, 9000000010L, "");
 		
 		wrP = wrP.getLinkWith("Logout").click(); //log out as Fry
 		
@@ -65,14 +70,12 @@ public class AppointmentRequestTest extends iTrustHTTPTest {
 		
 		wrHCP = wrHCP.getLinkWith("Appointment Requests").click();
 		assertEquals("iTrust - View My Appointment Requests", wrHCP.getTitle());
-//		assertLogged(TransactionType.APPOINTMENT_REQUEST_VIEW, 9000000010L, 0L, "");
+		assertLogged(TransactionType.APPOINTMENT_REQUEST_VIEW, 9000000010L, 0L, "");
 		
 		assertTrue(wrHCP.getText().contains("3:45"));
 		
 		wrHCP = wrHCP.getLinkWith("Approve").click();
-//		assertLogged(TransactionType.APPOINTMENT_REQUEST_APPROVED, 9000000010L, 26L, "");
-		
-		//TODO: Check that appointment actually exists
+		assertLogged(TransactionType.APPOINTMENT_REQUEST_APPROVED, 9000000010L, 26L, "");
 	}
 	
 	
@@ -83,11 +86,14 @@ public class AppointmentRequestTest extends iTrustHTTPTest {
 		
 		wrP = wrP.getLinkWith("Appointment Requests").click();
 		assertEquals("iTrust - Appointment Requests", wrP.getTitle());
-//		assertLogged(TransactionType.APPOINTMENT_REQUEST_VIEW, 26L, 0L, "");
+		
+		Calendar cal = Calendar.getInstance();
+		SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
+		cal.add(Calendar.DAY_OF_YEAR, 1);
 		
 		WebForm wfP = wrP.getForms()[0];
 		wfP.getScriptableObject().setParameterValue("apptType", "General Checkup");
-		wfP.getScriptableObject().setParameterValue("startDate", "8/15/2012");
+		wfP.getScriptableObject().setParameterValue("startDate", format.format(cal.getTime()));
 		wfP.getScriptableObject().setParameterValue("time1", "09");
 		wfP.getScriptableObject().setParameterValue("time2", "45");
 		wfP.getScriptableObject().setParameterValue("time3", "AM");
@@ -95,7 +101,7 @@ public class AppointmentRequestTest extends iTrustHTTPTest {
 		wrP = wfP.submit();
 		assertEquals("iTrust - Appointment Requests", wrP.getTitle());
 		assertTrue(wrP.getText().contains("Your appointment request has been saved and is pending."));
-//		assertLogged(TransactionType.APPOINTMENT_REQUEST_SUBMITTED, 26L, 9000000010L, "");
+		assertLogged(TransactionType.APPOINTMENT_REQUEST_SUBMITTED, 26L, 9000000010L, "");
 		wrP = wrP.getLinkWith("Logout").click(); //log out as Fry
 		
 		WebConversation wcHCP = login("9000000010", "pw"); //log in as Zoidberg
@@ -104,12 +110,12 @@ public class AppointmentRequestTest extends iTrustHTTPTest {
 		
 		wrHCP = wrHCP.getLinkWith("Appointment Requests").click();
 		assertEquals("iTrust - View My Appointment Requests", wrHCP.getTitle());
-//		assertLogged(TransactionType.APPOINTMENT_REQUEST_VIEW, 9000000010L, 0L, "");
+		assertLogged(TransactionType.APPOINTMENT_REQUEST_VIEW, 9000000010L, 0L, "");
 		
 		wrP = wrHCP.getLinkWith("Approve").click(); //not sure how to do this
 		
 		assertEquals("iTrust - View My Appointment Requests", wrP.getTitle());
-//		assertLogged(TransactionType.APPOINTMENT_REQUEST_APPROVED, 9000000010L, 26L, "");
+		assertLogged(TransactionType.APPOINTMENT_REQUEST_APPROVED, 9000000010L, 26L, "");
 		
 	}
 	
@@ -120,11 +126,14 @@ public class AppointmentRequestTest extends iTrustHTTPTest {
 		
 		wrP = wrP.getLinkWith("Appointment Requests").click();
 		assertEquals("iTrust - Appointment Requests", wrP.getTitle());
-//		assertLogged(TransactionType.APPOINTMENT_REQUEST_VIEW, 26L, 0L, "");
+		
+		Calendar cal = Calendar.getInstance();
+		SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
+		cal.add(Calendar.DAY_OF_YEAR, 1);
 		
 		WebForm wfP = wrP.getForms()[0];
 		wfP.getScriptableObject().setParameterValue("apptType", "General Checkup");
-		wfP.getScriptableObject().setParameterValue("startDate", "8/15/2012");
+		wfP.getScriptableObject().setParameterValue("startDate", format.format(cal.getTime()));
 		wfP.getScriptableObject().setParameterValue("time1", "09");
 		wfP.getScriptableObject().setParameterValue("time2", "45");
 		wfP.getScriptableObject().setParameterValue("time3", "AM");
@@ -132,7 +141,7 @@ public class AppointmentRequestTest extends iTrustHTTPTest {
 		wrP = wfP.submit();
 		assertEquals("iTrust - Appointment Requests", wrP.getTitle());
 		assertTrue(wrP.getText().contains("Your appointment request has been saved and is pending."));
-//		assertLogged(TransactionType.APPOINTMENT_REQUEST_SUBMITTED, 26L, 9000000010L, "");
+		assertLogged(TransactionType.APPOINTMENT_REQUEST_SUBMITTED, 26L, 9000000010L, "");
 		wrP = wrP.getLinkWith("Logout").click(); //log out as Fry
 		
 		WebConversation wcHCP = login("9000000010", "pw"); //log in as Zoidberg
@@ -141,12 +150,12 @@ public class AppointmentRequestTest extends iTrustHTTPTest {
 		
 		wrHCP = wrHCP.getLinkWith("Appointment Requests").click();
 		assertEquals("iTrust - View My Appointment Requests", wrHCP.getTitle());
-//		assertLogged(TransactionType.APPOINTMENT_REQUEST_VIEW, 9000000010L, 0L, "");
+		assertLogged(TransactionType.APPOINTMENT_REQUEST_VIEW, 9000000010L, 0L, "");
 		
 		wrP = wrHCP.getLinkWith("Reject").click(); //not sure how to do this
 		
 		assertEquals("iTrust - View My Appointment Requests", wrP.getTitle());
-//		assertLogged(TransactionType.APPOINTMENT_REQUEST_REJECTED, 9000000010L, 26L, "");
+		assertLogged(TransactionType.APPOINTMENT_REQUEST_REJECTED, 9000000010L, 26L, "");
 		
 	}
 	
@@ -157,11 +166,14 @@ public class AppointmentRequestTest extends iTrustHTTPTest {
 		
 		wrP = wrP.getLinkWith("Appointment Requests").click();
 		assertEquals("iTrust - Appointment Requests", wrP.getTitle());
-//		assertLogged(TransactionType.APPOINTMENT_REQUEST_VIEW, 26L, 0L, "");
+		
+		Calendar cal = Calendar.getInstance();
+		SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
+		cal.add(Calendar.DAY_OF_YEAR, 7);
 		
 		WebForm wfP = wrP.getForms()[0];
 		wfP.getScriptableObject().setParameterValue("apptType", "General Checkup");
-		wfP.getScriptableObject().setParameterValue("startDate", "8/22/2012");
+		wfP.getScriptableObject().setParameterValue("startDate", format.format(cal.getTime()));
 		wfP.getScriptableObject().setParameterValue("time1", "01");
 		wfP.getScriptableObject().setParameterValue("time2", "45");
 		wfP.getScriptableObject().setParameterValue("time3", "PM");
@@ -173,7 +185,7 @@ public class AppointmentRequestTest extends iTrustHTTPTest {
 
 		wrP = wrP.getForms()[2].submit();
 		
-//		assertLogged(TransactionType.APPOINTMENT_REQUEST_SUBMITTED, 26L, 9000000010L, "");
+		assertLogged(TransactionType.APPOINTMENT_REQUEST_SUBMITTED, 26L, 9000000010L, "");
 		assertTrue(wrP.getText().contains("Your appointment request has been saved and is pending."));
 		
 		wrP = wrP.getLinkWith("Logout").click(); //log out as Fry
@@ -184,7 +196,7 @@ public class AppointmentRequestTest extends iTrustHTTPTest {
 		
 		wrHCP = wrHCP.getLinkWith("Appointment Requests").click();
 		assertEquals("iTrust - View My Appointment Requests", wrHCP.getTitle());
-//		assertLogged(TransactionType.APPOINTMENT_REQUEST_VIEW, 9000000010L, 0L, "");
+		assertLogged(TransactionType.APPOINTMENT_REQUEST_VIEW, 9000000010L, 0L, "");
 		
 		assertTrue(wrHCP.getText().contains("3:45"));
 		
@@ -197,11 +209,14 @@ public class AppointmentRequestTest extends iTrustHTTPTest {
 		
 		wrP = wrP.getLinkWith("Appointment Requests").click();
 		assertEquals("iTrust - Appointment Requests", wrP.getTitle());
-//		assertLogged(TransactionType.APPOINTMENT_REQUEST_VIEW, 26L, 0L, "");
+		
+		Calendar cal = Calendar.getInstance();
+		SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
+		cal.add(Calendar.DAY_OF_YEAR, 1);
 		
 		WebForm wfP = wrP.getForms()[0];
 		wfP.getScriptableObject().setParameterValue("apptType", "General Checkup");
-		wfP.getScriptableObject().setParameterValue("startDate", "8/15/2012");
+		wfP.getScriptableObject().setParameterValue("startDate", format.format(cal.getTime()));
 		wfP.getScriptableObject().setParameterValue("time1", "09");
 		wfP.getScriptableObject().setParameterValue("time2", "45");
 		wfP.getScriptableObject().setParameterValue("time3", "PM");
@@ -209,7 +224,7 @@ public class AppointmentRequestTest extends iTrustHTTPTest {
 		wrP = wfP.submit();
 		assertEquals("iTrust - Appointment Requests", wrP.getTitle());
 
-//		assertLogged(TransactionType.APPOINTMENT_REQUEST_SUBMITTED, 26L, 9000000010L, "");
+		assertLogged(TransactionType.APPOINTMENT_REQUEST_SUBMITTED, 26L, 9000000010L, "");
 		assertTrue(wrP.getText().contains("Your appointment request has been saved and is pending."));
 		
 	}
