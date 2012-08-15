@@ -62,7 +62,7 @@ public class EditApptActionTest extends TestCase {
 	}
 	
 	public void testEditAppt() throws Exception {
-		List<ApptBean> appts = viewAction.getMyAppointments();
+		List<ApptBean> appts = viewAction.getAllMyAppointments();
 		ApptBean orig = appts.get(0);
 		ApptBean b = new ApptBean();
 		b.setApptID(orig.getApptID());

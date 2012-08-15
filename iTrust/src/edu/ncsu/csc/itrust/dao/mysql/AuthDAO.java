@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import edu.ncsu.csc.itrust.DBUtil;
 import edu.ncsu.csc.itrust.RandomPassword;
-import edu.ncsu.csc.itrust.beans.UserBean;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
 import edu.ncsu.csc.itrust.enums.Role;
 import edu.ncsu.csc.itrust.exception.DBException;
@@ -76,27 +75,6 @@ public class AuthDAO {
 	}
 	
 	/**
-	 * Link openID to user account
-	 * 
-	 */
-	public void setUserOpenID(long mid, String openID) throws DBException {
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		try {
-			conn = factory.getConnection();
-			pstmt = conn.prepareStatement("UPDATE Users SET openID = ? WHERE MID = ?");
-			pstmt.setString(1, openID);
-			pstmt.setLong(2, mid);
-			pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new DBException(e);
-		} finally {
-			DBUtil.closeConnection(conn, pstmt);
-		}
-	}
-	
-	/**
 	 * Reset the security question and answer for a particular user
 	 * 
 	 * @param question The security question as a string.
@@ -149,39 +127,6 @@ public class AuthDAO {
 		}
 	}
 
-	/**
-	 * Returns the role of a particular MID
-	 * 
-	 * @param mid The MID of the user to look up.
-	 * @return The {@link Role} of the user as an enum.
-	 * @throws DBException
-	 * @throws iTrustException
-	 */
-	public UserBean getUserByOpenId(String openID) throws DBException, iTrustException {
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		try {
-			conn = factory.getConnection();
-			pstmt = conn.prepareStatement("SELECT * FROM Users WHERE openID=?");
-			pstmt.setString(1, openID);
-			ResultSet rs;
-			rs = pstmt.executeQuery();
-			if (rs.next()) {
-				UserBean user = new UserBean();
-				user.setMID(rs.getLong("mid"));
-				user.setPassword(rs.getString("password"));
-				return user;
-			} else {
-				throw new iTrustException("User does not exist");
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new DBException(e);
-		} finally {
-			DBUtil.closeConnection(conn, pstmt);
-		}
-	}
-	
 	/**
 	 * Returns the role of a particular MID
 	 * 

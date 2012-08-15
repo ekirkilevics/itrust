@@ -335,13 +335,4 @@ public class DAOFactory {
 	public PatientInstructionsDAO getPatientInstructionsDAO() {
 		return new PatientInstructionsDAO(this);
 	}
-
-	/**
-	 * 
-	 * @return this DAOFactory's NonceDAO
-	 */
-	public NonceDAO getNonceDAO() {
-		return new NonceDAO(this);
-	}
-
 }

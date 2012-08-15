@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.util.List;
 import edu.ncsu.csc.itrust.DBUtil;
 import edu.ncsu.csc.itrust.beans.OverrideReasonBean;
-import edu.ncsu.csc.itrust.beans.loaders.OverrideReasonLoader;
+import edu.ncsu.csc.itrust.beans.loaders.OverrideReasonBeanLoader;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
 import edu.ncsu.csc.itrust.exception.DBException;
 
@@ -30,7 +30,7 @@ import edu.ncsu.csc.itrust.exception.DBException;
  */
 public class PrescriptionOverrideDAO {
 	private DAOFactory factory;
-	private OverrideReasonLoader loader = new OverrideReasonLoader();
+	private OverrideReasonBeanLoader loader = new OverrideReasonBeanLoader();
 	
 	public PrescriptionOverrideDAO(DAOFactory factory) {
 		this.factory = factory;

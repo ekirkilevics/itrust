@@ -476,8 +476,3 @@ CREATE TABLE AppointmentRequests(
 	pending				BOOLEAN NOT NULL,
 	accepted			BOOLEAN NOT NULL
 ) ENGINE=MyISAM;
-CREATE TABLE Nonces (
-	nonce VARCHAR(50) NOT NULL,
-	expires DATETIME NOT NULL,
-	PRIMARY KEY (`nonce`)
-) ENGINE = MyISAM;
