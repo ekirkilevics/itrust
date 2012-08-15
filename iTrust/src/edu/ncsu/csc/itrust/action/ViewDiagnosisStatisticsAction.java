@@ -105,17 +105,25 @@ public class ViewDiagnosisStatisticsAction {
 	 * @param startDate a date in the week to analyze
 	 * @param icdCode the diagnosis to analyze
 	 * @param zip the area to analyze
+	 * @param threshold TODO
 	 * @return statistics for the week and previous averages
 	 * @throws FormValidationException
 	 * @throws DBException
 	 */
-	public ArrayList<DiagnosisStatisticsBean> getEpidemicStatistics(String startDate, String icdCode, String zip) throws FormValidationException, DBException {
+	public ArrayList<DiagnosisStatisticsBean> getEpidemicStatistics(String startDate, String icdCode, String zip, String threshold) throws FormValidationException, DBException {
 		
 		if (startDate == null || icdCode == null)
 			return null;
 		
 		if (! (icdCode.equals("84.50") || icdCode.equals("487.00")) ) {
 			throw new FormValidationException("Exception");
+		}
+		if(ICD_MALARIA.equals(icdCode)){
+			try{
+				Integer.parseInt(threshold);
+			}catch(NumberFormatException e){
+				throw new FormValidationException("Threshold must be an integer.");
+			}
 		}
 		Date lower;  //lower, which is parsed to startDate
 		try {
@@ -242,9 +250,7 @@ public class ViewDiagnosisStatisticsAction {
 		ArrayList<DiagnosisStatisticsBean> dbList = new ArrayList<DiagnosisStatisticsBean>();
 		ArrayList<DiagnosisStatisticsBean> dbListL = new ArrayList<DiagnosisStatisticsBean>();
 		ArrayList<DiagnosisStatisticsBean> dbListN = new ArrayList<DiagnosisStatisticsBean>();
-		
 		int threshold = Integer.parseInt(thresholdStr);
-		
 		DiagnosisStatisticsBean current = diagnosesDAO.getCountForWeekOf(ICD_MALARIA, zip, wkDate);
 		long weekTotal = current.getRegionStats();
 		

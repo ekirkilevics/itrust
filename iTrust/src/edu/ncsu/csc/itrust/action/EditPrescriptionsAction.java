@@ -6,11 +6,13 @@ import java.text.SimpleDateFormat;
 //import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
+import edu.ncsu.csc.itrust.EmailUtil;
 import edu.ncsu.csc.itrust.action.base.EditOfficeVisitBaseAction;
 import edu.ncsu.csc.itrust.beans.*;
 import edu.ncsu.csc.itrust.beans.forms.EditPrescriptionsForm;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
 import edu.ncsu.csc.itrust.dao.mysql.*;
+import edu.ncsu.csc.itrust.enums.TransactionType;
 import edu.ncsu.csc.itrust.exception.DBException;
 import edu.ncsu.csc.itrust.exception.PrescriptionFieldException;
 import edu.ncsu.csc.itrust.exception.PrescriptionWarningException;
@@ -31,7 +33,12 @@ public class EditPrescriptionsAction extends EditOfficeVisitBaseAction {
 	private DrugInteractionDAO interactionsDAO;
 	private PrescriptionReportDAO rptDAO;
 	private AllergyDAO allergyDAO;
+	private PatientDAO patientDAO;
+	private EmailUtil emailUtil;
+	private PersonnelDAO personnelDAO;
+	private PrescriptionOverrideDAO prescriptionOverrideDAO;
 
+	private EventLoggingAction loggingAction;
 	/**
 	 * Creates a new action by initializing the office visit
 	 * database access object.
@@ -43,11 +50,8 @@ public class EditPrescriptionsAction extends EditOfficeVisitBaseAction {
 								   String pidString, String ovIDString) 
 		throws iTrustException {
 		super(factory, hcpid, pidString, ovIDString);
-		psDAO = factory.getPrescriptionsDAO();
-		medDAO = factory.getNDCodesDAO();
-		interactionsDAO = factory.getDrugInteractionDAO();
-		allergyDAO = factory.getAllergyDAO();
-		rptDAO = factory.getPrescriptionReportDAO();
+
+		init(factory);
 	}
 	
 	/**
@@ -65,24 +69,41 @@ public class EditPrescriptionsAction extends EditOfficeVisitBaseAction {
 			   String pidString) 
 		throws iTrustException {
 		super(factory, hcpid, pidString);
+		init(factory);
+		
+	}
+	
+	private void init(DAOFactory factory){		
 		psDAO = factory.getPrescriptionsDAO();
 		medDAO = factory.getNDCodesDAO();
 		interactionsDAO = factory.getDrugInteractionDAO();
 		allergyDAO = factory.getAllergyDAO();
 		rptDAO = factory.getPrescriptionReportDAO();
+		patientDAO = factory.getPatientDAO();
+		emailUtil = new EmailUtil(factory);
+		personnelDAO = new PersonnelDAO(factory);
+		prescriptionOverrideDAO = new PrescriptionOverrideDAO(factory);
+		loggingAction = new EventLoggingAction(factory);
 	}
-	
 	/**
 	 * Checks the prescription bean for interactions, allergies, and legal 
 	 * values.
 	 * @param pres The prescription bean.
 	 * @throws iTrustException
 	 */
-	private void check(PrescriptionBean pres) throws iTrustException {
+	private void checkForAllergiesAndInteractions(PrescriptionBean pres) throws iTrustException {
 		List<String> warnings = checkInteraction(pres);
 		warnings.addAll(checkAllergy(pres));
 		if (!warnings.isEmpty()) {
-			throw new PrescriptionWarningException(warnings);
+			PatientBean patient = patientDAO.getPatient(getPid());
+			PersonnelBean hcp = personnelDAO.getPersonnel(getHcpid());
+			loggingAction.logEvent(TransactionType.OVERRIDE_INTERACTION_WARNING, hcp.getMID(), patient.getMID(), pres.getMedication().getNDCode()+
+					" Override: "+pres.getReasons().toString());
+			if(validOverride(pres)){
+				emailUtil.sendEmail(makeEmail(pres, warnings));
+			}else{
+				throw new PrescriptionWarningException(warnings);
+			}
 		}
 		
 		if ("".equals(pres.getInstructions())) {
@@ -95,14 +116,14 @@ public class EditPrescriptionsAction extends EditOfficeVisitBaseAction {
 	 * override.
 	 */
 	private boolean validOverride(PrescriptionBean pres) {
-		return pres.getReason() != null && !"".equals(pres.getReason());
+		return pres.getReasons() != null && pres.getReasons().size()>0;
 	}
 	
 	/**
 	 * Returns a string suitable for a user warning message that a 
 	 * drug-interaction was detected.
 	 */
-	private String interactionWarning(PrescriptionBean newPrescription, 
+	private String formatInteractionWarning(PrescriptionBean newPrescription, 
 									  PrescriptionBean oldPrescription, 
 									  DrugInteractionBean bean) 
 	{
@@ -121,14 +142,9 @@ public class EditPrescriptionsAction extends EditOfficeVisitBaseAction {
 	 * Returns a string suitable for a user warning message that a 
 	 * drug-allergy warning was detected.
 	 */
-	private String allergyWarning(AllergyBean bean) {
-		try {
-			return "Allergy: " + medDAO.getNDCode(bean.getDescription()).getDescription() + ". First Found: " + 
-				new SimpleDateFormat("MM/dd/yyyy").format(bean.getFirstFound());
-		} catch (DBException e) {
-			e.printStackTrace();
-			return "Warning: database error ";
-		}
+	private String formatAllergyWarning(AllergyBean bean) throws DBException {
+		return "Allergy: " + bean.getDescription() + ". First Found: " + 
+			new SimpleDateFormat("MM/dd/yyyy").format(bean.getFirstFound());
 	}
     
 	/**
@@ -162,13 +178,9 @@ public class EditPrescriptionsAction extends EditOfficeVisitBaseAction {
 					String intDrug2 = dBean.getSecondDrug();
 					
 					if (oldDrug.equals(intDrug1) && drug.equals(intDrug2)) {
-						if (!validOverride(newPrescription)) {
-							warnings.add(interactionWarning(newPrescription, oldPrescription, dBean));
-						} 
+						warnings.add(formatInteractionWarning(newPrescription, oldPrescription, dBean));
 					} else if (oldDrug.equals(intDrug2) && drug.equals(intDrug1)) {
-						if (!validOverride(newPrescription)) {
-							warnings.add(interactionWarning(newPrescription, oldPrescription, dBean));
-						} 
+						warnings.add(formatInteractionWarning(newPrescription, oldPrescription, dBean));
 					}
 				}
 			}
@@ -195,10 +207,8 @@ public class EditPrescriptionsAction extends EditOfficeVisitBaseAction {
 				String newDrug = medBean.getNDCode();
 				for (AllergyBean allergyBean : allergyList) {
 					//Allergy: Aspirin. First Found: 12/20/2008. 
-					if (newDrug.equals(allergyBean.getDescription())) {
-						if (!validOverride(pres)) {
-							warnings.add(allergyWarning(allergyBean));
-						} 
+					if (newDrug.equals(allergyBean.getNDCode())) {
+						warnings.add(formatAllergyWarning(allergyBean));
 					}
 				}
 			}
@@ -219,7 +229,7 @@ public class EditPrescriptionsAction extends EditOfficeVisitBaseAction {
 	 */
 	public void editPrescription(PrescriptionBean pres) throws iTrustException {
 		verifySaved();
-		check(pres);
+		checkForAllergiesAndInteractions(pres);
 		psDAO.edit(pres);
 	}
 	/**
@@ -242,8 +252,12 @@ public class EditPrescriptionsAction extends EditOfficeVisitBaseAction {
 	 */
 	public void addPrescription(PrescriptionBean pres) throws iTrustException {
 		verifySaved();
-		check(pres);
-		psDAO.add(pres);
+		checkForAllergiesAndInteractions(pres);
+		long medID = psDAO.add(pres);
+		for(OverrideReasonBean reason : pres.getReasons()){
+			reason.setPresID(medID);
+			prescriptionOverrideDAO.add(reason);
+		}
 	}
 	/**
 	 * Delete a prescription from this office visit.  If the office visit is 
@@ -255,6 +269,7 @@ public class EditPrescriptionsAction extends EditOfficeVisitBaseAction {
 	public void deletePrescription(PrescriptionBean pres) throws DBException, iTrustException {
 		verifySaved();
 		psDAO.remove(pres.getId());
+		prescriptionOverrideDAO.remove(pres.getId());
 	}
 	/**
 	 * Returns a list of known medications.  This can be called even if the 
@@ -285,8 +300,43 @@ public class EditPrescriptionsAction extends EditOfficeVisitBaseAction {
 		bean.setStartDateStr(form.getStartDate());
 		bean.setEndDateStr(form.getEndDate());
 		bean.setInstructions(form.getInstructions());
-		bean.setReason(form.getOverrideCode());
-		bean.setOverrideComment(form.getOverrideComment());
+		ArrayList<OverrideReasonBean> reasons = new ArrayList<OverrideReasonBean>();
+		for(String reason : form.getOverrideCodes()){
+			OverrideReasonBean override = new OverrideReasonBean();
+			override.setORCode(reason);
+			reasons.add(override);
+		}
+		bean.setReasons(reasons);
+		bean.setOverrideReasonOther(form.getOverrideOther());
 		return bean;
+	}
+	
+	/**
+	 * Creates a fake e-mail to notify the user that their records have been altered.
+	 * 
+	 * @return the e-mail to be sent
+	 * @throws DBException
+	 */
+	private Email makeEmail(PrescriptionBean pres, List<String> warnings) throws DBException{
+
+		Email email = new Email();
+		PatientBean patient = patientDAO.getPatient(getPid());
+		PersonnelBean hcp = personnelDAO.getPersonnel(getHcpid());
+
+		
+		List<String> toAddrs = new ArrayList<String>();
+		toAddrs.add(patient.getEmail());
+		
+		String message = "Health care professional "+ hcp.getFullName() +" has prescribed "+
+    			pres.getMedication().getDescription()+". However, the following warning(s) were found:";
+		for(String warning : warnings){
+			message += warning+"\n";
+		}
+		
+		email.setFrom("no-reply@itrust.com");
+    	email.setToList(toAddrs); // patient and personal representative
+    	email.setSubject(String.format("Prescription warning"));
+    	email.setBody(message);
+		return email;
 	}
 }

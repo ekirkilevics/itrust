@@ -30,7 +30,7 @@ public class PatientInstructionsUseCaseTest extends iTrustHTTPTest {
 		form.getScriptableObject().setParameterValue("UID_PATIENTID", "1");
 		form.getButtons()[1].click();
 		wr = wc.getCurrentPage();
-		assertEquals(ADDRESS + "auth/hcp-uap/documentOfficeVisit.jsp", wr.getURL().toString());
+		assertEquals(ADDRESS + "auth/hcp-uap-er/documentOfficeVisit.jsp", wr.getURL().toString());
 		
 		// click Yes, Document Office Visit
 		form = wr.getForms()[0];
@@ -81,7 +81,7 @@ public class PatientInstructionsUseCaseTest extends iTrustHTTPTest {
 		form.getScriptableObject().setParameterValue("UID_PATIENTID", "1");
 		form.getButtons()[1].click();
 		wr = wc.getCurrentPage();
-		assertEquals(ADDRESS + "auth/hcp-uap/documentOfficeVisit.jsp", wr.getURL().toString());
+		assertEquals(ADDRESS + "auth/hcp-uap-er/documentOfficeVisit.jsp", wr.getURL().toString());
 		// Select the office visit from yesterday
 		wr.getLinkWith("1/28/2011").click();
 
@@ -119,7 +119,7 @@ public class PatientInstructionsUseCaseTest extends iTrustHTTPTest {
 		form.getScriptableObject().setParameterValue("UID_PATIENTID", "5");
 		form.getButtons()[1].click();
 		wr = wc.getCurrentPage();
-		assertEquals(ADDRESS + "auth/hcp-uap/documentOfficeVisit.jsp", wr.getURL().toString());
+		assertEquals(ADDRESS + "auth/hcp-uap-er/documentOfficeVisit.jsp", wr.getURL().toString());
 		// Select the office visit from yesterday
 		wr.getLinkWith("1/28/2011").click();
 
@@ -157,7 +157,7 @@ public class PatientInstructionsUseCaseTest extends iTrustHTTPTest {
 		form.getScriptableObject().setParameterValue("UID_PATIENTID", "2");
 		form.getButtons()[1].click();
 		wr = wc.getCurrentPage();
-		assertEquals(ADDRESS + "auth/hcp-uap/documentOfficeVisit.jsp", wr.getURL().toString());
+		assertEquals(ADDRESS + "auth/hcp-uap-er/documentOfficeVisit.jsp", wr.getURL().toString());
 		
 		// click Yes, Document Office Visit
 		form = wr.getForms()[0];
@@ -278,7 +278,7 @@ public class PatientInstructionsUseCaseTest extends iTrustHTTPTest {
 		form.getScriptableObject().setParameterValue("UID_PATIENTID", "2");
 		form.getButtons()[1].click();
 		wr = wc.getCurrentPage();
-		assertEquals(ADDRESS + "auth/hcp-uap/documentOfficeVisit.jsp", wr.getURL().toString());
+		assertEquals(ADDRESS + "auth/hcp-uap-er/documentOfficeVisit.jsp", wr.getURL().toString());
 		
 		// click Yes, Document Office Visit
 		form = wr.getForms()[0];
@@ -328,7 +328,7 @@ public class PatientInstructionsUseCaseTest extends iTrustHTTPTest {
 		form.getScriptableObject().setParameterValue("UID_PATIENTID", "2");
 		form.getButtons()[1].click();
 		wr = wc.getCurrentPage();
-		assertEquals(ADDRESS + "auth/hcp-uap/documentOfficeVisit.jsp", wr.getURL().toString());
+		assertEquals(ADDRESS + "auth/hcp-uap-er/documentOfficeVisit.jsp", wr.getURL().toString());
 		
 		// click Yes, Document Office Visit
 		form = wr.getForms()[0];
@@ -380,7 +380,7 @@ public class PatientInstructionsUseCaseTest extends iTrustHTTPTest {
 		form.getScriptableObject().setParameterValue("UID_PATIENTID", "1");
 		form.getButtons()[1].click();
 		wr = wc.getCurrentPage();
-		assertEquals(ADDRESS + "auth/hcp-uap/documentOfficeVisit.jsp", wr.getURL().toString());
+		assertEquals(ADDRESS + "auth/hcp-uap-er/documentOfficeVisit.jsp", wr.getURL().toString());
 		// Select the office visit from yesterday
 		wr.getLinkWith("1/28/2011").click();
 
@@ -440,7 +440,7 @@ public class PatientInstructionsUseCaseTest extends iTrustHTTPTest {
 		form.getScriptableObject().setParameterValue("UID_PATIENTID", "1");
 		form.getButtons()[1].click();
 		wr = wc.getCurrentPage();
-		assertEquals(ADDRESS + "auth/hcp-uap/documentOfficeVisit.jsp", wr.getURL().toString());
+		assertEquals(ADDRESS + "auth/hcp-uap-er/documentOfficeVisit.jsp", wr.getURL().toString());
 		// Select the office visit from yesterday
 		wr.getLinkWith("1/28/2011").click();
 

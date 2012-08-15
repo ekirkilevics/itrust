@@ -5,6 +5,7 @@
 <%@ page import="net.tanesha.recaptcha.ReCaptchaFactory" %>
 <%@ page import="net.tanesha.recaptcha.ReCaptchaImpl" %>
 <%@ page import="net.tanesha.recaptcha.ReCaptchaResponse" %>
+<%@ page import="org.apache.commons.codec.digest.DigestUtils" %>
 
 <%@include file="/global.jsp" %>
 
@@ -23,6 +24,9 @@ String uresponse = request.getParameter("recaptcha_response_field");
 
 String user = request.getParameter("j_username");
 String pass = request.getParameter("j_password");
+if(pass!=null){
+	pass = DigestUtils.shaHex(pass);
+}
 
 if(challenge != null) {
 	ReCaptchaResponse reCaptchaResponse = reCaptcha.checkAnswer(remoteAddr, challenge, uresponse);
@@ -34,7 +38,14 @@ if(challenge != null) {
 	} else {
 		if(request.getParameter("loginError") == null) {
 			loginFailureAction.setCaptcha(false);
-			loggingAction.logEvent(TransactionType.LOGIN_FAILURE, Long.parseLong(user), Long.parseLong(user), "");			
+			long userMID;
+			try{
+				userMID= Long.parseLong(user);
+				loggingAction.logEvent(TransactionType.LOGIN_FAILURE, userMID, userMID, "");
+			}catch(NumberFormatException e){
+				loggingAction.logEvent(TransactionType.LOGIN_FAILURE, 0, 0, "Username: "+user);
+			}
+						
 			pageContext.forward("/login.jsp?loginError=true");
 		}
 	}
@@ -47,7 +58,13 @@ if(challenge != null) {
 
 if(request.getParameter("loginError") != null) {
 	loginMessage = loginFailureAction.recordLoginFailure();
-	loggingAction.logEvent(TransactionType.LOGIN_FAILURE, Long.parseLong(user), Long.parseLong(user), "");
+	long userMID;
+	try{
+		userMID= Long.parseLong(user);
+		loggingAction.logEvent(TransactionType.LOGIN_FAILURE, userMID, userMID, "");
+	}catch(NumberFormatException e){
+		loggingAction.logEvent(TransactionType.LOGIN_FAILURE, 0, 0, "Username: "+user);
+	}
 	response.sendRedirect("/iTrust/login.jsp");
 }
 

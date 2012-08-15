@@ -13,32 +13,39 @@ public class EditPrescriptionsForm {
 	private String endDate;
 	private String dosage;
 	private String instructions;
-	private String overrideCode;
-	private String overrideComment;
+	private String[] overrideCodes;
+	private String overrideOther;
 	
 	/**
 	 * @return the overrideCode
 	 */
-	public String getOverrideCode() {
-		return overrideCode;
+	public String[] getOverrideCodes() {
+		if(overrideCodes == null){
+			overrideCodes= new String[0];
+		}
+		return overrideCodes;
 	}
 	/**
 	 * @param overrideCode the overrideCode to set
 	 */
-	public void setOverrideCode(String overrideCode) {
-		this.overrideCode = overrideCode;
+	public void setOverrideCodes(String[] overrideCodes) {
+		if(overrideCodes==null){
+			this.overrideCodes=null;
+		}else{
+			this.overrideCodes = overrideCodes.clone();
+		}
 	}
 	/**
 	 * @return the overrideComment
 	 */
-	public String getOverrideComment() {
-		return overrideComment;
+	public String getOverrideOther() {
+		return overrideOther;
 	}
 	/**
 	 * @param overrideComment the overrideComment to set
 	 */
-	public void setOverrideComment(String overrideComment) {
-		this.overrideComment = overrideComment;
+	public void setOverrideOther(String overrideComment) {
+		this.overrideOther = overrideComment;
 	}
 	/**
 	 * @return the medID

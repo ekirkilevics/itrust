@@ -57,4 +57,6 @@ DROP TABLE IF EXISTS RemoteMonitoringLists;
 DROP TABLE IF EXISTS ProfilePhotos;
 
 DROP TABLE IF EXISTS PatientSpecificInstructions;
+DROP TABLE IF EXISTS Nonces;
 
+DROP TABLE IF EXISTS AppointmentRequests;

@@ -30,4 +30,5 @@ VALUES (
 );
 
 INSERT INTO Users(MID, password, role, sQuestion, sAnswer) 
-VALUES (8000000009, 'uappass1', 'uap', 'opposite of yin', 'yang');
+VALUES (8000000009, '1a3446ba73f27d62ce28d6fca6d90df17c271ef0', 'uap', 'opposite of yin', 'yang');
+--password: uappass1

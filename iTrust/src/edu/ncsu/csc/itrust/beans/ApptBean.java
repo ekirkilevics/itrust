@@ -10,7 +10,7 @@ public class ApptBean implements Serializable {
 	 */
 	private static final long serialVersionUID = -1965704529780021183L;
 	private String apptType;
-	int apptID;
+	private int apptID;
 	private long patient;
 	private long hcp;
 	private Timestamp date;
@@ -88,5 +88,28 @@ public class ApptBean implements Serializable {
 	public void setComment(String comment) {
 		this.comment = comment;
 	}
+	
+	@Override
+	public int hashCode() {
+		assert false : "hashCode not implemented";
+		return apptID; // any arbitrary constant will do
+	}
+	
+	/**
+	 * Returns true if both id's are equal. Probably needs more advance field by field checking.
+	 */
+	@Override public boolean equals(Object other) {
+	   
+	    if ( this == other ){
+	    	return true;
+	    }
 
+	    if ( !(other instanceof ApptBean) ){
+	    	return false;
+	    }
+	    
+	    ApptBean otherAppt = (ApptBean)other;
+		return otherAppt.getApptID() == getApptID();
+	    
+	}
 }

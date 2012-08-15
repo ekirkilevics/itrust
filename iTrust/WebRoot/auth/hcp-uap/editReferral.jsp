@@ -156,7 +156,7 @@ if (referralIDString.length() == 0 || referralIDString.equals("-1")) {
 		if (session_receivingHCP==null || session_receivingHCP.length()==0) {
 			session.setAttribute("referral_returnToURL", returnToURL);
             session.setAttribute("referral_ovID", ovIDString);
-			response.sendRedirect("/iTrust/auth/getPersonnelID.jsp?forward=hcp-uap/editReferral.jsp");
+			response.sendRedirect("/iTrust/auth/getPersonnelID.jsp?forward=hcp-uap-er/editReferral.jsp");
 			return;
 		} else {
 			session.removeAttribute("referral_returnToURL");

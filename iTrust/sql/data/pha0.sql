@@ -38,5 +38,6 @@ null,
 'bjones@iTrust.org'
 )ON DUPLICATE KEY UPDATE MID = MID;
 
-INSERT INTO Users(MID, password, role, sQuestion, sAnswer) VALUES(9999999990, 'pw', 'pha', 'first letter?', 'a')
+INSERT INTO Users(MID, password, role, sQuestion, sAnswer) VALUES(9999999990, '1a91d62f7ca67399625a4368a6ab5d4a3baa6073', 'pha', 'first letter?', 'a')
 ON DUPLICATE KEY UPDATE MID = MID;
+/*password: pw*/

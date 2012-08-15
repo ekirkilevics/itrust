@@ -70,6 +70,45 @@ public class ViewDiagnosisStatisticsTest extends iTrustHTTPTest {
 	}
 	
 	/*
+	 * Authenticate PHA
+	 * MID 7000000001
+	 * Password: pw
+	 * Choose "Epidemics"
+	 * Enter Fields:
+	 * Diagnosis: 84.50 Malaria
+	 * ZipCode: 12345
+	 * StartDate: 1/23/12
+	 * Threshold: [leave blank]
+	 */
+	public void testViewDiagnosisTrendsEpidemic_InvalidThreshold() throws Exception {
+		// pha views diagnosis statistics for mumps
+		// login pha
+		WebConversation wc = login("7000000001", "pw");
+		WebResponse wr = wc.getCurrentPage();
+		assertEquals("iTrust - PHA Home", wr.getTitle());
+		assertLogged(TransactionType.HOME_VIEW, 7000000001L, 0L, "");
+				
+		// click Diagnosis Trends
+		wr = wr.getLinkWith("Diagnosis Trends").click();
+		
+		WebForm form = wr.getFormWithID("formSelectFlow");
+		form.getScriptableObject().setParameterValue("viewSelect", "epidemics");
+		form.getSubmitButtons()[0].click();
+		wr = wc.getCurrentPage();
+		assertEquals(ADDRESS + "auth/hcp-pha/viewDiagnosisStatistics.jsp", wr.getURL().toString());
+		
+		// View Trend
+		form = wr.getFormWithID("formMain");
+		form.getScriptableObject().setParameterValue("icdCode", "84.50");
+		form.getScriptableObject().setParameterValue("zipCode", "12345");
+		form.getScriptableObject().setParameterValue("startDate", "01/23/2012");
+		form.getSubmitButtons()[0].click();
+		wr = wc.getCurrentPage();
+		assertEquals(ADDRESS + "auth/hcp-pha/viewDiagnosisStatistics.jsp", wr.getURL().toString());
+		assertLogged(TransactionType.DIAGNOSIS_EPIDEMICS_VIEW, 7000000001L, 0L, "");
+	}
+	
+	/*
 	 * Authenticate HCP
 	 * MID 9000000008
 	 * Password: pw
@@ -126,7 +165,7 @@ public class ViewDiagnosisStatisticsTest extends iTrustHTTPTest {
 		patientForm.getScriptableObject().setParameterValue("UID_PATIENTID", "25");
 		patientForm.getButtons()[1].click();
 		wr = wc.getCurrentPage();
-		assertEquals(ADDRESS + "auth/hcp-uap/documentOfficeVisit.jsp", wr.getURL().toString());
+		assertEquals(ADDRESS + "auth/hcp-uap-er/documentOfficeVisit.jsp", wr.getURL().toString());
 		// click Yes, Document Office Visit
 		form = wr.getForms()[0];
 		form.getButtons()[0].click();

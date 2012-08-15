@@ -60,7 +60,7 @@ public class OfficeVisitDAO {
 		try {
 			conn = factory.getConnection();
 			ps = conn
-					.prepareStatement("INSERT INTO OfficeVisits (VisitDate, Notes, HCPID, PatientID, HospitalID) VALUES (?,?,?,?,?)");
+					.prepareStatement("INSERT INTO OfficeVisits (VisitDate, Notes, HCPID, PatientID, HospitalID, IsERIncident) VALUES (?,?,?,?,?,?)");
 			setValues(ps, ov);
 			ps.executeUpdate();
 			return DBUtil.getLastInsert(conn);
@@ -78,6 +78,7 @@ public class OfficeVisitDAO {
 		ps.setLong(3, ov.getHcpID());
 		ps.setLong(4, ov.getPatientID());
 		ps.setString(5, ov.getHospitalID());
+		ps.setBoolean(6, ov.isERIncident());
 	}
 
 	/**
@@ -120,7 +121,7 @@ public class OfficeVisitDAO {
 			ps.setLong(1, visitID);
 			ResultSet rs = ps.executeQuery();
 			if (rs.next())
-				return loadFullOfficeVist(rs, visitID);
+				return officeVisitLoader.loadSingle(rs);
 			else
 				return null;
 		} catch (SQLException e) {
@@ -129,18 +130,6 @@ public class OfficeVisitDAO {
 		} finally {
 			DBUtil.closeConnection(conn, ps);
 		}
-	}
-
-	private OfficeVisitBean loadFullOfficeVist(ResultSet rs, long visitID) throws SQLException, DBException {
-		OfficeVisitBean ov = new OfficeVisitBean(visitID);
-		ov.setVisitDateStr(new SimpleDateFormat("MM/dd/yyyy").format(new Date(rs.getDate("VisitDate")
-				.getTime())));
-		ov.setHcpID(rs.getLong("HCPID"));
-		ov.setNotes(rs.getString("notes"));
-		ov.setPatientID(rs.getLong("PatientID"));
-		ov.setHospitalID(rs.getString("HospitalID"));
-
-		return ov;
 	}
 	
 	/**
@@ -307,7 +296,7 @@ public class OfficeVisitDAO {
 				rs = ps.executeQuery();
 				
 				if (rs.next()) {
-					ovs.add(loadFullOfficeVist(rs, bean.getVisitID()));
+					ovs.add(officeVisitLoader.loadSingle(rs));
 				}
 				rs.close();
 				ps.close();

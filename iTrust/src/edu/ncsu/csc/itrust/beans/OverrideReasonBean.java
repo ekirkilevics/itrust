@@ -15,7 +15,6 @@ public class OverrideReasonBean {
 		description = null;
 		reasonCode = "";
 	}
-
 	public OverrideReasonBean(String code) {
 		reasonCode = code;
 	}
@@ -68,6 +67,12 @@ public class OverrideReasonBean {
 		this.description = description;
 	}
 
+	@Override
+	public int hashCode() {
+		assert false : "hashCode not designed";
+		return 42; // any arbitrary constant will do
+	}
+	
 	@Override
 	public boolean equals(Object other) {
 		if ((other == null) || !this.getClass().equals(other.getClass()))

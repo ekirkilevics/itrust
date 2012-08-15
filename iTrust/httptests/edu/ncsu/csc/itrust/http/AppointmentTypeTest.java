@@ -48,8 +48,8 @@ public class AppointmentTypeTest extends iTrustHTTPTest {
 		assertLogged(TransactionType.APPOINTMENT_TYPE_VIEW, 9000000001L, 0L, "");
 		
 		//Choose Type to edit
-		wr.getLinkWith("Physical").click();
 		WebForm wf = wr.getFormWithID("mainForm");
+		wf.getScriptableObject().setParameterValue("name", "Physical");
 		wf.getScriptableObject().setParameterValue("duration", "45");
 		wr = wf.submit(wf.getSubmitButton("update"));
 		assertLogged(TransactionType.APPOINTMENT_TYPE_EDIT, 9000000001L, 0L, "");
@@ -68,8 +68,8 @@ public class AppointmentTypeTest extends iTrustHTTPTest {
 		assertLogged(TransactionType.APPOINTMENT_TYPE_VIEW, 9000000001L, 0L, "");
 		
 		//Choose Type to edit
-		wr.getLinkWith("Physical").click();
 		WebForm wf = wr.getFormWithID("mainForm");
+		wf.getScriptableObject().setParameterValue("name", "Physical");
 		wf.getScriptableObject().setParameterValue("duration", "foo");
 		wr = wf.submit(wf.getSubmitButton("update"));
 		assertNotLogged(TransactionType.APPOINTMENT_TYPE_EDIT, 9000000001L, 0L, "");

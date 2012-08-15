@@ -31,7 +31,7 @@ public class OfficeVisitLoader implements BeanLoader<OfficeVisitBean> {
 		ov.setPatientID(rs.getLong("PatientID"));
 		ov.setHospitalID(rs.getString("HospitalID"));
 		ov.setVisitDateStr(new SimpleDateFormat("MM/dd/yyyy").format(new Date(rs.getDate("VisitDate").getTime())));
-
+		ov.setERIncident(rs.getBoolean("IsERIncident"));
 		return ov;
 	}
 

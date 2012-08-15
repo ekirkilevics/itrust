@@ -51,9 +51,9 @@ Date rightNow = new Date();
 	</li>
 <% } else { %>
 	<li>
-	   <a href="/iTrust/auth/patient/messageInbox.jsp">
+	   <a href="/iTrust/auth/hcp-patient/messageInbox.jsp">
 	     <img class="icon" src="/iTrust/image/icons/inboxUnread.png" style="border:0px;"></a>
-       <a href="/iTrust/auth/patient/messageInbox.jsp">
+       <a href="/iTrust/auth/hcp-patient/messageInbox.jsp">
 	     <%= StringEscapeUtils.escapeHtml("" + (messageAction.getUnreadCount())) %></a>
 	   Unread message(s).
 	</li>

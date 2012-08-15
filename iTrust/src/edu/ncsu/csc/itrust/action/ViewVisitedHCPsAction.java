@@ -26,8 +26,6 @@ public class ViewVisitedHCPsAction {
 	private PatientDAO patientDAO;
 	//private ArrayList<HCPVisitBean> visits;
 	private DeclareHCPAction declareAction; 
-	private ArrayList<PersonnelBean> filterList;
-	
 	/**
 	 * Set up defaults 
 	 * @param factory The DAOFactory used to create the DAOs used in this action.
@@ -41,7 +39,6 @@ public class ViewVisitedHCPsAction {
 		
 		//visits = new ArrayList<HCPVisitBean>();
 		declareAction = new DeclareHCPAction(factory, loggedInMID);
-		filterList = new ArrayList<PersonnelBean>();
 	}
 	
 	/**
@@ -76,12 +73,15 @@ public class ViewVisitedHCPsAction {
 	 * @return true if the PersonnelBean matches all the given parameters, or false otherwise.
 	 */
 	private boolean matchPersonnel(PersonnelBean pb, String lastName, String specialty, String zip) {
-		if (lastName != null && !lastName.equals("") && !pb.getLastName().startsWith(lastName))
+		if (lastName != null && !lastName.equals("") && !pb.getLastName().startsWith(lastName)){
 			return false;
-		if (specialty != null && !specialty.equals("") && !specialty.equals(pb.getSpecialty()))
+		}
+		if (specialty != null && !specialty.equals("") && !specialty.equals(pb.getSpecialty())){
 			return false;
-		if (zip != null && !zip.equals("") && !zip.equals(pb.getZip()))
+		}
+		if (zip != null && !zip.equals("") && !zip.equals(pb.getZip())){
 			return false;
+		}
 		return true;
 	}
 	

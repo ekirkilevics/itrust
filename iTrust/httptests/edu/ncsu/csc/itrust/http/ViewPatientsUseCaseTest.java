@@ -1,5 +1,6 @@
 package edu.ncsu.csc.itrust.http;
 
+import com.meterware.httpunit.HttpUnitOptions;
 import com.meterware.httpunit.WebConversation;
 import com.meterware.httpunit.WebResponse;
 import com.meterware.httpunit.WebTable;
@@ -13,6 +14,7 @@ public class ViewPatientsUseCaseTest extends iTrustHTTPTest {
 	@Override
 	protected void setUp() throws Exception{
 		super.setUp();
+		HttpUnitOptions.setScriptingEnabled(false);
 		gen.clearAllTables();
 		gen.standardData();		
 	}
@@ -40,7 +42,7 @@ public class ViewPatientsUseCaseTest extends iTrustHTTPTest {
 		assertEquals("iTrust - View All Patients", wr.getTitle());
 		assertLogged(TransactionType.PATIENT_LIST_VIEW, 9000000000L, 0L, "");
 		
-		WebTable wt = wr.getTableStartingWith("Past Patients");
+		WebTable wt = wr.getTableStartingWith("Patient");
 		assertEquals("08/30/2011", wt.getTableCell(2,2).getText());
 		assertEquals("11/28/2010", wt.getTableCell(3,2).getText());
 		assertEquals("10/31/2010", wt.getTableCell(4,2).getText());

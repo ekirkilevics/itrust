@@ -28,6 +28,7 @@ public class AllergyBeanLoader implements BeanLoader<AllergyBean> {
 		allergy.setId(rs.getLong("ID"));
 		allergy.setPatientID(rs.getLong("PatientID"));
 		allergy.setDescription(rs.getString("Description"));
+		allergy.setNDCode(rs.getString("Code"));
 		allergy.setFirstFound(rs.getTimestamp("FirstFound"));
 		return allergy;
 	}

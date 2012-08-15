@@ -1,5 +1,899 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <BlackBoxTestPlan>
+
+	<test id="ResetPasswordHash">
+		<role>Patient</role>
+		<dateAdded>04/12/2012</dateAdded>
+		<usecase>49</usecase>
+		<description>
+			<precondition>Patient Random Person (MID 1) is a registered user of iTrust.</precondition>
+			<step>Random Person clicks "Reset Password" at the login screen.</step>
+			<step>Random Person enters "1" in the 'MID' field.</step>
+			<step>Random Person enters "blue" in the 'answer' field.</step>
+			<step>Random Person enters "newPw12345" in the 'New Password' and 'Confirm' fields.</step>
+		</description>
+		<expectedResults>
+			<eResult>The password is hashed as "c43d8e3fe57fe45586d03204c4db94b177256d51" in the database.</eResult>
+		</expectedResults>
+	</test>
+	
+	<test id="LogInHashCheck">
+		<role>HCP</role>
+		<dateAdded>04/12/2012</dateAdded>
+		<usecase>49</usecase>
+		<description>
+			<precondition>HCP Kelly Doctor (MID 9000000000) is a registered user of iTrust.</precondition>
+			<step>Kelly Doctor enters "9000000000" in the 'MID' field at the login screen.</step>
+			<step>Kelly Doctor enters "pw" in the 'Password' field.</step>
+			<step>Kelly Doctor clicks "Login".</step>
+		</description>		
+		<expectedResults>
+			<eResult>The password 'pw' is hashed and matches the hashed string in the database.</eResult>
+		</expectedResults>
+	</test>
+
+	<test id="LinkWithOpenID">
+		<role>HCP</role>
+		<dateAdded>04/12/2012</dateAdded>
+		<usecase>48</usecase>
+		<description>
+			<precondition>HCP Kelly Doctor (MID ) is a registered iTrust user</precondition>
+			<step>Kelly Doctor logs in and clicks OpenID</step>
+			<step>Kelly Doctor clicks Link my account with Google</step>
+			<step>Kelly Doctor authenticates with Google</step>
+		</description>
+		<expectedResults>
+			<eResult>Kelly Doctors iTrust account is linked to her Google account</eResult>
+			<eResult>The event is logged</eResult>
+		</expectedResults>
+	</test>
+	
+	<test id="LogInWithOpenID">
+		<role>HCP</role>
+		<dateAdded>04/12/2012</dateAdded>
+		<usecase>48</usecase>
+		<description>
+			<precondition>HCP Kelly Doctor (MID ) is a registered iTrust user</precondition>
+			<precondition>HCP Kelly Doctor (MID ) has linked her account with a Google account</precondition>
+			<step>Kelly Doctor clicks the Login with Google button</step>
+			<step>Kelly Doctor authenticates with Google</step>
+		</description>
+		<expectedResults>
+			<eResult>Kelly Doctors is logged in to iTrust</eResult>
+			<eResult>The event is logged</eResult>
+		</expectedResults>
+	</test>
+	
+	<test id="LinkWithUsedOpenID">
+		<role>HCP</role>
+		<dateAdded>04/12/2012</dateAdded>
+		<usecase>48</usecase>
+		<description>
+			<precondition>HCP Kelly Doctor (MID ) is a registered iTrust user</precondition>
+			<precondition>HCP Kelly Doctor (MID ) has linked her account with Google account X</precondition>
+			<step>HCP Gandalf Stormcrow logs in and clicks OpenID</step>
+			<step>Gandalf Stormcrow clicks Link my account with Google</step>
+			<step>Gandalf Stormcrow authenticates with the same Google account X</step>
+		</description>
+		<expectedResults>
+			<eResult>The user is presented with "This account has already been linked to an iTrust account</eResult>
+		</expectedResults>
+	</test>
+
+	<test id="AppointmentRequestExpire">
+		<role>HCP</role>
+		<dateAdded>04/09/2012</dateAdded>
+		<usecase>22</usecase>
+		<description>
+			<precondition>Patient Philip Fry (MID ) is a registered iTrust user</precondition>
+			<precondition>HCP John Zoidberg (MID ) is a registered iTrust user</precondition>
+			<precondition>Appointment request for John Zoidberg on February 24th, 2012 at 9:00 AM with Philip Fry exists in the database</precondition>
+			<step>John Zoidberg logs in and clicks "Appointment Requests"</step>
+		</description>
+		<expectedResults>
+			<eResult>The appointment request described above is not shown in the list, nor are any other requests which would have already taken place</eResult>
+		</expectedResults>
+	</test>
+
+	<test id="HCPAppointmentRequestConflictReject">
+		<role>HCP</role>
+		<dateAdded>04/09/2012</dateAdded>
+		<usecase>22</usecase>
+		<description>
+			<precondition>Patient Philip Fry (MID ) is a registered iTrust user</precondition>
+			<precondition>HCP John Zoidberg (MID ) is a registered iTrust user</precondition>
+			<precondition>Test PatientAppointmentRequestConflict has just been performed</precondition>
+			<step>John Zoidberg logs in and clicks "Appointment Requests"</step>
+			<step>John Zoidberg clicks the "Approve" button next to the appointment of type "General Checkup" on August 22th, 2012 at 3:45 PM with Philip Fry.</step>
+		</description>
+		<expectedResults>
+			<eResult>The appointment request is now listed as being accepted</eResult>
+			<eResult>John Zoidberg now has a General Checkup with Philip Fry on August 22th, 2012 at 3:45 PM</eResult>
+			<eResult>A message is sent to Philip Fry notifying him that his appointment request has been accepted</eResult>
+			<eResult>The event is logged</eResult>
+		</expectedResults>
+	</test>
+
+	<test id="HCPAppointmentRequestNoConflictReject">
+		<role>HCP</role>
+		<dateAdded>04/09/2012</dateAdded>
+		<usecase>22</usecase>
+		<description>
+			<precondition>Patient Philip Fry (MID ) is a registered iTrust user</precondition>
+			<precondition>HCP John Zoidberg (MID ) is a registered iTrust user</precondition>
+			<precondition>Test PatientAppointmentRequestNoConflict has just been performed</precondition>
+			<step>John Zoidberg logs in and clicks "Appointment Requests"</step>
+			<step>John Zoidberg clicks the "Reject" button next to the appointment of type "General Checkup" on August 15th, 2012 at 9:45 AM with Philip Fry.</step>
+		</description>
+		<expectedResults>
+			<eResult>The appointment request is now listed as being rejected</eResult>
+			<eResult>John Zoidberg does not have a General Checkup with Philip Fry on August 15th, 2012 at 9:45 AM</eResult>
+			<eResult>A message is sent to Philip Fry notifying him that his appointment request has been rejected</eResult>
+			<eResult>The event is logged</eResult>
+		</expectedResults>
+	</test>
+
+	<test id="HCPAppointmentRequestConflictReject">
+		<role>HCP</role>
+		<dateAdded>04/09/2012</dateAdded>
+		<usecase>22</usecase>
+		<description>
+			<precondition>Patient Philip Fry (MID ) is a registered iTrust user</precondition>
+			<precondition>HCP John Zoidberg (MID ) is a registered iTrust user</precondition>
+			<precondition>Test PatientAppointmentRequestConflict has just been performed</precondition>
+			<step>John Zoidberg logs in and clicks "Appointment Requests"</step>
+			<step>John Zoidberg clicks the "Reject" button next to the appointment of type "General Checkup" on August 22th, 2012 at 3:45 PM with Philip Fry.</step>
+		</description>
+		<expectedResults>
+			<eResult>The appointment request is now listed as being rejected</eResult>
+			<eResult>John Zoidberg does not have a General Checkup with Philip Fry on August 22th, 2012 at 3:45 PM</eResult>
+			<eResult>A message is sent to Philip Fry notifying him that his appointment request has been rejected</eResult>
+			<eResult>The event is logged</eResult>
+		</expectedResults>
+	</test>
+
+	<test id="HCPAppointmentRequestNoConflictAccept">
+		<role>HCP</role>
+		<dateAdded>04/09/2012</dateAdded>
+		<usecase>22</usecase>
+		<description>
+			<precondition>Patient Philip Fry (MID ) is a registered iTrust user</precondition>
+			<precondition>HCP John Zoidberg (MID ) is a registered iTrust user</precondition>
+			<precondition>Test PatientAppointmentRequestNoConflict has just been performed</precondition>
+			<step>John Zoidberg logs in and clicks "Appointment Requests"</step>
+			<step>John Zoidberg clicks the "Approve" button next to the appointment of type "General Checkup" on August 15th, 2012 at 9:45 AM with Philip Fry.</step>
+		</description>
+		<expectedResults>
+			<eResult>The appointment request is now listed as being approved</eResult>
+			<eResult>John Zoidberg now has a General Checkup with Philip Fry on August 15th, 2012 at 9:45 AM</eResult>
+			<eResult>A message is sent to Philip Fry notifying him that his appointment request has been accepted</eResult>
+			<eResult>The event is logged</eResult>
+		</expectedResults>
+	</test>
+
+	<test id="PatientAppointmentRequestNoConflict">
+		<role>Patient</role>
+		<dateAdded>04/09/2012</dateAdded>
+		<usecase>22</usecase>
+		<description>
+			<precondition>Patient Philip Fry (MID ) is a registered iTrust user</precondition>
+			<precondition>HCP John Zoidberg (MID ) is a registered iTrust user</precondition>
+			<step>Philip Fry logs in and clicks "Appointment Requests"</step>
+			<step>Philip Fry selects an appointment type of "General Checkup" with a date of August 15th, 2012 at 9:45 AM with John Zoidberg</step>
+		</description>
+		<expectedResults>
+			<eResult>Philip Fry is notified by the system that his appointment request has been saved and that the request is pending</eResult>
+			<eResult>The event is logged</eResult>
+		</expectedResults>
+	</test>
+
+	<test id="PatientAppointmentRequestConflict">
+		<role>Patient</role>
+		<dateAdded>04/09/2012</dateAdded>
+		<usecase>22</usecase>
+		<description>
+			<precondition>Patient Philip Fry (MID ) is a registered iTrust user</precondition>
+			<precondition>HCP John Zoidberg (MID ) is a registered iTrust user</precondition>
+			<step>Philip Fry logs in and clicks "Appointment Requests"</step>
+			<step>Philip Fry selects an appointment type of "General Checkup" with a date of August 22th, 2012 at 1:45 PM with John Zoidberg</step>
+			<step>When presented wit a list of appointments that would not cause conflicts, Philip Fry selects the appointment at 3:45 PM</step>
+		</description>
+		<expectedResults>
+			<eResult>Philip Fry's initial request for an appointment at 1:45 PM would cause conflicts, and Philip Fry is instead shown available times at 2:15 PM, 3:00 PM, and 3:45 PM.</eResult>
+			<eResult>Philip Fry is notified by the system that his appointment request has been saved and that the request is pending</eResult>
+			<eResult>The event is logged</eResult>
+		</expectedResults>
+	</test>
+
+	<test id="ERVisitOctothorpe">
+		<role>ER</role>
+		<dateAdded>04/04/2012</dateAdded>
+		<usecase>47</usecase>
+		<description>
+			<precondition>Patient Random (MID 1) exists in the database.</precondition>
+			<precondition>ER Justin Time exists and is authenticated </precondition>
+			<step>Justin Time chooses Document Incident Report in the menu</step>
+	        <step>Justin Time selects Random Person (MID 1)</step>
+	        <step>Justin Time clicks Yes, Document ER Visit</step>
+	        <step>Justin Time sets the visit date to 11/21/2005</step>	
+	        <step>Justin Time sets the notes to I like diet-coke #</step>
+	        <step>Justin Time clicks create</step>
+		</description>
+		<expectedResults>
+			<eResult>Presented with the message: Information updated successfully</eResult>
+			<eResult>The event is logged.</eResult>
+		</expectedResults>
+	</test>
+	<test id="ERAddLabProcedure">
+		<role>ER</role>
+		<dateAdded>04/04/2012</dateAdded>
+		<usecase>47</usecase>
+		<description>
+			<precondition>Patient Andy Programmer (MID 2) exists in the database.</precondition>
+			<precondition>ER Justin Time exists and is authenticated </precondition>
+			<step>Justin Time chooses Document Incident Report in the menu</step>
+	        <step>Justin Time selects Andy Programmer (MID 2)</step>
+	        <step>Justin Time clicks 6/10/2007</step>
+	        <step>Justin Time adds a fungus identified lab procedured with lab tech Lab Dude</step>
+	        <step>Justin Time clicks add lab procedure</step>\
+		</description>
+		<expectedResults>
+			<eResult>Presented with the message: Information updated successfully</eResult>
+			<eResult>The event is logged.</eResult>
+		</expectedResults>
+	</test>
+	<test id="DocumentOfficeVisit1">
+		<role>ER</role>
+		<dateAdded>04/04/2012</dateAdded>
+		<usecase>47</usecase>
+		<description>
+			<precondition>Patient Andy Programmer (MID 2) exists in the database.</precondition>
+			<precondition>ER Justin Time exists and is authenticated </precondition>
+			<step>Justin Time chooses Document Incident Report in the menu</step>
+	        <step>Justin Time selects Andy Programmer (MID 2)</step>
+	        <step>Justin Time clicks Yes, Document ER Visit</step>
+	        <step>Justin Time sets visit date to 11/2/2005 and notes to Great Patient!</step>
+	        <step>Justin Time clicks create</step>\
+		</description>
+		<expectedResults>
+			<eResult>Presented with the message: Information updated successfully</eResult>
+			<eResult>The event is logged.</eResult>
+		</expectedResults>
+	</test>
+	<test id="UC46AcceptanceTest">
+		<role>HCP</role>
+		<dateAdded>04/04/2012</dateAdded>
+		<usecase>46</usecase>
+		<description>
+			<precondition>HCP Kelly Doctor (MID 9000000000) exists in the database and has authenticated successfully.</precondition>
+			<step>Kelly Doctor chooses "Group Report" from under the "Patient Info" section of the left sidebar.</step>
+	        <step>Kelly Doctor selects the checkboxes to filter by: gender, lower age limit, and diagnosis</step>
+	        <step>Kelly Doctor clicks "Continue"</step>
+	        <step>Kelly Doctor enters the values: Female, 60, and 715.09 in the respective fields</step>
+	        <step>Kelly Doctor clicks "Generate Report"</step>
+		</description>
+		<expectedResults>
+			<eResult>A report is shown which displays the filters used and their values</eResult>
+			<eResult>An entry for Patient Random Person is shown in the report</eResult>
+			<eResult>The event is logged</eResult>
+		</expectedResults>
+	</test>
+
+	<test id="ViewDemographicGroupReport">
+		<role>HCP</role>
+		<dateAdded>04/04/2012</dateAdded>
+		<usecase>46</usecase>
+		<description>
+			<precondition>HCP Kelly Doctor (MID 9000000000) exists in the database and has authenticated successfully.</precondition>
+			<step>Kelly Doctor chooses "Group Report" from under the "Patient Info" section of the left sidebar.</step>
+	        <step>Kelly Doctor selects the checkboxes to filter by: gender, first name, contact email, city, state, zip, insurance company name, insurance company ID, lower age limit, and upper age limit.</step>
+	        <step>Kelly Doctor clicks "Continue"</step>
+	        <step>Kelly Doctor enters the values: Male, Baby, fake@email.com, Raleigh, NC, 27606, Aetna, ChetumNHowe, 10, and 30 in the respective fields</step>
+	        <step>Kelly Doctor clicks "Generate Report"</step>
+		</description>
+		<expectedResults>
+			<eResult>A report is shown which displays the filters used and their values</eResult>
+			<eResult>Entries for Patients Baby B and Baby C are shown in the report</eResult>
+			<eResult>The event is logged</eResult>
+		</expectedResults>
+	</test>
+	
+	<test id="ViewMedicalGroupReport">
+		<role>HCP</role>
+		<dateAdded>04/04/2012</dateAdded>
+		<usecase>46</usecase>
+		<description>
+			<precondition>HCP Kelly Doctor (MID 9000000000) exists in the database and has authenticated successfully.</precondition>
+			<step>Kelly Doctor chooses "Group Report" from under the "Patient Info" section of the left sidebar.</step>
+	        <step>Kelly Doctor selects the checkboxes to filter by: procedure, allergy, current prescriptions, current and past prescriptions, diagnosis, lower office visit date limit, and upper office visit date limit.</step>
+	        <step>Kelly Doctor clicks "Continue"</step>
+	        <step>Kelly Doctor selects the values: 1270F, 664662530, 647641512, 009042407, [250.10,15.00], 01/01/1990, and 01/01/2012 in the respective fields</step>
+	        <step>Kelly Doctor clicks "Generate Report"</step>
+		</description>
+		<expectedResults>
+			<eResult>A report is shown which displays the filters used and their values</eResult>
+			<eResult>Any entry for Andy Programmer is shown</eResult>
+			<eResult>The event is logged</eResult>
+		</expectedResults>
+	</test>
+	
+	<test id="ViewPersonnelGroupReport">
+		<role>HCP</role>
+		<dateAdded>04/04/2012</dateAdded>
+		<usecase>46</usecase>
+		<description>
+			<precondition>HCP Kelly Doctor (MID 9000000000) exists in the database and has authenticated successfully.</precondition>
+			<step>Kelly Doctor chooses "Group Report" from under the "Patient Info" section of the left sidebar.</step>
+	        <step>Kelly Doctor selects the checkboxes to filter by DLHCP</step>
+	        <step>Kelly Doctor clicks "Continue"</step>
+	        <step>Kelly Doctor selects Gandalf Stormcrow</step>
+	        <step>Kelly Doctor clicks "Generate Report"</step>
+		</description>
+		<expectedResults>
+			<eResult>A report is shown which displays the filters used and their values</eResult>
+			<eResult>Entries for Patients: Random Person, Andy Programmer, Care Needs, Bowser Koop, and Princess Peach are shown</eResult>
+			<eResult>The event is logged</eResult>
+		</expectedResults>
+	</test>
+
+	<test id="HCPReplyMultiRecipientMessage">
+		<role>HCP</role>
+		<dateAdded>04/01/2012</dateAdded>
+		<usecase>30</usecase>
+		<description>
+			<precondition>Patient Fozzie Bear (MID 22) exists in the database.</precondition>
+			<precondition>HCP Gandalf Stormcrow (MID 9000000003) exists in the database.</precondition>
+			<precondition>HCP Beaker Beaker (MID 9000000007) exists in the database.</precondition>
+			<precondition>HCP Kelly Doctor (MID 9000000000) exists in the database and has authenticated successfully.</precondition>
+			<precondition>Patient Fozzie Bear has sent a message to HCPs Beaker Beaker, which was CCd to Kelly Doctor and Gandalf Stormcrow.</precondition>
+			<step>Kelly Doctor chooses “Message Inbox” from under the “Messaging” section of the left sidebar.</step>
+	        <step>Kelly Doctor clicks the “Read” link next to the message.</step>
+	        <step>Kelly Doctor clicks the “Reply” link next to the message.</step>
+	        <step>Kelly Doctor clicks the checkbox to CC Beaker Beaker.</step>
+	        <step>Kelly Doctor type the message: "Between Dr. Beaker and myself, one of us will accommodate your request." in the message box.</step>
+	        <step>Kelly Doctor clicks the "Send" button.</step>
+		</description>
+		<expectedResults>
+			<eResult>Fozzie Bear has a message from Kelly Doctor with the subject line "RE: Appointment rescheduling"</eResult>
+			<eResult>Beaker Beaker has a message from Kelly Doctor with the subject line "RE: Appointment rescheduling"</eResult>
+			<eResult>The event is logged, including Beaker Beaker’s MID in the Extra Info field of the transaction log.</eResult>
+		</expectedResults>
+	</test>
+
+	<test id="patientReplyMultiRecipientMessage">
+	   <role>Patient</role>
+	   <dateAdded>03/29/2012</dateAdded>
+	   <usecase>30</usecase>
+	   <description>
+	   	   <precondition>Standard data is loaded.</precondition>
+	       <precondition>Patient Andy Programmer (MID 2) exists in database and has authenticated successfully.</precondition>
+	       <precondition>Both HCP Kelly Doctor and Gandalf Stormcrow are LHCPs of Andy Programmer</precondition>
+	       <precondition>Andy Programmer has received a message from HCP Kelly Doctor.</precondition>
+	       <step>Choose “Message Inbox” from under the “Messaging” section of the left sidebar.</step>
+	       <step>Click the “Read” link next to the message.</step>
+	       <step>Click the “Reply” link next to the message.</step>
+	       <step>Click the checkbox to CC Gandalf Stormcrow</step>
+	       <step>Type the message: "Which office visit did you update?" in the message box.</step>
+	       <step>Click the "Send" button.</step>
+	   </description>
+	   <expectedResults>
+	       <eResult>Kelly Doctor has a message from Andy Programmer with subject line "RE: Office Visit Updated".</eResult>
+	       <eResult>Gandalf Stormcrow has a message from Andy Programmer with subject line "RE: Office Visit Updated".</eResult>
+	       <eResult>The event is logged, including Gandalf Stormcrow’s MID in the Extra Info field of the transaction log.</eResult>
+	   </expectedResults>
+    </test>
+
+	<test id="patientReadMultiRecipientMessage">
+	   <role>Patient</role>
+	   <dateAdded>03/20/2012</dateAdded>
+	   <usecase>30</usecase>
+	   <description>
+	       <precondition>Patient Random Person (MID 1) exists in database and has authenticated successfully</precondition>
+	       <precondition>Both HCP Kelly Doctor and Gandalf Stormcrow are LHCPs of Random Person</precondition>
+	       <precondition>Random Person has received a message from HCP Kelly Doctor:
+						Subject: Old Medicine
+						Date &amp; Time: 2009-12-02 11:15:00.0
+						Other Recipients: Gandalf Stormcrow
+						Message: It is safe for you to take your medicine now.</precondition>
+	       <step>Choose “Message Inbox” from under the “Messaging” section of the left sidebar.</step>
+	       <step>Click the “Read” link next to the message described above.</step>
+	   </description>
+	   <expectedResults>
+	       <eResult>The message details are displayed, including information showing that Gandalf Stormcrow also received the message.</eResult>
+	       <eResult>The event is logged, including Gandalf Stormcrow’s MID in the Extra Info field of the transaction log.</eResult>
+	   </expectedResults>
+    </test>
+    
+	<test id="UploadLOINCFileIgnoreDuplicates">
+		<role>Admin</role>
+		<dateAdded>03/23/2012</dateAdded>
+		<usecase>15</usecase>
+		<description>
+			<precondition>Administrator Shape Shifter (MID 9000000001) is a registered and authenticated user of iTrust.</precondition>
+			<precondition>A LOINC data file "sampleLoinc.txt" is located on the local system.</precondition>
+			<precondition>Shape Shifter is logged in to iTrust.</precondition>
+			<step>Shape Shifter clicks on 'Edit LOINC Codes'.</step>
+			<step>Shape Shifter clicks on 'Import LOINC Data'.</step>
+			<step>Shape Shifter clicks on 'Browse' and selects "sampleLoinc.txt".</step>
+			<step>Shape Shifter selects 'Ignore Duplicates' and clicks 'Send File'.</step>
+			<step>Shape Shifter clicks 'Display Database'.</step>			
+		</description>
+		<expectedResults>
+			<eResult>Each item from "sampleLoinc.txt" appears in the LOINC table.</eResult>
+			<eResult>The message, "Successfully added 29 lines of new LOINC data. Updated 0 lines of existing LOINC data." is displayed</eResult>
+			<eResult>The file update is logged.</eResult>
+		</expectedResults>
+	</test>
+	
+	<test id="UploadLOINCFileReplaceDuplicates">
+		<role>Admin</role>
+		<dateAdded>03/23/2012</dateAdded>
+		<usecase>15</usecase>
+		<description>
+			<precondition>Administrator Shape Shifter (MID 9000000001) is a registered and authenticated user of iTrust.</precondition>
+			<precondition>A LOINC data file "sampleLoinc.txt" is located on the local system.</precondition>
+			<precondition>Shape Shifter is logged in to iTrust.</precondition>
+			<step>Shape Shifter clicks on 'Edit LOINC Codes'.</step>
+			<step>Shape Shifter clicks on 'Import LOINC Data'.</step>
+			<step>Shape Shifter clicks on 'Browse' and selects "sampleLoinc.txt".</step>
+			<step>Shape Shifter selects 'Replace Duplicates' and clicks 'Send File'.</step>
+			<step>Shape Shifter clicks 'Display Database'.</step>			
+		</description>
+		<expectedResults>
+			<eResult>Each item from "sampleLoinc.txt" appears in the LOINC table.</eResult>
+			<eResult>One item, ID 10026-3 has been updated to have component value "THIS ONE IS DIFFERENT"</eResult>
+			<eResult>The message, "Successfully added 29 lines of new LOINC data. Updated 1 lines of existing LOINC data." is displayed</eResult>
+			<eResult>The file update is logged.</eResult>
+		</expectedResults>
+	</test>
+	
+	<test id="UploadLOINCFileInvalidLines">
+		<role>Admin</role>
+		<dateAdded>03/28/2012</dateAdded>
+		<usecase>15</usecase>
+		<description>
+			<precondition>Administrator Shape Shifter (MID 9000000001) is a registered and authenticated user of iTrust.</precondition>
+			<precondition>A LOINC data file "invalidLine.txt" is located on the local system.</precondition>
+			<precondition>Shape Shifter is logged in to iTrust.</precondition>
+			<step>Shape Shifter clicks on 'Edit LOINC Codes'.</step>
+			<step>Shape Shifter clicks on 'Import LOINC Data'.</step>
+			<step>Shape Shifter clicks on 'Browse' and selects 'invalidLine.txt'</step>
+			<step>Shape Shifter selects 'Replace Duplicates' and clicks 'Send File'.</step>
+		</description>
+		<expectedResults>
+			<eResult>Data from lines 1 and 3 of 'invalidLine.txt' is in the database.</eResult>
+			<eResult>The message box in uploadLOINC.jsp shows the line, 'ERROR, LINE 2: "10054-5" "I skip rest of fields" This form has not been validated correctly. The following field are not properly filled in: [You must have a Lab Procedure Code, Component and Kind Of Property]'</eResult>
+			<eResult>The message box in uploadLOINC.jsp shows the line, 'Successfully added 2 lines of new LOINC data. Updated 0 lines of existing LOINC data.'</eResult>
+			<eResult>The file update is logged.</eResult>
+		</expectedResults>
+	</test>
+	
+	<test id="UploadBadLOINCFile">
+		<role>Admin</role>
+		<dateAdded>03/28/2012</dateAdded>
+		<usecase>15</usecase>
+		<description>
+			<precondition>Administrator Shape Shifter (MID 9000000001) is a registered and authenticated user of iTrust.</precondition>
+			<precondition>A LOINC data file "invalidLine.txt" is located on the local system.</precondition>
+			<precondition>Shape Shifter is logged in to iTrust.</precondition>
+			<step>Shape Shifter clicks on 'Edit LOINC Codes'.</step>
+			<step>Shape Shifter clicks on 'Import LOINC Data'.</step>
+			<step>Shape Shifter clicks on 'Browse' and selects 'badLoinFile.txt'</step>
+			<step>Shape Shifter selects 'Ignore Duplicates' and clicks 'Send File'.</step>
+		</description>
+		<expectedResults>
+			<eResult>The message box in uploadLOINC.jsp shows the line, 'IGNORED LINE 1: This file contains no LOINC data and should fail the LOINC file verification process.'</eResult>
+			<eResult>The message box in uploadLOINC.jsp shows the line, 'File invalid. No LOINC data added.'</eResult>
+			<eResult>The file update is not logged.</eResult>
+		</expectedResults>
+	</test>
+	
+	<test id="SortInboxBySubject">
+		<role>HCP</role>
+		<dateAdded>03/20/2012</dateAdded>
+		<usecase>30</usecase>
+		<description>
+			<precondition>Standard data is loaded</precondition>
+			<precondition>HCP Kelly Doctor (MID 9000000000) is a registered and authenticated user of iTrust.</precondition>
+			<step>HCP Kelly Doctor clicks Message Inbox</step>
+			<step>HCP Kelly Doctor clicks the subject column header</step>
+		</description>
+		<expectedResults>
+			<eResult>The messages are sorted by subject in ascending alphabetical order.</eResult>
+			<eResult>The first message has a timestamp of 2010-01-19 07:58:00</eResult>
+		</expectedResults>
+	</test>
+	
+	<test id="EmailLinkLogin">
+        <role>Patient</role>
+        <dateAdded>03/21/2012</dateAdded>
+        <usecase>30</usecase>
+        <description>
+        	<precondition>Standard data is loaded</precondition>
+            <precondition>HCP Kelly Doctor (MID 9000000000) is a registered user of iTrust.</precondition>
+			<precondition>Patient Andy Programmer (MID 2) is a registered user of iTrust.</precondition>
+			<precondition>Kelly Doctor has sent an email to Andy Programmer.</precondition>
+			<precondition>Andy Programmer is logged into his personal email account.</precondition>
+			<step>Andy Programmer opens the iTrust message notification email.</step>
+            <step>Andy Programmer clicks the link contained in the email notification.</step>
+            <step>Andy Programmer logs into iTrust.</step>
+        </description>
+        <expectedResults>
+            <eResult>Andy Programmer is viewing his iTrust inbox.</eResult>
+            <eResult>The inbox view has been logged.</eResult>
+        </expectedResults>
+	</test>
+	
+	<test id="AddApptPatientDeceased">
+		<role>HCP</role>
+		<dateAdded>02/22/2012</dateAdded>
+		<usecase>22</usecase>
+		<description>
+			<precondition>Standard data is loaded</precondition>
+			<precondition>HCP Kelly Doctor (MID 9000000000) is a registered and authenticated user of iTrust.</precondition>
+			<step>HCP Kelly Doctor clicks Schedule Appointment.</step>
+			<step>HCP Kelly Doctor selects patient Andy Programmer (MID 6)</step>
+		</description>
+		<expectedResults>
+			<eResult>The following warning is displayed: "Cannot schedule appointment for Andy Programmer. Patient is deceased."</eResult>
+		</expectedResults>
+	</test>
+
+	<test id="AddApptConflictOverride">
+		<role>HCP</role>
+		<dateAdded>02/22/2012</dateAdded>
+		<usecase>22</usecase>
+		<description>
+			<precondition>Standard data is loaded</precondition>
+			<precondition>HCP Gandalf Stormcrow (MID 9000000003) is a registered and authenticated user of iTrust.</precondition>
+			<step>HCP Gandalf Stormcrow clicks Schedule Appointment.</step>
+			<step>HCP Gandalf Stormcrow selects patient Bad Horse (MID 42)</step>
+			<step>HCP Gandalf Stormcrow schedules a General Checkup appointment at 9AM on 4/24/2012.</step>
+			<step>HCP Gandalf Stormcrow clicks Select a different patient and chooses Baby Programmer (MID 5)</step>
+			<step>HCP Gandalf Stormcrow schedules an ultrasound on 4/24/2012 at 9:15 AM.</step>
+			<step>HCP Gandalf Stormcrow chooses to proceed with the appointment when the warning is displayed.</step>
+		</description>
+		<expectedResults>
+			<eResult>Both appointments are scheduled.</eResult>
+			<eResult>The conflict override is logged.</eResult>
+		</expectedResults>
+	</test>
+
+	<test id="EditApptConflictCancel">
+		<role>HCP</role>
+		<dateAdded>02/22/2012</dateAdded>
+		<usecase>22</usecase>
+		<description>
+			<precondition>Standard data and UC22 data are loaded</precondition>
+			<precondition>HCP Kelly Doctor (MID 9000000000) is a registered and authenticated user of iTrust.</precondition>
+			<step>HCP Kelly Doctor clicks View My Appointments.</step>
+			<step>HCP Kelly Doctor edits the General Checkup appointment with Random Person 12 days from now.</step>
+			<step>HCP Kelly Doctor sets the new appointment time to 7 days from now at 1:45PM. </step>
+			<step>When the conflict notice appears, HCP Kelly Doctor chooses to cancel the change.</step>
+			<step>HCP Kelly Doctor sets the time to 7 days from now at 2PM.</step>
+		</description>
+		<expectedResults>
+			<eResult>No warning is displayed and the appointment time is changed.</eResult>
+			<eResult>The event is logged</eResult>
+		</expectedResults>
+	</test>
+
+	<test id="AddApptConflictNoOverride">
+		<role>HCP</role>
+		<dateAdded>02/22/2012</dateAdded>
+		<usecase>22</usecase>
+		<description>
+			<precondition>Standard data and UC22 data are loaded</precondition>
+			<precondition>HCP Kelly Doctor (MID 9000000000) is a registered and authenticated user of iTrust.</precondition>
+			<step>HCP Kelly Doctor clicks Schedule Appointment.</step>
+			<step>HCP Kelly Doctor selects patient Anakin Skywalker (MID 100).</step>
+			<step>Under Appointment Type, HCP Kelly Doctor selects Physical.</step>
+			<step>HCP Kelly Doctor selects 2:00 PM on 07/01/2012 for the appointment.</step>
+			<step>HCP Kelly Doctor clicks Schedule</step>
+		</description>
+		<expectedResults>
+			<eResult>A warning explaining the conflicting appointment appears.</eResult>
+			<eResult>No additional appointment is scheduled for Anakin Skywalker</eResult>
+		</expectedResults>
+	</test>
+
+	<test id="ViewApptWithConflicts">
+		<role>Parient</role>
+		<dateAdded>02/22/2012</dateAdded>
+		<usecase>22</usecase>
+		<description>
+			<precondition>Standard data and UC22 data are loaded</precondition>
+			<precondition>Anakin Skywalker (MID 100) is a registered and authenticated user of iTrust.</precondition>
+			<step>Anakin Skywalker clicks View My Appointments</step>
+		</description>
+		<expectedResults>
+			<eResult>A table of two appointments should be listed. Both should be bolded due to the conflict.</eResult>
+			<eResult>The event is logged</eResult>
+		</expectedResults>
+	</test>
+
+	<test id="AddApptSameEndStartTimes">
+		<role>HCP</role>
+		<dateAdded>02/22/2012</dateAdded>
+		<usecase>22</usecase>
+		<description>
+			<precondition>Standard data and UC22 data are loaded</precondition>
+			<precondition>HCP Kelly Doctor (MID 9000000000) is a registered and authenticated user of iTrust.</precondition>
+			<step>HCP Kelly Doctor clicks Schedule Appointment.</step>
+			<step>HCP Kelly Doctor selects patient Anakin Skywalker (MID 100).</step>
+			<step>Under Appointment Type, HCP Kelly Doctor selects Physical.</step>
+			<step>HCP Kelly Doctor selects 10:30 AM on 07/01/2012 for the appointment.</step>
+			<step>HCP Kelly Doctor clicks Schedule</step>
+		</description>
+		<expectedResults>
+			<eResult>No warning is displayed</eResult>
+			<eResult>The appointment is scheduled</eResult>
+			<eResult>The event is logged</eResult>
+		</expectedResults>
+	</test>
+
+	<test id="RemoveApptInPast">
+		<role>HCP</role>
+		<dateAdded>02/22/2012</dateAdded>
+		<usecase>22</usecase>
+		<description>
+			<precondition>Standard data and UC22 data are loaded</precondition>
+			<precondition>HCP Kelly Doctor (MID 9000000000) is a registered and authenticated user of iTrust.</precondition>
+			<step>HCP Kelly Doctor clicks View My Appointments</step>
+		</description>
+		<expectedResults>
+			<eResult>An ultrasound appointment with Bad Horse is listed for 1/1/10 at 1:30 PM.</eResult>
+			<eResult>The edit/remove button for this entry is disabled.</eResult>
+			<eResult>The event is logged</eResult>
+		</expectedResults>
+	</test>
+	<test id="addAllergyWithExistingPrescription">
+		<role>HCP</role>
+		<dateAdded>02/03/2012</dateAdded>
+		<usecase>10</usecase>
+		<description>
+			<precondition>HCP Kelly Doctor (MID 9000000000) is a registered and authenticated user of iTrust.</precondition>
+			<precondition>Patient Trend Setter (MID 25) is a registered user of iTrust</precondition>
+			<step>HCP Kelly Doctor clicks on “Document Office Visit”.</step>
+			<step>HCP Kelly Doctor selects patient Trend Setter.</step>
+			<step>HCP Kelly Doctor clicks “Yes, Document Office Visit”.</step>
+			<step>Under “Office Visit”, HCP Kelly Doctor enters the date “02/01/2012” and clicks “Create”.</step>
+			<step>Under “Prescriptions”, HCP Kelly Doctor enters “00882219 – Lantus”, 100 mg, from “02/01/2012” to “08/01/2012”, with instructions “Take once daily.”</step>
+			<step>HCP Kelly Doctor clicks “Add Prescription”.</step>
+			<step>Under “Patient Info”, HCP Kelly Doctor clicks “PHR Information”.</step>
+			<step>Under “Allergies”, HCP Kelly Doctor selects “00882219 – Lantus” and clicks “Add Allergy”.</step>
+		</description>
+		<expectedResults>
+			<eResult>Kelly Doctor is presented with the following information: Allergy Added, Medication “00882219 - Lantus” is currently prescribed to Trend Setter.</eResult>
+			<eResult>The event is logged</eResult>
+		</expectedResults>
+	</test>
+	<test id="addAllergyWithPreviousPrescription">
+		<role>HCP</role>
+		<dateAdded>02/03/2012</dateAdded>
+		<usecase>10</usecase>
+		<description>
+			<precondition>HCP Kelly Doctor (MID 9000000000) is a registered and authenticated user of iTrust.</precondition>
+			<precondition>Patient Trend Setter (MID 25) is a registered user of iTrust</precondition>
+			<step>HCP Kelly Doctor clicks on “Document Office Visit”.</step>
+			<step>HCP Kelly Doctor selects patient Trend Setter.</step>
+			<step>HCP Kelly Doctor clicks “Yes, Document Office Visit”.</step>
+			<step>Under “Office Visit”, HCP Kelly Doctor enters the date “01/01/2012” and clicks “Create”.</step>
+			<step>Under “Prescriptions”, HCP Kelly Doctor enters “664662530 - Penicillin”, 60 mg, from “01/01/2012” to “01/31/2012”, with instructions “Take three times daily with food.” </step>
+			<step>Under “Patient Info”, HCP Kelly Doctor clicks “PHR Information”. </step>
+			<step>Under “Allergies”, HCP Kelly Doctor selects “664662530 - Penicillin” and clicks “Add Allergy”.</step>
+		</description>
+		<expectedResults>
+			<eResult>Kelly Doctor is presented with the message “Allergy Added”.  No warning is displayed.</eResult>
+			<eResult>The event is logged</eResult>
+		</expectedResults>
+	</test>
+	<test id="addAllergyWithFuturePrescription">
+		<role>HCP</role>
+		<dateAdded>01/30/2012</dateAdded>
+		<usecase>10</usecase>
+		<description>
+			<precondition>HCP Kelly Doctor (MID 9000000000) is a registered and authenticated user of iTrust. </precondition>
+			<precondition> Patient Anakin Skywalker (MID 100) is a registered user of iTrust. </precondition>
+			<precondition> Standard Data, ndcodes100, and patient100 is loaded</precondition>
+			<precondition>Patient Anakin Skywalker has a previously documented office visit with Kelly Doctor on date 01/01/2012</precondition>
+			<precondition>During that office visit, Kelly Doctor prescribed medication “483012382 - Midichlominene”, 50 mg, from “03/01/2012” to “03/21/2012”, with instructions “Take twice daily.”</precondition>
+			<precondition></precondition>
+			<step>Kelly Doctor clicks on “All Patients”.</step>
+			<step>Kelly Doctor selects patient Anakin Skywalker.</step>
+			<step>Under “Patient Info”, HCP Kelly Doctor clicks “PHR Information”.</step> 
+			<step>Under “Allergies”, HCP Kelly Doctor selects “483012382 - Midichlominene”,</step>
+			<step>Kelly Doctor clicks “Add Allergy”.</step>
+		</description>
+		<expectedResults>
+			<eResult>Kelly Doctor is presented with the following information: Allergy Added, Medication “483012382 - Midichlominene” is currently prescribed to Anakin Skywalker.</eResult>
+			<eResult>The event is logged</eResult>
+		</expectedResults>
+	</test>
+	
+	<test id="addDuplicateAllergy">
+		<role>HCP</role>
+		<dateAdded>02/3/2012</dateAdded>
+		<usecase>10</usecase>
+		<description>
+			<precondition>HCP Kelly Doctor (MID 9000000000) is a registered and authenticated user of iTrust. </precondition>
+			<precondition> Patient Trend Setter (MID 25) is a registered user of iTrust. </precondition>
+			<step>HCP Kelly Doctor clicks on “PHR Information”. </step>
+			<step>HCP Kelly Doctor selects patient Trend Setter. </step>
+			<step>Under “Allergies”, HCP Kelly Doctor selects “664662530 - Penicillin” and clicks “Add Allergy”.</step>
+			<step>Once again, under “Allergies”, HCP Kelly Doctor selects “664662530 - Penicillin” and clicks “Add Allergy”.</step>
+		</description>
+		<expectedResults>
+			<eResult>Penicillin is added as an allergy</eResult>
+			<eResult>A warning is displayed upon trying to add a second allergy</eResult>
+			<eResult>The event is logged.</eResult>
+		</expectedResults>
+	</test>
+	<test id="noAllergyPrescribe">
+		<role>HCP</role>
+		<dateAdded>02/03/2012</dateAdded>
+		<usecase>37</usecase>
+		<description>
+			<precondition>HCP Kelly Doctor (MID 9000000000) is a registered and authenticated user of iTrust. </precondition>
+			<precondition> Patient Trend Setter (MID 25) is a registered user of iTrust. </precondition>
+			<precondition> Standard Data and UC37 is loaded </precondition>
+			<step>HCP Kelly Doctor clicks on “Document Office Visit”. </step>
+			<step>HCP Kelly Doctor selects patient Trend Setter. </step>
+			<step>HCP Kelly Doctor clicks “Yes, Document Office Visit”. </step>
+			<step>Under “Office Visit”, HCP Kelly Doctor enters the date “02/01/2012” and clicks “Create”. </step>
+			<step>Under “Prescriptions”, HCP Kelly Doctor enters “01864020 - Nexium”, 20 mg, from “02/01/2012” to “08/01/2012”, with instructions “Take once daily.” </step>
+			<step>HCP Kelly Doctor clicks “Add Prescription”.</step>
+		</description>
+		<expectedResults>
+			<eResult>Nexium is successfully prescribed to Trend Setter.</eResult>
+			<eResult>The event is logged.</eResult>
+		</expectedResults>
+	</test>
+	
+	<test id="allergicPrescribe">
+		<role>HCP</role>
+		<dateAdded>01/30/2012</dateAdded>
+		<usecase>37</usecase>
+		<description>
+			<precondition>HCP Kelly Doctor (MID 9000000000) is a registered and authenticated user of iTrust. </precondition>
+			<precondition> Patient Trend Setter (MID 25) is a registered user of iTrust. </precondition>
+			<step>Under “Patient Info”, HCP Kelly Doctor clicks on “PHR Information”. </step>
+			<step>Under “Allergies”, HCP Kelly Doctor selects “664662530 - Penicillin” and clicks “Add Allergy”.</step>
+			<step>HCP Kelly Doctor clicks on “Document Office Visit”.</step>
+			<step>HCP Kelly Doctor selects patient Trend Setter. </step>
+			<step>HCP Kelly Doctor clicks “Yes, Document Office Visit”. </step>
+			<step>Under “Office Visit”, HCP Kelly Doctor enters the date “01/01/2012” and clicks “Create”. </step>
+			<step>Under “Prescriptions”, HCP Kelly Doctor enters “664662530 - Penicillin”, 60 mg, from “01/01/2012” to “01/31/2012”, with instructions “Take three times daily with food.” </step>
+			<step>HCP Kelly Doctor clicks “Add Prescription”.</step>
+		</description>
+		<expectedResults>
+			<eResult>Kelly Doctor is presented with the following information: 
+	Allergy: Penicillin. First Found: 2/3/12 </eResult>
+	<eResult>Kelly Doctor is presented with the following information:
+	Allergy: Penicillin. First Found: [the date the test was performed].</eResult>
+			<eResult>The event is logged.</eResult>
+		</expectedResults>
+	</test>
+	<test id="prescribeOverrideCancel">
+		<role>HCP</role>
+		<dateAdded>01/30/2012</dateAdded>
+		<usecase>37</usecase>
+		<description>
+			<precondition>HCP Kelly Doctor (MID 9000000000) is a registered and authenticated user of iTrust. </precondition>
+			<precondition> Patient Trend Setter (MID 25) is a registered user of iTrust. </precondition>
+			<step>HCP Kelly Doctor clicks on “Document Office Visit”. </step>
+			<step>HCP Kelly Doctor selects patient Trend Setter. </step>
+			<step>HCP Kelly Doctor clicks “Yes, Document Office Visit”. </step>
+			<step>Under “Office Visit”, HCP Kelly Doctor enters the date “02/01/2012” and clicks “Create”. </step>
+			<step>Under “Prescriptions”, HCP Kelly Doctor enters “664662530 - Penicillin”, 60 mg, from “01/01/2012” to “01/31/2012”, with instructions “Take three times daily with food.” </step>		
+			<step>HCP Kelly Doctor clicks “Add Prescription”.</step>
+			<step>HCP Kelly Doctor review the allergy information and chooses to cancel the prescription</step>
+		</description>
+		<expectedResults>
+			<eResult>Penicillin  is not prescribed to Trend Setter.</eResult>
+		</expectedResults>
+	</test>
+	
+	<test id="allergicPrescribeTwice">
+		<role>HCP</role>
+		<dateAdded>02/03/2012</dateAdded>
+		<usecase>37</usecase>
+		<description>
+			<precondition>HCP Kelly Doctor (MID 9000000000) is a registered and authenticated user of iTrust. </precondition>
+			<precondition> Patient Trend Setter (MID 25) is a registered user of iTrust. </precondition>
+			<precondition>Standard Data and UC37 is loaded </precondition>
+			<step> HCP Kelly Doctor clicks on “Document Office Visit”. </step>
+			<step>HCP Kelly Doctor selects patient Trend Setter. </step>
+			<step>HCP Kelly Doctor clicks “Yes, Document Office Visit”. </step>
+			<step>Under “Office Visit”, HCP Kelly Doctor enters the date “02/01/2012” and clicks “Create”. </step>
+			<step>Under “Prescriptions”, HCP Kelly Doctor enters “00882219 - Lantus”, 60 mg, from “02/01/2012” to “02/31/2012”, with instructions “Take three times daily with food.” </step>
+			<step>HCP Kelly Doctor clicks “Add Prescription”.</step>
+	<step>Under “Prescriptions”, HCP Kelly Doctor enters “664662530 – Penicillin”, 60 mg, from “02/01/2012” to “02/31/2012”, with instructions “Take three times daily with food.” </step>
+	
+	<step>HCP Kelly Doctor clicks “Add Prescription”.</step>
+		</description>
+		<expectedResults>
+			<eResult>Kelly Doctor is presented with the following information: 
+	Allergy: Penicillin. First Found: 2/3/12. </eResult>
+			<eResult>The event is logged.</eResult>
+		</expectedResults>
+	</test>
+
+	<test id="ZeroHeightWeight">
+		<role>HCP</role>
+		<dateAdded>01/29/2012</dateAdded>
+		<usecase>10</usecase>
+		<description>
+			<precondition>HCP Kelly Doctor (HCP 1) is successfully logged into iTrust.</precondition>
+			<step>From the main iTrust page, select All Patients under Patient Info.</step>
+			<step>Select patient Bad Horse.</step>
+			<step>On the top bar, choose Basic Health History.</step>
+			<step>At the bottom, click Add Record.</step>
+			<step>Enter Height: 0, Weight: 0, Smoker: Never smoker, Blood pressure: 120/80, HDL: 80, LDL: 100, Tri: 100</step>
+			<step>Click Add Record.</step>
+		</description>
+		<expectedResults>
+			<eResult>An error message is displayed that the patient's height and weight cannot be equal to zero.</eResult>
+		</expectedResults>
+	</test>
+	<test id="ParentMIDStartingWithNine">
+		<role>HCP</role>
+		<dateAdded>01/30/2012</dateAdded>
+		<usecase>10</usecase>
+		<description>
+			<precondition>HCP Kelly Doctor (HCP 1) is successfully logged into iTrust.</precondition>
+			<step>From the main iTrust page, select All Patients under Patient Info.</step>
+			<step>Select patient Bad Horse.</step>
+			<step>On the top bar, choose Demographics.</step>
+			<step>Enter Mother MID: 9, Father MID: 98</step>
+			<step>Click Edit Patient Record.</step>
+		</description>
+		<expectedResults>
+			<eResult>An error message is displayed that the Mother MID and Father MID cannot begin with 9.</eResult>
+		</expectedResults>
+	</test>
+	<test id="NonNumericMIDLoginAttempt">
+		<role></role>
+		<dateAdded>01/30/2012</dateAdded>
+		<usecase>3</usecase>
+		<description>
+			<precondition></precondition>
+			<step>From the iTrust login page, enter "foo" and "1234" as the username and password respectively.</step>
+		</description>
+		<expectedResults>
+			<eResult>No NumberFormatException should be thrown and counter of Failed Login Attempts should be displayed.</eResult>
+		</expectedResults>
+	</test>
+	<test id="NoThresholdEntered">
+		<role>PHA</role>
+		<dateAdded>01/30/2012</dateAdded>
+		<usecase>45</usecase>
+		<description>
+			<precondition>PHA Joe Boe (PHA) is successfully logged into iTrust.</precondition>
+			<step>From the main iTrust page, select Diagnosis Trends under View.</step>
+			<step>Select Epidemics and click Go.</step>
+			<step>Set diagnosis to 84.50 - Malaria, zip code to 12345, start date to 1/23/12</step>
+			<step>Click View Statistics.</step>
+		</description>
+		<expectedResults>
+			<eResult>An error message is displayed that the information is not valid and the threshold must be an integer.</eResult>
+		</expectedResults>
+	</test>
+	<test id="NoDiagnosisSelected">
+		<role>HCP</role>
+		<dateAdded>01/30/2012</dateAdded>
+		<usecase>11</usecase>
+		<description>
+			<precondition>HCP Kelly Doctor (HCP 1) is successfully logged into iTrust.</precondition>
+			<step>From the main iTrust page, select All Patients under Patient Info.</step>
+			<step>Select patient Trend Setter.</step>
+			<step>Select the August 30, 2011 office visit under Office Visits.</step>
+			<step>Click Add Diagnosis under Diagnoses.</step>
+		</description>
+		<expectedResults>
+			<eResult>An error message is displayed that the user must select a diagnosis.</eResult>
+		</expectedResults>
+	</test>
 	<test id="acceptance_scenario.1">
 		<role>HCP</role>
 		<dateAdded>02/08/2011</dateAdded>

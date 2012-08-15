@@ -19,6 +19,7 @@ public class MessageBean {
 	private String body;
 	private Timestamp timestamp;
 	private int read;
+	private long originalMsgId; //NEW
 	
 	/**
 	 * Gets the MIDs of the recipients for this Message
@@ -52,7 +53,8 @@ public class MessageBean {
 	public void setParentMessageId(long parentMsgId) {
 		this.parentMsgId = parentMsgId;
 	}
-	
+
+
 	/**
 	 * Gets the MID of the sender for this message
 	 * @return
@@ -131,6 +133,14 @@ public class MessageBean {
 	 */
 	public void setRead(int read) {
 		this.read = read;
+	}
+
+	public long getOriginalMessageId() { //NEW
+		return this.originalMsgId;
+	}
+	
+	public void setOriginalMessageId(long originalMsgId) { //NEW
+		this.originalMsgId = originalMsgId;
 	}
 
 }

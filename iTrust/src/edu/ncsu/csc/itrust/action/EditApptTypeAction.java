@@ -54,7 +54,7 @@ public class EditApptTypeAction {
 				break;
 			}
 		}
-		if(flag == 0) {
+		if(flag == 0){
 			return "Appointment Type: "+apptType.getName()+" you are trying to update does not exist.";
 		}
 		
@@ -67,14 +67,5 @@ public class EditApptTypeAction {
 			e.printStackTrace();
 			return e.getMessage();
 		}
-	}
-	
-	public int getDurationByType(String at) throws SQLException {
-		List<ApptTypeBean> list = this.getApptTypes();
-		for(ApptTypeBean a : list) {
-			if(a.getName().equals(at))
-				return a.getDuration();
-		}
-		return 0;
 	}
 }

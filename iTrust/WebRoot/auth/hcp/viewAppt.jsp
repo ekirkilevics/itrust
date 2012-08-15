@@ -1,3 +1,4 @@
+<%@page import="edu.ncsu.csc.itrust.dao.mysql.ApptTypeDAO"%>
 <%@page errorPage="/auth/exceptionHandler.jsp"%>
 
 <%@page import="java.util.Date"%>
@@ -19,7 +20,7 @@ pageTitle = "iTrust - View Message";
 
 <%
 	ViewMyApptsAction action = new ViewMyApptsAction(prodDAO, loggedInMID.longValue());
-	EditApptTypeAction types = new EditApptTypeAction(prodDAO, loggedInMID.longValue());
+	ApptTypeDAO apptTypeDAO = prodDAO.getApptTypeDAO();
 	ApptBean original = null;
 	
 	if (request.getParameter("apt") != null) {
@@ -82,7 +83,7 @@ pageTitle = "iTrust - View Message";
 						<td><b>Date/Time:</b> <%= StringEscapeUtils.escapeHtml("" + ( format.format(d) )) %></td>
 					</tr>
 					<tr>
-						<td><b>Duration:</b> <%= StringEscapeUtils.escapeHtml("" + ( types.getDurationByType(original.getApptType())+" minutes" )) %></td>
+						<td><b>Duration:</b> <%= StringEscapeUtils.escapeHtml("" + ( apptTypeDAO.getApptType(original.getApptType()).getDuration()+" minutes" )) %></td>
 					</tr>
 				</table>
 			</div>

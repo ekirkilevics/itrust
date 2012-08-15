@@ -27,8 +27,8 @@ public class HealthRecordFormValidator extends BeanValidator<HealthRecordForm> {
 		errorList.addIfNotNull(checkInt("Cholesterol LDL", bean.getCholesterolLDL(), 0, 600, false));
 		errorList.addIfNotNull(checkInt("Cholesterol Triglycerides", bean.getCholesterolTri(), 100, 600,
 				false));
-		errorList.addIfNotNull(checkFormat("Height", bean.getHeight(), ValidationFormat.Height, false));
-		errorList.addIfNotNull(checkFormat("Weight", bean.getWeight(), ValidationFormat.Weight, false));
+		errorList.addIfNotNull(checkNotZero("Height", bean.getHeight(), ValidationFormat.Height, false));
+		errorList.addIfNotNull(checkNotZero("Weight", bean.getWeight(), ValidationFormat.Weight, false));
 		errorList.addIfNotNull(checkInt("Smoker", bean.getIsSmoker(), 0, 10, false));
 		if (errorList.hasErrors())
 			throw new FormValidationException(errorList);

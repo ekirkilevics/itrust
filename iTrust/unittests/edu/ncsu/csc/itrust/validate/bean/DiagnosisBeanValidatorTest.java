@@ -31,4 +31,15 @@ public class DiagnosisBeanValidatorTest extends TestCase {
 			assertEquals("number of errors", 2, e.getErrorList().size());
 		}
 	}
+	public void testDiagnosisNoICDCode() throws Exception {
+		DiagnosisBean d = new DiagnosisBean();
+		d.setDescription("Good description");
+		try {
+			validator.validate(d);
+			fail("exception should have been thrown");
+		} catch (FormValidationException e) {
+			assertEquals("ICD9CM Code: " + ValidationFormat.ICD9CM.getDescription(), e.getErrorList().get(0));
+			assertEquals("number of errors", 1, e.getErrorList().size());
+		}
+	}
 }

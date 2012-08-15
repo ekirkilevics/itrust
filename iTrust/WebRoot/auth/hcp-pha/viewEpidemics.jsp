@@ -30,7 +30,7 @@
 	//try to get the statistics. If there's an error, print it. If null is returned, it's the first page load
 	
 	try{
-		dsList = diagnoses.getEpidemicStatistics(startDate, icdCode, zipCode);
+		dsList = diagnoses.getEpidemicStatistics(startDate, icdCode, zipCode, threshold);
 		
 		if (dsList != null) {
 			dsBean = dsList.get(0);

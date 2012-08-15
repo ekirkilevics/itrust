@@ -74,9 +74,9 @@ VALUES (
 )  ON DUPLICATE KEY UPDATE MID = MID;
 
 INSERT INTO Users(MID, password, role, sQuestion, sAnswer) 
-			VALUES (22, 'pw', 'patient', 'how you doin?', 'good')
+			VALUES (22, '1a91d62f7ca67399625a4368a6ab5d4a3baa6073', 'patient', 'how you doin?', 'good')
  ON DUPLICATE KEY UPDATE MID = MID;
-
+/*password: pw*/
 
 INSERT INTO OfficeVisits(id,visitDate,HCPID,notes,HospitalID,PatientID)
 VALUES (1952,'2010-6-09',9000000007,'Meep meep meep?','1',22),

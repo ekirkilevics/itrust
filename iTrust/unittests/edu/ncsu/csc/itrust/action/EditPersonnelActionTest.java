@@ -18,6 +18,26 @@ public class EditPersonnelActionTest extends TestCase {
 		gen.clearAllTables();
 	}
 
+	public void testNotAuthorized() throws Exception {
+		gen.standardData();
+		try {
+			personnelEditor = new EditPersonnelAction(factory, 9000000000L, "9000000003");
+			fail("exception should have been thrown");
+		} catch (iTrustException e) {
+			assertEquals("You can only edit your own demographics!", e.getMessage());
+		}
+	}
+	
+	public void testNotAuthorized2() throws Exception {
+		gen.standardData();
+		try {
+			personnelEditor = new EditPersonnelAction(factory, 9000000000L, "9000000001");
+			fail("exception should have been thrown");
+		} catch (iTrustException e) {
+			assertEquals("You are not authorized to edit this record!", e.getMessage());
+		}
+	}
+	
 	public void testNonExistent() throws Exception {
 		try {
 			personnelEditor = new EditPersonnelAction(factory, 0L, "8999999999");
@@ -59,17 +79,5 @@ public class EditPersonnelActionTest extends TestCase {
 		assertEquals("second line", j.getStreetAddress2());
 	}
 	
-	public void testEditMessageFilter() throws Exception {
-		gen.uap1();
-		personnelEditor = new EditPersonnelAction(factory, 8000000009L, "8000000009");
-		PersonnelBean j = factory.getPersonnelDAO().getPersonnel(8000000009L);
-		String testFilter = "Andy Programmer,,,,,";
-		
-		personnelEditor.editMessageFilter(testFilter);
-		
-		j = factory.getPersonnelDAO().getPersonnel(8000000009L);
-		assertEquals(testFilter, j.getMessageFilter());
-		
-	}
 	
 }

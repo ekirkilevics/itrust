@@ -10,4 +10,5 @@ INSERT INTO ICDCodes(Code, Description, Chronic) VALUES
 ('42.00', 'Human Immunodeficiency Virus', 'yes'),
 ('70.10', 'Viral hepatitis A, infectious', 'yes'),
 ('250.00','Acute Lycanthropy', 'yes'),
+('715.09', 'Osteoarthrosis, generalized, multiple sites', 'yes'),
 ('72.00','Mumps', 'no')  ON DUPLICATE KEY UPDATE Code = Code;

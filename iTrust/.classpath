@@ -23,5 +23,6 @@
 	<classpathentry kind="lib" path="testing-libs/xmlParserAPIs.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/3"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/JOpenId-1.08.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

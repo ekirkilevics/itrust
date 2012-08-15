@@ -8,6 +8,7 @@
 <%@page import="edu.ncsu.csc.itrust.action.EditApptTypeAction"%>
 <%@page import="edu.ncsu.csc.itrust.action.ViewMyApptsAction"%>
 <%@page import="edu.ncsu.csc.itrust.beans.ApptBean"%>
+<%@page import="edu.ncsu.csc.itrust.dao.mysql.ApptTypeDAO"%>
 <%@page import="edu.ncsu.csc.itrust.dao.DAOFactory"%>
 
 <%@include file="/global.jsp" %>
@@ -25,6 +26,7 @@ pageTitle = "iTrust - View My Messages";
 	
 	ViewMyApptsAction action = new ViewMyApptsAction(prodDAO, loggedInMID.longValue());
 	EditApptTypeAction types = new EditApptTypeAction(prodDAO, loggedInMID.longValue());
+	ApptTypeDAO apptTypeDAO = prodDAO.getApptTypeDAO();
 	List<ApptBean> appts = action.getMyAppointments();
 	session.setAttribute("appts", appts);
 	if (appts.size() > 0) {
@@ -38,19 +40,9 @@ pageTitle = "iTrust - View My Messages";
 			<th></th>
 		</tr>
 <%		 
-		boolean conflicts[] = new boolean[appts.size()];
-		for(int i=0; i<appts.size(); i++) {
-			ApptBean a = appts.get(i);
-			long t = a.getDate().getTime();
-			long m = types.getDurationByType(a.getApptType()) * 60 * 1000;
-			Timestamp time = new Timestamp(t+m);
-			for(int j=i+1; j<appts.size(); j++) {
-				if(appts.get(j).getDate().before(time)) {
-					conflicts[i] = true;
-					conflicts[j] = true;
-				}
-			}
-		}
+		
+
+		List<ApptBean>conflicts = action.getAllConflicts(loggedInMID.longValue());
 
 		int index = 0;
 		for(ApptBean a : appts) { 
@@ -64,7 +56,7 @@ pageTitle = "iTrust - View My Messages";
 			DateFormat format = new SimpleDateFormat("MM/dd/yyyy hh:mm a");
 			
 			String row = "";
-			if(conflicts[index])
+			if(conflicts.contains(a))
 				row = "<tr style='font-weight: bold;'";
 			else
 				row = "<tr";
@@ -73,7 +65,7 @@ pageTitle = "iTrust - View My Messages";
 				<td><%= StringEscapeUtils.escapeHtml("" + ( action.getName(a.getHcp()) )) %></td>
 				<td><%= StringEscapeUtils.escapeHtml("" + ( a.getApptType() )) %></td>
 				<td><%= StringEscapeUtils.escapeHtml("" + ( format.format(d) )) %></td>
-				<td><%= StringEscapeUtils.escapeHtml("" + ( types.getDurationByType(a.getApptType())+" minutes" )) %></td>
+ 				<td><%= StringEscapeUtils.escapeHtml("" + ( apptTypeDAO.getApptType(a.getApptType()).getDuration()+" minutes" )) %></td>
 				<td><%= comment %></td>
 			</tr>
 	<%		index ++; %>

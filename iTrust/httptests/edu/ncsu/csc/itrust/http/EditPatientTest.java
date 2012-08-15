@@ -72,4 +72,23 @@ public class EditPatientTest extends iTrustHTTPTest {
 		
 		assertTrue(wr.getText().contains("history@gmail.com"));
 	}
+	
+	public void testMFWithPersonnelMID() throws Exception{
+		WebConversation wc = login("9000000000", "pw");	
+		WebResponse wr = wc.getCurrentPage();
+		
+		wr = wr.getLinkWith("Patient Information").click();
+		WebForm patientForm = wr.getForms()[0];
+		patientForm.getScriptableObject().setParameterValue("UID_PATIENTID", "2");
+		patientForm.getButtons()[1].click();
+		wr = wc.getCurrentPage();
+		
+		
+		WebForm editPatientForm = wr.getForms()[0];
+		editPatientForm.setParameter("motherMID", "9");
+		editPatientForm.setParameter("fatherMID", "98");
+		editPatientForm.getButtons()[2].click();
+		wr = wc.getCurrentPage();
+		assertTrue(wr.getText().contains("This form has not been validated correctly. The following field are not properly filled in: [Mother MID: 1-10 digit number not beginning with 9, Father MID: 1-10 digit number not beginning with 9]"));
+	}
 }

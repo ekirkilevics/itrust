@@ -12,12 +12,14 @@ import edu.ncsu.csc.itrust.beans.FamilyMemberBean;
 import edu.ncsu.csc.itrust.beans.HealthRecord;
 import edu.ncsu.csc.itrust.beans.OfficeVisitBean;
 import edu.ncsu.csc.itrust.beans.PatientBean;
+import edu.ncsu.csc.itrust.beans.PrescriptionBean;
 import edu.ncsu.csc.itrust.beans.ProcedureBean;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
 import edu.ncsu.csc.itrust.dao.mysql.AllergyDAO;
 import edu.ncsu.csc.itrust.dao.mysql.FamilyDAO;
 import edu.ncsu.csc.itrust.dao.mysql.HealthRecordsDAO;
 import edu.ncsu.csc.itrust.dao.mysql.ICDCodesDAO;
+import edu.ncsu.csc.itrust.dao.mysql.NDCodesDAO;
 import edu.ncsu.csc.itrust.dao.mysql.OfficeVisitDAO;
 import edu.ncsu.csc.itrust.dao.mysql.PatientDAO;
 import edu.ncsu.csc.itrust.dao.mysql.ProceduresDAO;
@@ -28,6 +30,7 @@ import edu.ncsu.csc.itrust.exception.NoHealthRecordsException;
 import edu.ncsu.csc.itrust.exception.iTrustException;
 import edu.ncsu.csc.itrust.risk.ChronicDiseaseMediator;
 import edu.ncsu.csc.itrust.risk.RiskChecker;
+import edu.ncsu.csc.itrust.validate.AllergyBeanValidator;
 
 
 /**
@@ -50,6 +53,7 @@ public class EditPHRAction extends PatientBaseAction {
 	private PersonnelBean HCPUAP;
 	private PatientBean patient;
 	private EmailUtil emailutil;
+	private NDCodesDAO ndcodesDAO;//NEW
 	
 	/**
 	 * Super class validates the patient id
@@ -74,6 +78,7 @@ public class EditPHRAction extends PatientBaseAction {
 		this.HCPUAP = personnelDAO.getPersonnel(loggedInMID);
 		this.patient = patientDAO.getPatient(pid);
 		this.procDAO = factory.getProceduresDAO();
+		this.ndcodesDAO = factory.getNDCodesDAO();//NEW
 		emailutil = new EmailUtil(factory);
 		this.factory = factory;
 	}
@@ -81,21 +86,41 @@ public class EditPHRAction extends PatientBaseAction {
 	/**
 	 * Adds an allergy to the patient's records
 	 * 
-	 * @param pid
-	 * @param description
-	 * @return "Allergy Added", exception message, a list of invalid fields, or "" (only if description is
-	 *         null)
-	 * @throws DBException 
+	 * @return "Allergy Added", exception message, a list of invalid fields, or "" (only if description is null)
 	 * @throws iTrustException
 	 */
-	public String updateAllergies(long pid, String description) throws FormValidationException, DBException {
+	public String updateAllergies(long pid, String ndcode) throws FormValidationException, iTrustException {
 		AllergyBean bean = new AllergyBean();
-		bean.setDescription(description);
-		//AllergyBeanValidator abv = new AllergyBeanValidator();
-		//abv.validate(bean);   Removed for new option medication selector
-		allergyDAO.addAllergy(pid, description);
+		bean.setPatientID(pid);
+		bean.setNDCode(ndcode);
+		bean.setDescription(ndcodesDAO.getNDCode(ndcode).getDescription());
+		AllergyBeanValidator abv = new AllergyBeanValidator();
+		abv.validate(bean);
+
+		String patientName = patientDAO.getName(pid);
+		List<AllergyBean> allergies = allergyDAO.getAllergies(pid);
+		for (AllergyBean current : allergies){
+			if (current.getNDCode().equals(bean.getNDCode())){
+				return "Allergy " + bean.getNDCode() + " - " + bean.getDescription()
+						+ " has already been added for " + patientName + ".";
+			}
+		}
+		
+		allergyDAO.addAllergy(bean);
 		emailutil.sendEmail(makeEmail());
-		return "Allergy Added";
+		/*
+		 * adding loop that checks for allergy conflicts. The loop runs through every prescription bean
+		 * and checks for conflict.
+		 */
+		List<PrescriptionBean> beansRx = patientDAO.getCurrentPrescriptions(pid);
+		for(int i = 0; i < beansRx.size(); i++) {
+			if(beansRx.get(i).getMedication().getNDCode().equals(bean.getNDCode())) {
+				return "Medication " + beansRx.get(i).getMedication().getNDCode()
+						+ " - " + beansRx.get(i).getMedication().getDescription()
+						+ " is currently prescribed to " + patientName + ".";
+			}
+		}
+		return "Allergy Added"; //If loop is successful, it will never reach here.
 	}
 
 	/**

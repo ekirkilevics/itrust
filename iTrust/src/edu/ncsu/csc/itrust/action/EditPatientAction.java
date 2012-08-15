@@ -96,11 +96,7 @@ public class EditPatientAction extends PatientBaseAction {
 		return email;
 	}
 	
-	public void editMessageFilter(String filter) throws iTrustException, FormValidationException {
-		PatientBean b = this.getPatient();
-		b.setMessageFilter(filter);
-		this.updateInformation(b);
-	}
+
 	
 	public boolean hasHistory() throws DBException {
 		return patientDAO.hasHistory(this.getPid());

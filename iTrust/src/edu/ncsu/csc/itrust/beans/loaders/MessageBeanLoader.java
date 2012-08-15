@@ -28,9 +28,9 @@ public class MessageBeanLoader implements BeanLoader<MessageBean> {
 		ps.setString(3, message.getBody());
 		ps.setString(4, message.getSubject());
 		ps.setInt(5, message.getRead());
-		if (message.getParentMessageId() != 0L) {
-				ps.setLong(6, message.getParentMessageId());
-		}
+		ps.setLong(6, message.getParentMessageId());
+		ps.setLong(7, message.getOriginalMessageId());
+		
 		return ps;
 	}
 
@@ -44,6 +44,7 @@ public class MessageBeanLoader implements BeanLoader<MessageBean> {
 		message.setSentDate(rs.getTimestamp("sent_date"));
 		message.setRead(rs.getInt("been_read"));
 		message.setParentMessageId(rs.getLong("parent_msg_id"));
+		message.setOriginalMessageId(rs.getLong("original_msg_id"));
 		return message;
 	}
 

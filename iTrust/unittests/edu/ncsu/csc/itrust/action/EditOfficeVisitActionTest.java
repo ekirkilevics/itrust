@@ -106,7 +106,7 @@ public class EditOfficeVisitActionTest extends TestCase {
 	public void testUpdateInformationEmptyForm() {
 		try {
 			EditOfficeVisitForm frm = new EditOfficeVisitForm();
-			action.updateInformation(frm);
+			action.updateInformation(frm, false);
 			fail("should have thrown exception");
 		} catch (FormValidationException fve) {
 		}
@@ -124,7 +124,7 @@ public class EditOfficeVisitActionTest extends TestCase {
 		frm.setPatientID("1");
 		frm.setVisitDate("05/02/2001");
 		//frm.setAddDiagID("79.3");
-		action.updateInformation(frm);
+		action.updateInformation(frm, false);
 	}
 	
 	public void testUpdateInformationSemicolon() throws FormValidationException {
@@ -133,7 +133,7 @@ public class EditOfficeVisitActionTest extends TestCase {
 		frm.setPatientID("1");
 		frm.setVisitDate("05/02/2001");
 		frm.setNotes("semicolon test ;");
-		action.updateInformation(frm);
+		action.updateInformation(frm, false);
 	}
 	
 	public void testUpdateInformationOctothorpe() throws Exception {
@@ -143,7 +143,7 @@ public class EditOfficeVisitActionTest extends TestCase {
 		frm.setVisitDate("05/02/2001");
 		frm.setNotes("semicolon test #");
 		try {
-			action.updateInformation(frm);
+			action.updateInformation(frm, false);
 		} catch (FormValidationException e) {
 			fail(e.getMessage());
 		}
@@ -160,7 +160,7 @@ public class EditOfficeVisitActionTest extends TestCase {
 		frm.setVisitDate("05/02/2001");
 		frm.setNotes("That was a doctor's visit");
 		try {
-			action.updateInformation(frm);
+			action.updateInformation(frm, false);
 		} catch (FormValidationException e) {
 			fail(e.getMessage());
 		}

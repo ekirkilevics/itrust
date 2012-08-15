@@ -112,8 +112,8 @@ public class PatientValidatorTest extends TestCase {
 			assertEquals("Insurance Company Zip: " + ValidationFormat.ZIPCODE.getDescription(), e.getErrorList().get(20));
 			assertEquals("Insurance Company Phone: " + ValidationFormat.PHONE_NUMBER.getDescription(), e.getErrorList().get(21));
 			assertEquals("Insurance Company ID: " + ValidationFormat.INSURANCE_ID.getDescription(), e.getErrorList().get(22));
-			assertEquals("Mother MID: " + ValidationFormat.MID.getDescription(), e.getErrorList().get(23));
-			assertEquals("Father MID: " + ValidationFormat.MID.getDescription(), e.getErrorList().get(24));
+			assertEquals("Mother MID: " + ValidationFormat.NPMID.getDescription(), e.getErrorList().get(23));
+			assertEquals("Father MID: " + ValidationFormat.NPMID.getDescription(), e.getErrorList().get(24));
 			assertEquals("Topical Notes: " + ValidationFormat.NOTES.getDescription(), e.getErrorList().get(25));
 			assertEquals("number of errors", 26, e.getErrorList().size());
 		}
@@ -442,6 +442,57 @@ public class PatientValidatorTest extends TestCase {
 		} catch (Exception e) {}
 		
 		
+	}
+	
+	
+	public void testMFWithPersonnelMID() throws Exception {
+		PatientBean p = new PatientBean();
+		p.setFirstName("Person'a");
+		p.setLastName("LastName");
+		p.setDateOfBirthStr("10/10/2005");
+		p.setDateOfDeathStr("");
+		p.setCauseOfDeath("");
+		p.setEmail("andy.programmer@gmail.com");
+		p.setSecurityQuestion("'What is your quest?'-");
+		p.setSecurityAnswer("I s33k the holy grail");
+		p.setStreetAddress1("344 East Random Ave.");
+		p.setStreetAddress2("");
+		p.setCity("Intercourse");
+		p.setState("PA");
+		p.setZip1("17534");
+		p.setPhone1("555");
+		p.setPhone2("542");
+		p.setPhone3("9023");
+		p.setEmergencyName("Tow Mater");
+		p.setEmergencyPhone1("809");
+		p.setEmergencyPhone2("940");
+		p.setEmergencyPhone3("1943");
+		p.setIcName("Dewie Cheatum n Howe");
+		p.setIcAddress1("458 Ripoff Blvd.");
+		p.setIcAddress2("Greedy Suite");
+		p.setIcCity("Hell");
+		p.setIcState("MI");
+		p.setIcZip1("48169");
+		p.setIcZip2("0000");
+		p.setIcPhone1("666");
+		p.setIcPhone2("059");
+		p.setIcPhone3("4023");
+		p.setIcID("Money");
+		p.setMotherMID("9");
+		p.setFatherMID("98");
+		p.setBloodTypeStr("O-");
+		p.setEthnicityStr("Caucasian");
+		p.setGenderStr("Male");
+		p.setTopicalNotes("Here are some random topical notes. Isn't there more? Yes.\n There is.");
+		p.setPassword("testpass1");
+		p.setConfirmPassword("testpass1");
+		try {
+			new PatientValidator().validate(p);
+			fail("exception should have been thrown");
+		} catch (FormValidationException e) {
+			assertEquals("Mother MID: " + ValidationFormat.NPMID.getDescription(), e.getErrorList().get(0));
+			assertEquals("Father MID: " + ValidationFormat.NPMID.getDescription(), e.getErrorList().get(1));
+		}
 	}
 
 }

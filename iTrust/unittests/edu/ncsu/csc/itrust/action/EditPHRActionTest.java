@@ -70,10 +70,16 @@ public class EditPHRActionTest extends TestCase {
 
 	public void testUpdateAllergies() throws Exception {
 		action = new EditPHRAction(factory, 9000000000L, "2");
-		action.updateAllergies(2L, "Allergic to people");
+		action.updateAllergies(2L, "483012382");
 		List<AllergyBean> allergies = action.getAllergies();
 		assertEquals(3, allergies.size());
-		assertEquals("Allergic to people", allergies.get(0).getDescription());
+		assertEquals("Midichlominene", allergies.get(0).getDescription());
 //		assertTransactionOnly(TransactionType.ENTER_EDIT_PHR, 9000000000L, 2L, "added allergy Allergic to people");
+	}
+	
+	public void testAllergyExistingPrescription() throws Exception{
+		action = new EditPHRAction(factory, 9000000000L, "100");
+		String result = action.updateAllergies(100L, "483012382");
+		assertTrue(result.contains("is currently prescribed to"));
 	}
 }

@@ -1,6 +1,10 @@
 package edu.ncsu.csc.itrust.action;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 import edu.ncsu.csc.itrust.beans.PatientBean;
 import edu.ncsu.csc.itrust.beans.PersonnelBean;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
@@ -66,5 +70,48 @@ public class SearchUsersAction {
 			e.printStackTrace();
 			return null;
 		}
+	}
+	
+	/**
+	 * Search for all patients with first name and last name given in parameters.
+	 * @param firstName The first name of the patient being searched.
+	 * @param lastName The last name of the patient being searched.
+	 * @return A java.util.List of PatientBeans
+	 * @throws DBException 
+	 */
+	public List<PatientBean> fuzzySearchForPatients(String query) {
+		String[] subqueries=null;
+		
+		Set<PatientBean> patientsSet = new TreeSet<PatientBean>();
+		if(query!=null && query.length()>0){
+			subqueries = query.split(" ");
+			Set<PatientBean>[] patients = new Set[subqueries.length];
+			int i=0;
+			for(String q : subqueries){
+				try {
+					patients[i] = new TreeSet<PatientBean>();
+					List<PatientBean> first = patientDAO.fuzzySearchForPatientsWithName(q, "");				
+					List<PatientBean> last = patientDAO.fuzzySearchForPatientsWithName("",q);
+					patients[i].addAll(first);
+					patients[i].addAll(last);
+					
+					try{
+						long mid = Long.valueOf(q);
+						patients[i].add(patientDAO.getPatient(mid));
+					}catch(NumberFormatException e){}
+					i++;
+				} catch (DBException e1) {
+					e1.printStackTrace();
+				}
+			}
+			
+			patientsSet.addAll(patients[0]);
+			for(Set<PatientBean> results : patients){
+				try{
+					patientsSet.retainAll(results);
+				}catch(NullPointerException e){}
+			}
+		}
+		return new ArrayList<PatientBean>(patientsSet);
 	}
 }

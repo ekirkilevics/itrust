@@ -1,11 +1,13 @@
 package edu.ncsu.csc.itrust.action;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import edu.ncsu.csc.itrust.beans.DiagnosisBean;
 import edu.ncsu.csc.itrust.beans.DiagnosisStatisticsBean;
 import edu.ncsu.csc.itrust.datagenerators.TestDataGenerator;
+import edu.ncsu.csc.itrust.exception.DBException;
 import edu.ncsu.csc.itrust.exception.FormValidationException;
 import edu.ncsu.csc.itrust.testutils.TestDAOFactory;
 import junit.framework.TestCase;
@@ -28,7 +30,7 @@ public class ViewDiagnosisStatisticsActionTest extends TestCase {
 	
 	public void testGetDiagnosisCodes() throws Exception {
 		List<DiagnosisBean> db = action.getDiagnosisCodes();
-		assertEquals(14, db.size());
+		assertEquals(15, db.size());
 	}
 	
 	public void testGetDiagnosisStatisticsValid() throws Exception {
@@ -97,8 +99,19 @@ public class ViewDiagnosisStatisticsActionTest extends TestCase {
 	
 	public void testGetEpidemicStatistics() throws Exception {
 		gen.malaria_epidemic();
-		ArrayList<DiagnosisStatisticsBean> dsList = action.getEpidemicStatistics("11/02/" + thisYear, "84.50", "27606");
+		ArrayList<DiagnosisStatisticsBean> dsList = action.getEpidemicStatistics("11/02/" + thisYear, "84.50", "27606", "1");
 		assertEquals(5, dsList.get(0).getRegionStats());
 		assertEquals(4, dsList.get(0).getZipStats());
+	}
+	
+	public void testGetEpidemicStatisticsInvalidThreshold(){
+		try{
+			ArrayList<DiagnosisStatisticsBean> dsList = action.getEpidemicStatistics("11/02/" + thisYear, "84.50", "27606", "");
+			fail("FormValidationException should have been thrown.");
+		}catch(FormValidationException e){
+			//This should be thrown
+		} catch (DBException e) {
+			fail("DB Exception thrown");
+		}
 	}
 }

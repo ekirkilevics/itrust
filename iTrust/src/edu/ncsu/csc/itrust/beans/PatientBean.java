@@ -16,7 +16,7 @@ import edu.ncsu.csc.itrust.enums.Gender;
  * A bean must only have Getters and Setters (Eclipse Hint: Use Source > Generate Getters and Setters… 
  * to create these easily)
  */
-public class PatientBean implements Serializable {
+public class PatientBean implements Serializable, Comparable<PatientBean> {
 	private static final long serialVersionUID = -6474182977342257877L;
 	
 	private long MID = 0;
@@ -63,20 +63,12 @@ public class PatientBean implements Serializable {
 	private Ethnicity ethnicity = Ethnicity.NotSpecified;
 	private Gender gender = Gender.NotSpecified;
 	private String topicalNotes = "";
-	private String messageFilter= "";
 	private String directionsToHome = "";
 	private String religion = "";
 	private String language = "";
 	private String spiritualPractices = "";
 	private String alternateName = "";
 
-	public String getMessageFilter() {
-		return messageFilter;
-	}
-
-	public void setMessageFilter(String messageFilter) {
-		this.messageFilter = messageFilter;
-	}
 
 	public BloodType getBloodType() {
 		return bloodType;
@@ -584,4 +576,10 @@ public class PatientBean implements Serializable {
 	public void setAlternateName(String alternateName) {
 		this.alternateName = alternateName;
 	}
+	
+
+	public int compareTo(PatientBean o) {
+		return (int)(o.MID-this.MID);
+	}
+	
 }

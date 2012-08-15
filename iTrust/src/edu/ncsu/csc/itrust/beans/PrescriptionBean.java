@@ -2,7 +2,9 @@ package edu.ncsu.csc.itrust.beans;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * A bean for storing data about a prescription.
@@ -20,9 +22,8 @@ public class PrescriptionBean {
 	private String endDateStr = new SimpleDateFormat("MM/dd/yyyy").format(new Date());
 	private int dosage = 0;
 	private String instructions = "";
-	private String orc = null;
-	private String overrideComment = null;
-
+	private List<OverrideReasonBean> reasons = null;
+	private String overrideReasonOther = "";
 	public PrescriptionBean() {
 	}
 
@@ -62,20 +63,22 @@ public class PrescriptionBean {
 		this.dosage = dosage;
 	}
 	
-	public String getReason() {
-		return orc;
+	public List<OverrideReasonBean> getReasons() {
+		if (reasons==null){
+			reasons = new ArrayList<OverrideReasonBean>();
+		}
+		return reasons;
 	}
 
-	public void setReason(String reason) {
-		this.orc = reason;
+	public void setReasons(List<OverrideReasonBean> reasons) {
+		this.reasons = reasons;
 	}
 	
-	public String getOverrideComment() {
-		return overrideComment;
-	}
-	
-	public void setOverrideComment(String overrideComment) {
-		this.overrideComment = overrideComment;
+	public void addReason(OverrideReasonBean reason){
+		if(reasons == null){
+			reasons = new ArrayList<OverrideReasonBean>();
+		}
+		reasons.add(reason);
 	}
 
 	public Date getEndDate() {
@@ -145,5 +148,14 @@ public class PrescriptionBean {
 	public void setId(long id) {
 		this.id = id;
 	}
+
+	public String getOverrideReasonOther() {
+		return overrideReasonOther;
+	}
+
+	public void setOverrideReasonOther(String overrideReasonOther) {
+		this.overrideReasonOther = overrideReasonOther;
+	}
+
 
 }

@@ -3,6 +3,7 @@ package edu.ncsu.csc.itrust.action;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.List;
 import java.util.Calendar;
 import edu.ncsu.csc.itrust.beans.forms.VisitReminderReturnForm;
@@ -24,6 +25,8 @@ import edu.ncsu.csc.itrust.enums.Gender;
  */
 public class GetVisitRemindersAction {
 
+	private static final int WEEK_IN_MILLIS = 1000 * 60 * 60 * 24 * 7;
+
 	/**
 	 * Reminder Type enumeration.
 	 */
@@ -38,7 +41,7 @@ public class GetVisitRemindersAction {
 			this.typeName = typeName;
 		}
 
-		private static final HashMap<String, ReminderType> map = new HashMap<String, ReminderType>();
+		private static final Map<String, ReminderType> map = new HashMap<String, ReminderType>();
 		static {
 			for (ReminderType rt : ReminderType.values()) {
 				map.put(rt.getTypeName(), rt);
@@ -321,7 +324,7 @@ public class GetVisitRemindersAction {
 	 */
 	public static String testHPV(int count, Date patientDOB, long time) {
 		String reason = "";
-		long weeks = (Calendar.getInstance().getTimeInMillis() - time) / (1000 * 60 * 60 * 24 * 7);
+		long weeks = (Calendar.getInstance().getTimeInMillis() - time) / WEEK_IN_MILLIS;
 		new Date();
 		
 		
@@ -354,7 +357,7 @@ public class GetVisitRemindersAction {
 	 */
 	public static String testHepA(int count, Date patientDOB, long time) {
 		String reason = "";
-		long weeks = (Calendar.getInstance().getTimeInMillis() - time) / (1000 * 60 * 60 * 24 * 7);
+		long weeks = (Calendar.getInstance().getTimeInMillis() - time) / WEEK_IN_MILLIS;
 		
 		if (0 == count) {
 			if (olderThan(patientDOB, 1, 0, 0))
@@ -378,7 +381,7 @@ public class GetVisitRemindersAction {
 	 */
 	public static String testVaricella(int count, Date patientDOB, long time) {
 		String reason = "";
-		long weeks = (Calendar.getInstance().getTimeInMillis() - time) / (1000 * 60 * 60 * 24 * 7);
+		long weeks = (Calendar.getInstance().getTimeInMillis() - time) / WEEK_IN_MILLIS;
 		
 		if (0 == count) {
 			if (olderThan(patientDOB, 1, 0, 0))
@@ -402,7 +405,7 @@ public class GetVisitRemindersAction {
 	 */
 	public static String testMeasles(int count, Date patientDOB, long time) {
 		String reason = "";
-		long weeks = (Calendar.getInstance().getTimeInMillis() - time) / (1000 * 60 * 60 * 24 * 7);
+		long weeks = (Calendar.getInstance().getTimeInMillis() - time) / WEEK_IN_MILLIS;
 		
 		if (0 == count) {
 			if (olderThan(patientDOB, 1, 0, 0))
@@ -426,7 +429,7 @@ public class GetVisitRemindersAction {
 	 */
 	public static String testPolio(int count, Date patientDOB, long time) {
 		String reason = "";
-		long weeks = (Calendar.getInstance().getTimeInMillis() - time) / (1000 * 60 * 60 * 24 * 7);
+		long weeks = (Calendar.getInstance().getTimeInMillis() - time) / WEEK_IN_MILLIS;
 		
 		if (0 == count) {
 			if (olderThan(patientDOB, 0, 0, 6))
@@ -455,7 +458,7 @@ public class GetVisitRemindersAction {
 	public static String testPneumo(int count, Date patientDOB, long time, long firstDoseTime) {
 		String reason = "";
 		Date firstDose = new Date(firstDoseTime);
-		long weeks = (Calendar.getInstance().getTimeInMillis() - time) / (1000 * 60 * 60 * 24 * 7);
+		long weeks = (Calendar.getInstance().getTimeInMillis() - time) / WEEK_IN_MILLIS;
 		//long ageFirst = patientAge - (firstDoseTime / (1000 * 60 * 60 * 24 * 7)); 
 		
 		if (0 == count) {
@@ -489,7 +492,7 @@ public class GetVisitRemindersAction {
 	 */
 	public static String testHaemoFlu(int count, Date patientDOB, long time, long firstDoseTime) {
 		String reason = "";
-		long weeks = (Calendar.getInstance().getTimeInMillis() - time) / (1000 * 60 * 60 * 24 * 7);
+		long weeks = (Calendar.getInstance().getTimeInMillis() - time) / WEEK_IN_MILLIS;
 		Date firstDose = new Date(firstDoseTime);
 		//long ageFirst = patientAge - (firstDoseTime / (1000 * 60 * 60 * 24 * 7)); 
 			
@@ -521,7 +524,7 @@ public class GetVisitRemindersAction {
 	 */
 	public static String testDipTet(int count, Date patientDOB, long time) {
 		String reason = "";
-		long weeks = (Calendar.getInstance().getTimeInMillis() - time) / (1000 * 60 * 60 * 24 * 7);
+		long weeks = (Calendar.getInstance().getTimeInMillis() - time) / WEEK_IN_MILLIS;
 		
 		if (0 == count) {
 			if (olderThan(patientDOB, 0, 0, 6))
@@ -562,7 +565,7 @@ public class GetVisitRemindersAction {
 	
 	public static String testRotaVirus(int count, Date patientDOB, long time) {
 		String reason = "";
-		long weeks = (Calendar.getInstance().getTimeInMillis() - time) / (1000 * 60 * 60 * 24 * 7);
+		long weeks = (Calendar.getInstance().getTimeInMillis() - time) / WEEK_IN_MILLIS;
 		
 		if (0 == count) {
 			if (olderThan(patientDOB, 0, 0, 6))
@@ -591,7 +594,7 @@ public class GetVisitRemindersAction {
 	 */
 	public static String testHepB(int count, Date patientDOB, long time) {
 		String reason = "";
-		long weeks = (Calendar.getInstance().getTimeInMillis() - time) / (1000 * 60 * 60 * 24 * 7);
+		long weeks = (Calendar.getInstance().getTimeInMillis() - time) / WEEK_IN_MILLIS;
 		
 		if (0 == count) {
 			if (olderThan(patientDOB, 0, 0, 0))
@@ -624,9 +627,7 @@ public class GetVisitRemindersAction {
 		cal.add(Calendar.MONTH, months);
 		cal.add(Calendar.HOUR, weeks*7*24);
 		
-		startTime = cal.getTime();
-		
-		return (startTime.compareTo(endTime) <= 0); //startTime.before(endTime);
+		return (cal.getTime().compareTo(endTime) <= 0); //startTime.before(endTime);
 	}
 	
 }

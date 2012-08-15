@@ -2,6 +2,7 @@
 <%@page import="java.util.List" %>
 <%@page import="edu.ncsu.csc.itrust.action.SearchUsersAction" %>
 <%@page import="edu.ncsu.csc.itrust.beans.PatientBean" %>
+
 <%
 pageTitle = "iTrust - Please Select a Patient";
 %>
@@ -26,7 +27,7 @@ pageTitle = "iTrust - Please Select a Patient";
 %>
 
 <%@include file="/util/getUserFrame.jsp"%>
-				
+<div id="oldSearch">	
 <form id="mainForm" action="getPatientID.jsp" method="post">
 	<table>
 		<tr>
@@ -48,6 +49,7 @@ pageTitle = "iTrust - Please Select a Patient";
 	</table>
 </form>
 <br/>
+
 <table>
 	<tr> </tr>
 	<form id="userSearchForm" action="getPatientID.jsp?forward=<%= StringEscapeUtils.escapeHtml("" + ( request.getParameter("forward") )) %>" method="post">
@@ -105,6 +107,27 @@ pageTitle = "iTrust - Please Select a Patient";
 	}
 	%>
 	</table>
+	</div>
+</div>			
+	
+	
+	
+<script type="text/javascript">
+ $(function(){
+	
+	$("#searchBox").keyup(function(){
+		$("#userSearch").attr("src","patientSearch.jsp?forward=<%=StringEscapeUtils.escapeHtml("" + (request.getParameter("forward") ))%>&q="+$("#searchBox").val())
+	});
+	$("#oldSearch").hide(); 
+	 
+ });
+</script>
+<h2> Select a Patient</h2>
+<b>Search by name or MID:</b><br/>
+<div style="border: 1px solid Gray; padding:5px;float:left;">
+	<input id="searchBox" style="width: 250px;" type="text" value="<%= StringEscapeUtils.escapeHtml("" + ( firstName )) %>" />
 </div>
+
+<iframe id="userSearch" style="width:100%;min-height:600px;border:none;"></iframe>
 
 <%@include file="/footer.jsp" %>

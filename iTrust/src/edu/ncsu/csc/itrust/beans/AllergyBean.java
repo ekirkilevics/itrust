@@ -15,6 +15,7 @@ public class AllergyBean {
 	private long id;
 	private long patientID;
 	private String description;
+	private String ndcode;
 	private Date firstFound;
 
 	public AllergyBean() {
@@ -27,8 +28,19 @@ public class AllergyBean {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	
+	public String getNDCode() {
+		return ndcode;
+	}
+
+	public void setNDCode(String ndcode) {
+		this.ndcode = ndcode;
+	}
 
 	public Date getFirstFound() {
+		if (firstFound==null){
+			return null;
+		}
 		return (Date) firstFound.clone();
 	}
 

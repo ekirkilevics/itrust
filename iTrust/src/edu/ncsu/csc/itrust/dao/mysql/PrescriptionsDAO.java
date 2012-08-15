@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.util.List;
 import edu.ncsu.csc.itrust.DBUtil;
 //import edu.ncsu.csc.itrust.beans.DiagnosisBean;
+import edu.ncsu.csc.itrust.beans.OverrideReasonBean;
 import edu.ncsu.csc.itrust.beans.PrescriptionBean;
 //import edu.ncsu.csc.itrust.beans.loaders.HospitalBeanLoader;
 import edu.ncsu.csc.itrust.beans.loaders.PrescriptionBeanLoader;
@@ -47,6 +48,7 @@ public class PrescriptionsDAO {
 					+ "AND NDCodes.Code=OVMedication.NDCode");
 			ps.setLong(1, visitID);
 			ResultSet rs = ps.executeQuery();
+
 			return loader.loadList(rs);
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -66,10 +68,13 @@ public class PrescriptionsDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
+			
+			
 			ps = conn
-					.prepareStatement("INSERT INTO OVMedication (VisitID,NDCode,StartDate,EndDate,Dosage,Instructions) VALUES (?,?,?,?,?,?)");
+					.prepareStatement("INSERT INTO OVMedication (VisitID,NDCode,StartDate,EndDate,Dosage,Instructions,OverrideOther) VALUES (?,?,?,?,?,?,?)");
 			loader.loadParameters(ps, pres);
 			ps.executeUpdate();
+			
 			return DBUtil.getLastInsert(conn);
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -94,11 +99,11 @@ public class PrescriptionsDAO {
 			conn = factory.getConnection();
 			//ps = conn.prepareStatement("UPDATE OVMedication (VisitID,NDCode,StartDate,EndDate,Dosage,Instructions) VALUES (?,?,?,?,?,?)");
 			String statement = "UPDATE OVMedication " +
-				"SET VisitID=?, NDCode=?, StartDate=?, EndDate=?, Dosage=?, Instructions=? " +
+				"SET VisitID=?, NDCode=?, StartDate=?, EndDate=?, Dosage=?, Instructions=?, OverrideOther=? " +
 				"WHERE ID=?";
 			ps = conn.prepareStatement(statement);
 			loader.loadParameters(ps, pres);
-			ps.setLong(7, pres.getId());
+			ps.setLong(8, pres.getId());
 			ps.executeUpdate();
 			return DBUtil.getLastInsert(conn);
 		} catch (SQLException e) {

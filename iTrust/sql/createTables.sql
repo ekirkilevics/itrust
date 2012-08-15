@@ -1,11 +1,13 @@
 CREATE TABLE Users(
 	MID                 BIGINT unsigned,
-	Password            VARCHAR(20),
+	Password            VARCHAR(200),
+	openID              VARCHAR(200),
 	Role                enum('patient','admin','hcp','uap','er','tester','pha', 'lt') NOT NULL DEFAULT 'admin',
 	sQuestion           VARCHAR(100) DEFAULT '', 
 	sAnswer             VARCHAR(30) DEFAULT '',
 
-	PRIMARY KEY (MID)
+	PRIMARY KEY (MID),
+	UNIQUE (openID)
 	/* Please use the MyISAM backend with no foreign keys.*/
 ) ENGINE=MyISAM; 
 
@@ -36,7 +38,6 @@ CREATE TABLE Personnel(
     phone3 varchar(4) default '',
 	specialty varchar(40) default NULL,
 	email varchar(55)  default '',
-	MessageFilter varchar(60) default '',
 	PRIMARY KEY  (MID)
 ) auto_increment=9000000000 ENGINE=MyISAM;
 
@@ -80,7 +81,6 @@ CREATE TABLE Patients(
 	TopicalNotes VARCHAR(200) default '',
 	CreditCardType VARCHAR(20) default '',
 	CreditCardNumber VARCHAR(19) default '',
-	MessageFilter varchar(60) default '',
 	DirectionsToHome varchar(512) default '',
 	Religion varchar(64) default '',
 	Language varchar(32) default '',
@@ -132,7 +132,6 @@ CREATE TABLE HistoryPatients(
 	TopicalNotes VARCHAR(200) default '',
 	CreditCardType VARCHAR(20) default '',
 	CreditCardNumber VARCHAR(19) default '',
-	MessageFilter varchar(60) default '',
 	DirectionsToHome varchar(512) default '',
 	Religion varchar(64) default '',
 	Language varchar(32) default '',
@@ -235,6 +234,7 @@ CREATE TABLE OfficeVisits(
 	notes mediumtext, 
 	PatientID BIGINT unsigned default '0', 
 	HospitalID VARCHAR(10) default '',
+	IsERIncident BOOLEAN default false,
 	PRIMARY KEY  (ID)
 ) ENGINE=MyISAM;
 
@@ -258,11 +258,14 @@ CREATE TABLE PersonalAllergies(
 	Allergy VARCHAR( 50 ) NOT NULL COMMENT 'Description of the allergy'
 ) ENGINE=MyISAM;
 
+
 CREATE TABLE Allergies(
 	ID INT(10) unsigned auto_increment primary key,
 	PatientID BIGINT unsigned NOT NULL COMMENT 'MID of the Patient',
 	Description VARCHAR( 50 ) NOT NULL COMMENT 'Description of the allergy',
-	FirstFound TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+	FirstFound TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	Code varchar(10) COMMENT 'NDCode of drug that patient is allergic to'
+	/*NEW, Added Code, so that we could pass the NDCode of the drug when adding allergy.*/
 ) ENGINE=MyISAM;
 
 CREATE TABLE OVProcedure(
@@ -279,14 +282,14 @@ CREATE TABLE OVMedication (
 	StartDate DATE,
 	EndDate DATE,
 	Dosage INT DEFAULT 0 COMMENT 'Always in mg - this could certainly be changed later',
-	Instructions VARCHAR(500) DEFAULT ''
+	Instructions VARCHAR(500) DEFAULT '',
+	OverrideOther VARCHAR(255) DEFAULT '' COMMENT 'Provided if user chooses other reason'
 ) ENGINE=MyISAM;
 
 CREATE TABLE OVReactionOverride (
 	ID INT(10)  auto_increment primary key,
 	OVMedicationID INT(10) NOT NULL COMMENT 'Must correspond to an ID in OVMedication table',
 	OverrideCode VARCHAR(5) COMMENT 'Code identifier of the override reason',
-	OverrideComment VARCHAR(255) DEFAULT '' COMMENT 'Optional reason for override',
 	FOREIGN KEY (OVMedicationID) REFERENCES OVMedication (ID)
 ) ENGINE=MyISAM;
 
@@ -365,6 +368,7 @@ CREATE TABLE LabProcedure (
 CREATE TABLE message (
 	message_id          INT UNSIGNED AUTO_INCREMENT,
 	parent_msg_id       INT UNSIGNED,
+	original_msg_id     INT UNSIGNED,
 	from_id             BIGINT UNSIGNED NOT NULL,
 	to_id               BIGINT UNSIGNED NOT NULL,
 	sent_date           DATETIME NOT NULL,
@@ -462,5 +466,18 @@ CREATE TABLE ReferralMessage(
 	PRIMARY KEY (messageID,referralID)
 ) ENGINE=MyISAM;
 
-
-
+CREATE TABLE AppointmentRequests(
+	appt_id				INT UNSIGNED AUTO_INCREMENT primary key,
+	doctor_id           BIGINT UNSIGNED NOT NULL,
+	patient_id          BIGINT UNSIGNED NOT NULL,
+	sched_date          DATETIME NOT NULL,
+	appt_type           VARCHAR(30) NOT NULL,
+	comment				TEXT,
+	pending				BOOLEAN NOT NULL,
+	accepted			BOOLEAN NOT NULL
+) ENGINE=MyISAM;
+CREATE TABLE Nonces (
+	nonce VARCHAR(50) NOT NULL,
+	expires DATETIME NOT NULL,
+	PRIMARY KEY (`nonce`)
+) ENGINE = MyISAM;

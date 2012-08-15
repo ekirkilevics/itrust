@@ -56,6 +56,15 @@ public class ReferralQueryDAOTest extends TestCase {
 		assertEquals("Gandalf Stormcrow", list.get(2).getReceiverName());
 		assertEquals("Gandalf Stormcrow", list.get(3).getReceiverName());
 	}
+	
+	public void testReceiverQueryReceiver() throws Exception {
+		ReferralDAO.ReferralListQuery query = dao.getReceiverQuery(9000000003L);
+		List<VerboseReferralBean> list = query.query("referralDetails", SortDirection.ASCENDING);
+		assertEquals(3, list.size());
+		assertEquals(101, list.get(0).getOvid());
+		assertEquals(103, list.get(1).getOvid());
+		assertEquals(103, list.get(2).getOvid());
+	}
 
 	public void testPatientQueryReceiverSort() throws Exception {
 		ReferralDAO.ReferralListQuery query = dao.getPatientQuery(2);

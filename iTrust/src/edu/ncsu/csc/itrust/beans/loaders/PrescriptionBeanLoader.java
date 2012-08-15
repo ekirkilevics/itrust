@@ -16,7 +16,7 @@ import edu.ncsu.csc.itrust.beans.PrescriptionBean;
  */
 public class PrescriptionBeanLoader implements BeanLoader<PrescriptionBean> {
 	private MedicationBeanLoader medLoader;
-
+	
 	public PrescriptionBeanLoader() {
 		medLoader = new MedicationBeanLoader();
 	}
@@ -40,6 +40,7 @@ public class PrescriptionBeanLoader implements BeanLoader<PrescriptionBean> {
 		pres.setDosage(rs.getInt("Dosage"));
 		pres.setInstructions(rs.getString("Instructions"));
 		pres.setMedication(medLoader.loadSingle(rs));
+		pres.setOverrideReasonOther(rs.getString("OverrideOther"));
 		return pres;
 	}
 
@@ -50,6 +51,7 @@ public class PrescriptionBeanLoader implements BeanLoader<PrescriptionBean> {
 		ps.setDate(4, new java.sql.Date(pres.getEndDate().getTime()));
 		ps.setInt(5, pres.getDosage());
 		ps.setString(6, pres.getInstructions());
+		ps.setString(7, pres.getOverrideReasonOther());
 		return ps;
 	}
 }

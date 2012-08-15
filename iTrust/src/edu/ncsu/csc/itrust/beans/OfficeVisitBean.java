@@ -19,6 +19,7 @@ public class OfficeVisitBean {
 	private String notes = "";
 	private String visitDateStr = new SimpleDateFormat("MM/dd/yyyy").format(new Date());
 	private String hospitalID = "";
+	private boolean isERIncident = false;
 
 	public OfficeVisitBean() {
 	}
@@ -89,6 +90,14 @@ public class OfficeVisitBean {
 
 	public void setHospitalID(String hospitalID) {
 		this.hospitalID = hospitalID;
+	}
+
+	public boolean isERIncident() {
+		return isERIncident;
+	}
+
+	public void setERIncident(boolean isERIncident) {
+		this.isERIncident = isERIncident;
 	}
 
 }

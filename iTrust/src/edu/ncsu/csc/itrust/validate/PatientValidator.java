@@ -91,8 +91,8 @@ public class PatientValidator extends BeanValidator<PatientBean> {
 				ValidationFormat.PHONE_NUMBER, false));
 		errorList.addIfNotNull(checkFormat("Insurance Company ID", p.getIcID(),
 				ValidationFormat.INSURANCE_ID, false));
-		errorList.addIfNotNull(checkFormat("Mother MID", p.getMotherMID(), ValidationFormat.MID, true));
-		errorList.addIfNotNull(checkFormat("Father MID", p.getFatherMID(), ValidationFormat.MID, true));
+		errorList.addIfNotNull(checkFormat("Mother MID", p.getMotherMID(), ValidationFormat.NPMID, true));
+		errorList.addIfNotNull(checkFormat("Father MID", p.getFatherMID(), ValidationFormat.NPMID, true));
 		errorList
 				.addIfNotNull(checkFormat("Topical Notes", p.getTopicalNotes(), ValidationFormat.NOTES, true));
 		

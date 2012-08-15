@@ -44,7 +44,7 @@ public class DocumentOfficeVisitTest extends iTrustHTTPTest {
 		patientForm.getScriptableObject().setParameterValue("UID_PATIENTID", "1");
 		patientForm.getButtons()[1].click();
 		wr = wc.getCurrentPage();
-		assertEquals(ADDRESS + "auth/hcp-uap/documentOfficeVisit.jsp", wr.getURL().toString());
+		assertEquals(ADDRESS + "auth/hcp-uap-er/documentOfficeVisit.jsp", wr.getURL().toString());
 		// click Yes, Document Office Visit
 		WebForm form = wr.getForms()[0];
 		form.getButtons()[0].click();
@@ -84,7 +84,7 @@ public class DocumentOfficeVisitTest extends iTrustHTTPTest {
 		patientForm.getButtons()[1].click();
 		wr = wc.getCurrentPage();
 		
-		assertEquals(ADDRESS + "auth/hcp-uap/documentOfficeVisit.jsp", wr.getURL().toString());
+		assertEquals(ADDRESS + "auth/hcp-uap-er/documentOfficeVisit.jsp", wr.getURL().toString());
 		// click Yes, Document Office Visit
 		WebForm form = wr.getForms()[0];
 		form.getButtons()[0].click();
@@ -124,7 +124,7 @@ public class DocumentOfficeVisitTest extends iTrustHTTPTest {
 		patientForm.getScriptableObject().setParameterValue("UID_PATIENTID", "2");
 		patientForm.getButtons()[1].click();
 		wr = wc.getCurrentPage();
-		assertEquals(ADDRESS + "auth/hcp-uap/documentOfficeVisit.jsp", wr.getURL().toString());
+		assertEquals(ADDRESS + "auth/hcp-uap-er/documentOfficeVisit.jsp", wr.getURL().toString());
 		// click Yes, Document Office Visit
 		WebForm form = wr.getForms()[0];
 		form.getButtons()[0].click();
@@ -152,7 +152,7 @@ public class DocumentOfficeVisitTest extends iTrustHTTPTest {
 		patientForm.getScriptableObject().setParameterValue("UID_PATIENTID", "1");
 		patientForm.getButtons()[1].click();
 		wr = wc.getCurrentPage();
-		assertEquals(ADDRESS + "auth/hcp-uap/documentOfficeVisit.jsp", wr.getURL().toString());
+		assertEquals(ADDRESS + "auth/hcp-uap-er/documentOfficeVisit.jsp", wr.getURL().toString());
 		// click Yes, Document Office Visit
 		WebForm form = wr.getForms()[0];
 		form.getButtons()[0].click();
@@ -190,7 +190,7 @@ public class DocumentOfficeVisitTest extends iTrustHTTPTest {
 		patientForm.getScriptableObject().setParameterValue("UID_PATIENTID", "1");
 		patientForm.getButtons()[1].click();
 		wr = wc.getCurrentPage();
-		assertEquals(ADDRESS + "auth/hcp-uap/documentOfficeVisit.jsp", wr.getURL().toString());
+		assertEquals(ADDRESS + "auth/hcp-uap-er/documentOfficeVisit.jsp", wr.getURL().toString());
 		// click Yes, Document Office Visit
 		WebForm form = wr.getForms()[0];
 		form.getButtons()[0].click();

@@ -7,8 +7,8 @@ DELETE FROM OVMedication WHERE VisitID = 1062;
 
 
 INSERT INTO Users(MID, password, role, sQuestion, sAnswer) 
-			VALUES (10, 'pw', 'patient', 'how you doin?', 'good');
-
+			VALUES (10, '1a91d62f7ca67399625a4368a6ab5d4a3baa6073', 'patient', 'how you doin?', 'good');
+/*password: pw*/
 INSERT INTO Patients (MID, firstName,lastName, email, phone1, phone2, phone3) 
 VALUES (10, 'Zappic', 'Clith', 'c@d.com', '919', '555', '9213');
 

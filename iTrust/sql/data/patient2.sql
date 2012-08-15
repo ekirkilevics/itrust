@@ -78,13 +78,14 @@ VALUES (
 )  ON DUPLICATE KEY UPDATE MID = MID;
 
 INSERT INTO Users(MID, password, role, sQuestion, sAnswer) 
-			VALUES (2, 'pw', 'patient', 'how you doin?', 'good')
+			VALUES (2, '1a91d62f7ca67399625a4368a6ab5d4a3baa6073', 'patient', 'how you doin?', 'good')
  ON DUPLICATE KEY UPDATE MID = MID;
+ /*password: pw*/
 
 DELETE FROM Allergies WHERE PatientID = 2;
-INSERT INTO Allergies(PatientID,Description, FirstFound) 
-	VALUES (2, 'Pollen', '2007-06-05 20:33:58'),
-	       (2, '664662530', '2007-06-04 20:33:58'); /*penicillin*/
+INSERT INTO Allergies(PatientID,Code,Description, FirstFound) 
+	VALUES (2, '', 'Pollen', '2007-06-05 20:33:58'),
+	       (2, '664662530', 'Penicillin', '2007-06-04 20:33:58');
 	       
 INSERT INTO NDCodes(Code, Description) VALUES
 ('664662530','Penicillin')

@@ -16,6 +16,7 @@ public enum ValidationFormat {
 	DATE("[\\d]{2}/[\\d]{2}/[\\d]{4}", 			"MM/DD/YYYY"),
 	PHONE_NUMBER("[\\d]{3}-[\\d]{3}-[\\d]{4}", 	"xxx-xxx-xxxx"),
 	MID("[\\d]{1,10}",							"Between 1 and 10 digits"),
+	NPMID("[0-8][0-9]{0,9}", 					"1-10 digit number not beginning with 9"),
 	
 	ROLE("^(?:admin|hcp|uap|test)$", "must be one of {admin, hcp, uap, test}"),
 	
@@ -61,9 +62,9 @@ public enum ValidationFormat {
 	Weight("[\\d]{0,4}(\\.(\\d){0,1}){0,1}", "Up to 4-digit number + up to 1 decimal place"),
 	YEAR("[\\d]{4}", "Must be 4 digits"), 
 	GENDERCOD("(Male)|(Female)|(Not Specified)", "Only Male, Female, or All Patients"),
-	LOINC("[\\d]{5}[-]{1}[\\d]{1}", "Must be in format nnnnn-n"),
+	LOINC("[\\d]{1,5}[-]{1}[\\d]{1}", "Must be 1-5 digits followed by a - then another digit"),
 	ND("[\\d]{1,9}", "Up to nine digit integer"),
-	LOINC_ITEM("[a-zA-Z0-9\\s]{1,100}", "Up to 100 characters, letters, numbers, and a space"),
+	LOINC_ITEM("[^\"]{1,100}", "Up to 100 characters, excluding quotation marks"),
 	COMMENTS("[a-zA-Z0-9.\\s]{1,500}", "Up to 500 alphanumeric characters"),
 	LAB_STATUS("(In Transit)|(Received)|(Testing)|(Pending)|(Completed)", "Only In Transit, Received, Testing, Pending, or Completed"),
 	LAB_RIGHTS("(ALLOWED)|(RESTRICTED)", "Only ALLOWED, or RESTRICTED"),

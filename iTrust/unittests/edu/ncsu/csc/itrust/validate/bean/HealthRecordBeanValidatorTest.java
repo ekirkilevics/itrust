@@ -21,7 +21,43 @@ public class HealthRecordBeanValidatorTest extends TestCase {
 		validator.validate(hr);
 	}
 	
+	public void testZeroWeight(){
+		HealthRecordForm hr = new HealthRecordForm();
+		hr.setBloodPressureN("999");
+		hr.setBloodPressureD("999");
+		hr.setCholesterolHDL("89");
+		hr.setCholesterolLDL("100");
+		hr.setCholesterolTri("100");
+		hr.setHeight("100");
+		hr.setWeight("0");
+		hr.setIsSmoker("1");
+		try {
+			validator.validate(hr);
+			fail("Should have thrown exception");
+		} catch (FormValidationException e) {
+			//good
+		}
+	}	
+	
+	public void testZeroHeight(){
+		HealthRecordForm hr = new HealthRecordForm();
+		hr.setBloodPressureN("999");
+		hr.setBloodPressureD("999");
+		hr.setCholesterolHDL("89");
+		hr.setCholesterolLDL("100");
+		hr.setCholesterolTri("100");
+		hr.setHeight("0");
+		hr.setWeight("100");
+		hr.setIsSmoker("1");
+		try {
+			validator.validate(hr);
+			fail("Should have thrown exception");
+		} catch (FormValidationException e) {
+			//good
+		}
+	}
 
+	
 	public void testJustAboveBoundaries() throws Exception {
 		try {
 			HealthRecordForm hr = new HealthRecordForm();

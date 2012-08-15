@@ -9,7 +9,9 @@
 <%@page import="edu.ncsu.csc.itrust.beans.ApptTypeBean"%>
 <%@page import="edu.ncsu.csc.itrust.action.AddApptAction"%>
 <%@page import="edu.ncsu.csc.itrust.action.EditApptTypeAction"%>
+<%@page import="edu.ncsu.csc.itrust.action.ViewMyApptsAction"%>
 <%@page import="edu.ncsu.csc.itrust.dao.mysql.PatientDAO"%>
+<%@page import="edu.ncsu.csc.itrust.dao.mysql.ApptTypeDAO"%>
 <%@page import="edu.ncsu.csc.itrust.exception.iTrustException"%>
 <%@page import="edu.ncsu.csc.itrust.exception.FormValidationException"%>
 
@@ -22,13 +24,20 @@ String headerMessage = "Please fill out the form properly - comments are optiona
 %>
 
 <%@include file="/header.jsp" %>
+<form id="mainForm" method="post" action="scheduleAppt.jsp">
+		
 <%
 	AddApptAction action = new AddApptAction(prodDAO, loggedInMID.longValue());
+	ViewMyApptsAction viewAction = new ViewMyApptsAction(prodDAO, loggedInMID.longValue());
 	EditApptTypeAction types = new EditApptTypeAction(prodDAO, loggedInMID.longValue());
+	ApptTypeDAO apptTypeDAO = prodDAO.getApptTypeDAO();
 	PatientDAO patientDAO = prodDAO.getPatientDAO();
 	
 	long patientID = 0L;
+	boolean error = false;
+	String hidden = ""; 
 	
+	boolean isDead = false;
 	if (session.getAttribute("pid") != null) {
 		String pidString = (String) session.getAttribute("pid");
 		patientID = Long.parseLong(pidString);
@@ -37,40 +46,103 @@ String headerMessage = "Please fill out the form properly - comments are optiona
 		} catch (iTrustException ite) {
 			patientID = 0L;
 		}
+		
+		isDead = patientDAO.getPatient(patientID).getDateOfDeathStr().length()>0;
 	}
 	else {
 		session.removeAttribute("pid");
 	}
 	
+	String lastSchedDate="";
+	String lastApptType="";
+	String lastTime1="";
+	String lastTime2="";
+	String lastTime3="";
+	String lastComment="";
+
+	
 	if (patientID == 0L) {
 		response.sendRedirect("/iTrust/auth/getPatientID.jsp?forward=hcp/scheduleAppt.jsp");
-	} else {	
+	} else if(isDead){
+		%>
+		<div align=center>
+			<span class="iTrustError">Cannot schedule appointment. This patient is deceased. Please return and select a different patient.</span>
+			<br />
+			<a href="/iTrust/auth/getPatientID.jsp?forward=hcp/scheduleAppt.jsp">Back</a>		</div>
+		<%	
+	}else{
 		if (request.getParameter("schedule") != null) {
 			if(!request.getParameter("schedDate").equals("")) {	
+				
+				lastSchedDate = request.getParameter("schedDate");
+				lastApptType = request.getParameter("apptType");
+				lastTime1 = request.getParameter("time1");
+				lastTime2 = request.getParameter("time2");
+				lastTime3 = request.getParameter("time3");
+				lastComment = request.getParameter("comment");
+				
 				ApptBean appt = new ApptBean();
 				DateFormat format = new SimpleDateFormat("MM/dd/yyyy hh:mm a");
-				Date date = format.parse(request.getParameter("schedDate")+" "+request.getParameter("time1")+":"+request.getParameter("time2")+" "+request.getParameter("time3"));
+				Date date = format.parse(lastSchedDate+" "+lastTime1+":"+lastTime2+" "+lastTime3);
 				appt.setHcp(loggedInMID);
 				appt.setPatient(patientID);
-				appt.setApptType(request.getParameter("apptType"));
+				appt.setApptType(lastApptType);
 				appt.setDate(new Timestamp(date.getTime()));
 				String comment = "";
+				boolean ignoreConflicts = false;
+				if("Override".equals(request.getParameter("scheduleButton"))){
+					ignoreConflicts = true;
+				}
+				
 				if(request.getParameter("comment").equals(""))
 					comment = null;
 				else 
 					comment = request.getParameter("comment");
 				appt.setComment(comment);
 				try {
-					headerMessage = action.addAppt(appt);
+					headerMessage = action.addAppt(appt, ignoreConflicts);
 					if(headerMessage.startsWith("Success")) {
 						session.removeAttribute("pid");
 						loggingAction.logEvent(TransactionType.APPOINTMENT_ADD, loggedInMID.longValue(), patientID, "");
-					} else {
-						%>
-							<div align=center>
-								<span class="iTrustError">Error: Physical - Duration: must be an integer value.</span>
+						if(ignoreConflicts){
+							loggingAction.logEvent(TransactionType.APPOINTMENT_CONFLICT_OVERRIDE, loggedInMID.longValue(), patientID, "");
+						}
+						
+					}else{
+						error = true;
+						
+						if (headerMessage.contains("conflict")){
+							hidden = "style='display:none;'";
+							List<ApptBean> conflicts = action.getConflictsForAppt(loggedInMID.longValue(), appt);
+							%>
+							<div align=center id="conflictTable">
+								<span class="iTrustError"><%=headerMessage %></span>
+								
+								<table class="fancyTable">
+								<tr><th>Patient</th><th>Appointment Type</th><th>Date / Time</th><th>Duration</th></tr>
+								<% for( ApptBean conflict : conflicts){ 
+										Date d = new Date(conflict.getDate().getTime());
+								%>
+								
+									<tr>
+										<td><%= StringEscapeUtils.escapeHtml("" + ( viewAction.getName(conflict.getPatient()) )) %></td>
+										<td><%= StringEscapeUtils.escapeHtml("" + ( conflict.getApptType() )) %></td>
+											<td><%= StringEscapeUtils.escapeHtml("" + ( format.format(d) )) %></td> 
+						 				<td><%= StringEscapeUtils.escapeHtml("" + ( apptTypeDAO.getApptType(conflict.getApptType()).getDuration()+" minutes" )) %></td>
+									</tr>
+								<% }  %>
+								</table>
+								<input type="submit" id="overrideButton" name="scheduleButton" value="Override"/>
+								<input type="button" id="cancel" name="cancel" value="Cancel" onClick="$('#apptDiv').css('display','block');$('#conflictTable').hide();"/>
 							</div>
-						<%
+							<%
+						} else {
+							%>
+								<div align=center>
+									<span class="iTrustError"><%=headerMessage %></span>
+								</div>
+							<%
+						}
 					}
 				} catch (FormValidationException e){
 				%>
@@ -85,23 +157,28 @@ String headerMessage = "Please fill out the form properly - comments are optiona
 		List<ApptTypeBean> apptTypes = types.getApptTypes();
 %>
 
-<div align="left">
+<div align="left" <%=hidden %> id="apptDiv">
 	<h2>Schedule an Appointment</h2>
 	<h4>with <%= StringEscapeUtils.escapeHtml("" + ( action.getName(patientID) )) %> (<a href="/iTrust/auth/getPatientID.jsp?forward=hcp/scheduleAppt.jsp">someone else</a>):</h4>
 	<span class="iTrustMessage"><%= StringEscapeUtils.escapeHtml("" + (headerMessage )) %></span><br /><br />
-	<form id="mainForm" method="post" action="scheduleAppt.jsp">
-		<span>Appointment Type: </span>
+	<span>Appointment Type: </span>
 		<select name="apptType">
 			<%
 				for(ApptTypeBean b : apptTypes) {
 					%>
-					<option value="<%= b.getName() %>"><%= StringEscapeUtils.escapeHtml("" + ( b.getName() )) %> - <%= StringEscapeUtils.escapeHtml("" + ( b.getDuration() )) %> minutes</option>
+					<option <% if(b.getName().equals(lastApptType)) out.print("selected='selected'"); %> value="<%= b.getName() %>"><%= StringEscapeUtils.escapeHtml("" + ( b.getName() )) %> - <%= StringEscapeUtils.escapeHtml("" + ( b.getDuration() )) %> minutes</option>
 					<%
 				}
 			%>
 		</select>
 		<br /><br />
-		<span>Schedule Date: </span><input readonly type="text" name="schedDate" value="" /><input type="button" value="Select Date" onclick="displayDatePicker('schedDate');" /><br /><br />
+		<span>Schedule Date: </span><input type="text" name="schedDate" 
+		<% if (error) {%>
+            value="<%= StringEscapeUtils.escapeHtml(lastSchedDate) %>"
+        <% } else { %>
+            value="<%= StringEscapeUtils.escapeHtml("" + (new SimpleDateFormat("MM/dd/yyyy").format(new Date()))) %>"
+        <% } %>
+		value="" /><input type="button" value="Select Date" onclick="displayDatePicker('schedDate');" /><br /><br />
 		<span>Schedule Time: </span>
 		<select name="time1">
 			<%
@@ -110,7 +187,7 @@ String headerMessage = "Please fill out the form properly - comments are optiona
 					if(i < 10) hour = "0"+i;
 					else hour = i+"";
 					%>
-						<option value="<%=hour%>"><%= StringEscapeUtils.escapeHtml("" + (hour)) %></option>
+						<option <% if(hour.toString().equals(lastTime1)) out.print("selected='selected'"); %> value="<%=hour%>"><%= StringEscapeUtils.escapeHtml("" + (hour)) %></option>
 					<%
 				}
 			%>
@@ -121,20 +198,24 @@ String headerMessage = "Please fill out the form properly - comments are optiona
 					if(i < 10) min = "0"+i;
 					else min = i+"";
 					%>
-						<option value="<%=min%>"><%= StringEscapeUtils.escapeHtml("" + (min)) %></option>
+						<option <% if(min.toString().equals(lastTime2)) out.print("selected='selected'"); %> value="<%=min%>"><%= StringEscapeUtils.escapeHtml("" + (min)) %></option>
 					<%
 				}
 			%>
 		</select>
-		<select name="time3"><option value="AM">AM</option><option value="PM">PM</option></select><br /><br />
+		<select name="time3"><option <% if("AM".equals(lastTime3)) out.print("selected='selected'"); %> value="AM">AM</option
+		><option  <% if(!error || "PM".equals(lastTime3)) out.print("selected='selected'"); %> value="PM">PM</option></select><br /><br />
 		<span>Comment: </span><br />
-		<textarea name="comment" cols="100" rows="10"></textarea><br />
+		<textarea name="comment" cols="100" rows="10"><% if (error) out.print(StringEscapeUtils.escapeHtml(lastComment)); %></textarea><br />
 		<br />
-		<input type="submit" value="Schedule" name="schedule"/>
-	</form>
+		<input type="submit" value="Schedule" name="scheduleButton"/>
+		<input type="hidden" value="Schedule" name="schedule"/>
+		<input type="hidden" id="override" name="override" value="noignore"/>
+
 	<br />
 	<br />
 </div>
+	</form>
 <%	} %>
 
 <%@include file="/footer.jsp" %>

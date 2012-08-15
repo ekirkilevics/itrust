@@ -66,45 +66,60 @@ public class SendMessageAction {
 		String fromEmail;
 		email.setFrom("noreply@itrust.com");
 		List<String> toList = new ArrayList<String>();
-		if (8999999999L < mBean.getFrom() && 8999999999L < mBean.getTo()){
+		if (8999999999L < mBean.getFrom() && 8999999999L < mBean.getTo()){ //when from and to are LHCPs
 			PersonnelBean sender = personnelDAO.getPersonnel(loggedInMID);
 			PersonnelBean receiver = personnelDAO.getPersonnel(mBean.getTo());
 			
 			toList.add(receiver.getEmail());
 			senderName = sender.getFullName();
 			fromEmail = sender.getEmail();
+			
+			email.setBody(String.format("You have received a new message from %s in iTrust. To view it, go to \"http://localhost:8080/iTrust/auth/hcp/messageInbox.jsp\" and log in to iTrust using your username and password.", senderName));
 		}else{
 			if (6999999999L < mBean.getFrom()) {
 				PersonnelBean sender = personnelDAO.getPersonnel(loggedInMID);
 				
-				if (6999999999L < mBean.getTo()) {
+				if (6999999999L < mBean.getTo()) { //when from is any personnel and to is any personnel
 					PersonnelBean receiver = personnelDAO.getPersonnel(mBean.getTo());
 					toList.add(receiver.getEmail());
-				} else {
+					
+					senderName = sender.getFullName();
+					
+					email.setBody(String.format("You have received a new message from %s in iTrust. To view it, go to \"http://localhost:8080/iTrust/auth/hcp/messageInbox.jsp\" and log in to iTrust using your username and password.", senderName));
+				} else { //when from is any personnel and to is patient
 					PatientBean receiver = patientDAO.getPatient(mBean.getTo());
 					toList.add(receiver.getEmail());
+					
+					senderName = sender.getFullName();
+					
+					email.setBody(String.format("You have received a new message from %s in iTrust. To view it, go to \"http://localhost:8080/iTrust/auth/patient/messageInbox.jsp\" and log in to iTrust using your username and password.", senderName));
 				}
-				senderName = sender.getFullName();
 				fromEmail = sender.getEmail();
 				
 			} else {
 				PatientBean sender = patientDAO.getPatient(loggedInMID);
 				
-				if (6999999999L < mBean.getTo()) {
+				if (6999999999L < mBean.getTo()) { //when from is patient and to is any personnel
 					PersonnelBean receiver = personnelDAO.getPersonnel(mBean.getTo());
 					toList.add(receiver.getEmail());
-				} else {
+					
+					senderName = sender.getFullName();
+					
+					email.setBody(String.format("You have received a new message from %s in iTrust. To view it, go to \"http://localhost:8080/iTrust/auth/hcp/messageInbox.jsp\" and log in to iTrust using your username and password.", senderName));
+				} else { //when from is patient and to is patient
 					PatientBean receiver = patientDAO.getPatient(mBean.getTo());
 					toList.add(receiver.getEmail());
+					
+					senderName = sender.getFullName();
+					
+					email.setBody(String.format("You have received a new message from %s in iTrust. To view it, go to \"http://localhost:8080/iTrust/auth/patient/messageInbox.jsp\" and log in to iTrust using your username and password.", senderName));
 				}
-				senderName = sender.getFullName();
 				fromEmail = sender.getEmail();
 			}
 		}
 		email.setToList(toList);
 		email.setFrom(fromEmail);
 		email.setSubject(String.format("A new message from %s", senderName));
-		email.setBody(String.format("You have received a new message from %s in iTrust. To view it, log in to iTrust and go to \"View My Messages\"", senderName));
 		emailer.sendEmail(email);
 		
 	}
@@ -171,5 +186,10 @@ public class SendMessageAction {
 			e.printStackTrace();
 		}
 		return dlhcps;		
+	}
+	
+	public PersonnelBean getDLHCPByMID(long mid) throws iTrustException {
+		return personnelDAO.getPersonnel(mid);
+	
 	}
 }

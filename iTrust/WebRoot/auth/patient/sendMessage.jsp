@@ -4,6 +4,11 @@
 <%@page import="edu.ncsu.csc.itrust.beans.PersonnelBean"%>
 <%@page import="edu.ncsu.csc.itrust.exception.FormValidationException"%>
 <%@page import="java.util.List"%>
+<%@page import="java.util.ArrayList"%>
+
+<%@page import="edu.ncsu.csc.itrust.beans.HCPVisitBean"%>
+<%@page import="edu.ncsu.csc.itrust.action.ViewVisitedHCPsAction"%>
+<%@page import="edu.ncsu.csc.itrust.dao.mysql.MessageDAO"%>
 
 <%@taglib uri="/WEB-INF/tags.tld" prefix="itrust" %>
 <%@page errorPage="/auth/exceptionHandler.jsp" %>
@@ -16,12 +21,15 @@
 
 <%@include file="/header.jsp"%>
 
+
 <%
 	SendMessageAction action = new SendMessageAction(prodDAO, loggedInMID.longValue());
+	
+	
 	int index;
-	int dlhcpIndex = -1;
-	int representeeIndex = -1;
-	int repDLHCPIndex = -1;
+	long dlhcpMID = -1;
+	long representeeMID = -1;
+
 	if (request.getParameter("sendMessage") != null && request.getParameter("sendMessage").equals("Send")) {
 		try {
 		MessageBean message = new MessageBean();
@@ -31,12 +39,37 @@
 		message.setSubject(request.getParameter("subject"));
 		message.setRead(0);
 		action.sendMessage(message);
+
+		MessageDAO mDAO = DAOFactory.getProductionInstance().getMessageDAO();
+		
+		List<MessageBean> ms = mDAO.getMessagesFromTimeAscending(loggedInMID);
+		
+		long sentMsgId = ms.get(ms.size()-1).getMessageId();
+		String ccList = "";
+		
+		String checkMids_S[] = request.getParameterValues("cc");
+		
+		if(checkMids_S != null && checkMids_S.length > 0) {
+			for (String id : checkMids_S) {	
+				MessageBean ccMessage = new MessageBean();
+				ccMessage.setFrom(loggedInMID.longValue());
+				ccMessage.setOriginalMessageId(sentMsgId);
+				ccMessage.setTo(Long.parseLong(id));
+				ccMessage.setBody(request.getParameter("messageBody"));
+				ccMessage.setSubject(request.getParameter("subject"));
+				ccMessage.setRead(0);
+				action.sendMessage(ccMessage);
+				ccList += id + ",";
+			}
+		}
+		ccList = ccList.length() > 1?ccList.substring(0, ccList.length() - 1):ccList;
+		
 		session.removeAttribute("dlhcp");
 		
-		loggingAction.logEvent(TransactionType.MESSAGE_SEND, message.getFrom(), message.getTo() , "");
+		loggingAction.logEvent(TransactionType.MESSAGE_SEND, message.getFrom(), message.getTo() , ccList);
 
 		
-		response.sendRedirect("messageOutbox.jsp");
+		response.sendRedirect("/iTrust/auth/hcp-patient/messageOutbox.jsp");
 		} catch (FormValidationException e){
 			%>
 			<div align=center><span class="iTrustError"><%=StringEscapeUtils.escapeHtml(e.getMessage())%></span></div>
@@ -44,103 +77,115 @@
 		}
 	}
 	
-	if (request.getParameter("selectDLHCP") != null && request.getParameter("selectDLHCP").equals("Select")) {
-		if (request.getParameter("dlhcp") != null && !request.getParameter("dlhcp").equals("-1")) dlhcpIndex = Integer.parseInt(request.getParameter("dlhcp"));
-	} else if (request.getParameter("selectRepDLHCP") != null && request.getParameter("selectRepDLHCP").equals("Select")) {
-		if (request.getParameter("representee") != null && !request.getParameter("representee").equals("-1")) representeeIndex = Integer.parseInt(request.getParameter("representee"));
-		if (request.getParameter("repDLHCP") != null && !request.getParameter("repDLHCP").equals("-1")) repDLHCPIndex = Integer.parseInt(request.getParameter("repDLHCP"));
-	} else if (request.getParameter("selectRep") != null && request.getParameter("selectRep").equals("Select")) {
-		if (request.getParameter("representee") != null && !request.getParameter("representee").equals("-1")) representeeIndex = Integer.parseInt(request.getParameter("representee"));
+	if ("Select".equals(request.getParameter("selectDLHCP"))) {
+		if (request.getParameter("dlhcp") != null && !request.getParameter("dlhcp").equals("-1")) {
+			dlhcpMID = Long.parseLong(request.getParameter("dlhcp"));
+			
+		}
+	//} else if ("Select".equals(request.getParameter("selectRepDLHCP")) {
+	//	if (request.getParameter("representee") != null && !request.getParameter("representee").equals("-1")) representeeIndex = Integer.parseInt(request.getParameter("representee"));
+	//	if (request.getParameter("repDLHCP") != null && !request.getParameter("repDLHCP").equals("-1")) repDLHCPIndex = Integer.parseInt(request.getParameter("repDLHCP"));
+	} else if ("Select".equals(request.getParameter("selectRep"))) {
+		if (request.getParameter("representee") != null && !request.getParameter("representee").equals("-1")) {
+			session.setAttribute("represent", true);
+			representeeMID = Long.parseLong(request.getParameter("representee"));
+			session.setAttribute("representeeMID", representeeMID);
+		}
 	}
+	
+	if(session.getAttribute("represent")==null){
+		session.setAttribute("represent",false);
+	}
+	boolean represent = ((Boolean)session.getAttribute("represent"));
+	
+	if(represent){
+		representeeMID = ((Long)session.getAttribute("representeeMID"));
+	}
+	
 %>
 <div align="left">
 <form id="mainForm" method="get" action="sendMessage.jsp">
 	<h2>Send a Message</h2>
-<% if (dlhcpIndex == -1 && representeeIndex == -1) { %>
-<%
-		List<PersonnelBean> dlhcps = action.getMyDLHCPs();
-		List<PatientBean> representees = action.getMyRepresentees();
+<% if (dlhcpMID == -1) { 
+		
+		List<PersonnelBean> dlhcps = null;
+
+		if(represent){
+			dlhcps = action.getDLHCPsFor(representeeMID);
+		}else{
+			dlhcps = action.getMyDLHCPs();
+		}
+		
+		//List<PatientBean> representees = action.getMyRepresentees();
 		session.setAttribute("dlhcps", dlhcps);
-		session.setAttribute("representees", representees);
-%>
-	<h4>To One of My DLHCPs</h4>
+		//session.setAttribute("representees", representees);
+
+		
+		if(represent){%>
+			<h4>To One of <%= StringEscapeUtils.escapeHtml("" + ( action.getPatientName(representeeMID))) %>'s DLHCPs</h4>
+<%		}else{	%>
+			<h4>To One of My DLHCPs</h4>
+<%		}%>
+		
 <%		if (dlhcps.size() > 0) { %>
-	<select name="dlhcp">
-		<option value="-1"></option>
+			<select name="dlhcp">
+			<option value="-1"></option>
 <%			index = 0; %>
 <%			for(PersonnelBean dlhcp : dlhcps) { %>
-		<option value="<%= index %>"><%= StringEscapeUtils.escapeHtml("" + ( dlhcp.getFullName() )) %></option>
+				<option value="<%= dlhcp.getMID() %>"><%= StringEscapeUtils.escapeHtml("" + ( dlhcp.getFullName() )) %></option>
 <%				index ++; %>
 <%			} %>
-	</select>
-	<input type="submit" value="Select" name="selectDLHCP"/>
+			</select>
+			<input type="submit" value="Select" name="selectDLHCP"/>
 <%		} else { %>
-	<i>You haven't declared any HCPs.</i>
-<%		} %>
+			if(session.getAttribute("represent")){
+				<i><%= StringEscapeUtils.escapeHtml("" + ( action.getPatientName(representeeMID) )) %> has not declared any HCPs.</i>
+			}else{
+				<i>You haven't declared any HCPs.</i>
+			}
+<%		}
+
+		if(!represent){			
+			List<PatientBean> representees = action.getMyRepresentees();
+			%>
+			<h4>On Behalf of One of My Representees</h4>
+	<%		if (representees.size() > 0) { %>
+				<select name="representee">
+				<option value="-1"></option>
+	<%			index = 0; %>
+	<%			for(PatientBean representee : representees) { %>
+					<option value="<%= representee.getMID() %>"><%= StringEscapeUtils.escapeHtml("" + ( representee.getFullName())) %></option>
+	<%				index ++; %>
+	<%			} %>
+				</select>
+				<input type="submit" value="Select" name="selectRep"/>
+	<%		} else { %>
+				<i>No other patients have declared you as a representative.</i>
+	<%		} 
+		}%>
+<%	} else if (dlhcpMID >= 0) { %>
+<%
 	
-	<h4>On Behalf of One of My Representees</h4>
-<%		if (representees.size() > 0) { %>
-	<select name="representee">
-		<option value="-1"></option>
-<%			index = 0; %>
-<%			for(PatientBean representee : representees) { %>
-		<option value="<%= index %>"><%= StringEscapeUtils.escapeHtml("" + ( representee.getFullName() )) %></option>
-<%				index ++; %>
-<%			} %>
-	</select>
-	<input type="submit" value="Select" name="selectRep"/>
-<%		} else { %>
-	<i>No other patients have declared you as a representative.</i>
-<%		} %>
-<%	} else if (dlhcpIndex >= 0) { %>
-<%
-		List<PersonnelBean> dlhcps = (List<PersonnelBean>) session.getAttribute("dlhcps");
-		PersonnelBean dlhcp = dlhcps.get(dlhcpIndex);
+		PersonnelBean dlhcp=action.getDLHCPByMID(dlhcpMID);
+		session.setAttribute("represent", null);
+		session.setAttribute("representeeMID", null);
 		session.setAttribute("dlhcp", dlhcp);
+		ViewVisitedHCPsAction vHcpAction=null;
+		if(represent){	
+			vHcpAction = new ViewVisitedHCPsAction(DAOFactory.getProductionInstance(),representeeMID);
+%>			<h4>To <%= StringEscapeUtils.escapeHtml("" + ( dlhcp.getFullName() )) %> on Behalf of <%= StringEscapeUtils.escapeHtml("" + ( action.getPatientName(representeeMID) )) %></h4>
+<%		}else{	
+			vHcpAction = new ViewVisitedHCPsAction(DAOFactory.getProductionInstance(),loggedInMID.longValue());
+%>			<h4>To <%= StringEscapeUtils.escapeHtml("" + ( dlhcp.getFullName() )) %></h4>
+<%		}
+		long ignoreMID = dlhcp.getMID();
+		String subject= "";
 %>
-	<h4>To <%= StringEscapeUtils.escapeHtml("" + ( dlhcp.getFullName() )) %></h4>
-	<span>Subject: </span><input type="text" name="subject" size="50" /><br /><br />
-	<span>Message: </span><br />
-	<textarea name="messageBody" cols="100" rows="10"></textarea><br />
-	<br />
-	<input type="submit" value="Send" name="sendMessage"/>
-<%	} else if (repDLHCPIndex >= 0) { %>
-<%
-		List<PersonnelBean> repDLHCPs = (List<PersonnelBean>) session.getAttribute("repDLHCPs");
-		PersonnelBean dlhcp = repDLHCPs.get(repDLHCPIndex);
-		session.setAttribute("dlhcp", dlhcp);
-		List<PatientBean> representees = (List<PatientBean>) session.getAttribute("representees");
-		PatientBean representee = representees.get(representeeIndex);
-%>
-	<h4>To <%= StringEscapeUtils.escapeHtml("" + ( dlhcp.getFullName() )) %> on Behalf of <%= StringEscapeUtils.escapeHtml("" + ( representee.getFullName() )) %></h4>
-	<span>Subject: </span><input type="text" name="subject" size="50" /><br /><br />
-	<span>Message: </span><br />
-	<textarea name="messageBody" cols="100" rows="10"></textarea><br />
-	<br />
-	<input type="submit" value="Send" name="sendMessage"/>
-<%	} else if (representeeIndex >= 0) { %>
-<%
-		List<PatientBean> representees = (List<PatientBean>) session.getAttribute("representees");
-		PatientBean representee = representees.get(representeeIndex);
-		List<PersonnelBean> repDLHCPs = action.getDLHCPsFor(representee.getMID());
-		session.setAttribute("repDLHCPs", repDLHCPs);
-%>
-	<h4>To One of <%= StringEscapeUtils.escapeHtml("" + ( representee.getFullName() )) %>'s DLHCPs</h4>
-	<input type="hidden" name="representee" value="<%= StringEscapeUtils.escapeHtml("" + ( representeeIndex )) %>"/>
-<%		if (repDLHCPs.size() > 0) { %>
-	<select name="repDLHCP">
-		<option value="-1"></option>
-<%			index = 0; %>
-<%			for(PersonnelBean repDLHCP : repDLHCPs) { %>
-		<option value="<%= index %>"><%= StringEscapeUtils.escapeHtml("" + ( repDLHCP.getFullName() )) %></option>
-<%				index ++; %>
-<%			} %>
-	</select>
-	<input type="submit" value="Select" name="selectRepDLHCP"/>
-<%		} else { %>
-	<i><%= StringEscapeUtils.escapeHtml("" + ( representee.getFullName() )) %> has not declared any HCPs.</i>
-<%		} %>
+
+		<%@include file="/auth/hcp-patient/composeMessage.jsp" %>
+		
 <%	} %>
+
 </form>
 </div>
 

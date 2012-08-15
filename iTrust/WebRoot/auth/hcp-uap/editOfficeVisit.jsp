@@ -29,7 +29,12 @@
 <%@include file="/global.jsp" %>
 
 <%
-pageTitle = "iTrust - Document Office Visit";
+String visitName = "Office Visit";
+if(userRole.equals("er")){
+	visitName = "ER Visit";
+}
+
+pageTitle = "iTrust - Document "+visitName;
 %>
 
 <%@include file="/header.jsp" %>
@@ -43,7 +48,7 @@ pageTitle = "iTrust - Document Office Visit";
 	String pidString = (String)session.getAttribute("pid");
 	
     if (pidString == null || pidString.length() == 0) {
-        response.sendRedirect("/iTrust/auth/getPatientID.jsp?forward=hcp-uap/editOfficeVisit.jsp?ovID=" + ovIDString);
+        response.sendRedirect("/iTrust/auth/getPatientID.jsp?forward=iTrust/auth/hcp-uap-er/editOfficeVisit.jsp?ovID=" + ovIDString);
         return;
     }
 	
@@ -65,10 +70,18 @@ pageTitle = "iTrust - Document Office Visit";
     	form.setHcpID("" + visit.getHcpID());
         form.setPatientID("" + visit.getPatientID());
         try {
-        	confirm = ovaction.updateInformation(form);
+        	if(userRole.equals("er")) {
+        		confirm = ovaction.updateInformation(form, true);
+        	} else {
+        		confirm = ovaction.updateInformation(form, false);
+        	}
         	ovIDString = ""+ovaction.getOvID();
-        	if (createVisit) {
-        		ovaction.logOfficeVisitEvent(TransactionType.OFFICE_VISIT_CREATE);
+        	if (createVisit) {        		
+        		if(userRole.equals("er")){
+        			ovaction.logIncidentReportEvent(TransactionType.ER_VISIT_CREATE);
+        		} else {
+        			ovaction.logOfficeVisitEvent(TransactionType.OFFICE_VISIT_CREATE);
+        		}        		
         		createVisit = false;
         	} else {
                 ovaction.logOfficeVisitEvent(TransactionType.OFFICE_VISIT_EDIT);
@@ -78,12 +91,17 @@ pageTitle = "iTrust - Document Office Visit";
             confirm = "Input not valid";
         }
     } else if (!createVisit) {
-        ovaction.logOfficeVisitEvent(TransactionType.OFFICE_VISIT_VIEW);
+    	if(userRole.equals("er")){
+    		ovaction.logIncidentReportEvent(TransactionType.ER_VISIT_VIEW);
+    	} else {
+        	ovaction.logOfficeVisitEvent(TransactionType.OFFICE_VISIT_VIEW);
+    	}
     }
     
     String disableSubformsString = createVisit ? "disabled=\"true\"" : "";
     
 	OfficeVisitBean ovbean = ovaction.getOfficeVisit();
+	visitName = ovbean.isERIncident() || userRole.equals("er") ? "ER Visit" : "Office Visit";
 	List<HospitalBean> hcpHospitals = ovaction.getHospitals();
 %>
 
@@ -185,7 +203,7 @@ String localHtmlMenu = "<div align=center style=\"margin-bottom: 0.5em\">" +
 
 <table class="fTable" align="center">
 	<tr>
-		<th colspan="2"><a href="#" class="topLink">[Top]</a>Office Visit</th>
+		<th colspan="2"><a href="#" class="topLink">[Top]</a><%=visitName %></th>
 	</tr>
 	<tr>
 		<td class="subHeaderVertical">Patient ID:</td>
@@ -274,7 +292,10 @@ String localHtmlMenu = "<div align=center style=\"margin-bottom: 0.5em\">" +
 <%= localHtmlMenu %>
 
 <br /><br /><br />
-<div align="center"><itrust:patientNav /></div>
+
+<%if(userRole.equals("hcp")){%>
+	<div align="center"><itrust:patientNav /></div>
+<%}%>
 <br />
 
 <%@include file="/footer.jsp" %>

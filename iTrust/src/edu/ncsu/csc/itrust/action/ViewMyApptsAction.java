@@ -4,22 +4,13 @@ import java.sql.SQLException;
 import java.util.List;
 import edu.ncsu.csc.itrust.beans.ApptBean;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
-import edu.ncsu.csc.itrust.dao.mysql.ApptDAO;
-import edu.ncsu.csc.itrust.dao.mysql.PatientDAO;
-import edu.ncsu.csc.itrust.dao.mysql.PersonnelDAO;
-import edu.ncsu.csc.itrust.exception.iTrustException;
 
-public class ViewMyApptsAction {
+public class ViewMyApptsAction extends ApptAction {
 	private long loggedInMID;
-	private ApptDAO apptDAO;
-	private PatientDAO patientDAO;
-	private PersonnelDAO personnelDAO;
 	
 	public ViewMyApptsAction(DAOFactory factory, long loggedInMID) {
+		super(factory, loggedInMID);
 		this.loggedInMID = loggedInMID;
-		this.apptDAO = factory.getApptDAO();
-		this.patientDAO = factory.getPatientDAO();
-		this.personnelDAO = factory.getPersonnelDAO();
 	}
 	
 	public List<ApptBean> getMyAppointments() throws SQLException {
@@ -36,19 +27,4 @@ public class ViewMyApptsAction {
 	public List<ApptBean> getAppointments(long MID) throws SQLException {
 		return apptDAO.getApptsFor(MID);
 	}
-	
-	/**
-	 * Gets a users's name from their MID
-	 * 
-	 * @param mid the MID of the user
-	 * @return the user's name
-	 * @throws iTrustException
-	 */
-	public String getName(long mid) throws iTrustException {
-		if(mid < 7000000000L)
-			return patientDAO.getName(mid);
-		else
-			return personnelDAO.getName(mid);
-	}
-
 }

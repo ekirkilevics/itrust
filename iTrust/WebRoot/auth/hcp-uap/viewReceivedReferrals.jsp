@@ -93,7 +93,7 @@ session.setAttribute("pid", ""+referralByID.getPatientID());
                 
             </td>
             <td style="text-align: center; min-width: 8em">
-                <a href="/iTrust/auth/hcp-uap/editOfficeVisit.jsp?ovID=<%= Long.toString(ovBean.getID()) %>">
+                <a href="/iTrust/auth/hcp-uap-er/editOfficeVisit.jsp?ovID=<%= Long.toString(ovBean.getID()) %>">
                   <%= StringEscapeUtils.escapeHtml(ovBean.getVisitDateStr()) %>
                 </a>
             </td>

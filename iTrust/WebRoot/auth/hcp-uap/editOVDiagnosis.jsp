@@ -1,4 +1,6 @@
 
+<%@page import="edu.ncsu.csc.itrust.enums.TransactionType"%>
+<%@page import="edu.ncsu.csc.itrust.validate.DiagnosisBeanValidator"%>
 <%@page import="edu.ncsu.csc.itrust.action.EditDiagnosesAction"%>
 <%@page import="edu.ncsu.csc.itrust.beans.DiagnosisBean"%>
 
@@ -7,6 +9,7 @@
 <%
 
 String updateMessage = "";
+String updateErrorMessage = "";
 
 if ("removeDiagnosisForm".equals(submittedFormName)) {
     EditDiagnosesAction diagnoses = ovaction.diagnoses();
@@ -15,8 +18,13 @@ if ("removeDiagnosisForm".equals(submittedFormName)) {
     DiagnosisBean bean = new DiagnosisBean();
     bean.setOvDiagnosisID(Long.parseLong(remID));
     diagnoses.deleteDiagnosis(bean);
-    ovaction.logOfficeVisitEvent(TransactionType.OFFICE_VISIT_EDIT);
-    ovaction.logOfficeVisitEvent(TransactionType.DIAGNOSIS_REMOVE);
+    if(userRole.equals("er")){
+		ovaction.logIncidentReportEvent(TransactionType.ER_VISIT_EDIT);
+		ovaction.logIncidentReportEvent(TransactionType.DIAGNOSIS_REMOVE_ER);
+	} else {
+    	ovaction.logOfficeVisitEvent(TransactionType.OFFICE_VISIT_EDIT);
+    	ovaction.logOfficeVisitEvent(TransactionType.DIAGNOSIS_REMOVE);
+	}
     updateMessage = "Diagnosis information successfully updated.";
 }
 
@@ -24,16 +32,33 @@ if ("diagnosisForm".equals(submittedFormName)) {
 	EditDiagnosesAction diagnoses = ovaction.diagnoses();
     
 	DiagnosisBean bean = new BeanBuilder<DiagnosisBean>().build(request.getParameterMap(), new DiagnosisBean());
-    bean.setVisitID(ovaction.getOvID());
-    diagnoses.addDiagnosis(bean);
-    ovaction.logOfficeVisitEvent(TransactionType.OFFICE_VISIT_EDIT);
-    ovaction.logOfficeVisitEvent(TransactionType.DIAGNOSIS_ADD);
-    updateMessage = "Diagnosis information successfully updated.";
+	//validator requires description but DiagnosesDAO does not. Set here to pass validation.
+	bean.setDescription("no description");
+    try {
+    	DiagnosisBeanValidator validator = new DiagnosisBeanValidator();
+    	validator.validate(bean);
+    	bean.setVisitID(ovaction.getOvID());
+        diagnoses.addDiagnosis(bean);
+        if(userRole.equals("er")){
+			ovaction.logIncidentReportEvent(TransactionType.ER_VISIT_EDIT);
+			ovaction.logIncidentReportEvent(TransactionType.DIAGNOSIS_ADD_ER);
+		} else {
+       		ovaction.logOfficeVisitEvent(TransactionType.OFFICE_VISIT_EDIT);
+        	ovaction.logOfficeVisitEvent(TransactionType.DIAGNOSIS_ADD);
+		}
+        updateMessage = "Diagnosis information successfully updated.";
+    } catch (FormValidationException e) {
+ 
+        updateErrorMessage = e.printHTMLasString();
+    }
+	   
 }
 if (!"".equals(updateMessage)) {
 	%>  <span class="iTrustMessage"><%= updateMessage %></span>  <%
 }
-
+if (!"".equals(updateErrorMessage)) {
+	%>  <span class="iTrustError"><%= updateErrorMessage %></span>  <%
+}
 %>
 
 <script type="text/javascript">

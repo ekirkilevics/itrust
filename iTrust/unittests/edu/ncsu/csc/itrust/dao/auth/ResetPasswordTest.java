@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import org.apache.commons.codec.digest.DigestUtils;
 import junit.framework.TestCase;
 import edu.ncsu.csc.itrust.DBUtil;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
@@ -25,9 +26,9 @@ public class ResetPasswordTest extends TestCase {
 	}
 
 	public void testResetPassword() throws Exception {
-		assertEquals("pw", getPassword(2L));
+		assertEquals(DigestUtils.shaHex("pw"), getPassword(2L));
 		authDAO.resetPassword(2L, "password");
-		assertEquals("password", getPassword(2L));
+		assertEquals(DigestUtils.shaHex("password"), getPassword(2L));
 	}
 
 	public void testResetPasswordNonExistent() throws Exception {

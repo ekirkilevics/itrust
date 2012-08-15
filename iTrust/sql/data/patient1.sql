@@ -73,8 +73,9 @@ VALUES
  ON DUPLICATE KEY UPDATE MID = MID;
 
 INSERT INTO Users(MID, password, role, sQuestion, sAnswer) 
-			VALUES (1, 'pw', 'patient', 'what is your favorite color?', 'blue')
+			VALUES (1, '1a91d62f7ca67399625a4368a6ab5d4a3baa6073', 'patient', 'what is your favorite color?', 'blue')
  ON DUPLICATE KEY UPDATE MID = MID;
+ /*password: pw*/
 
 DELETE FROM PersonalHealthInformation WHERE PatientID = 1;
 INSERT INTO PersonalHealthInformation
@@ -87,6 +88,7 @@ VALUES (11,'2005-10-10',9000000000,'Yet another office visit.','',1)
 
 INSERT INTO OVDiagnosis(ICDCode, VisitID) VALUES 
 (350.0, 11),
+(715.09, 11),
 (250.0, 11)
  ON DUPLICATE KEY UPDATE ICDCode = VALUES(ICDCode), VisitID = VALUES(VisitID);
 

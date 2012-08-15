@@ -58,7 +58,11 @@ if (request.getParameter("cancelCommentary") != null) {
 		proc.setStatus(LabProcedureBean.Completed);
 		validator.validate(proc);
 		action.editLabProcedure(proc);
-		ovaction.logOfficeVisitEvent(TransactionType.LAB_PROCEDURE_EDIT);
+		if(userRole.equals("er")){
+			ovaction.logIncidentReportEvent(TransactionType.LAB_PROCEDURE_EDIT_ER);
+		} else {
+			ovaction.logOfficeVisitEvent(TransactionType.LAB_PROCEDURE_EDIT);
+		}
 		loggingAction.logEvent(TransactionType.LAB_RESULTS_ADD_COMMENTARY, 
 			                   loggedInMID.longValue(), 
 			                   Long.parseLong(pidString), 

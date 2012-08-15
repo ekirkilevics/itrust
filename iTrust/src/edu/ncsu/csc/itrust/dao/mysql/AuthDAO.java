@@ -6,10 +6,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import edu.ncsu.csc.itrust.DBUtil;
 import edu.ncsu.csc.itrust.RandomPassword;
+import edu.ncsu.csc.itrust.beans.UserBean;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
 import edu.ncsu.csc.itrust.enums.Role;
 import edu.ncsu.csc.itrust.exception.DBException;
 import edu.ncsu.csc.itrust.exception.iTrustException;
+import org.apache.commons.codec.digest.DigestUtils;
 
 /**
  * AuthDAO is for anything that has to do with authentication. Most methods access the users table.
@@ -56,6 +58,8 @@ public class AuthDAO {
 			pstmt = conn
 					.prepareStatement("INSERT INTO Users (MID, PASSWORD, ROLE, sQuestion, sAnswer) VALUES (?,?,?,?,?)");
 			pstmt.setLong(1, mid);
+			password = DigestUtils.shaHex(password);
+			
 			pstmt.setString(2, password);
 			pstmt.setString(3, role.toString());
 			pstmt.setString(4, "Enter the random password given in your account email");
@@ -70,7 +74,28 @@ public class AuthDAO {
 			DBUtil.closeConnection(conn, pstmt);
 		}
 	}
-
+	
+	/**
+	 * Link openID to user account
+	 * 
+	 */
+	public void setUserOpenID(long mid, String openID) throws DBException {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		try {
+			conn = factory.getConnection();
+			pstmt = conn.prepareStatement("UPDATE Users SET openID = ? WHERE MID = ?");
+			pstmt.setString(1, openID);
+			pstmt.setLong(2, mid);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DBException(e);
+		} finally {
+			DBUtil.closeConnection(conn, pstmt);
+		}
+	}
+	
 	/**
 	 * Reset the security question and answer for a particular user
 	 * 
@@ -132,6 +157,39 @@ public class AuthDAO {
 	 * @throws DBException
 	 * @throws iTrustException
 	 */
+	public UserBean getUserByOpenId(String openID) throws DBException, iTrustException {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		try {
+			conn = factory.getConnection();
+			pstmt = conn.prepareStatement("SELECT * FROM Users WHERE openID=?");
+			pstmt.setString(1, openID);
+			ResultSet rs;
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				UserBean user = new UserBean();
+				user.setMID(rs.getLong("mid"));
+				user.setPassword(rs.getString("password"));
+				return user;
+			} else {
+				throw new iTrustException("User does not exist");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DBException(e);
+		} finally {
+			DBUtil.closeConnection(conn, pstmt);
+		}
+	}
+	
+	/**
+	 * Returns the role of a particular MID
+	 * 
+	 * @param mid The MID of the user to look up.
+	 * @return The {@link Role} of the user as an enum.
+	 * @throws DBException
+	 * @throws iTrustException
+	 */
 	public Role getUserRole(long mid) throws DBException, iTrustException {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -167,6 +225,7 @@ public class AuthDAO {
 		try {
 			conn = factory.getConnection();
 			ps = conn.prepareStatement("UPDATE Users SET password=? WHERE MID=?");
+			password = DigestUtils.shaHex(password);
 			ps.setString(1, password);
 			ps.setLong(2, mid);
 			ps.executeUpdate();

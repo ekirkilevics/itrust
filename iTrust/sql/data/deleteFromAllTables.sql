@@ -47,5 +47,8 @@ DELETE FROM OVReactionOverride;
 
 DELETE FROM ProfilePhotos;
 DELETE FROM OVProcedure;
+DELETE FROM Nonces;
 
 DELETE FROM PatientSpecificInstructions;
+
+DELETE FROM AppointmentRequests;

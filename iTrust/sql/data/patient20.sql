@@ -75,8 +75,8 @@ NULL,
 );
 
 INSERT INTO Users(MID, password, role, sQuestion, sAnswer) 
-VALUES (20, 'pw', 'patient', 'first letter?', 'a');
-
+VALUES (20, '1a91d62f7ca67399625a4368a6ab5d4a3baa6073', 'patient', 'first letter?', 'a');
+/*password: pw*/
 
 INSERT INTO DeclaredHCP(PatientID,HCPID)
 VALUE(20, 9000000003);

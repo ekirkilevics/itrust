@@ -41,7 +41,7 @@ public class LOINCBeanValidatorTest extends TestCase {
 			new LOINCBeanValidator().validate(bean);
 			fail("exception should have been thrown");
 		} catch (FormValidationException e) {
-			assertEquals("LaboratoryProcedureCode: Must be in format nnnnn-n", e.getErrorList().get(0));
+			assertEquals("LaboratoryProcedureCode: Must be 1-5 digits followed by a - then another digit", e.getErrorList().get(0));
 		}
 	}
 	

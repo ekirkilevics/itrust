@@ -229,10 +229,10 @@ public class EditOfficeVisitAction extends EditOfficeVisitBaseAction {
 	 * @return "success" or exception's message
 	 * @throws FormValidationException
 	 */
-	public String updateInformation(EditOfficeVisitForm form) throws FormValidationException {
+	public String updateInformation(EditOfficeVisitForm form, boolean isERIncident) throws FormValidationException {
 		String confirm = "";
 		try {
-			updateOv(form);
+			updateOv(form, isERIncident);
 			confirm = "success";
 			return confirm;
 		} catch (iTrustException e) {
@@ -249,6 +249,16 @@ public class EditOfficeVisitAction extends EditOfficeVisitBaseAction {
 	 */
 	public void logOfficeVisitEvent(TransactionType trans) throws DBException {
 		loggingAction.logEvent(trans, loggedInMID, getPid(), "Office visit ID: " + getOvID());
+	}
+	
+	/**
+	 * Helper that logs an ER incident.  The associated patient id, ER 
+	 * id, and incident report id are automatically included.
+	 * @param trans Transaction type for the log.
+	 * @throws DBException
+	 */
+	public void logIncidentReportEvent(TransactionType trans) throws DBException {
+		loggingAction.logEvent(trans, loggedInMID, getPid(), "Incident Report ID: " + getOvID());
 	}
 	
 	/**
@@ -282,7 +292,7 @@ public class EditOfficeVisitAction extends EditOfficeVisitBaseAction {
 	 * @throws DBException
 	 * @throws FormValidationException
 	 */
-	private void updateOv(EditOfficeVisitForm form) throws DBException, FormValidationException, iTrustException {
+	private void updateOv(EditOfficeVisitForm form, boolean isERIncident) throws DBException, FormValidationException, iTrustException {
 		validator.validate(form);
 		OfficeVisitBean ov = getBean();
 		ov.setNotes(form.getNotes());
@@ -290,6 +300,7 @@ public class EditOfficeVisitAction extends EditOfficeVisitBaseAction {
 		ov.setHcpID(Long.valueOf(form.getHcpID()));
 		ov.setPatientID(Long.valueOf(form.getPatientID()));
 		ov.setHospitalID(form.getHospitalID());
+		ov.setERIncident(isERIncident);
 		updateBean(ov);
 	}
 	

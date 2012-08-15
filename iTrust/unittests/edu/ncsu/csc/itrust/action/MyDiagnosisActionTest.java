@@ -2,6 +2,7 @@ package edu.ncsu.csc.itrust.action;
 
 import java.util.List;
 import junit.framework.TestCase;
+import edu.ncsu.csc.itrust.action.MyDiagnosisAction.HCPDiagnosisBeanComparator;
 import edu.ncsu.csc.itrust.beans.DiagnosisBean;
 import edu.ncsu.csc.itrust.beans.HCPDiagnosisBean;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
@@ -12,6 +13,9 @@ public class MyDiagnosisActionTest extends TestCase {
 	private DAOFactory factory = TestDAOFactory.getTestInstance();
 	private TestDataGenerator gen = new TestDataGenerator();
 	private MyDiagnosisAction action;
+	private HCPDiagnosisBean a;
+	private HCPDiagnosisBean b;
+	private HCPDiagnosisBeanComparator hcpdbc;
 
 	@Override
 	protected void setUp() throws Exception {
@@ -41,4 +45,28 @@ public class MyDiagnosisActionTest extends TestCase {
 		assertEquals("4.0", diags.get(0).getTreatmentSatisfaction());
 	}
 
+	public void testCompare1() {
+		a = new HCPDiagnosisBean();
+		b = new HCPDiagnosisBean();
+		hcpdbc = new HCPDiagnosisBeanComparator();
+		a.incNumPatients();
+		assertEquals(-1, hcpdbc.compare(a, b)); // a > b
+	}
+	
+	public void testCompare2() {
+		a = new HCPDiagnosisBean();
+		b = new HCPDiagnosisBean();
+		hcpdbc = new HCPDiagnosisBeanComparator();
+		b.incNumPatients();
+		assertEquals(1, hcpdbc.compare(a, b)); // a < b
+	}
+	
+	public void testCompare3() {
+		a = new HCPDiagnosisBean();
+		b = new HCPDiagnosisBean();
+		hcpdbc = new HCPDiagnosisBeanComparator();
+		a.incNumPatients();
+		b.incNumPatients();
+		assertEquals(0, hcpdbc.compare(a, b)); // a == b
+	}
 }

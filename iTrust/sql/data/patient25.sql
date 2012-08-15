@@ -74,15 +74,16 @@ VALUES (
 )  ON DUPLICATE KEY UPDATE MID = MID;
 
 INSERT INTO Users(MID, password, role, sQuestion, sAnswer) 
-			VALUES (25, 'pw', 'patient', 'how you doin?', 'good')
+			VALUES (25, '1a91d62f7ca67399625a4368a6ab5d4a3baa6073', 'patient', 'how you doin?', 'good')
  ON DUPLICATE KEY UPDATE MID = MID;
+ /*password: pw*/
 
 INSERT INTO OfficeVisits(id,visitDate,HCPID,notes,HospitalID,PatientID)
 VALUES (3956,'2011-7-19',9000000007,'Meep meep meep?','1',25),
 	   (3957,'2011-8-30',9000000000,'If you say Wakka, Wakka, Wakka one more time...','1',25)
 		 ON DUPLICATE KEY UPDATE id = id;
 
-INSERT INTO DeclaredHCP(PatientID,HCPID) VALUE(24, 9000000000)
+INSERT INTO DeclaredHCP(PatientID,HCPID) VALUE(25, 9000000000)
  ON DUPLICATE KEY UPDATE PatientID = PatientID;
 
 INSERT INTO ovdiagnosis(ID, VisitID, ICDCode)

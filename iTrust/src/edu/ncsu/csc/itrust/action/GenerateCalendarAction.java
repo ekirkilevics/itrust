@@ -1,8 +1,8 @@
 package edu.ncsu.csc.itrust.action;
 
 import edu.ncsu.csc.itrust.dao.DAOFactory;
+import edu.ncsu.csc.itrust.dao.mysql.ApptTypeDAO;
 import edu.ncsu.csc.itrust.exception.iTrustException;
-import edu.ncsu.csc.itrust.action.EditApptTypeAction;
 import edu.ncsu.csc.itrust.action.ViewMyApptsAction;
 import edu.ncsu.csc.itrust.action.ViewMyRecordsAction;
 import edu.ncsu.csc.itrust.beans.ApptBean;
@@ -22,9 +22,9 @@ import java.util.Calendar;
  */
 public class GenerateCalendarAction {
 	private ViewMyApptsAction a_action;
-	private EditApptTypeAction types;
 	private ViewMyRecordsAction r_action;
 	private List<ApptBean> send;
+	private ApptTypeDAO apptTypeDAO;
 	
 	/**
 	 * Set up defaults
@@ -34,9 +34,9 @@ public class GenerateCalendarAction {
 	 */
 	public GenerateCalendarAction(DAOFactory factory, long loggedInMID) {
 		a_action = new ViewMyApptsAction(factory, loggedInMID);
-		types = new EditApptTypeAction(factory, loggedInMID);
 		r_action = new ViewMyRecordsAction(factory, loggedInMID);
 		send = new ArrayList<ApptBean>();
+		apptTypeDAO = factory.getApptTypeDAO();
 	}
 	
 	/**
@@ -62,7 +62,7 @@ public class GenerateCalendarAction {
 		for(int i=0; i<send.size(); i++) {
 			ApptBean ab = send.get(i);
 			long t = ab.getDate().getTime();
-			long m = types.getDurationByType(ab.getApptType()) * 60L * 1000L;
+			long m = apptTypeDAO.getApptType(ab.getApptType()).getDuration() * 60L * 1000L;
 			Timestamp time = new Timestamp(t+m);
 			for(int j=i+1; j<send.size(); j++) {
 				if(send.get(j).getDate().before(time)) {

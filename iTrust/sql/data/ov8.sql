@@ -1,6 +1,6 @@
 DELETE FROM Allergies WHERE PatientID = 2;
-INSERT INTO Allergies(PatientID,Description, FirstFound) 
-	VALUES (2, '081096', '1999-03-14 20:00:00'); /*aspirin*/
+INSERT INTO Allergies(PatientID,Code,Description, FirstFound) 
+	VALUES (2, '081096', 'Aspirin','1999-03-14 20:00:00'); /*aspirin*/
 
 INSERT INTO OfficeVisits(
 	id,

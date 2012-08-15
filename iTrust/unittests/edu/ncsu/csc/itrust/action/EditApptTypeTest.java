@@ -59,7 +59,4 @@ public class EditApptTypeTest extends TestCase {
 		assertEquals("Appointment Type: General Checkup already has a duration of 45 minutes.", action.editApptType(a));
 	}
 	
-	public void testGetDurationByType() throws SQLException {
-		assertEquals(15, action.getDurationByType("Physical"));
-	}
 }

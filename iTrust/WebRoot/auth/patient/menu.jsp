@@ -17,13 +17,14 @@
 </div>
 <div class="menu_category">
 	<span>Appointments</span><br />
+	<div class="menuItem"><span class="highlighted">&#187;</span><a href="/iTrust/auth/patient/appointmentRequests.jsp">Appointment Requests</a></div>
 	<div class="menuItem"><span class="highlighted">&#187;</span><a href="/iTrust/auth/patient/viewMyAppts.jsp">View My Appointments</a></div>
 </div>
 <div class="menu_category">
 	<span>Messaging</span><br />
 	<div class="menuItem"><span class="highlighted">&#187;</span><a href="/iTrust/auth/patient/sendMessage.jsp">Compose a Message</a></div>
-	<div class="menuItem"><span class="highlighted">&#187;</span><a href="/iTrust/auth/patient/messageInbox.jsp">Message Inbox</a></div>
-	<div class="menuItem"><span class="highlighted">&#187;</span><a href="/iTrust/auth/patient/messageOutbox.jsp">Message Outbox</a></div>
+	<div class="menuItem"><span class="highlighted">&#187;</span><a href="/iTrust/auth/hcp-patient/messageInbox.jsp">Message Inbox</a></div>
+	<div class="menuItem"><span class="highlighted">&#187;</span><a href="/iTrust/auth/hcp-patient/messageOutbox.jsp">Message Outbox</a></div>
 </div>
 <div class="menu_category">
 	<span>Telemedicine</span><br />

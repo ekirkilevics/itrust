@@ -39,11 +39,11 @@ public class DocumentOfficeVisitUseCaseTest extends iTrustHTTPTest {
 		patientForm.getScriptableObject().setParameterValue("UID_PATIENTID", "2");
 		patientForm.getButtons()[1].click();
 		wr = wc.getCurrentPage();
-		assertEquals(ADDRESS + "auth/hcp-uap/documentOfficeVisit.jsp", wr.getURL().toString());
+		assertEquals(ADDRESS + "auth/hcp-uap-er/documentOfficeVisit.jsp", wr.getURL().toString());
 		// click 06/10/2007
 		wr.getLinkWith("06/10/2007").click();
 		wr = wc.getCurrentPage();
-		assertEquals(ADDRESS + "auth/hcp-uap/editOfficeVisit.jsp?ovID=955", wr.getURL().toString());
+		assertEquals(ADDRESS + "auth/hcp-uap-er/editOfficeVisit.jsp?ovID=955", wr.getURL().toString());
 		assertEquals("iTrust - Document Office Visit", wr.getTitle());
 		//add new lab procedure
 		WebForm form = wr.getFormWithID("labProcedureForm");
@@ -73,11 +73,11 @@ public class DocumentOfficeVisitUseCaseTest extends iTrustHTTPTest {
 		patientForm.getScriptableObject().setParameterValue("UID_PATIENTID", "2");
 		patientForm.getButtons()[1].click();
 		wr = wc.getCurrentPage();
-		assertEquals(ADDRESS + "auth/hcp-uap/documentOfficeVisit.jsp", wr.getURL().toString());
+		assertEquals(ADDRESS + "auth/hcp-uap-er/documentOfficeVisit.jsp", wr.getURL().toString());
 		// click 10/10/2005
 		wr.getLinkWith("06/10/2007").click();
 		wr = wc.getCurrentPage();
-		assertEquals(ADDRESS + "auth/hcp-uap/editOfficeVisit.jsp?ovID=955", wr.getURL().toString());
+		assertEquals(ADDRESS + "auth/hcp-uap-er/editOfficeVisit.jsp?ovID=955", wr.getURL().toString());
 		assertEquals("iTrust - Document Office Visit", wr.getTitle());
 		//remove lab procedure
 		WebTable wt = wr.getTableStartingWith("[Top]Laboratory Procedures");
@@ -113,6 +113,54 @@ public class DocumentOfficeVisitUseCaseTest extends iTrustHTTPTest {
 	}
 
 
+	public void testAddDiagnosisBlank() throws Exception {
+		
+		// login UAP
+		WebConversation wc = login("9000000000", "pw");
+		WebResponse wr = wc.getCurrentPage();
+		assertEquals("iTrust - HCP Home", wr.getTitle());
+		// click All Patients
+		wr = wr.getLinkWith("All Patients").click();
+		
+		// Select Trend Setter
+		wr = wr.getLinkWith("Trend Setter").click();
+		
+		// Edit visit
+		wr = wr.getLinkWith("Aug 30, 2011").click();
 
+		// Submit add diagnosis form
+		WebForm diagnosisForm = wr.getFormWithID("diagnosisForm");
+		wr = diagnosisForm.submit();
+		
+		// Should show a validation error
+		assertNotNull(wr.getElementWithID("iTrustFooter"));
+		assertNotNull(wr.getElementWithID("diagnosisForm"));
+	}
+	
+	public void testAddDiagnosisGood() throws Exception {
+		
+		// login UAP
+		WebConversation wc = login("9000000000", "pw");
+		WebResponse wr = wc.getCurrentPage();
+		assertEquals("iTrust - HCP Home", wr.getTitle());
+		// click All Patients
+		wr = wr.getLinkWith("All Patients").click();
+		
+		// Select Trend Setter
+		wr = wr.getLinkWith("Trend Setter").click();
+		
+		// Edit visit
+		wr = wr.getLinkWith("Aug 30, 2011").click();
+
+		// Submit add diagnosis form for tuberculosis
+		WebForm diagnosisForm = wr.getFormWithID("diagnosisForm");
+		diagnosisForm.setParameter("ICDCode", "11.40");
+		wr = diagnosisForm.submit();
+		
+		// Should not show any validation errors
+		assertNotNull(wr.getElementWithID("iTrustFooter"));
+		assertTrue(wr.getText().contains("Diagnosis information successfully updated"));
+	}
+	
 
 }

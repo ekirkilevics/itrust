@@ -73,8 +73,9 @@ VALUES
  ON DUPLICATE KEY UPDATE MID = MID;
 
 INSERT INTO Users(MID, password, role, sQuestion, sAnswer) 
-			VALUES (42, 'pw', 'patient', 'what is your favorite color?', 'blue')
+			VALUES (42, '1a91d62f7ca67399625a4368a6ab5d4a3baa6073', 'patient', 'what is your favorite color?', 'blue')
  ON DUPLICATE KEY UPDATE MID = MID;
+ /*password: pw*/
 
 INSERT INTO DeclaredHCP(PatientID,HCPID) VALUE(1, 9000000000)
  ON DUPLICATE KEY UPDATE PatientID = PatientID;

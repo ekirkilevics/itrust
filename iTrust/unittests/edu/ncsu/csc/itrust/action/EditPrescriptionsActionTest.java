@@ -2,6 +2,7 @@ package edu.ncsu.csc.itrust.action;
 
 import java.util.List;
 import edu.ncsu.csc.itrust.beans.MedicationBean;
+import edu.ncsu.csc.itrust.beans.OverrideReasonBean;
 import edu.ncsu.csc.itrust.beans.PrescriptionBean;
 import edu.ncsu.csc.itrust.beans.forms.EditPrescriptionsForm;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
@@ -122,7 +123,7 @@ public class EditPrescriptionsActionTest extends TestCase {
 		bean.setEndDateStr("02/12/2011");
 		bean.setInstructions("Take as needed");
 		bean.setVisitID(952);
-		bean.setReason("00006");
+		bean.addReason(new OverrideReasonBean("0006"));
 		
 		action.addPrescription(bean);
 		assertEquals(1, action.getPrescriptions().size());
@@ -206,12 +207,12 @@ public class EditPrescriptionsActionTest extends TestCase {
 	public void testGetMedications() throws Exception  {
 		action = new EditPrescriptionsAction(factory, 9000000000L, "2", "955");
 		List<MedicationBean> list = action.getMedications();
-		assertEquals(13, list.size());
+		assertEquals(15, list.size());
 		
 		// It can also be retrieved for an undefined office visit
 		action = new EditPrescriptionsAction(factory, 9000000000L, "1");
 		list = action.getMedications();
-		assertEquals(13, list.size());
+		assertEquals(15, list.size());
 	}
 
 	public void testFormToBean() throws Exception  {
@@ -222,9 +223,128 @@ public class EditPrescriptionsActionTest extends TestCase {
 		form.setStartDate("02/28/2011");
 		form.setEndDate("03/07/2011");
 		form.setInstructions("Try it.");
+		String[] overrideCodes =  {"asdf"};
+		form.setOverrideCodes(overrideCodes);
+		form.setOverrideOther("yeeees?");
 		
 		PrescriptionBean bean = action.formToBean(form, "-- Instructions --");
 		assertEquals("548684985", bean.getMedication().getNDCode());
+		assertEquals("asdf",bean.getReasons().get(0).getORCode());
+		assertEquals("yeeees?",bean.getOverrideReasonOther());
+	}
+	
+	public void testAddPrescription_Allergy() throws Exception {
+		
+		action = new EditPrescriptionsAction(factory, 9000000000L, "100", "1093");
+		
+		PrescriptionBean pres = new PrescriptionBean();
+		pres.setDosage(50);
+		pres.setInstructions("Take it");
+		pres.setStartDateStr("01/31/2011");
+		pres.setEndDateStr("02/12/2011");
+		MedicationBean med = factory.getNDCodesDAO().getNDCode("00882219");
+		
+		pres.setMedication(med);
+		pres.setVisitID(1093);
+		
+		try{
+			action.addPrescription(pres);
+			fail("Should have thrown exception");
+		}catch(PrescriptionWarningException e){
+			assertTrue(e.getDisplayMessage().contains("Allergy: Lantus"));
+		}catch(Exception e){
+			fail("Wrong exception thrown");
+		}
+		
+		
+	}
+	
+	public void testAddPrescription_AllergyOverride() throws Exception {
+		
+		action = new EditPrescriptionsAction(factory, 9000000000L, "100", "1093");
+		
+		PrescriptionBean pres = new PrescriptionBean();
+		pres.setDosage(50);
+		pres.setInstructions("Take it");
+		pres.setStartDateStr("01/31/2011");
+		pres.setEndDateStr("02/12/2011");
+		pres.addReason(new OverrideReasonBean("1234"));
+		MedicationBean med = factory.getNDCodesDAO().getNDCode("00882219");
+		
+		pres.setMedication(med);
+		pres.setVisitID(1093);
+		
+		try{
+			action.addPrescription(pres);
+		}catch(Exception e){
+			fail("Exception should not be thrown since override set");
+		}
+		
+		boolean emailSent = factory.getFakeEmailDAO().getEmailWithBody("Allergy: Lantus").size()>0;
+		assertTrue(emailSent);
+		
 	}
 
+	
+	public void testAddPrescription_AllergyFuture() throws Exception {
+		
+		action = new EditPrescriptionsAction(factory, 9000000000L, "100", "1093");
+		
+		PrescriptionBean pres = new PrescriptionBean();
+		pres.setDosage(50);
+		pres.setInstructions("Take it");
+		pres.setStartDateStr("01/31/2111");
+		pres.setEndDateStr("02/12/2111");
+		MedicationBean med = factory.getNDCodesDAO().getNDCode("00882219");
+		
+		pres.setMedication(med);
+		pres.setVisitID(1093);
+		
+		try{
+			action.addPrescription(pres);
+			fail("Should have thrown exception");
+		}catch(PrescriptionWarningException e){
+			assertTrue(e.getDisplayMessage().contains("Allergy: Lantus"));
+		}catch(Exception e){
+			fail("Wrong exception thrown");
+		}
+	}
+	
+	public void testAddPrescription_Interaction() throws Exception {
+		
+		action = new EditPrescriptionsAction(factory, 9000000000L, "100", "1093");
+		
+		PrescriptionBean pres = new PrescriptionBean();
+		pres.setDosage(50);
+		pres.setInstructions("Take it");
+		pres.setStartDateStr("01/31/2111");
+		pres.setEndDateStr("02/12/2111");
+		//Nexium, which interacts with aspirin
+		MedicationBean med = factory.getNDCodesDAO().getNDCode("01864020");
+		
+		pres.setMedication(med);
+		pres.setVisitID(1093);
+		
+		
+		PrescriptionBean pres2 = new PrescriptionBean();
+		pres2.setDosage(50);
+		pres2.setInstructions("Take it too");
+		pres2.setStartDateStr("01/31/2111");
+		pres2.setEndDateStr("02/12/2111");
+		//aspirin, which interacts with nexium
+		MedicationBean med2 = factory.getNDCodesDAO().getNDCode("081096");
+		
+		pres2.setMedication(med2);
+		pres2.setVisitID(1093);
+		
+		try{
+			action.addPrescription(pres);
+			action.addPrescription(pres2);
+			fail("Should have thrown exception");
+		}catch(PrescriptionWarningException e){
+			assertTrue(e.getDisplayMessage().contains("Interaction"));
+		}catch(Exception e){
+			fail("Wrong exception thrown");
+		}
+	}
 }

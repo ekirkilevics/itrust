@@ -188,11 +188,11 @@ public class PatientDAO {
 					+ "ICState=?,iCZip1=?, iCZip2=?, iCPhone1=?,iCPhone2=?,iCPhone3=?,iCID=?,DateOfBirth=?,"
 					+ "DateOfDeath=?,CauseOfDeath=?,MotherMID=?,FatherMID=?,"
 					+ "BloodType=?,Ethnicity=?,Gender=?,TopicalNotes=?, CreditCardType=?, CreditCardNumber=?, "
-					+ "MessageFilter=?, DirectionsToHome=?, Religion=?, Language=?, SpiritualPractices=?, "
+					+ "DirectionsToHome=?, Religion=?, Language=?, SpiritualPractices=?, "
 					+ "AlternateName=? WHERE MID=?");
 
 			patientLoader.loadParameters(ps, p);
-			ps.setLong(45, p.getMID());
+			ps.setLong(44, p.getMID());
 			ps.executeUpdate();
 			
 			addHistory(p.getMID(), hcpid);
@@ -654,7 +654,7 @@ public class PatientDAO {
 					+ "OfficeVisits.ID AND NDCodes.Code=OVMedication.NDCode AND "
 					+ "OVMedication.EndDate >= ?" + "ORDER BY OVMedication.ID DESC;");
 			ps.setLong(1, patientID);
-			ps.setDate(2, DateUtil.getSQLdateXDaysAgoFromNow(91));
+			ps.setDate(2, DateUtil.getSQLdateXDaysAgoFromNow(0));
 			ResultSet rs = ps.executeQuery();
 			return prescriptionLoader.loadList(rs);
 		} catch (SQLException e) {
@@ -817,6 +817,37 @@ public class PatientDAO {
 			ps = conn.prepareStatement("SELECT * FROM patients WHERE firstName LIKE ? AND lastName LIKE ?");
 			ps.setString(1, first);
 			ps.setString(2, last);
+			ResultSet rs = ps.executeQuery();
+			return patientLoader.loadList(rs);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DBException(e);
+		} finally {
+			DBUtil.closeConnection(conn, ps);
+		}
+	}
+	
+	/**
+	 * Returns all patients with names "LIKE" with wildcards (as in SQL) the passed in parameters.
+	 * 
+	 * @param first The patient's first name.
+	 * @param last The patient's last name.
+	 * @return A java.util.List of PatientBeans.
+	 * @throws DBException
+	 */
+	public List<PatientBean> fuzzySearchForPatientsWithName(String first, String last) throws DBException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		
+		if (first.equals("%") && last.equals("%")) return new Vector<PatientBean>();
+		
+		try {
+			conn = factory.getConnection();
+			
+			ps = conn.prepareStatement("SELECT * FROM patients WHERE firstName LIKE ? AND lastName LIKE ?");
+			ps.setString(1, "%"+first+"%");
+			ps.setString(2, "%"+last+"%");
+			
 			ResultSet rs = ps.executeQuery();
 			return patientLoader.loadList(rs);
 		} catch (SQLException e) {

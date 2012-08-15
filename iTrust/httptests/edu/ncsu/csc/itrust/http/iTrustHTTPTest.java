@@ -3,6 +3,7 @@ package edu.ncsu.csc.itrust.http;
 import java.net.ConnectException;
 import java.util.List;
 import junit.framework.TestCase;
+import com.meterware.httpunit.HttpUnitOptions;
 import com.meterware.httpunit.WebConversation;
 import com.meterware.httpunit.WebForm;
 import com.meterware.httpunit.WebResponse;
@@ -28,6 +29,9 @@ abstract public class iTrustHTTPTest extends TestCase {
 
 	@Override
 	protected void setUp() throws Exception {
+		HttpUnitOptions.clearScriptErrorMessages();
+		HttpUnitOptions.setScriptingEnabled(true);
+		HttpUnitOptions.setExceptionsThrownOnScriptError(false);
 		gen.clearAllTables();
 	}
 

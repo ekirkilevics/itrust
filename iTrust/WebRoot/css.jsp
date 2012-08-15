@@ -317,6 +317,10 @@ legend {
 	background-color: #e5e5e5;
 }
 
+.mainTable {
+	width: 90%;
+}
+
 #iTrustFooter 
 
 /* Formated table stuff */
@@ -498,11 +502,11 @@ legend {
 	padding-top:5px;
 	padding-bottom:4px;
 	background-color:#<%= calendarHeadingColor%>;
-	color:#<%= secondaryColor%>;
+	color:#<%= secondaryColorInv%>;
 }
 
 .fancyTable tr.alt td {
-	color:#<%= calendarBgColor%>;
+	color:#<%= formTitleColor%>;
 	background-color:#<%= calendarTodayColor%>;
 }
 
@@ -574,8 +578,16 @@ background: none repeat scroll 0 0 #474747;
 	display: inline-table;
 }
 
+.filter_fieldset {
+	float: left; 
+	border: 0px;
+	margin-left: 2em;
+}
 
-
+.clear_button {
+	display: block;
+	clear: both;
+}
 
 /* These links are only for testing purposes and are indicated such */
 a.iTrustTestNavlink {

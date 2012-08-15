@@ -91,6 +91,7 @@ public enum TransactionType {
     LOINC_CODE_ADD(1540, "Add Physical Services code", "added a physical service code", false),
     LOINC_CODE_VIEW(1541, "View Physical Services code", "viewed a physical service code", false),
     LOINC_CODE_EDIT(1542, "Edit Physical Services code", "edited a physical service code", false),
+    LOINC_CODE_FILE_ADD(1549, "Upload Physical Services file", "uploaded a LOINC file", false),
     RISK_FACTOR_VIEW(1600, "View risk factors", "viewed your risk factors", true),
     PATIENT_REMINDERS_VIEW(1700, "Proactively determine necessary patient care", "proactively determined your necessary patient care", true),
     HOSPITAL_LISTING_ADD(1800, "Add a hospital listing", "added a hospital listing", false),
@@ -108,6 +109,11 @@ public enum TransactionType {
     APPOINTMENT_EDIT(2212, "Edit Scheduled Appointment", "edited your scheduled appointment", true),
     APPOINTMENT_REMOVE(2213, "Delete Scheduled Appointment", "canceled your scheduled appointment", true),
     APPOINTMENT_ALL_VIEW(2220, "View All Scheduled Appointments", "viewed all scheduled appointments", true),
+    APPOINTMENT_CONFLICT_OVERRIDE(2230, "Schedule conflict override","overrided a schedule conflict",true),
+    APPOINTMENT_REQUEST_SUBMITTED(2240, "Appointment request submitted", "requested an appointment", true),
+    APPOINTMENT_REQUEST_APPROVED(2250, "Appointment request approved", "approved an appointment request", true),
+    APPOINTMENT_REQUEST_REJECTED(2251, "Appointment request rejected", "rejected an appointment request", true),
+    APPOINTMENT_REQUEST_VIEW(2260, "View All Appointment Requests", "viewed all appointment requests", true),
     COMPREHENSIVE_REPORT_VIEW(2300, "Comprehensive Report", "viewed your comprehensive report", true),
     COMPREHENSIVE_REPORT_ADD(2301, "Request Comprehensive Report", "requested a comprehensive report for you", true),
     SATISFACTION_SURVEY_TAKE(2400, "Take Satisfaction Survey", "completed a satisfaction survey", true),
@@ -165,8 +171,30 @@ public enum TransactionType {
 	PATIENT_INSTRUCTIONS_VIEW(4403, "	View Patient Specific Instructions", "viewed your patient-specific instructions", true),
 	
 	DIAGNOSIS_TRENDS_VIEW(4500, "View diagnosis statistics", "viewed your diagnosis count", false),
-	DIAGNOSIS_EPIDEMICS_VIEW(4600, "View Epidemic Detection", "viewed epidemic detection", false);
+	DIAGNOSIS_EPIDEMICS_VIEW(4600, "View Epidemic Detection", "viewed epidemic detection", false),
 	
+	GROUP_REPORT_VIEW(4601, "View Group Report", "viewed group report", false),
+	
+	ER_VISIT_CREATE(4700, "Create ER Incident Report", "Created an ER incident report", true),
+	ER_VISIT_VIEW(4701, "View ER Incident Report", "Viewed an ER incident report", true),
+	ER_VISIT_EDIT(4702, "Edit ER Incident Report", "Edited an ER incident report", true),
+	PRESCRIPTION_ADD_ER(4710, "Add Prescription", "Added a prescription to your incident report", true),
+    PRESCRIPTION_EDIT_ER(4711, "Edit Prescription", "Edited a prescription in your incident report", true),
+    PRESCRIPTION_REMOVE_ER(4712, "Remove Prescription", "Removed a prescription from your incident report", true),
+    LAB_PROCEDURE_ADD_ER(4720, "Add Lab Procedure", "Added a lab procedure to your incident report", true),
+    LAB_PROCEDURE_EDIT_ER(4721, "Edit Lab Procedure", "Edited a lab procedure in your incident report", true),
+    LAB_PROCEDURE_REMOVE_ER(4722, "Remove Lab Procedure", "Removed a lab procedure from your incident report", true),
+    DIAGNOSIS_ADD_ER(4730, "Add Diagnosis", "Added a diagnosis to your incident report", true),
+    DIAGNOSIS_REMOVE_ER(4732, "Remove Diagnosis", "Removed a diagnosis from your incident report", true),
+    PROCEDURE_ADD_ER(4740, "Add Procedure", "Added a procedure to your incident report", true),
+    PROCEDURE_EDIT_ER(4741, "Edit Procedure", "Edited a procedure in your incident report", true),
+    PROCEDURE_REMOVE_ER(4742, "Remove Procedure", "Removed a procedure from your incident report", true),
+    IMMUNIZATION_ADD_ER(4750, "Add Immunization", "Added an immunization to your incident report", true),
+    IMMUNIZATION_REMOVE_ER(4752, "Remove Immunization", "Removed an immunization from your incident report", true),
+	
+	OPENID_LOGIN(4801, "Login with OpenID", "Login with OpenID", false),
+	OPENID_LINK(4802, "Link account with OpenID", "Link with OpenID", false);
+    
 	/**
 	 * This string is used in the SQL statement associated with pulling events for
 	 * display in a patient's Access Log

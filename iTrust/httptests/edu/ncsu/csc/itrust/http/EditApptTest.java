@@ -39,6 +39,7 @@ public class EditApptTest extends iTrustHTTPTest {
 	
 	public void testSetPassedDate() throws Exception {
 		// login hcp
+		gen.uc22();
 		WebConversation wc = login("9000000000", "pw");
 		WebResponse wr = wc.getCurrentPage();
 		assertEquals("iTrust - HCP Home", wr.getTitle());
@@ -49,26 +50,28 @@ public class EditApptTest extends iTrustHTTPTest {
 		WebTable table = wr.getTables()[0];
 		int row = 0;
 		for (int i = 0; i < table.getRowCount(); i++) {
-			if (table.getCellAsText(i,0).equals("Bad Horse")) {
+			if (table.getCellAsText(i,0).equals("Anakin Skywalker")) {
 				row = i;
 				break;
 			}
 		}
 		
 		wr = table.getTableCell(row, 5).getLinkWith("Edit/Remove").click();
-		assertTrue(wr.getText().contains("Bad Horse"));
+		assertTrue(wr.getText().contains("Anakin Skywalker"));
 		WebForm wf = wr.getFormWithID("mainForm");
 		wf.setParameter("schedDate", "10/10/2009");
 		
-		SubmitButton[] buttons = wf.getSubmitButtons();
-		wr = wf.submit(buttons[0]);	// Submit as "Change"
-
-		assertTrue(wr.getText().contains("The scheduled date of this appointment (2009-10-10 15:00:00.0) has already passed."));
-		assertNotLogged(TransactionType.APPOINTMENT_EDIT, 9000000000L, 42L, "");
+		wf.getSubmitButtonWithID("changeButton").click();
+		wr = wc.getCurrentPage();
+		
+		assertTrue(wr.getText().contains("The scheduled date of this appointment")); 
+		assertTrue(wr.getText().contains("has already passed."));
+		assertNotLogged(TransactionType.APPOINTMENT_EDIT, 9000000000L, 100L, "");
 	}
 	
 	public void testRemoveAppt() throws Exception {
 		// login hcp
+		gen.uc22();
 		WebConversation wc = login("9000000000", "pw");
 		WebResponse wr = wc.getCurrentPage();
 		assertEquals("iTrust - HCP Home", wr.getTitle());
@@ -80,20 +83,20 @@ public class EditApptTest extends iTrustHTTPTest {
 		WebTable table = wr.getTables()[0];
 		int row = 0;
 		for (int i = 0; i < table.getRowCount(); i++) {
-			if (table.getCellAsText(i,0).equals("Bad Horse")) {
+			if (table.getCellAsText(i,0).equals("Anakin Skywalker")) {
 				row = i;
 				break;
 			}
 		}
 		
 		wr = table.getTableCell(row, 5).getLinkWith("Edit/Remove").click();
-		assertTrue(wr.getText().contains("Bad Horse"));
+		assertTrue(wr.getText().contains("Anakin Skywalker"));
 		WebForm wf = wr.getFormWithID("mainForm");
 		
-		SubmitButton[] buttons = wf.getSubmitButtons();
-		wr = wf.submit(buttons[1]);	// Submit as "Remove"
+		wf.getSubmitButtonWithID("removeButton").click();
+		wr = wc.getCurrentPage();
 		
 		assertTrue(wr.getText().contains("Success: Appointment removed"));
-		assertLogged(TransactionType.APPOINTMENT_REMOVE, 9000000000L, 42L, "");
+		assertLogged(TransactionType.APPOINTMENT_REMOVE, 9000000000L, 100L, "");
 	}
 }

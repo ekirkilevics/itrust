@@ -27,11 +27,11 @@
 <html>
 	<head>
 		<title><%= StringEscapeUtils.escapeHtml("" + (pageTitle )) %></title>
-	 	 <link href="/iTrust/css.jsp" type="text/css" rel="stylesheet" /> 
-	    <link href="/iTrust/css/datepicker.css" type="text/css" rel="stylesheet" />
+		<link href="/iTrust/css.jsp" type="text/css" rel="stylesheet" /> 
+	    <link href="/iTrust/css/datepicker.css" type="text/css" rel="stylesheet" />	    	    
 		<script src="/iTrust/js/DatePicker.js" type="text/javascript"></script>
-		<script src="/iTrust/js/jquery-1.2.6.js" type="text/javascript"></script>
-		
+		<script src="/iTrust/js/jquery-1.7.2.js" type="text/javascript"></script>
+				
 	</head>
 	<body>
 	<div id="container">

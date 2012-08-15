@@ -19,9 +19,16 @@ public class AddAllergiesTest extends TestCase {
 		gen.patient2();
 	}
 
+	/*
+	 * updated to reflect the new way addAllergy updates allergyDAO.
+	 */
 	public void testGetAllergiesFor2() throws Exception {
+		AllergyBean bean = new AllergyBean();
+		bean.setPatientID(2);
+		bean.setNDCode("081096");
+		bean.setDescription("Aspirin");
 		assertEquals(2, allergyDAO.getAllergies(2L).size());
-		allergyDAO.addAllergy(2, "Aspirin");
+		allergyDAO.addAllergy(bean);
 		List<AllergyBean> allergies = allergyDAO.getAllergies(2L);
 		assertEquals(3, allergies.size());
 		assertEquals("Aspirin",allergies.get(0).getDescription());

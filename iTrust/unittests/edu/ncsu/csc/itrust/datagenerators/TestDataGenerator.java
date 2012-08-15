@@ -73,6 +73,10 @@ public class TestDataGenerator {
 	public void clearFakeEmail() throws FileNotFoundException, SQLException, IOException {
 		new DBBuilder(factory).executeSQLFile(DIR + "/clearFakeemail.sql");
 	}
+	
+	public void clearMessages() throws FileNotFoundException, SQLException, IOException {
+		new DBBuilder(factory).executeSQLFile(DIR + "/clearMessages.sql");
+	}
 
 	public void clearHospitalAssignments() throws FileNotFoundException, IOException, SQLException {
 		new DBBuilder(factory).executeSQLFile(DIR + "/hospitalAssignmentsReset.sql");
@@ -179,6 +183,16 @@ public class TestDataGenerator {
 	public void hcp8() throws FileNotFoundException, SQLException, IOException {
 		new DBBuilder(factory).executeSQLFile(DIR + "/hcp8.sql");
 	}
+
+	/**
+	 * Adds HCP John Zoidberg for testing purposes.
+	 * @throws FileNotFoundException
+	 * @throws SQLException
+	 * @throws IOException
+	 */
+	public void hcp9() throws FileNotFoundException, SQLException, IOException {
+		new DBBuilder(factory).executeSQLFile(DIR + "/hcp9.sql");
+	} //NEW
 	
 	public void healthData() throws SQLException, FileNotFoundException, IOException {
 		new DBBuilder(factory).executeSQLFile(DIR + "/healthdata.sql");
@@ -202,6 +216,10 @@ public class TestDataGenerator {
 	
 	public void messages() throws SQLException, FileNotFoundException, IOException {
 		new DBBuilder(factory).executeSQLFile(DIR + "/message.sql");
+	}
+	
+	public void messages6() throws SQLException, FileNotFoundException, IOException {
+		new DBBuilder(factory).executeSQLFile(DIR + "/messageCase6.sql");
 	}
 
 	public void ndCodes() throws FileNotFoundException, SQLException, IOException {
@@ -227,6 +245,16 @@ public class TestDataGenerator {
 	public void ndCodes4() throws FileNotFoundException, SQLException, IOException {
 		new DBBuilder(factory).executeSQLFile(DIR + "/ndCodes4.sql");
 	}
+	
+	/**
+	 * Adds drugs Midichlominene and Midichlomaxene for UC10 and UC37 testing purposes.
+	 * @throws FileNotFoundException
+	 * @throws SQLException
+	 * @throws IOException
+	 */
+	public void ndCodes100() throws FileNotFoundException, SQLException, IOException {
+		new DBBuilder(factory).executeSQLFile(DIR + "/ndCodes100.sql");
+	} //NEW
 
 	public void officeVisit1() throws SQLException, FileNotFoundException, IOException {
 		new DBBuilder(factory).executeSQLFile(DIR + "/ov1.sql");
@@ -377,10 +405,30 @@ public class TestDataGenerator {
 	public void patient25() throws FileNotFoundException, SQLException, IOException {
 		new DBBuilder(factory).executeSQLFile(DIR + "/patient25.sql");
 	}
-	
+
+	/**
+	 * Adds patient Philip Fry for testing purposes.
+	 * @throws FileNotFoundException
+	 * @throws SQLException
+	 * @throws IOException
+	 */
+	public void patient26() throws FileNotFoundException, SQLException, IOException {
+		new DBBuilder(factory).executeSQLFile(DIR + "/patient26.sql");
+	} //NEW
+
 	public void patient42() throws FileNotFoundException, SQLException, IOException {
 		new DBBuilder(factory).executeSQLFile(DIR + "/patient42.sql");
 	}
+	
+	/**
+	 * Adds patient Anakin Skywalker for UC10 and UC37 testing purposes.
+	 * @throws FileNotFoundException
+	 * @throws SQLException
+	 * @throws IOException
+	 */
+	public void patient100() throws FileNotFoundException, SQLException, IOException {
+		new DBBuilder(factory).executeSQLFile(DIR + "/patient100.sql");
+	} //NEW
 	
 	public void patientLabProcedures() throws FileNotFoundException, SQLException, IOException {
 		new DBBuilder(factory).executeSQLFile(DIR + "/patientLabProc.sql");
@@ -569,6 +617,20 @@ public class TestDataGenerator {
 		new DBBuilder(factory).executeSQLFile(DIR + "/influenzaEpidemic.sql");
 	}
 	
+	public void uc22() throws SQLException, FileNotFoundException, IOException{
+		new DBBuilder(factory).executeSQLFile(DIR+"/UC22.sql");
+	}
+	
+	public void apptRequestConflicts() throws SQLException, FileNotFoundException, IOException {
+		new DBBuilder(factory).executeSQLFile(DIR + "/apptRequestConflicts.sql");
+	}
+	
+	/*
+	public void uc10() throws FileNotFoundException, SQLException, IOException {
+		new DBBuilder(factory).executeSQLFile(DIR + "/uc10.sql");
+	} //NEW
+	*/
+	
 	public void viewAccessLogTestData() throws SQLException, FileNotFoundException, IOException {
 		new DBBuilder(factory).executeSQLFile(DIR + "/referral_sort_testdata.sql");
 		
@@ -578,6 +640,23 @@ public class TestDataGenerator {
 		patient24();
 	}
 	
+	/**
+	 * Adds additional DLHCPs to certain patients.
+	 * 
+	 * MID  DLHCPs
+	 * ---  ------
+	 * 1    9000000000, 
+	 *      9000000003
+	 * 
+	 * @throws SQLException
+	 * @throws FileNotFoundException
+	 * @throws IOException
+	 */
+	public void messagingCcs() throws SQLException, FileNotFoundException, IOException {
+		new DBBuilder(factory).executeSQLFile(DIR + "/messagingCcs.sql");
+	}
+	
+	
 	public void standardData() throws FileNotFoundException, IOException, SQLException {
 		cptCodes();
 		icd9cmCodes();
@@ -586,6 +665,7 @@ public class TestDataGenerator {
 		ndCodes2();
 		ndCodes3();
 		ndCodes4();
+		ndCodes100(); //NEW
 		drugInteractions4();
 		ORCodes();
 		hospitals();
@@ -614,7 +694,10 @@ public class TestDataGenerator {
 		patient21();
 		patient22();
 		patient25();
+		patient26(); //NEW
 		patient42();
+		patient100(); //NEW
+		
 		admin1();
 		admin2();
 		admin3();
@@ -641,6 +724,8 @@ public class TestDataGenerator {
 		adverseEventPres();
 		
 		hcp8();
+		hcp9(); //NEW
+
 		viewAccessLogTestData();
 		
 		System.out.println("Operation completed.");

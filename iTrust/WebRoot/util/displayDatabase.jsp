@@ -46,7 +46,7 @@
 		tableList.add(tableName);
 		ResultSet rs = conn.createStatement().executeQuery("SELECT * FROM " + tableName);
 		int numCol = rs.getMetaData().getColumnCount();
-		%><b><a name="<%=tableName%>"><%= StringEscapeUtils.escapeHtml("" + (tableName)) %></b><br /><table class="results"><tr><%
+		%><b><a name="<%=tableName%>"><%= StringEscapeUtils.escapeHtml("" + (tableName)) %></b><br /><table id="<%=tableName%>" class="results"><tr><%
 		for(int i=1; i<=numCol;i++){
 			%><th><%= StringEscapeUtils.escapeHtml("" + (rs.getMetaData().getColumnName(i))) %></th><%
 		}

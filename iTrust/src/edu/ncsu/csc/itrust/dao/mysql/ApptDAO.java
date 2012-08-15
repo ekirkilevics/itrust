@@ -13,9 +13,11 @@ import edu.ncsu.csc.itrust.dao.DAOFactory;
 public class ApptDAO {
 	private DAOFactory factory;
 	private ApptBeanLoader abloader;
+	private ApptTypeDAO apptTypeDAO;
 	
 	public ApptDAO(DAOFactory factory) {
 		this.factory = factory;
+		this.apptTypeDAO = factory.getApptTypeDAO();
 		this.abloader = new ApptBeanLoader();
 	}
 	
@@ -95,5 +97,132 @@ public class ApptDAO {
 		
 		ps.executeUpdate();
 		DBUtil.closeConnection(conn,ps);
+	}
+	
+	public List<ApptBean> getAllHCPConflictsForAppt(long mid, ApptBean appt) throws SQLException{
+		
+
+		int duration = apptTypeDAO.getApptType(appt.getApptType()).getDuration();
+		
+		Connection conn = null;
+		PreparedStatement ps = null;
+		conn = factory.getConnection();
+		ps = conn.prepareStatement("SELECT * " +
+				"FROM appointment a, appointmenttype type " +	//and the corresponding types
+				"WHERE a.appt_type=type.appt_type AND " +				//match them with types
+				"((DATE_ADD(a.sched_date, INTERVAL type.duration MINUTE)>? AND " +	//a1 ends after a2 starts AND
+				"a.sched_date<=?) OR " +				//a1 starts before a2 OR
+				"(DATE_ADD(?, INTERVAL ? MINUTE)>a.sched_date AND " +		//a2 ends after a1 starts AND
+				"?<=a.sched_date)) AND " + 			//a2 starts before a1 starts
+				"a.doctor_id=? AND a.appt_id!=?;");
+
+		ps.setTimestamp(1, appt.getDate());
+		ps.setTimestamp(2, appt.getDate());
+		ps.setTimestamp(3, appt.getDate());
+		ps.setInt(4, duration);
+		ps.setTimestamp(5, appt.getDate());
+		ps.setLong(6, mid);
+		ps.setInt(7, appt.getApptID());
+
+		ResultSet rs = ps.executeQuery();
+		
+		List<ApptBean> conflictList = this.abloader.loadList(rs);
+		DBUtil.closeConnection(conn,ps);
+		
+		return conflictList;
+	}
+	
+	public List<ApptBean> getAllPatientConflictsForAppt(long mid, ApptBean appt) throws SQLException{
+		int duration = apptTypeDAO.getApptType(appt.getApptType()).getDuration();
+		Connection conn = null;
+		PreparedStatement ps = null;
+		conn = factory.getConnection();
+		ps = conn.prepareStatement("SELECT * " +
+				"FROM appointment a, appointmenttype type " +	//and the corresponding types
+				"WHERE a.appt_type=type.appt_type AND " +				//match them with types
+				"((DATE_ADD(a.sched_date, INTERVAL type.duration MINUTE)>? AND " +	//a1 ends after a2 starts AND
+				"a.sched_date<=?) OR " +				//a1 starts before a2 OR
+				"(DATE_ADD(?, INTERVAL ? MINUTE)>a.sched_date AND " +		//a2 ends after a1 starts AND
+				"?<=a.sched_date)) AND " + 			//a2 starts before a1 starts
+				"a.patient_id=? AND a.appt_id!=?;");
+
+		ps.setTimestamp(1, appt.getDate());
+		ps.setTimestamp(2, appt.getDate());
+		ps.setTimestamp(3, appt.getDate());
+		ps.setInt(4, duration);
+		ps.setTimestamp(5, appt.getDate());
+		ps.setLong(6, mid);
+		ps.setInt(7, appt.getApptID());
+
+		ResultSet rs = ps.executeQuery();
+		
+		List<ApptBean> conflictList = this.abloader.loadList(rs);
+		DBUtil.closeConnection(conn,ps);
+		
+		return conflictList;
+	}
+	
+	/**
+	 * Returns all past and future appointment conflicts for the doctor with the given MID
+	 * @param mid
+	 * @throws SQLException
+	 */
+	public List<ApptBean> getAllConflictsForDoctor(long mid) throws SQLException{
+		Connection conn = null;
+		PreparedStatement ps = null;
+		conn = factory.getConnection();
+		
+		ps = conn.prepareStatement("SELECT a1.* " +
+				"FROM appointment a1, appointment a2, " +			//all possible sets of 2 appts
+				"appointmenttype type1,appointmenttype type2 " +	//and the corresponding types
+				"WHERE a1.appt_id!=a2.appt_id AND " +				//exclude itself
+				"a1.appt_type=type1.appt_type AND a2.appt_type=type2.appt_type AND " +				//match them with types
+				"((DATE_ADD(a1.sched_date, INTERVAL type1.duration MINUTE)>a2.sched_date AND " +	//a1 ends after a2 starts AND
+				"a1.sched_date<=a2.sched_date) OR" +				//a1 starts before a2 OR
+				"(DATE_ADD(a2.sched_date, INTERVAL type2.duration MINUTE)>a1.sched_date AND " +		//a2 ends after a1 starts AND
+				"a2.sched_date<=a1.sched_date)) AND " + 			//a2 starts before a1 starts
+				"a1.doctor_id=? AND a2.doctor_id=?;");
+		
+		ps.setLong(1, mid);
+		ps.setLong(2, mid);
+
+		ResultSet rs = ps.executeQuery();
+		
+		List<ApptBean> conflictList = this.abloader.loadList(rs);
+		DBUtil.closeConnection(conn,ps);
+		
+		return conflictList;
+	}
+	
+	/**
+	 * Returns all past and future appointment conflicts for the patient with the given MID
+	 * @param mid
+	 * @throws SQLException
+	 */
+	public List<ApptBean> getAllConflictsForPatient(long mid) throws SQLException{
+		Connection conn = null;
+		PreparedStatement ps = null;
+		conn = factory.getConnection();
+		
+		ps = conn.prepareStatement("SELECT a1.* " +
+				"FROM appointment a1, appointment a2, " +			//all possible sets of 2 appts
+				"appointmenttype type1,appointmenttype type2 " +	//and the corresponding types
+				"WHERE a1.appt_id!=a2.appt_id AND " +				//exclude itself
+				"a1.appt_type=type1.appt_type AND a2.appt_type=type2.appt_type AND " +				//match them with types
+				"((DATE_ADD(a1.sched_date, INTERVAL type1.duration MINUTE)>a2.sched_date AND " +	//a1 ends after a2 starts AND
+				"a1.sched_date<=a2.sched_date) OR" +				//a1 starts before a2 OR
+				"(DATE_ADD(a2.sched_date, INTERVAL type2.duration MINUTE)>a1.sched_date AND " +		//a2 ends after a1 starts AND
+				"a2.sched_date<=a1.sched_date)) AND " + 			//a2 starts before a1 starts
+				"a1.patient_id=? AND a2.patient_id=?;");
+		
+		ps.setLong(1, mid);
+		ps.setLong(2, mid);
+
+		ResultSet rs = ps.executeQuery();
+		
+		List<ApptBean> conflictList = this.abloader.loadList(rs);
+		DBUtil.closeConnection(conn,ps);
+		
+		return conflictList;
 	}
 }

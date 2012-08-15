@@ -178,10 +178,10 @@ public class PersonnelDAO {
 		try {
 			conn = factory.getConnection();
 			ps = conn.prepareStatement("UPDATE Personnel SET AMID=?,firstName=?,lastName=?,"
-					+ "phone1=?,phone2=?,phone3=?, address1=?,address2=?,city=?, state=?, zip=?, zip1=?, zip2=?, specialty=?, email=?, MessageFilter=?"
+					+ "phone1=?,phone2=?,phone3=?, address1=?,address2=?,city=?, state=?, zip=?, zip1=?, zip2=?, specialty=?, email=?"
 					+ " WHERE MID=?");
 			personnelLoader.loadParameters(ps, p);
-			ps.setLong(17, p.getMID());
+			ps.setLong(16, p.getMID());
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

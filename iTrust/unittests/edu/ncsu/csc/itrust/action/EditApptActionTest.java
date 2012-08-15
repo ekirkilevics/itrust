@@ -1,5 +1,9 @@
 package edu.ncsu.csc.itrust.action;
 
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import edu.ncsu.csc.itrust.beans.ApptBean;
@@ -22,6 +26,8 @@ public class EditApptActionTest extends TestCase {
 		gen.hcp0();
 		gen.patient42();
 		gen.appointment();
+		gen.appointmentType();
+		gen.uc22();
 		
 		this.factory = TestDAOFactory.getTestInstance();
 		this.editAction = new EditApptAction(this.factory, this.hcpId);
@@ -30,9 +36,9 @@ public class EditApptActionTest extends TestCase {
 	
 	public void testRemoveAppt() throws Exception {
 		List<ApptBean> appts = viewAction.getMyAppointments();
-		assertEquals(15, appts.size());
+		int size = appts.size();
 		assertEquals("Success: Appointment removed", editAction.removeAppt(appts.get(0)));
-		assertEquals(14, viewAction.getMyAppointments().size());
+		assertEquals(size-1, viewAction.getMyAppointments().size());
 		editAction.removeAppt(appts.get(0));
 	}
 	
@@ -66,7 +72,7 @@ public class EditApptActionTest extends TestCase {
 		b.setPatient(orig.getPatient());
 		b.setComment("New comment!");
 		
-		String s = editAction.editAppt(b);
+		String s = editAction.editAppt(b,true);
 		assertTrue(s.contains("The scheduled date of this appointment"));
 		assertTrue(s.contains("has already passed"));
 		
@@ -82,7 +88,7 @@ public class EditApptActionTest extends TestCase {
 			b.setComment("New comment!");
 			d.setTime(aBean.getDate().getTime());
 			if (d.after(new Date())) {
-				s = editAction.editAppt(b);
+				s = editAction.editAppt(b,true);
 				//assertTrue(s.contains("Success: Appointment changed"));
 				assertEquals("Success: Appointment changed", s);
 				changed = true;
@@ -92,5 +98,27 @@ public class EditApptActionTest extends TestCase {
 		
 		if (!changed)
 			fail();
+	}
+	
+	public void testEditApptConflict() throws Exception {
+		
+		Calendar c = Calendar.getInstance();
+		c.add(Calendar.DATE, 12);
+		c.set(Calendar.HOUR, 9);
+		c.set(Calendar.AM_PM, Calendar.AM);
+		c.set(Calendar.MINUTE, 45);
+		
+		List<ApptBean> appts = viewAction.getMyAppointments();
+		ApptBean orig = appts.get(0);
+		ApptBean b = new ApptBean();
+		b.setApptID(orig.getApptID());
+		b.setDate(new Timestamp(c.getTimeInMillis()));
+		b.setApptType(orig.getApptType());
+		b.setHcp(orig.getHcp());
+		b.setPatient(orig.getPatient());
+		
+		String s = editAction.editAppt(b,false);
+		assertTrue(s.contains("conflict"));
+		
 	}
 }

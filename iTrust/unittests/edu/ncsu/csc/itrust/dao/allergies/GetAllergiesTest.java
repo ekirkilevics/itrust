@@ -29,7 +29,7 @@ public class GetAllergiesTest extends TestCase {
 		assertEquals(2, allergies.size());
 		assertEquals("Pollen", allergies.get(0).getDescription());
 		assertEquals(2, allergies.get(0).getPatientID());
-		assertEquals("664662530", allergies.get(1).getDescription());
+		assertEquals("664662530", allergies.get(1).getNDCode());
 		assertEquals(2, allergies.get(1).getPatientID());
 	}
 }

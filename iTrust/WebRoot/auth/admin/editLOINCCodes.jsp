@@ -21,7 +21,7 @@ pageTitle = "iTrust - Maintain LOINC Codes";
 /*UpdateLabProcListAction icdUpdater =
 		new UpdateLabProcListAction(prodDAO, loggedInMID.longValue());*/
 UpdateLOINCListAction icdUpdater =
-		new UpdateLOINCListAction(prodDAO, loggedInMID.longValue());		
+		new UpdateLOINCListAction(prodDAO);		
 	
 	if (request.getParameter("add") != null || request.getParameter("update") != null) {
 		try {
@@ -65,6 +65,7 @@ UpdateLOINCListAction icdUpdater =
 %>
 
 <div align=center>
+
 <form name="mainForm" method="post">
 <input type="hidden" id="updateID" name="updateID" value="">
 <input type="hidden" id="oldDescrip" name="oldDescrip" value="">
@@ -103,7 +104,7 @@ UpdateLOINCListAction icdUpdater =
 <br />
 
 <br />
-<table class="fTable" align="center">
+<table class="fTable mainTable" align="center">
 	<tr>
 		<th colspan="4">Update LOINC Code List</th>
 	</tr>
@@ -148,10 +149,12 @@ UpdateLOINCListAction icdUpdater =
 <br />
 <input type="submit" name="add" value="Add Code" />
 <input type="submit" name="update" value="Update Code" />
+<input type="button" name="import"  id="import" onclick="document.location.href='uploadLOINC.jsp'; return false;" value="Import LOINC Data"/>
+
 <br />
 <br />
 
-<table class="fTable" align="center">
+<table class="fTable mainTable" align="center">
 	<tr>
 		<th colspan="7">Current LOINC Codes</th>
 	</tr>
@@ -205,6 +208,10 @@ UpdateLOINCListAction icdUpdater =
 	<% } %>
 </table>
 </form>
+<br/>
+
+
+
 </div>
 <br />
 

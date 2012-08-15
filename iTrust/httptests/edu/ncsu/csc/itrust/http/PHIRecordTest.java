@@ -17,6 +17,57 @@ public class PHIRecordTest extends iTrustHTTPTest {
 		gen.patient4();
 		gen.hcp0();
 	}
+	
+	/*
+	 * Authenticate HCP
+	 * MID: 9000000000
+	 * Password: pw
+	 * Choose Edit Basic Health History
+	 * enter 0000000002 and confirm
+	 * Enter fields:
+	 * Height: **
+	 * Weight: 400 pounds
+	 * Blood Pressure: 999/000
+	 * Smokes: Y
+	 * HDL: 50
+	 * LDL: 200
+	 * Triglycerides: 200
+	 * Confirm and approve entries
+	 */
+	public void testCreatePHIRecord() throws Exception {
+		// login as hcp
+		WebConversation wc = login("9000000000", "pw");
+		WebResponse wr = wc.getResponse(ADDRESS + "auth/hcp/home.jsp");
+		assertEquals("iTrust - HCP Home", wr.getTitle());
+		assertLogged(TransactionType.HOME_VIEW, 9000000000L, 0L,"");
+		
+		// click on Edit Basic Health Information
+		wr = wr.getLinkWith("Basic Health Information").click();
+		assertEquals(ADDRESS + "auth/getPatientID.jsp?forward=hcp-uap/editBasicHealth.jsp", wr.getURL().toString());
+		// Choose patient 2
+		WebForm patientForm = wr.getForms()[0];
+		patientForm.getScriptableObject().setParameterValue("UID_PATIENTID", "2");
+		patientForm.getButtons()[1].click();
+		wr = wc.getCurrentPage();
+		assertEquals(ADDRESS + "auth/hcp-uap/editBasicHealth.jsp", wr.getURL().toString());
+		assertLogged(TransactionType.PATIENT_HEALTH_INFORMATION_VIEW, 9000000000L, 2L,"");
+		
+		// attempt to add a record with 0 height and 0 weight
+		WebForm form = wr.getForms()[0];
+		form.getButtons()[0].click();
+		form.setParameter("height", "0");
+		form.setParameter("weight", "0");
+		form.setParameter("isSmoker", "1");
+		form.setParameter("bloodPressureN", "999");
+		form.setParameter("bloodPressureD", "000");
+		form.setParameter("cholesterolHDL", "50");
+		form.setParameter("cholesterolLDL", "200");
+		form.setParameter("cholesterolTri", "200");
+		form.getButtons()[0].click();
+		WebResponse add = wc.getCurrentPage();
+		assertTrue(add.getText().contains("Height must be greater than 0")); 
+		assertTrue(add.getText().contains("Weight must be greater than 0"));
+	}
 
 	/*
 	 * Authenticate HCP

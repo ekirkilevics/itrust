@@ -145,4 +145,14 @@ abstract public class BeanValidator<T> {
 		else
 			return name + " must be either 'true' or 'false'";
 	}
+	
+	protected String checkNotZero(String name, String value, ValidationFormat format, boolean isNullable) {
+		String s = checkFormat(name, value, format, isNullable);
+		if (s.equals("")) {
+			if (Double.valueOf(value) < 0.1) {
+				return name + " must be greater than 0";
+			}
+		}
+		return s;
+	}
 }

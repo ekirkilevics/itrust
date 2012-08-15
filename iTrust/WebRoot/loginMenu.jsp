@@ -35,7 +35,6 @@ function fillLoginFields(u,p) {
 	<span>Password</span><br />
 	<input type="password" maxlength="20" id="j_password" name="j_password" style="width: 97%;"><br /><br />
 	<input type="submit" value="Login"><br /><br />
-
 	<a style="font-size: 80%;" href="/iTrust/util/resetPassword.jsp">Reset Password</a>
 
 	</form>

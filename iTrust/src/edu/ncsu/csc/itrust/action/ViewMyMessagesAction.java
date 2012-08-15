@@ -130,34 +130,6 @@ public class ViewMyMessagesAction {
 		return messageDAO.getMessagesFromNameDescending(loggedInMID);
 	}
 	
-	public String validateAndCreateFilter(String filter) {
-		String[] f = filter.split(",", -1);
-		
-		DateFormat format = new SimpleDateFormat("MM/dd/yyyy");
-		Date s = null;
-		Date en = null;
-		try {	
-			if(!f[4].equals(""))
-				s = format.parse(f[4]);
-			if(!f[5].equals(""))
-				en = format.parse(f[5]);
-			if(s!=null && en!=null && en.before(s)) {
-				return "Error: The end date cannot be before the start date.";
-			}
-		} catch(Exception e) {
-			return "Error: A date was not formatted correctly, please enter dates as MM/DD/YYYY";
-		}
-		
-		for(int i=0; i<f.length; i++) {
-			f[i]=f[i].replace("\"", "");
-			f[i]=f[i].replace("<","");
-			f[i]=f[i].replace(">","");
-		}
-		
-		String nf = f[0]+","+f[1]+","+f[2]+","+f[3]+","+f[4]+","+f[5];
-		
-		return nf;
-	}
 	
 	/**
 	 * Gets a list of messages for a user based on their filter criteria.
@@ -307,4 +279,8 @@ public class ViewMyMessagesAction {
 		return referralDAO.isReferralMessage(id);
 	}
 	
+	
+	public List<MessageBean> getCCdMessages(long refID) throws SQLException{
+		return messageDAO.getCCdMessages(refID);
+	}
 }

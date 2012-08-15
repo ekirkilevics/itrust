@@ -75,15 +75,19 @@ Calendar.getInstance().get(Calendar.YEAR));
 		gen.patient2();
 		gen.appointmentType();
 
+		Calendar startDate = Calendar.getInstance();
+		startDate.set(Calendar.HOUR, 0);
+		startDate.setTimeInMillis(startDate.getTimeInMillis()+1000*60*60*24);
+	
 		ApptBean b = new ApptBean();
 		b.setApptType("General Checkup");
 		b.setHcp(hcpId);
 		b.setPatient(mId);
-		b.setDate(new Timestamp(System.currentTimeMillis()+(10*60*1000)));
+		b.setDate(new Timestamp(startDate.getTimeInMillis()+(10*60*1000)));
 		b.setComment(null);
 		AddApptAction schedAction = new AddApptAction(factory,hcpId);
 		try {
-			assertTrue(schedAction.addAppt(b).startsWith("Success"));
+			assertTrue(schedAction.addAppt(b,true).startsWith("Success"));
 		} catch (FormValidationException e1) {
 			fail();
 		}
@@ -92,10 +96,10 @@ Calendar.getInstance().get(Calendar.YEAR));
 		b.setApptType("Physical");
 		b.setHcp(hcpId);
 		b.setPatient(01L);
-		b.setDate(new Timestamp(System.currentTimeMillis()+(20*60*1000)));
+		b.setDate(new Timestamp(startDate.getTimeInMillis()+(20*60*1000)));
 		b.setComment(null);
 		try {
-			assertTrue(schedAction.addAppt(b).startsWith("Success"));
+			assertTrue(schedAction.addAppt(b,true).startsWith("Success"));
 		} catch (FormValidationException e) {
 			fail();
 		}
@@ -104,16 +108,16 @@ Calendar.getInstance().get(Calendar.YEAR));
 		b.setApptType("Colonoscopy");
 		b.setHcp(hcpId);
 		b.setPatient(mId);
-		b.setDate(new Timestamp(System.currentTimeMillis()+(60*60*1000)));
+		b.setDate(new Timestamp(startDate.getTimeInMillis()+(60*60*1000)));
 		b.setComment(null);
 		try {
-			assertTrue(schedAction.addAppt(b).startsWith("Success"));
+			assertTrue(schedAction.addAppt(b,true).startsWith("Success"));
 		} catch (FormValidationException e) {
 			fail();
 		}
 		
 		this.action = new GenerateCalendarAction(factory, hcpId);	
-		action.getApptsTable(Calendar.getInstance().get(Calendar.MONTH), Calendar.getInstance().get(Calendar.YEAR));
+		action.getApptsTable(startDate.get(Calendar.MONTH), startDate.get(Calendar.YEAR));
 		
 		boolean conflicts[] = action.getConflicts();		
 		assertTrue(conflicts[0]);

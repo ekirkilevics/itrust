@@ -3,7 +3,9 @@ package edu.ncsu.csc.itrust.dao.officevisit;
 import java.util.List;
 import junit.framework.TestCase;
 import edu.ncsu.csc.itrust.beans.MedicationBean;
+import edu.ncsu.csc.itrust.beans.OverrideReasonBean;
 import edu.ncsu.csc.itrust.beans.PrescriptionBean;
+import edu.ncsu.csc.itrust.dao.mysql.PrescriptionOverrideDAO;
 import edu.ncsu.csc.itrust.dao.mysql.PrescriptionsDAO;
 import edu.ncsu.csc.itrust.datagenerators.TestDataGenerator;
 import edu.ncsu.csc.itrust.exception.DBException;
@@ -15,7 +17,9 @@ import edu.ncsu.csc.itrust.testutils.TestDAOFactory;
  */
 public class OVMedicationsTest extends TestCase {
 	private PrescriptionsDAO dao = TestDAOFactory.getTestInstance().getPrescriptionsDAO();
+	private PrescriptionOverrideDAO overrideDAO = new PrescriptionOverrideDAO(TestDAOFactory.getTestInstance());
 	private PrescriptionBean pres;
+	private OverrideReasonBean override;
 
 	@Override
 	protected void setUp() throws Exception {
@@ -33,6 +37,9 @@ public class OVMedicationsTest extends TestCase {
 		pres.setEndDateStr("05/19/2010");
 		pres.setVisitID(1L);
 		pres.setInstructions("Take twice daily");
+		
+		override = new OverrideReasonBean("00000");
+		
 
 	}
 
@@ -44,6 +51,20 @@ public class OVMedicationsTest extends TestCase {
 		assertEquals(pres, meds.get(0));
 		dao.remove(ovMedID);
 		assertEquals("now there's none", 0, dao.getList(1).size());
+	}
+	
+	public void testOverridePrescription() throws Exception {
+		long ovMedID = dao.add(pres);
+		
+		assertEquals("no current overrides on office visit 1", 0, overrideDAO.getList(ovMedID).size());
+		
+		override.setPresID(ovMedID);
+		overrideDAO.add(override);
+		List<OverrideReasonBean> overrides = overrideDAO.getList(ovMedID);
+		assertEquals("now there's 1", 1, overrides.size());
+		assertEquals(override.getORCode(), overrides.get(0).getORCode());
+		overrideDAO.remove(ovMedID);
+		assertEquals("now there's none", 0, overrideDAO.getList(ovMedID).size());
 	}
 	
 	public void testAddBadPrescription() throws Exception {

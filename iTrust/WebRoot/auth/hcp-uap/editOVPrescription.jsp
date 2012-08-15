@@ -1,4 +1,8 @@
-
+<style type="text/css">
+	table{
+		width: 80%;
+	}
+</style>
 <%@page import="edu.ncsu.csc.itrust.action.EditPrescriptionsAction"%>
 <%@page import="edu.ncsu.csc.itrust.beans.forms.EditPrescriptionsForm"%>
 <%@page import="edu.ncsu.csc.itrust.beans.PrescriptionBean"%>
@@ -40,12 +44,17 @@ if ("prescriptionForm".equals(submittedFormName)) {
     EditPrescriptionsAction prescriptions = ovaction.prescriptions();
     
     EditPrescriptionsForm form = new BeanBuilder<EditPrescriptionsForm>().build(request.getParameterMap(), new EditPrescriptionsForm());
-    
+    form.setOverrideCodes(request.getParameterValues("overrideCode"));
     try {
     	PrescriptionBean bean = prescriptions.formToBean(form, defaultInstructions);
         prescriptions.addPrescription(bean);
-        ovaction.logOfficeVisitEvent(TransactionType.OFFICE_VISIT_EDIT);
-        ovaction.logOfficeVisitEvent(TransactionType.PRESCRIPTION_ADD);
+        if(userRole.equals("er")){
+			ovaction.logIncidentReportEvent(TransactionType.ER_VISIT_EDIT);
+			ovaction.logIncidentReportEvent(TransactionType.PRESCRIPTION_ADD_ER);
+		} else {
+        	ovaction.logOfficeVisitEvent(TransactionType.OFFICE_VISIT_EDIT);
+        	ovaction.logOfficeVisitEvent(TransactionType.PRESCRIPTION_ADD);
+		}
         updateMessage = "Prescription information successfully updated.";
     } catch (PrescriptionWarningException e) {
     	prescriptionErrorMsg = e.getDisplayMessage();
@@ -193,35 +202,49 @@ if (!"".equals(updateMessage)) {
             <input type="submit" name="addprescription" id="addprescription" value="Add Prescription" <%= disableSubformsString %> >
         </td>
      </tr>
-</table>
-
-
-
-<%
+     <tr><td colspan="6">
+     <%
 if (!("".equals(prescriptionErrorMsg) )){ %>
-<br/>
-    <div style="background-color:yellow;color:black" align="center"><%= StringEscapeUtils.escapeHtml("" + (prescriptionErrorMsg)) %></div>
-    <div style="background-color:yellow">
-    <select multiple name="overrideCode" title="To select multiple reasons use Control+Click. (Or if on a Mac, Command+Click)" id="overrideCode" style="font-size:10px;">
+<br/><div style="background-color:yellow" align="center">
+    <div style="color:black"><%= StringEscapeUtils.escapeHtml("" + (prescriptionErrorMsg)) %></div>
+    
+    Select an override reason (Hold control to select multiple reasons)<br/>
+    <select multiple="multiple" size="9" name="overrideCode" title="To select multiple reasons use Control+Click. (Or if on a Mac, Command+Click)" id="overrideCode" style="font-size:10px;">
         <%for(OverrideReasonBean bean : prodDAO.getORCodesDAO().getAllORCodes()){%>
             <option value="<%=bean.getORCode()%>"><%= StringEscapeUtils.escapeHtml("" + (bean.getORCode())) %> - <%= StringEscapeUtils.escapeHtml("" + (bean.getDescription())) %></option>
                                     
         <%}%>
+        <option value="00000">Other</option>
+            
     </select>
-    </div>
-    <div style="background-color:yellow">
-    Other reasons:<br/>
-    <textarea name="overrideComment" id="overrideComment" ROWS=5 COLS=40" maxlength=210"></textarea>
+    <div id="overrideReasonOtherForm">
+    Additional Comments:<br/>
+    <textarea name="overrideOther" id="overrideOther" ROWS=6 COLS=40 maxlength=210"></textarea></div>
     
-    </div>
-    <div style="background-color:yellow" align="center">
+    <script type="text/javascript">
+   		$("#overrideReasonOtherForm").hide();
+    	$("#overrideCode").change(function(){
+    		 if ($("#overrideCode option[value='00000']:selected").length){
+    			 $("#overrideReasonOtherForm").show();
+    		 }else{
+    			 
+    			 $("#overrideReasonOtherForm").hide();
+    		 }
+    	});
+    </script>
+    <br/>
         <input type="submit" value="Continue" name="continue" id="continue"/>
-        <input type="button" id="cancel" onclick="location.href='editOfficeVisit.jsp?ovID=<%= StringEscapeUtils.escapeHtml("" + ovIDString) %>'" value="Cancel" name="cancel" id="cancel"/>
+        <input type="button" id="cancel" onclick="location.href='editOfficeVisit.jsp?ovID=<%= StringEscapeUtils.escapeHtml("" + ovIDString) %>'" value="Cancel" name="cancel" id="cancel"/><br/>
         
     </div>
     <BR>
     
 <%}; %>
+     </td></tr>
+</table>
+
+
+
 
 </form>
 

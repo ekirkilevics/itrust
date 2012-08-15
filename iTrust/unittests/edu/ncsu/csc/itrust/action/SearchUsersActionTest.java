@@ -38,6 +38,17 @@ public class SearchUsersActionTest extends TestCase {
 		assertEquals(0, patient.size());
 	}
 	
+	public void testFuzzySearchForPatient1(){
+		SearchUsersAction act = new SearchUsersAction(factory, 9000000003L);
+		List<PatientBean> patient = act.fuzzySearchForPatients("Andy");
+		assertEquals("Andy Programmer", patient.get(0).getFullName());
+	}
+	public void testFuzzySearchForPatient2(){
+		SearchUsersAction act = new SearchUsersAction(factory, 9000000003L);
+		List<PatientBean> patient = act.fuzzySearchForPatients("nd grammer");
+		assertEquals("Andy Programmer", patient.get(0).getFullName());
+	}
+	
 	public void testSearchForPersonnelWithName(){
 		SearchUsersAction act = new SearchUsersAction(factory, 9000000000L);
 		List<PersonnelBean> personnel = act.searchForPersonnelWithName("Kelly", "Doctor");
@@ -55,6 +66,8 @@ public class SearchUsersActionTest extends TestCase {
 		List<PersonnelBean> personnel = act.searchForPersonnelWithName("null", "null");
 		assertEquals(null, personnel);
 	}
+	
+	
 	
 	@Override
 	public void tearDown() throws Exception {

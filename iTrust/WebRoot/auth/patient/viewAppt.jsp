@@ -9,6 +9,7 @@
 <%@page import="edu.ncsu.csc.itrust.action.EditRepresentativesAction"%>
 <%@page import="edu.ncsu.csc.itrust.action.ViewPersonnelAction"%>
 <%@page import="edu.ncsu.csc.itrust.beans.ApptBean"%>
+<%@page import="edu.ncsu.csc.itrust.dao.mysql.ApptTypeDAO"%>
 <%@page import="edu.ncsu.csc.itrust.beans.PatientBean"%>
 <%@page import="edu.ncsu.csc.itrust.beans.PersonnelBean"%>
 <%@page import="java.util.List"%>
@@ -24,6 +25,7 @@ pageTitle = "iTrust - View Message";
 <%
 	long mid = loggedInMID.longValue();
 	ViewMyApptsAction apptAction = new ViewMyApptsAction(prodDAO, loggedInMID.longValue());
+	ApptTypeDAO apptTypeDAO = prodDAO.getApptTypeDAO();
 	
 	if (request.getParameter("patient") != null) {
 		String patientParameter = request.getParameter("patient");
@@ -50,7 +52,6 @@ pageTitle = "iTrust - View Message";
 	}
 	
 	ViewMyApptsAction action = new ViewMyApptsAction(prodDAO, mid);
-	EditApptTypeAction types = new EditApptTypeAction(prodDAO, mid);
 	ApptBean original = null;
 	
 	if (request.getParameter("apt") != null) {
@@ -112,7 +113,7 @@ pageTitle = "iTrust - View Message";
 						<td><b>Date/Time:</b> <%= StringEscapeUtils.escapeHtml("" + ( format.format(d) )) %></td>
 					</tr>
 					<tr>
-						<td><b>Duration:</b> <%= StringEscapeUtils.escapeHtml("" + ( types.getDurationByType(original.getApptType())+" minutes" )) %></td>
+						<td><b>Duration:</b> <%= StringEscapeUtils.escapeHtml("" + ( apptTypeDAO.getApptType(original.getApptType()).getDuration()+" minutes" )) %></td>
 					</tr>
 				</table>
 			</div>

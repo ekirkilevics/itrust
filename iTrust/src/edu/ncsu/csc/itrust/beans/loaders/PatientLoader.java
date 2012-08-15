@@ -18,6 +18,8 @@ import edu.ncsu.csc.itrust.beans.PatientHistoryBean;
  * For details on the paradigm for a loader (and what its methods do), see {@link BeanLoader}
  */
 public class PatientLoader implements BeanLoader<PatientBean> {
+	private final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("MM/dd/yyyy");
+
 	public List<PatientBean> loadList(ResultSet rs) throws SQLException {
 		List<PatientBean> list = new ArrayList<PatientBean>();
 		while (rs.next()) {
@@ -26,17 +28,18 @@ public class PatientLoader implements BeanLoader<PatientBean> {
 		return list;
 	}
 
-	public PatientBean loadSingle(ResultSet rs) throws SQLException {
-		PatientBean p = new PatientBean();
+	private void loadCommon(ResultSet rs, PatientBean p) throws SQLException{
 		p.setMID(rs.getInt("MID"));
 		p.setFirstName(rs.getString("firstName"));
 		p.setLastName(rs.getString("LastName"));
 		Date dateOfBirth = rs.getDate("DateOfBirth");
-		if (dateOfBirth != null)
-			p.setDateOfBirthStr(new SimpleDateFormat("MM/dd/yyyy").format(dateOfBirth));
+		if (dateOfBirth != null){
+			p.setDateOfBirthStr(DATE_FORMAT.format(dateOfBirth));
+		}
 		Date dateOfDeath = rs.getDate("DateOfDeath");
-		if (dateOfDeath != null)
-			p.setDateOfDeathStr(new SimpleDateFormat("MM/dd/yyyy").format(dateOfDeath));
+		if (dateOfDeath != null){
+			p.setDateOfDeathStr(DATE_FORMAT.format(dateOfDeath));
+		}
 		p.setCauseOfDeath(rs.getString("CauseOfDeath"));
 		p.setEmail(rs.getString("Email"));
 		p.setStreetAddress1(rs.getString("address1"));
@@ -71,12 +74,16 @@ public class PatientLoader implements BeanLoader<PatientBean> {
 		p.setTopicalNotes(rs.getString("TopicalNotes"));
 		p.setCreditCardType(rs.getString("CreditCardType"));
 		p.setCreditCardNumber(rs.getString("CreditCardNumber"));
-		p.setMessageFilter(rs.getString("MessageFilter"));
 		p.setDirectionsToHome(rs.getString("DirectionsToHome"));
 		p.setReligion(rs.getString("Religion"));
 		p.setLanguage(rs.getString("Language"));
 		p.setSpiritualPractices(rs.getString("SpiritualPractices"));
 		p.setAlternateName(rs.getString("AlternateName"));
+	}
+	
+	public PatientBean loadSingle(ResultSet rs) throws SQLException {
+		PatientBean p = new PatientBean();
+		loadCommon(rs, p);
 		return p;
 	}
 
@@ -84,57 +91,10 @@ public class PatientLoader implements BeanLoader<PatientBean> {
 		PatientHistoryBean p = new PatientHistoryBean();
 		p.setChangeMID(rs.getLong("changeMID"));
 		Date changeDate = rs.getDate("changeDate");
-		if (changeDate != null) 
-			p.setChangeDateStr(new SimpleDateFormat("MM/dd/yyyy").format(changeDate));
-		p.setMID(rs.getInt("MID"));
-		p.setFirstName(rs.getString("firstName"));
-		p.setLastName(rs.getString("LastName"));
-		Date dateOfBirth = rs.getDate("DateOfBirth");
-		if (dateOfBirth != null)
-			p.setDateOfBirthStr(new SimpleDateFormat("MM/dd/yyyy").format(dateOfBirth));
-		Date dateOfDeath = rs.getDate("DateOfDeath");
-		if (dateOfDeath != null)
-			p.setDateOfDeathStr(new SimpleDateFormat("MM/dd/yyyy").format(dateOfDeath));
-		p.setCauseOfDeath(rs.getString("CauseOfDeath"));
-		p.setEmail(rs.getString("Email"));
-		p.setStreetAddress1(rs.getString("address1"));
-		p.setStreetAddress2(rs.getString("address2"));
-		p.setCity(rs.getString("City"));
-		p.setState(rs.getString("State"));
-		p.setZip1((rs.getString("Zip1")));
-		p.setZip2((rs.getString("Zip2")));
-		p.setPhone1((rs.getString("phone1")));
-		p.setPhone2((rs.getString("phone2")));
-		p.setPhone3((rs.getString("phone3")));
-		p.setEmergencyName(rs.getString("eName"));
-		p.setEmergencyPhone1(rs.getString("ePhone1"));
-		p.setEmergencyPhone2(rs.getString("ePhone2"));
-		p.setEmergencyPhone3(rs.getString("ePhone3"));
-		p.setIcName(rs.getString("icName"));
-		p.setIcAddress1(rs.getString("icAddress1"));
-		p.setIcAddress2(rs.getString("icAddress2"));
-		p.setIcCity(rs.getString("icCity"));
-		p.setIcState(rs.getString("icState"));
-		p.setIcZip1(rs.getString("icZip1"));
-		p.setIcZip2(rs.getString("icZip2"));
-		p.setIcPhone1(rs.getString("icPhone1"));
-		p.setIcPhone2(rs.getString("icPhone2"));
-		p.setIcPhone3(rs.getString("icPhone3"));
-		p.setIcID(rs.getString("icID"));
-		p.setMotherMID(rs.getString("MotherMID"));
-		p.setFatherMID(rs.getString("FatherMID"));
-		p.setBloodTypeStr(rs.getString("BloodType"));
-		p.setEthnicityStr(rs.getString("Ethnicity"));
-		p.setGenderStr(rs.getString("Gender"));
-		p.setTopicalNotes(rs.getString("TopicalNotes"));
-		p.setCreditCardType(rs.getString("CreditCardType"));
-		p.setCreditCardNumber(rs.getString("CreditCardNumber"));
-		p.setMessageFilter(rs.getString("MessageFilter"));
-		p.setDirectionsToHome(rs.getString("DirectionsToHome"));
-		p.setReligion(rs.getString("Religion"));
-		p.setLanguage(rs.getString("Language"));
-		p.setSpiritualPractices(rs.getString("SpiritualPractices"));
-		p.setAlternateName(rs.getString("AlternateName"));
+		if (changeDate != null){ 
+			p.setChangeDateStr(DATE_FORMAT.format(changeDate));
+		}
+		loadCommon(rs, p);
 		return p;
 	}
 	
@@ -171,7 +131,7 @@ public class PatientLoader implements BeanLoader<PatientBean> {
 		ps.setString(i++, p.getIcID());
 		Date date = null;
 		try {
-			date = new java.sql.Date(new SimpleDateFormat("MM/dd/yyyy").parse(p.getDateOfBirthStr())
+			date = new java.sql.Date(DATE_FORMAT.parse(p.getDateOfBirthStr())
 					.getTime());
 		} catch (ParseException e) {
 			e.printStackTrace();
@@ -179,13 +139,14 @@ public class PatientLoader implements BeanLoader<PatientBean> {
 		ps.setDate(i++, date);
 		date = null;
 		try {
-			date = new java.sql.Date(new SimpleDateFormat("MM/dd/yyyy").parse(p.getDateOfDeathStr())
+			date = new java.sql.Date(DATE_FORMAT.parse(p.getDateOfDeathStr())
 					.getTime());
 		} catch (ParseException e) {
-			if ("".equals(p.getDateOfDeathStr()))
+			if ("".equals(p.getDateOfDeathStr())){
 				date = null;
-			else
+			}else{
 				e.printStackTrace();
+			}
 		}
 		ps.setDate(i++, date);
 		ps.setString(i++, p.getCauseOfDeath());
@@ -197,7 +158,6 @@ public class PatientLoader implements BeanLoader<PatientBean> {
 		ps.setString(i++, p.getTopicalNotes());
 		ps.setString(i++, p.getCreditCardType());
 		ps.setString(i++, p.getCreditCardNumber());
-		ps.setString(i++, p.getMessageFilter());
 		ps.setString(i++, p.getDirectionsToHome());
 		ps.setString(i++, p.getReligion());
 		ps.setString(i++, p.getLanguage());

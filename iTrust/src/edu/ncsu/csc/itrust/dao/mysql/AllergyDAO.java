@@ -60,18 +60,24 @@ public class AllergyDAO {
 
 	/**
 	 * Adds an allergy to this patient's list.
-	 * @param pid The MID of the patient whose allergy we are adding.
-	 * @param description The name of the allergen.
+	 * @param allergy: allergy bean
 	 * @throws DBException
 	 */
-	public void addAllergy(long pid, String description) throws DBException {
+	public void addAllergy(AllergyBean allergy) throws DBException {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("INSERT INTO Allergies(PatientID, Description) VALUES (?,?)");
-			ps.setLong(1, pid);
-			ps.setString(2, description);
+			ps = conn.prepareStatement("INSERT INTO Allergies(PatientID, Code, FirstFound, Description) VALUES (?,?,?,?)");
+			ps.setLong(1, allergy.getPatientID());
+			ps.setString(2, allergy.getNDCode());
+			if(allergy.getFirstFound() == null){
+				ps.setDate(3, null);
+			}else{
+				ps.setDate(3, new java.sql.Date(allergy.getFirstFound().getTime()));
+			}
+			
+			ps.setString(4, allergy.getDescription());
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

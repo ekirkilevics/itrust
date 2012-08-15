@@ -87,7 +87,7 @@ public class UpdateICDCodeListActionTest extends TestCase {
 		DiagnosisBean proc = new DiagnosisBean("999.99", "shouldnt be here", "Long Term");
 		assertEquals("Error: Code not found.", action.updateInformation(proc));
 		assertEquals(null, factory.getICDCodesDAO().getICDCode("999.99"));
-		assertEquals(12, factory.getICDCodesDAO().getAllICDCodes().size());
+		assertEquals(13, factory.getICDCodesDAO().getAllICDCodes().size());
 	}
 
 	public void testDiagnosisBeanStringConstructor() throws Exception {

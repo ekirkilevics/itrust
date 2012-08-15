@@ -122,7 +122,7 @@ public class PersonalHealthRecordsUseCaseTest extends iTrustHTTPTest {
 		
 		// Add allergy
 		WebForm wf = wr.getFormWithName("AddAllergy");
-		wf.getScriptableObject().setParameterValue("description", "081096 - Aspirin");
+		wf.getScriptableObject().setParameterValue("description", "081096");
 		wr = wf.submit();
 		assertLogged(TransactionType.PATIENT_HEALTH_INFORMATION_EDIT, 9000000000L, 2L, "");
 		
@@ -145,7 +145,7 @@ public class PersonalHealthRecordsUseCaseTest extends iTrustHTTPTest {
 				
 				// Add allergy
 				WebForm wf = wr.getFormWithName("AddAllergy");
-				wf.getScriptableObject().setParameterValue("description", "664662530 - Penicillin");
+				wf.getScriptableObject().setParameterValue("description", "664662530");
 				wr = wf.submit();
 				assertLogged(TransactionType.PATIENT_HEALTH_INFORMATION_EDIT, 9000000000L, 2L, "");
 				
@@ -258,4 +258,191 @@ public class PersonalHealthRecordsUseCaseTest extends iTrustHTTPTest {
 		assertTrue(table.getCellAsText(9, 1).contains("Randy"));
 		assertLogged(TransactionType.PATIENT_HEALTH_INFORMATION_VIEW, 9000000000L, 2L, "");
 	}
+	
+	public void testAddDupAllergy() throws Exception {
+		
+		WebConversation wc = login("9000000000", "pw");
+		//Logs in as Kelly Doctor
+		WebResponse wr = wc.getCurrentPage();
+		assertLogged(TransactionType.HOME_VIEW, 9000000000L, 0L,"");
+		
+		wr = wr.getLinkWith("PHR Information").click();
+		//Clicks PHR Info
+		assertEquals("iTrust - Please Select a Patient", wr.getTitle());
+
+		WebForm patientForm = wr.getForms()[0];
+		patientForm.getScriptableObject().setParameterValue("UID_PATIENTID", "25");
+		patientForm.getButtons()[1].click();
+		//Selects Patient Trend Setter
+		wr = wc.getCurrentPage();
+		assertEquals(ADDRESS + "auth/hcp-uap/editPHR.jsp", wr.getURL().toString());
+		
+		WebForm form = wr.getForms()[0];
+		form = wr.getFormWithName("AddAllergy");
+		form.setParameter("description", "664662530");
+		form.submit();
+		//Add Penicillin Allergy (will be firstFound on today's date)
+		wr = wc.getCurrentPage();
+		assertTrue(wr.getText().contains("Allergy Added"));
+		//No error should appear when this allergy is added.
+		assertLogged(TransactionType.PATIENT_HEALTH_INFORMATION_EDIT, 9000000000L, 25L,"");
+		
+		form = wr.getFormWithName("AddAllergy");
+		form.setParameter("description", "664662530");
+		form.submit();
+		//Add Penicillin Allergy again
+		wr = wc.getCurrentPage();
+		assertTrue(wr.getText().contains("Allergy 664662530 - Penicillin has already been added for Trend Setter."));
+		//This is the error that should appear when this allergy is added a second time.
+		assertLogged(TransactionType.PATIENT_HEALTH_INFORMATION_EDIT, 9000000000L, 25L,"");
+
+	}
+	public void testAddAllergyPrevRX() throws Exception {
+		
+		WebConversation wc = login("9000000000", "pw");
+		//Logs in as Kelly Doctor
+		WebResponse wr = wc.getCurrentPage();
+		assertLogged(TransactionType.HOME_VIEW, 9000000000L, 0L,"");
+				
+		wr = wr.getLinkWith("Document Office Visit").click();
+		//Clicks Document OV
+		assertEquals("iTrust - Please Select a Patient", wr.getTitle());
+		
+		WebForm patientForm = wr.getForms()[0];
+		patientForm.getScriptableObject().setParameterValue("UID_PATIENTID", "25");
+		patientForm.getButtons()[1].click();
+		//Selects Patient Trend Setter
+		wr = wc.getCurrentPage();
+		assertEquals(ADDRESS + "auth/hcp-uap-er/documentOfficeVisit.jsp", wr.getURL().toString());
+		
+		WebForm form = wr.getForms()[0];
+		form.getButtons()[0].click();
+		//Clicks Yes, Document OV
+		wr = wc.getCurrentPage();
+		assertEquals("iTrust - Document Office Visit", wr.getTitle());
+		
+		form = wr.getFormWithID("mainForm");
+		form.setParameter("visitDate", "01/01/2012");
+		form.setParameter("notes", "just some more notes");
+		form.getButtonWithID("update").click();
+		//Create new OV on date 01/01/2012
+		wr = wc.getCurrentPage();
+		assertTrue(wr.getText().contains("Information Successfully Updated"));
+		assertLogged(TransactionType.OFFICE_VISIT_CREATE, 9000000000L, 25L, "Office visit");
+		
+		form = wr.getFormWithID("prescriptionForm");
+		form.setParameter("medID", "664662530");
+		form.setParameter("dosage", "60");
+		form.setParameter("startDate", "01/01/2012");
+		form.setParameter("endDate", "01/31/2012");
+		form.setParameter("instructions", "Take three times daily with food.");
+		form.getButtonWithID("addprescription").click();
+		//Add Penicillin RX, 60mg, 01/01/2012 - 01/31/2012, thrice daily w/ food
+		wr = wc.getCurrentPage();
+		assertTrue(wr.getText().contains("Prescription information successfully updated."));
+		assertLogged(TransactionType.OFFICE_VISIT_EDIT, 9000000000L, 25L, "");
+	
+		wr = wr.getLinkWith("PHR Information").click(); //Clicks PHR Info
+		assertEquals("iTrust - Edit Personal Health Record", wr.getTitle());
+	
+		form = wr.getFormWithName("AddAllergy");
+		form.setParameter("description", "664662530");
+		form.submit();
+		//Add Penicillin Allergy (will be firstFound on today's date)
+		wr = wc.getCurrentPage();
+		assertTrue(wr.getText().contains("Allergy Added"));
+		//No error should appear when this allergy is added.
+		assertLogged(TransactionType.PATIENT_HEALTH_INFORMATION_EDIT, 9000000000L, 25L,"");
+	
+	}
+	public void testAddAllergyFutRX() throws Exception {
+		
+		WebConversation wc = login("9000000000", "pw");
+		//Logs in as Kelly Doctor
+		WebResponse wr = wc.getCurrentPage();
+		assertLogged(TransactionType.HOME_VIEW, 9000000000L, 0L,"");
+		
+		wr = wr.getLinkWith("All Patients").click();
+		assertEquals("iTrust - View All Patients", wr.getTitle());
+		assertLogged(TransactionType.PATIENT_LIST_VIEW, 9000000000L, 0L,"");
+	
+		wr = wr.getLinkWith("Anakin Skywalker").click();
+		//Select Anakin Skywalker, this seemed to be easier than what the acceptance tests did.
+		assertEquals("iTrust - Edit Personal Health Record", wr.getTitle());
+		assertLogged(TransactionType.PATIENT_HEALTH_INFORMATION_VIEW, 9000000000L, 100L,"");
+		
+		/* Since we don't worry about preconditions and it takes us straight to
+		 * the correct page anyway, we can skip a lot of stuff here.
+		 */
+		WebForm form = wr.getForms()[0];
+		form = wr.getFormWithName("AddAllergy");
+		form.setParameter("description", "483012382");
+		form.submit();
+		//Add M-minene Allergy (will be firstFound on today's date)
+		wr = wc.getCurrentPage();
+		assertTrue(wr.getText().contains("Medication 483012382 - Midichlominene is currently prescribed to Anakin Skywalker."));
+		//This is the error that should appear when this allergy is added.
+		assertLogged(TransactionType.PATIENT_HEALTH_INFORMATION_EDIT, 9000000000L, 100L,"");
+	
+	}
+	public void testAddAllergyExistRX() throws Exception {
+		
+		WebConversation wc = login("9000000000", "pw");
+		//Logs in as Kelly Doctor
+		WebResponse wr = wc.getCurrentPage();
+		assertLogged(TransactionType.HOME_VIEW, 9000000000L, 0L,"");
+				
+		wr = wr.getLinkWith("Document Office Visit").click();
+		//Clicks Document OV
+		assertEquals("iTrust - Please Select a Patient", wr.getTitle());
+		
+		WebForm patientForm = wr.getForms()[0];
+		patientForm.getScriptableObject().setParameterValue("UID_PATIENTID", "25");
+		patientForm.getButtons()[1].click();
+		//Selects Patient Trend Setter
+		wr = wc.getCurrentPage();
+		assertEquals(ADDRESS + "auth/hcp-uap-er/documentOfficeVisit.jsp", wr.getURL().toString());
+		
+		WebForm form = wr.getForms()[0];
+		form.getButtons()[0].click();
+		//Clicks Yes, Document OV
+		wr = wc.getCurrentPage();
+		assertEquals("iTrust - Document Office Visit", wr.getTitle());
+		
+		form = wr.getFormWithID("mainForm");
+		form.setParameter("visitDate", "02/01/2012");
+		form.setParameter("notes", "just some notes");
+		form.getButtonWithID("update").click();
+		//Create new OV on date 02/01/2012
+		wr = wc.getCurrentPage();
+		assertTrue(wr.getText().contains("Information Successfully Updated"));
+		assertLogged(TransactionType.OFFICE_VISIT_CREATE, 9000000000L, 25L, "Office visit");
+		
+		form = wr.getFormWithID("prescriptionForm");
+		form.setParameter("medID", "00882219");
+		form.setParameter("dosage", "100");
+		form.setParameter("startDate", "02/01/2012");
+		form.setParameter("endDate", "08/01/2012");
+		form.setParameter("instructions", "Take once daily");
+		form.getButtonWithID("addprescription").click();
+		//Add Lantus RX, 100mg, 02/01/2012 - 08/01/2012, once daily
+		wr = wc.getCurrentPage();
+		assertTrue(wr.getText().contains("Prescription information successfully updated."));
+		assertLogged(TransactionType.OFFICE_VISIT_EDIT, 9000000000L, 25L, "");
+	
+		wr = wr.getLinkWith("PHR Information").click(); //Clicks PHR Info
+		assertEquals("iTrust - Edit Personal Health Record", wr.getTitle());
+		assertLogged(TransactionType.PATIENT_HEALTH_INFORMATION_VIEW, 9000000000L, 25L,"");
+	
+		form = wr.getFormWithName("AddAllergy");
+		form.setParameter("description", "00882219");
+		form.submit();
+		//Add Lantus Allergy (will be firstFound on today's date)
+		wr = wc.getCurrentPage();
+		assertTrue(wr.getText().contains("Medication 00882219 - Lantus is currently prescribed to Trend Setter."));
+		//This is the error that should appear when this allergy is added.
+		assertLogged(TransactionType.PATIENT_HEALTH_INFORMATION_EDIT, 9000000000L, 25L,"");
+	
+	}
+
 }

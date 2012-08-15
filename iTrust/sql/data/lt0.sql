@@ -38,8 +38,9 @@ null,
 'ldude@iTrust.org'
 )ON DUPLICATE KEY UPDATE MID = MID;
 
-INSERT INTO Users(MID, password, role, sQuestion, sAnswer) VALUES(5000000001, 'pw', 'lt', 'first letter?', 'a')
+INSERT INTO Users(MID, password, role, sQuestion, sAnswer) VALUES(5000000001, '1a91d62f7ca67399625a4368a6ab5d4a3baa6073', 'lt', 'first letter?', 'a')
 ON DUPLICATE KEY UPDATE MID = MID;
+/*password: pw*/
 
 INSERT INTO HCPAssignedHos(HCPID, HosID) VALUES(5000000001,'9191919191')
 ON DUPLICATE KEY UPDATE HCPID = HCPID;

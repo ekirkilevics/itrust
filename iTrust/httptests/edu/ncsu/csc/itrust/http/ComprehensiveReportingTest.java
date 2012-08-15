@@ -57,7 +57,7 @@ public class ComprehensiveReportingTest extends iTrustHTTPTest {
 		assertTrue(wr.getText().contains("Please Select a Patient"));
         wr = wc.getResponse(ADDRESS + "/util/getUser.jsp");
         //assertEquals("iTrust - Find User", wr.getTitle());
-        wr.getForms()[0].setParameter("mid", "26");
+        wr.getForms()[0].setParameter("mid", "260");
         wr = wr.getForms()[0].submit();
         assertTrue(wr.getText().contains("User does not exist"));
         assertNotLogged(TransactionType.COMPREHENSIVE_REPORT_ADD, 9000000000L, 23L, "Report ID:");

@@ -74,17 +74,17 @@ public class LOINCDAO {
 	/**
 	 * Returns all LOINCs associated with LaboratoryProcedureCode
 	 * 
-	 * @param visitID The code of the Laboratory Procedure Code as a String.
+	 * @param labProcCode The code of the Laboratory Procedure Code as a String.
 	 * @return A java.util.List of LOINCBeans matching the Laboratory Procedure Code.
 	 * @throws DBException
 	 */
-	public List<LOINCbean> getProcedures(String visitID) throws DBException {
+	public List<LOINCbean> getProcedures(String labProcCode) throws DBException {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
 			ps = conn.prepareStatement("Select * From LOINC Where LaboratoryProcedureCode = ? ");
-			ps.setString(1, visitID);
+			ps.setString(1, labProcCode);
 			ResultSet rs = ps.executeQuery();
 			return LOINCLoader.loadList(rs);
 		} catch (SQLException e) {

@@ -158,13 +158,7 @@ public class ViewMyMessagesActionTest extends TestCase {
 		
 		assertEquals(2, mbList.size());
 	}
-	
-	public void testValidateAndCreateFilter() {
-		String test = action.validateAndCreateFilter("Random Person,Appointment,Appointment,Lab,01/01/2010,01/31/2010");
-		
-		assertEquals(test, "Random Person,Appointment,Appointment,Lab,01/01/2010,01/31/2010");
-		
-	}
+
 	
 	public void testFilterMessages() throws SQLException, iTrustException, ParseException {
 		List<MessageBean> mbList = action2.getAllMyMessages();

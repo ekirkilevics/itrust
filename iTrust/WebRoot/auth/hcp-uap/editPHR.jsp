@@ -262,7 +262,7 @@ function showRisks(){
 				<td align="center">
 					<div style="overflow:auto; height:200px; width:200px;">
 					<% for (OfficeVisitBean ov : officeVisits) { %>
-						<a href="editOfficeVisit.jsp?ovID=<%= StringEscapeUtils.escapeHtml("" + (ov.getVisitID())) %>"><%= StringEscapeUtils.escapeHtml("" + (df.format(ov.getVisitDate()))) %></a><br />
+						<a href="/iTrust/auth/hcp-uap-er/editOfficeVisit.jsp?ovID=<%= StringEscapeUtils.escapeHtml("" + (ov.getVisitID())) %>"><%= StringEscapeUtils.escapeHtml("" + (df.format(ov.getVisitDate()))) %></a><br />
 					<% } %>
 					</div>
 				</td>
@@ -351,7 +351,7 @@ function showRisks(){
 					<select name="description" id="description" style="font-size:10px;" >
                 	<option value=""> -- Please Select a Medication -- </option>
                 	<%for(MedicationBean med : prodDAO.getNDCodesDAO().getAllNDCodes()){%>
-                    	<option value="<%=med.getNDCode()%> - <%=med.getDescription() %>">
+                    	<option value="<%=med.getNDCode()%>">
                         	<%= StringEscapeUtils.escapeHtml("" + (med.getNDCode())) %> - <%= StringEscapeUtils.escapeHtml("" + (med.getDescription())) %>
                     	</option>                       
                		 <%}%>

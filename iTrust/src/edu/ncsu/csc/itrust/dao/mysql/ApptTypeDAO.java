@@ -70,4 +70,23 @@ public class ApptTypeDAO {
 		else
 			return false;
 	}
+	public ApptTypeBean getApptType(String apptType) throws SQLException{
+		Connection conn = null;
+		PreparedStatement ps = null;
+
+		conn = factory.getConnection();
+		ps = conn.prepareStatement("SELECT * FROM appointmenttype WHERE appt_type=?");
+		ps.setString(1, apptType);
+		
+		ResultSet rs = ps.executeQuery();
+		
+		List<ApptTypeBean> beans = atLoader.loadList(rs);
+
+		DBUtil.closeConnection(conn, ps);
+		if(beans.size()>0){
+			return beans.get(0);
+		}else{
+			return null;
+		}
+	}
 }

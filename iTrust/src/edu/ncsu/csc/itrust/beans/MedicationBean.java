@@ -56,6 +56,12 @@ public class MedicationBean {
 		else
 			return code;
 	}
+	
+	@Override
+	public int hashCode() {
+		assert false : "hashCode not designed";
+		return 42; // any arbitrary constant will do
+	}
 
 	@Override
 	public boolean equals(Object other) {

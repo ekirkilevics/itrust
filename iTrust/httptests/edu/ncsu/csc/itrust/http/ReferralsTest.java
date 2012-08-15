@@ -31,7 +31,7 @@ public class ReferralsTest extends iTrustHTTPTest {
 		form.getScriptableObject().setParameterValue("UID_PATIENTID", "1");
 		form.getButtons()[1].click();
 		wr = wc.getCurrentPage();
-		assertEquals(ADDRESS + "auth/hcp-uap/documentOfficeVisit.jsp", wr.getURL().toString());
+		assertEquals(ADDRESS + "auth/hcp-uap-er/documentOfficeVisit.jsp", wr.getURL().toString());
 		// Select the office visit from specific date
 		wr.getLinkWith("9/17/2009").click();
 
@@ -125,7 +125,7 @@ public class ReferralsTest extends iTrustHTTPTest {
 		form.getScriptableObject().setParameterValue("UID_PATIENTID", "2");
 		form.getButtons()[1].click();
 		wr = wc.getCurrentPage();
-		assertEquals(ADDRESS + "auth/hcp-uap/documentOfficeVisit.jsp", wr.getURL().toString());
+		assertEquals(ADDRESS + "auth/hcp-uap-er/documentOfficeVisit.jsp", wr.getURL().toString());
 		// Select the office visit from specific date
 		wr.getLinkWith("6/10/2007").click();
 

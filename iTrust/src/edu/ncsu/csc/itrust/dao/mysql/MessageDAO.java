@@ -258,17 +258,10 @@ public class MessageDAO {
 		PreparedStatement ps = null;
 
 		conn = factory.getConnection();
-		if (mBean.getParentMessageId() == 0L) {
-			ps = conn.prepareStatement(
-					"INSERT INTO message (from_id, to_id, sent_date, message, subject, been_read) "
-				  + "VALUES (?, ?, NOW(), ?, ?, ?)");
-			this.mbLoader.loadParameters(ps, mBean);
-		} else {
-			ps = conn.prepareStatement(
-					"INSERT INTO message (from_id, to_id, sent_date, message, subject, been_read, parent_msg_id) "
-				  + "  VALUES (?, ?, NOW(), ?, ?, ?, ?)");
-			this.mbLoader.loadParameters(ps, mBean);
-		}
+		ps = conn.prepareStatement(
+			"INSERT INTO message (from_id, to_id, sent_date, message, subject, been_read, parent_msg_id, original_msg_id) "
+		  + "  VALUES (?, ?, NOW(), ?, ?, ?, ?, ?)");
+		this.mbLoader.loadParameters(ps, mBean);
 
 		ps.executeUpdate();
 
@@ -289,5 +282,26 @@ public class MessageDAO {
 		} finally {
 			DBUtil.closeConnection(conn, ps);
 		}
+	}
+	
+	public List<MessageBean> getCCdMessages(long refID) throws SQLException{
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs;
+
+		conn = factory.getConnection();
+		ps = conn.prepareStatement("SELECT * FROM message WHERE original_msg_id=?");
+		ps.setLong(1, refID);
+		rs = ps.executeQuery();
+		
+		List<MessageBean> mbList = this.mbLoader.loadList(rs);
+
+		DBUtil.closeConnection(conn, ps);
+
+		return mbList;
+	}
+	
+	public long getMessageID(MessageBean mBean) throws DBException {
+		return mBean.getMessageId();
 	}
 }
