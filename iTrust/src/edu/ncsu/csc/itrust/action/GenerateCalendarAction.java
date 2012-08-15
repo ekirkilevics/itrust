@@ -84,7 +84,7 @@ public class GenerateCalendarAction {
 	 * @throws SQLException
 	 */
 	public Hashtable<Integer, ArrayList<ApptBean>> getApptsTable(int thisMonth, int thisYear) throws SQLException {
-		List<ApptBean> appts = a_action.getMyAppointments();
+		List<ApptBean> appts = a_action.getAllMyAppointments();
 		Hashtable<Integer, ArrayList<ApptBean>> atable = new Hashtable<Integer, ArrayList<ApptBean>>();
 		Calendar a = Calendar.getInstance();
 		for(ApptBean b : appts) {

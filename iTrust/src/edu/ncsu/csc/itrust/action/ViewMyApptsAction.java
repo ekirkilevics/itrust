@@ -14,6 +14,10 @@ public class ViewMyApptsAction extends ApptAction {
 	}
 	
 	public List<ApptBean> getMyAppointments() throws SQLException {
+		return apptDAO.getApptsFor(loggedInMID);
+	}
+	
+	public List<ApptBean> getAllMyAppointments() throws SQLException {
 		return apptDAO.getAllApptsFor(loggedInMID);
 	}
 	

@@ -128,7 +128,7 @@ public class UpdateLabProcListActionTest extends TestCase {
 		expected.add("IGNORED LINE 3: <----Clip Here for Data----->");
 		expected.add("IGNORED LINE 4: \"LOINC_NUM\"	\"COMPONENT\"	\"PROPERTY\"	\"TIME_ASPCT\"	\"SYSTEM\"	\"SCALE_TYP\"	\"METHOD_TYP\"	\"CLASS\"	\"SOURCE\"	\"DATE_LAST_CHANGED\"	\"CHNG_TYPE\"	\"COMMENTS\"	\"STATUS\"	\"MAP_TO\"	\"CONSUMER_NAME\"	\"MOLAR_MASS\"	\"CLASSTYPE\"	\"FORMULA\"	\"SPECIES\"	\"EXMPL_ANSWERS\"	\"ACSSYM\"	\"BASE_NAME\"	\"NAACCR_ID\"	\"CODE_TABLE\"	\"SURVEY_QUEST_TEXT\"	\"SURVEY_QUEST_SRC\"	\"UNITSREQUIRED\"	\"SUBMITTED_UNITS\"	\"RELATEDNAMES2\"	\"SHORTNAME\"	\"ORDER_OBS\"	\"CDISC_COMMON_TESTS\"	\"HL7_FIELD_SUBFIELD_ID\"	\"EXTERNAL_COPYRIGHT_NOTICE\"	\"EXAMPLE_UNITS\"	\"LONG_COMMON_NAME\"	\"HL7_V2_DATATYPE\"	\"HL7_V3_DATATYPE\"	\"CURATED_RANGE_AND_UNITS\"	\"DOCUMENT_SECTION\"	\"EXAMPLE_UCUM_UNITS\"	\"EXAMPLE_SI_UCUM_UNITS\"	\"STATUS_REASON\"	\"STATUS_TEXT\"	\"CHANGE_REASON_PUBLIC\"	\"COMMON_TEST_RANK\"	\"COMMON_ORDER_RANK\"");
 		expected.add("Successfully added 29 lines of new LOINC data. Updated 0 lines of existing LOINC data.");
-		String filename = ".\\testing-files\\sample_loinc\\sampleLoinc.txt";
+		String filename = "./testing-files/sample_loinc/sampleLoinc.txt";
 		FileInputStream stream = new FileInputStream(filename);
 		List<String> actual = action.parseLOINCFile(stream , true);
 		assertEquals(expected, actual);
