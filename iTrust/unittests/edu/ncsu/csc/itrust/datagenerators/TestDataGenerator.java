@@ -253,7 +253,7 @@ public class TestDataGenerator {
 	 * @throws IOException
 	 */
 	public void ndCodes100() throws FileNotFoundException, SQLException, IOException {
-		new DBBuilder(factory).executeSQLFile(DIR + "/ndCodes100.sql");
+		new DBBuilder(factory).executeSQLFile(DIR + "/ndcodes100.sql");
 	} //NEW
 
 	public void officeVisit1() throws SQLException, FileNotFoundException, IOException {

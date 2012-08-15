@@ -4,7 +4,7 @@
 	<test id="ResetPasswordHash">
 		<role>Patient</role>
 		<dateAdded>04/12/2012</dateAdded>
-		<usecase>49</usecase>
+		<usecase>NF 4.7</usecase>
 		<description>
 			<precondition>Patient Random Person (MID 1) is a registered user of iTrust.</precondition>
 			<step>Random Person clicks "Reset Password" at the login screen.</step>
@@ -20,7 +20,7 @@
 	<test id="LogInHashCheck">
 		<role>HCP</role>
 		<dateAdded>04/12/2012</dateAdded>
-		<usecase>49</usecase>
+		<usecase>NF 4.7</usecase>
 		<description>
 			<precondition>HCP Kelly Doctor (MID 9000000000) is a registered user of iTrust.</precondition>
 			<step>Kelly Doctor enters "9000000000" in the 'MID' field at the login screen.</step>
@@ -29,54 +29,6 @@
 		</description>		
 		<expectedResults>
 			<eResult>The password 'pw' is hashed and matches the hashed string in the database.</eResult>
-		</expectedResults>
-	</test>
-
-	<test id="LinkWithOpenID">
-		<role>HCP</role>
-		<dateAdded>04/12/2012</dateAdded>
-		<usecase>48</usecase>
-		<description>
-			<precondition>HCP Kelly Doctor (MID ) is a registered iTrust user</precondition>
-			<step>Kelly Doctor logs in and clicks OpenID</step>
-			<step>Kelly Doctor clicks Link my account with Google</step>
-			<step>Kelly Doctor authenticates with Google</step>
-		</description>
-		<expectedResults>
-			<eResult>Kelly Doctors iTrust account is linked to her Google account</eResult>
-			<eResult>The event is logged</eResult>
-		</expectedResults>
-	</test>
-	
-	<test id="LogInWithOpenID">
-		<role>HCP</role>
-		<dateAdded>04/12/2012</dateAdded>
-		<usecase>48</usecase>
-		<description>
-			<precondition>HCP Kelly Doctor (MID ) is a registered iTrust user</precondition>
-			<precondition>HCP Kelly Doctor (MID ) has linked her account with a Google account</precondition>
-			<step>Kelly Doctor clicks the Login with Google button</step>
-			<step>Kelly Doctor authenticates with Google</step>
-		</description>
-		<expectedResults>
-			<eResult>Kelly Doctors is logged in to iTrust</eResult>
-			<eResult>The event is logged</eResult>
-		</expectedResults>
-	</test>
-	
-	<test id="LinkWithUsedOpenID">
-		<role>HCP</role>
-		<dateAdded>04/12/2012</dateAdded>
-		<usecase>48</usecase>
-		<description>
-			<precondition>HCP Kelly Doctor (MID ) is a registered iTrust user</precondition>
-			<precondition>HCP Kelly Doctor (MID ) has linked her account with Google account X</precondition>
-			<step>HCP Gandalf Stormcrow logs in and clicks OpenID</step>
-			<step>Gandalf Stormcrow clicks Link my account with Google</step>
-			<step>Gandalf Stormcrow authenticates with the same Google account X</step>
-		</description>
-		<expectedResults>
-			<eResult>The user is presented with "This account has already been linked to an iTrust account</eResult>
 		</expectedResults>
 	</test>
 
@@ -205,61 +157,6 @@
 		</expectedResults>
 	</test>
 
-	<test id="ERVisitOctothorpe">
-		<role>ER</role>
-		<dateAdded>04/04/2012</dateAdded>
-		<usecase>47</usecase>
-		<description>
-			<precondition>Patient Random (MID 1) exists in the database.</precondition>
-			<precondition>ER Justin Time exists and is authenticated </precondition>
-			<step>Justin Time chooses Document Incident Report in the menu</step>
-	        <step>Justin Time selects Random Person (MID 1)</step>
-	        <step>Justin Time clicks Yes, Document ER Visit</step>
-	        <step>Justin Time sets the visit date to 11/21/2005</step>	
-	        <step>Justin Time sets the notes to I like diet-coke #</step>
-	        <step>Justin Time clicks create</step>
-		</description>
-		<expectedResults>
-			<eResult>Presented with the message: Information updated successfully</eResult>
-			<eResult>The event is logged.</eResult>
-		</expectedResults>
-	</test>
-	<test id="ERAddLabProcedure">
-		<role>ER</role>
-		<dateAdded>04/04/2012</dateAdded>
-		<usecase>47</usecase>
-		<description>
-			<precondition>Patient Andy Programmer (MID 2) exists in the database.</precondition>
-			<precondition>ER Justin Time exists and is authenticated </precondition>
-			<step>Justin Time chooses Document Incident Report in the menu</step>
-	        <step>Justin Time selects Andy Programmer (MID 2)</step>
-	        <step>Justin Time clicks 6/10/2007</step>
-	        <step>Justin Time adds a fungus identified lab procedured with lab tech Lab Dude</step>
-	        <step>Justin Time clicks add lab procedure</step>\
-		</description>
-		<expectedResults>
-			<eResult>Presented with the message: Information updated successfully</eResult>
-			<eResult>The event is logged.</eResult>
-		</expectedResults>
-	</test>
-	<test id="DocumentOfficeVisit1">
-		<role>ER</role>
-		<dateAdded>04/04/2012</dateAdded>
-		<usecase>47</usecase>
-		<description>
-			<precondition>Patient Andy Programmer (MID 2) exists in the database.</precondition>
-			<precondition>ER Justin Time exists and is authenticated </precondition>
-			<step>Justin Time chooses Document Incident Report in the menu</step>
-	        <step>Justin Time selects Andy Programmer (MID 2)</step>
-	        <step>Justin Time clicks Yes, Document ER Visit</step>
-	        <step>Justin Time sets visit date to 11/2/2005 and notes to Great Patient!</step>
-	        <step>Justin Time clicks create</step>\
-		</description>
-		<expectedResults>
-			<eResult>Presented with the message: Information updated successfully</eResult>
-			<eResult>The event is logged.</eResult>
-		</expectedResults>
-	</test>
 	<test id="UC46AcceptanceTest">
 		<role>HCP</role>
 		<dateAdded>04/04/2012</dateAdded>
