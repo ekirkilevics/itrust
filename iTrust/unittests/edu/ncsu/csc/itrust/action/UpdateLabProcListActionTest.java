@@ -142,7 +142,7 @@ public class UpdateLabProcListActionTest extends TestCase {
 		
 		List<String> expected = new ArrayList<String>();
 		expected.add("Successfully added 3 lines of new LOINC data. Updated 0 lines of existing LOINC data.");
-		String filename = ".\\testing-files\\sample_loinc\\sampleLoinc2.txt";
+		String filename = "./testing-files/sample_loinc/sampleLoinc2.txt";
 		FileInputStream stream = new FileInputStream(filename);
 		List<String> actual = action.parseLOINCFile(stream , false);
 		assertEquals(expected, actual);
@@ -154,8 +154,8 @@ public class UpdateLabProcListActionTest extends TestCase {
 	public void testParseLOINCFileIgnore() throws Exception {
 		gen.clearAllTables();
 		
-		String filename1 = ".\\testing-files\\sample_loinc\\sampleLoinc.txt";
-		String filename2 = ".\\testing-files\\sample_loinc\\sampleLoinc2.txt";
+		String filename1 = "./testing-files/sample_loinc/sampleLoinc.txt";
+		String filename2 = "./testing-files/sample_loinc/sampleLoinc2.txt";
 		FileInputStream stream1 = new FileInputStream(filename1);
 		FileInputStream stream2 = new FileInputStream(filename2);
 		action.parseLOINCFile(stream1 , true);
@@ -170,8 +170,8 @@ public class UpdateLabProcListActionTest extends TestCase {
 	public void testParseLOINCFileReplace() throws Exception {
 		gen.clearAllTables();
 		
-		String filename1 = ".\\testing-files\\sample_loinc\\sampleLoinc.txt";
-		String filename2 = ".\\testing-files\\sample_loinc\\sampleLoinc2.txt";
+		String filename1 = "./testing-files/sample_loinc/sampleLoinc.txt";
+		String filename2 = "./testing-files/sample_loinc/sampleLoinc2.txt";
 		FileInputStream stream1 = new FileInputStream(filename1);
 		FileInputStream stream2 = new FileInputStream(filename2);
 		action.parseLOINCFile(stream1 , false);
@@ -187,7 +187,7 @@ public class UpdateLabProcListActionTest extends TestCase {
 		List<String> expected = new ArrayList<String>();
 		expected.add("IGNORED LINE 1: This file contains no LOINC data and should fail the LOINC file verification process.");
 		expected.add("File invalid. No LOINC data added.");
-		String filename = ".\\testing-files\\sample_loinc\\badLoincFile.txt";
+		String filename = "./testing-files/sample_loinc/badLoincFile.txt";
 		FileInputStream stream = new FileInputStream(filename);
 		List<String> actual = action.parseLOINCFile(stream , false);
 		assertEquals(expected, actual);
@@ -197,7 +197,7 @@ public class UpdateLabProcListActionTest extends TestCase {
 		List<String> expected = new ArrayList<String>();
 		expected.add("ERROR, LINE 2: \"10054-5\"	\"I skip rest of fields\" This form has not been validated correctly. The following field are not properly filled in: [You must have a Lab Procedure Code, Component and Kind Of Property]");
 		expected.add("Successfully added 2 lines of new LOINC data. Updated 0 lines of existing LOINC data.");
-		String filename = ".\\testing-files\\sample_loinc\\invalidLine.txt";
+		String filename = "./testing-files/sample_loinc/invalidLine.txt";
 		FileInputStream stream = new FileInputStream(filename);
 		List<String> actual = action.parseLOINCFile(stream , false);
 		assertEquals(expected, actual);
@@ -207,7 +207,7 @@ public class UpdateLabProcListActionTest extends TestCase {
 		List<String> expected = new ArrayList<String>();
 		expected.add("ERROR, LINE 2: \"10054-5\"	'oh no! bad quoting\"	\"Time\"	\"Pt\"	\"Heart\"	\"Qn\"	\"EKG\"	\"EKG.MEAS\"	\"CH\"	\"19980820\"	\"NAM\"		\"ACTIVE\" This form has not been validated correctly. The following field are not properly filled in: [Bad LOINC data line. All fields must be surrounded by quotation marks.]");
 		expected.add("Successfully added 2 lines of new LOINC data. Updated 0 lines of existing LOINC data.");
-		String filename = ".\\testing-files\\sample_loinc\\invalidLine2.txt";
+		String filename = "./testing-files/sample_loinc/invalidLine2.txt";
 		FileInputStream stream = new FileInputStream(filename);
 		List<String> actual = action.parseLOINCFile(stream , false);
 		assertEquals(expected, actual);
