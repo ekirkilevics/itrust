@@ -25,7 +25,6 @@ public class ViewMyApptsActionTest extends TestCase {
 	
 	public void testGetMyAppointments() throws SQLException {
 		assertEquals(15, action.getMyAppointments().size());
-		assertEquals(15, action.getAppointments(hcpId).size());
 	}
 	
 	

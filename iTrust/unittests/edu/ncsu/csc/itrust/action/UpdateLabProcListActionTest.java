@@ -142,7 +142,7 @@ public class UpdateLabProcListActionTest extends TestCase {
 		
 		List<String> expected = new ArrayList<String>();
 		expected.add("Successfully added 3 lines of new LOINC data. Updated 0 lines of existing LOINC data.");
-		String filename = "\\testing-files\\sample_loinc\\sampleLoinc2.txt";
+		String filename = ".\\testing-files\\sample_loinc\\sampleLoinc2.txt";
 		FileInputStream stream = new FileInputStream(filename);
 		List<String> actual = action.parseLOINCFile(stream , false);
 		assertEquals(expected, actual);
@@ -154,8 +154,8 @@ public class UpdateLabProcListActionTest extends TestCase {
 	public void testParseLOINCFileIgnore() throws Exception {
 		gen.clearAllTables();
 		
-		String filename1 = "\\testing-files\\sample_loinc\\sampleLoinc.txt";
-		String filename2 = "\\testing-files\\sample_loinc\\sampleLoinc2.txt";
+		String filename1 = ".\\testing-files\\sample_loinc\\sampleLoinc.txt";
+		String filename2 = ".\\testing-files\\sample_loinc\\sampleLoinc2.txt";
 		FileInputStream stream1 = new FileInputStream(filename1);
 		FileInputStream stream2 = new FileInputStream(filename2);
 		action.parseLOINCFile(stream1 , true);
