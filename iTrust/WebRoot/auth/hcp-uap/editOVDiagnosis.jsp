@@ -18,13 +18,8 @@ if ("removeDiagnosisForm".equals(submittedFormName)) {
     DiagnosisBean bean = new DiagnosisBean();
     bean.setOvDiagnosisID(Long.parseLong(remID));
     diagnoses.deleteDiagnosis(bean);
-    if(userRole.equals("er")){
-		ovaction.logIncidentReportEvent(TransactionType.ER_VISIT_EDIT);
-		ovaction.logIncidentReportEvent(TransactionType.DIAGNOSIS_REMOVE_ER);
-	} else {
-    	ovaction.logOfficeVisitEvent(TransactionType.OFFICE_VISIT_EDIT);
-    	ovaction.logOfficeVisitEvent(TransactionType.DIAGNOSIS_REMOVE);
-	}
+   	ovaction.logOfficeVisitEvent(TransactionType.OFFICE_VISIT_EDIT);
+   	ovaction.logOfficeVisitEvent(TransactionType.DIAGNOSIS_REMOVE);
     updateMessage = "Diagnosis information successfully updated.";
 }
 
@@ -39,13 +34,8 @@ if ("diagnosisForm".equals(submittedFormName)) {
     	validator.validate(bean);
     	bean.setVisitID(ovaction.getOvID());
         diagnoses.addDiagnosis(bean);
-        if(userRole.equals("er")){
-			ovaction.logIncidentReportEvent(TransactionType.ER_VISIT_EDIT);
-			ovaction.logIncidentReportEvent(TransactionType.DIAGNOSIS_ADD_ER);
-		} else {
-       		ovaction.logOfficeVisitEvent(TransactionType.OFFICE_VISIT_EDIT);
-        	ovaction.logOfficeVisitEvent(TransactionType.DIAGNOSIS_ADD);
-		}
+   		ovaction.logOfficeVisitEvent(TransactionType.OFFICE_VISIT_EDIT);
+       	ovaction.logOfficeVisitEvent(TransactionType.DIAGNOSIS_ADD);
         updateMessage = "Diagnosis information successfully updated.";
     } catch (FormValidationException e) {
  

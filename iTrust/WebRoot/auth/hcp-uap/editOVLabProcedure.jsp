@@ -70,13 +70,8 @@ if ("labProcedureForm".equals(submittedFormName)) {
 	    bean.setOvID(ovaction.getOvID());
 	    bean.setPid(ovaction.getPid());
 	    labProcedures.addLabProcedure(bean);
-	    if(userRole.equals("er")){
-			ovaction.logIncidentReportEvent(TransactionType.ER_VISIT_EDIT);
-			ovaction.logIncidentReportEvent(TransactionType.LAB_PROCEDURE_ADD_ER);
-		} else {
-	    	ovaction.logOfficeVisitEvent(TransactionType.OFFICE_VISIT_EDIT);
-	    	ovaction.logOfficeVisitEvent(TransactionType.LAB_PROCEDURE_ADD);
-		}
+    	ovaction.logOfficeVisitEvent(TransactionType.OFFICE_VISIT_EDIT);
+    	ovaction.logOfficeVisitEvent(TransactionType.LAB_PROCEDURE_ADD);
 	    updateMessage = "Lab Procedure information successfully updated.";
 
 	} catch(FormValidationException e)

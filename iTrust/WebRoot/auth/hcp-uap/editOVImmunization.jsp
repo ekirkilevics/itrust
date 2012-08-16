@@ -15,13 +15,8 @@ if ("removeImmunizationForm".equals(submittedFormName)) {
     ProcedureBean bean = new ProcedureBean();
     bean.setOvProcedureID(Long.parseLong(remID));
     immunizations.deleteImmunization(bean);
-    if(userRole.equals("er")){
-		ovaction.logIncidentReportEvent(TransactionType.ER_VISIT_EDIT);
-		ovaction.logIncidentReportEvent(TransactionType.IMMUNIZATION_REMOVE_ER);
-	} else {
-    	ovaction.logOfficeVisitEvent(TransactionType.OFFICE_VISIT_EDIT);
-    	ovaction.logOfficeVisitEvent(TransactionType.IMMUNIZATION_REMOVE);
-	}
+   	ovaction.logOfficeVisitEvent(TransactionType.OFFICE_VISIT_EDIT);
+   	ovaction.logOfficeVisitEvent(TransactionType.IMMUNIZATION_REMOVE);
     updateMessage = "Immunization information successfully updated.";
 }
 
@@ -31,13 +26,8 @@ if ("immunizationForm".equals(submittedFormName)) {
     ProcedureBean bean = new BeanBuilder<ProcedureBean>().build(request.getParameterMap(), new ProcedureBean());
     bean.setVisitID(ovaction.getOvID());
     immunizations.addImmunization(bean);
-    if(userRole.equals("er")){
-		ovaction.logIncidentReportEvent(TransactionType.ER_VISIT_EDIT);
-		ovaction.logIncidentReportEvent(TransactionType.IMMUNIZATION_ADD_ER);
-	} else {
-    	ovaction.logOfficeVisitEvent(TransactionType.OFFICE_VISIT_EDIT);
-    	ovaction.logOfficeVisitEvent(TransactionType.IMMUNIZATION_ADD);
-	}
+   	ovaction.logOfficeVisitEvent(TransactionType.OFFICE_VISIT_EDIT);
+   	ovaction.logOfficeVisitEvent(TransactionType.IMMUNIZATION_ADD);
     updateMessage = "Immunization information successfully updated.";
 }
 if (!"".equals(updateMessage)) {

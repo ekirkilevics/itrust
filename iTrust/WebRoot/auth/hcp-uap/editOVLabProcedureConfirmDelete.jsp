@@ -52,13 +52,8 @@ if (request.getParameter("cancelDelete") != null) {
 else if (request.getParameter("confirmDelete") != null) {
 	long ltid = proc.getLTID();
     action.deleteLabProcedure(proc);
-    if(userRole.equals("er")){
-		ovaction.logIncidentReportEvent(TransactionType.ER_VISIT_EDIT);
-		ovaction.logIncidentReportEvent(TransactionType.LAB_PROCEDURE_REMOVE_ER);
-	} else {
-    	ovaction.logOfficeVisitEvent(TransactionType.OFFICE_VISIT_EDIT);
-    	ovaction.logOfficeVisitEvent(TransactionType.LAB_PROCEDURE_REMOVE);
-	}
+   	ovaction.logOfficeVisitEvent(TransactionType.OFFICE_VISIT_EDIT);
+   	ovaction.logOfficeVisitEvent(TransactionType.LAB_PROCEDURE_REMOVE);
     loggingAction.logEvent(TransactionType.LAB_RESULTS_REMOVE, 
     		               loggedInMID.longValue(), 
     		               Long.parseLong(pidString), 

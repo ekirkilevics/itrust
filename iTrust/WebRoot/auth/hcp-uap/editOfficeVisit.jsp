@@ -30,10 +30,6 @@
 
 <%
 String visitName = "Office Visit";
-if(userRole.equals("er")){
-	visitName = "ER Visit";
-}
-
 pageTitle = "iTrust - Document "+visitName;
 %>
 
@@ -70,18 +66,10 @@ pageTitle = "iTrust - Document "+visitName;
     	form.setHcpID("" + visit.getHcpID());
         form.setPatientID("" + visit.getPatientID());
         try {
-        	if(userRole.equals("er")) {
-        		confirm = ovaction.updateInformation(form, true);
-        	} else {
-        		confirm = ovaction.updateInformation(form, false);
-        	}
+        	confirm = ovaction.updateInformation(form, false);
         	ovIDString = ""+ovaction.getOvID();
         	if (createVisit) {        		
-        		if(userRole.equals("er")){
-        			ovaction.logIncidentReportEvent(TransactionType.ER_VISIT_CREATE);
-        		} else {
-        			ovaction.logOfficeVisitEvent(TransactionType.OFFICE_VISIT_CREATE);
-        		}        		
+       			ovaction.logOfficeVisitEvent(TransactionType.OFFICE_VISIT_CREATE);
         		createVisit = false;
         	} else {
                 ovaction.logOfficeVisitEvent(TransactionType.OFFICE_VISIT_EDIT);
@@ -91,11 +79,7 @@ pageTitle = "iTrust - Document "+visitName;
             confirm = "Input not valid";
         }
     } else if (!createVisit) {
-    	if(userRole.equals("er")){
-    		ovaction.logIncidentReportEvent(TransactionType.ER_VISIT_VIEW);
-    	} else {
-        	ovaction.logOfficeVisitEvent(TransactionType.OFFICE_VISIT_VIEW);
-    	}
+        ovaction.logOfficeVisitEvent(TransactionType.OFFICE_VISIT_VIEW);
     }
     
     String disableSubformsString = createVisit ? "disabled=\"true\"" : "";

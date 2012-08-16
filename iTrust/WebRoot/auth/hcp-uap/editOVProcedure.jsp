@@ -15,13 +15,8 @@ if ("removeProcedureForm".equals(submittedFormName)) {
     ProcedureBean bean = new ProcedureBean();
     bean.setOvProcedureID(Long.parseLong(remID));
     procedures.deleteProcedure(bean);
-    if(userRole.equals("er")){
-		ovaction.logIncidentReportEvent(TransactionType.ER_VISIT_EDIT);
-		ovaction.logIncidentReportEvent(TransactionType.PROCEDURE_REMOVE_ER);
-	} else {
-    	ovaction.logOfficeVisitEvent(TransactionType.OFFICE_VISIT_EDIT);
-    	ovaction.logOfficeVisitEvent(TransactionType.PROCEDURE_REMOVE);
-	}
+   	ovaction.logOfficeVisitEvent(TransactionType.OFFICE_VISIT_EDIT);
+   	ovaction.logOfficeVisitEvent(TransactionType.PROCEDURE_REMOVE);
     updateMessage = "Medical Procedure information successfully updated.";
 }
 
@@ -31,13 +26,8 @@ if ("procedureForm".equals(submittedFormName)) {
     ProcedureBean bean = new BeanBuilder<ProcedureBean>().build(request.getParameterMap(), new ProcedureBean());
     bean.setVisitID(ovaction.getOvID());
     procedures.addProcedure(bean);
-    if(userRole.equals("er")){
-		ovaction.logIncidentReportEvent(TransactionType.ER_VISIT_EDIT);
-		ovaction.logIncidentReportEvent(TransactionType.PROCEDURE_ADD_ER);
-	} else {
-    	ovaction.logOfficeVisitEvent(TransactionType.OFFICE_VISIT_EDIT);
-    	ovaction.logOfficeVisitEvent(TransactionType.PROCEDURE_ADD);
-	}
+   	ovaction.logOfficeVisitEvent(TransactionType.OFFICE_VISIT_EDIT);
+   	ovaction.logOfficeVisitEvent(TransactionType.PROCEDURE_ADD);
     updateMessage = "Medical Procedure information successfully updated.";
 }
 if (!"".equals(updateMessage)) {

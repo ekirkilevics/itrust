@@ -48,13 +48,8 @@ if ("prescriptionForm".equals(submittedFormName)) {
     try {
     	PrescriptionBean bean = prescriptions.formToBean(form, defaultInstructions);
         prescriptions.addPrescription(bean);
-        if(userRole.equals("er")){
-			ovaction.logIncidentReportEvent(TransactionType.ER_VISIT_EDIT);
-			ovaction.logIncidentReportEvent(TransactionType.PRESCRIPTION_ADD_ER);
-		} else {
-        	ovaction.logOfficeVisitEvent(TransactionType.OFFICE_VISIT_EDIT);
-        	ovaction.logOfficeVisitEvent(TransactionType.PRESCRIPTION_ADD);
-		}
+       	ovaction.logOfficeVisitEvent(TransactionType.OFFICE_VISIT_EDIT);
+       	ovaction.logOfficeVisitEvent(TransactionType.PRESCRIPTION_ADD);
         updateMessage = "Prescription information successfully updated.";
     } catch (PrescriptionWarningException e) {
     	prescriptionErrorMsg = e.getDisplayMessage();
