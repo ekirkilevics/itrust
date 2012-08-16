@@ -4,7 +4,7 @@
 	<test id="ResetPasswordHash">
 		<role>Patient</role>
 		<dateAdded>04/12/2012</dateAdded>
-		<usecase>NF 4.7</usecase>
+		<usecase>0</usecase>
 		<description>
 			<precondition>Patient Random Person (MID 1) is a registered user of iTrust.</precondition>
 			<step>Random Person clicks "Reset Password" at the login screen.</step>
@@ -20,7 +20,7 @@
 	<test id="LogInHashCheck">
 		<role>HCP</role>
 		<dateAdded>04/12/2012</dateAdded>
-		<usecase>NF 4.7</usecase>
+		<usecase>0</usecase>
 		<description>
 			<precondition>HCP Kelly Doctor (MID 9000000000) is a registered user of iTrust.</precondition>
 			<step>Kelly Doctor enters "9000000000" in the 'MID' field at the login screen.</step>
