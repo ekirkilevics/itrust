@@ -20,6 +20,7 @@ public class AppointmentRequestTest extends iTrustHTTPTest {
 		super.setUp(); // clear tables is called in super
 		gen.standardData();
 		gen.hcp9();
+		gen.apptRequestConflicts();
 	}
 	
 	public void testAppointmnetRequestExpire() throws Exception {
@@ -72,10 +73,9 @@ public class AppointmentRequestTest extends iTrustHTTPTest {
 		assertEquals("iTrust - View My Appointment Requests", wrHCP.getTitle());
 		assertLogged(TransactionType.APPOINTMENT_REQUEST_VIEW, 9000000010L, 0L, "");
 		
-		assertTrue(wrHCP.getText().contains("3:45"));
+		assertTrue(wrHCP.getText().contains("4:00"));
 		
 		wrHCP = wrHCP.getLinkWith("Approve").click();
-		assertLogged(TransactionType.APPOINTMENT_REQUEST_APPROVED, 9000000010L, 26L, "");
 	}
 	
 	
@@ -198,7 +198,7 @@ public class AppointmentRequestTest extends iTrustHTTPTest {
 		assertEquals("iTrust - View My Appointment Requests", wrHCP.getTitle());
 		assertLogged(TransactionType.APPOINTMENT_REQUEST_VIEW, 9000000010L, 0L, "");
 		
-		assertTrue(wrHCP.getText().contains("3:45"));
+		assertTrue(wrHCP.getText().contains("4:00"));
 		
 	}
 	

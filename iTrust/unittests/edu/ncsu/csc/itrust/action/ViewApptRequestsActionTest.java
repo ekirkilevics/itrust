@@ -24,19 +24,18 @@ public class ViewApptRequestsActionTest extends TestCase {
 
 	public void testGetApptRequests() throws Exception {
 		List<ApptRequestBean> list = action.getApptRequests();
-		assertEquals(2, list.size());
+		assertEquals(1, list.size());
 		assertEquals(2L, list.get(0).getRequestedAppt().getPatient());
-		assertEquals(1L, list.get(1).getRequestedAppt().getPatient());
 	}
 
 	public void testAcceptApptRequest() throws Exception {
 		List<ApptRequestBean> list = action.getApptRequests();
-		assertEquals(2, list.size());
+		assertEquals(1, list.size());
 		assertEquals(2L, list.get(0).getRequestedAppt().getPatient());
 		String res = action.acceptApptRequest(list.get(0).getRequestedAppt().getApptID());
 		assertEquals("The appointment request you selected has been accepted and scheduled.", res);
 		list = action.getApptRequests();
-		assertEquals(2, list.size());
+		assertEquals(1, list.size());
 		assertEquals(2L, list.get(0).getRequestedAppt().getPatient());
 		assertTrue(list.get(0).isAccepted());
 		List<MessageBean> msgs = mDAO.getMessagesFor(list.get(0).getRequestedAppt().getPatient());
@@ -46,12 +45,12 @@ public class ViewApptRequestsActionTest extends TestCase {
 
 	public void testRejectApptRequest() throws Exception {
 		List<ApptRequestBean> list = action.getApptRequests();
-		assertEquals(2, list.size());
+		assertEquals(1, list.size());
 		assertEquals(2L, list.get(0).getRequestedAppt().getPatient());
 		String res = action.rejectApptRequest(list.get(0).getRequestedAppt().getApptID());
 		assertEquals("The appointment request you selected has been rejected.", res);
 		list = action.getApptRequests();
-		assertEquals(2, list.size());
+		assertEquals(1, list.size());
 		assertEquals(2L, list.get(0).getRequestedAppt().getPatient());
 		assertFalse(list.get(0).isAccepted());
 		List<MessageBean> msgs = mDAO.getMessagesFor(list.get(0).getRequestedAppt().getPatient());

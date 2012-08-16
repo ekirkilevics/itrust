@@ -23,11 +23,9 @@ public class ApptRequestDAOTest extends TestCase {
 
 	public void testGetApptRequestsFor() throws Exception {
 		List<ApptRequestBean> beans = arDAO.getApptRequestsFor(9000000000L);
-		assertEquals(2, beans.size());
+		assertEquals(1, beans.size());
 		assertEquals(2L, beans.get(0).getRequestedAppt().getPatient());
 		assertTrue(beans.get(0).isPending());
-		assertEquals(1L, beans.get(1).getRequestedAppt().getPatient());
-		assertTrue(beans.get(1).isPending());
 	}
 
 	public void testAddApptRequest() throws Exception {

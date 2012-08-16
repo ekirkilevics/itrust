@@ -15,6 +15,7 @@ VALUES
 ('9000000000', '5', CONCAT(ADDDATE(CURDATE(),7), ' 09:30:00'), 'General Checkup', 'Scheduled booster shots'),
 ('9000000000', '1', CONCAT(ADDDATE(CURDATE(),14), ' 13:30:00'), 'Ultrasound', NULL),
 ('9000000000', '2', CONCAT(ADDDATE(CURDATE(),14), ' 13:45:00'), 'General Checkup', NULL),
-('9000000000', '5', CONCAT(ADDDATE(CURDATE(),10), ' 16:00:00'), 'General Checkup', 'Follow-up for the immunizations.');
+('9000000000', '5', CONCAT(ADDDATE(CURDATE(),10), ' 16:00:00'), 'General Checkup', 'Follow-up for the immunizations.'),
+('9000000010', '2', CONCAT(ADDDATE(CURDATE(),7), ' 13:45:00'), 'General Checkup', 'Follow-up for the immunizations.');
 
 
