@@ -58,6 +58,7 @@ public class DBBuilder {
 		long start = System.currentTimeMillis();
 		for (String sql : queries) {
 			System.out.println("Executing: " + sql);
+			//System.out.println("\"" + sql.replace("\"", "\\'") + "\",");
 			numExecuted++;
 			Statement stmt = conn.createStatement();
 			try {
