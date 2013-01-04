@@ -35,11 +35,9 @@ pageTitle = "iTrust - View Group Report";
 DAOFactory factory = DAOFactory.getProductionInstance();
 List<ReportFilter> filters = new ArrayList<ReportFilter>();
 GroupReportGeneratorAction gpga = null;
-String XMLReportFilename = "";
 boolean hasDeactivatedFilter = false;
 boolean validationError = false;
 boolean noParameters = false;
-boolean XMLError = false;
 
 if (request.getParameter("generate") != null) {
 	if (request.getParameter("demoparams") != null && !request.getParameter("demoparams").isEmpty()) {
@@ -127,24 +125,6 @@ if(!noParameters){
 	<%
 	
 	if(!validationError){
-		
-		if(request.getParameter("XMLReport") != null && request.getParameter("XMLReport").equals("XMLReport")){
-			try{
-				XMLReportFilename = gpga.generateXMLReport(request.getRealPath("/"));
-			}catch(IOException e){
-				XMLError = true;
-			}
-			if(!XMLError){
-				%>
-				<a href="/iTrust/<%=XMLReportFilename%>">Download XML Report</a>
-				<%
-			}else{
-				%>
-				<p>XML report generation failed!  Please contact the administrator!</p>
-				<%
-			}
-		}
-		
 		%>
 		<table border="1" cellpadding="5" cellspacing="0" class="fTable" id="report"><tr>
 		<%
