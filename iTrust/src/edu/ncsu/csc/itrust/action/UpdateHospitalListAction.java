@@ -5,7 +5,6 @@ import edu.ncsu.csc.itrust.dao.DAOFactory;
 import edu.ncsu.csc.itrust.dao.mysql.HospitalsDAO;
 import edu.ncsu.csc.itrust.exception.DBException;
 import edu.ncsu.csc.itrust.exception.FormValidationException;
-import edu.ncsu.csc.itrust.exception.GoogleGeocoderException;
 import edu.ncsu.csc.itrust.exception.iTrustException;
 import edu.ncsu.csc.itrust.validate.HospitalBeanValidator;
 

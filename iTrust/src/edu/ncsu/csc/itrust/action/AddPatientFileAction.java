@@ -11,7 +11,6 @@ import edu.ncsu.csc.itrust.dao.mysql.PatientDAO;
 import edu.ncsu.csc.itrust.dao.mysql.AuthDAO;
 import edu.ncsu.csc.itrust.enums.Role;
 import edu.ncsu.csc.itrust.exception.AddPatientFileException;
-import edu.ncsu.csc.itrust.exception.AddPatientFileExceptionTest;
 import edu.ncsu.csc.itrust.exception.CSVFormatException;
 import edu.ncsu.csc.itrust.exception.DBException;
 import edu.ncsu.csc.itrust.exception.ErrorList;
