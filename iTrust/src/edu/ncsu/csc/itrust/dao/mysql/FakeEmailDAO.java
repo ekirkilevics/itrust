@@ -47,7 +47,7 @@ public class FakeEmailDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("SELECT * FROM FakeEmail ORDER BY AddedDate DESC");
+			ps = conn.prepareStatement("SELECT * FROM fakeemail ORDER BY AddedDate DESC");
 			ResultSet rs = ps.executeQuery();
 			return emailBeanLoader.loadList(rs);
 		} catch (SQLException e) {
@@ -70,7 +70,7 @@ public class FakeEmailDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("SELECT * FROM FakeEmail WHERE ToAddr LIKE ? ORDER BY AddedDate DESC");
+			ps = conn.prepareStatement("SELECT * FROM fakeemail WHERE ToAddr LIKE ? ORDER BY AddedDate DESC");
 			ps.setString(1, "%" + email + "%");
 			ResultSet rs = ps.executeQuery();
 			return emailBeanLoader.loadList(rs);
@@ -93,7 +93,7 @@ public class FakeEmailDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("INSERT INTO FakeEmail (ToAddr, FromAddr, Subject, Body) "
+			ps = conn.prepareStatement("INSERT INTO fakeemail (ToAddr, FromAddr, Subject, Body) "
 					+ "VALUES (?,?,?,?)");
 			emailBeanLoader.loadParameters(ps, email);
 			ps.executeUpdate();
@@ -116,7 +116,7 @@ public class FakeEmailDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("SELECT * FROM FakeEmail WHERE Instr(Body,?)>0 ORDER BY AddedDate DESC");
+			ps = conn.prepareStatement("SELECT * FROM fakeemail WHERE Instr(Body,?)>0 ORDER BY AddedDate DESC");
 			ps.setString(1, bodySubstring);
 			ResultSet rs = ps.executeQuery();
 			return emailBeanLoader.loadList(rs);

@@ -1,5 +1,5 @@
 
-INSERT INTO OfficeVisits(
+INSERT INTO officevisits(
 	id,
 	visitDate,
 	HCPID,
@@ -12,7 +12,7 @@ VALUES  (44510,'2007-6-10',9000000005,'What a cromulent visit.','2',2),
         (44530,'2007-6-9',9000000000,'I was saying "Boo-urns!"','2',2);
 
 
-INSERT INTO PatientSpecificInstructions (id, VisitID, Modified, Name, URL, Comment)
+INSERT INTO patientspecificinstructions (id, VisitID, Modified, Name, URL, Comment)
 VALUES (
     44510, 
     44510, 

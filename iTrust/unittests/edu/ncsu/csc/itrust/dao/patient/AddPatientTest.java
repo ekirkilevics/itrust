@@ -52,30 +52,22 @@ public class AddPatientTest extends TestCase {
 		p.setEmail("l@cox.net");
 		p.setCity("Raleigh");
 		p.setState("NC");
-		p.setZip1("27602");
-		p.setPhone1("222");
-		p.setPhone2("222");
-		p.setPhone3("333");
+		p.setZip("27602");
+		p.setPhone("222-222-3333");
 		p.setSecurityQuestion("What is the best team in the acc?");
 		p.setSecurityAnswer("NCSU");
 		p.setIcName("Blue Cross");
 		p.setIcAddress1("222 Blue Rd");
 		p.setIcCity("Raleigh");
 		p.setIcState("NC");
-		p.setIcZip1("27607");
-		p.setIcPhone1("222");
-		p.setIcPhone2("333");
-		p.setIcPhone3("4444");
+		p.setIcZip("27607");
+		p.setIcPhone("222-333-4444");
 		p.setIcID("2343");
 		p.setEmergencyName("Joy Jones");
-		p.setEmergencyPhone1("012");
-		p.setEmergencyPhone2("345");
-		p.setEmergencyPhone3("6789");
+		p.setEmergencyPhone("012-345-6789");
 		patientDAO.editPatient(p, 9000000003L);
 		assertEquals("Joy Jones", patientDAO.getPatient(pid).getEmergencyName());
-		assertEquals("012", patientDAO.getPatient(pid).getEmergencyPhone1());
-		assertEquals("345", patientDAO.getPatient(pid).getEmergencyPhone2());
-		assertEquals("6789", patientDAO.getPatient(pid).getEmergencyPhone3());
+		assertEquals("012-345-6789", patientDAO.getPatient(pid).getEmergencyPhone());
 	}
 
 }

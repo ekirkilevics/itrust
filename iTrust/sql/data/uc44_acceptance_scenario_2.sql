@@ -1,4 +1,4 @@
-INSERT INTO OfficeVisits(
+INSERT INTO officevisits(
 	id,
 	visitDate,
 	HCPID,
@@ -8,7 +8,7 @@ INSERT INTO OfficeVisits(
 )
 VALUES (44100,'2011-1-28',9000000004,'Has flu','2',1);
 
-INSERT INTO PatientSpecificInstructions (id, VisitID, Modified, Name, URL, Comment)
+INSERT INTO patientspecificinstructions (id, VisitID, Modified, Name, URL, Comment)
 VALUES (
     44100, 
     44100, 

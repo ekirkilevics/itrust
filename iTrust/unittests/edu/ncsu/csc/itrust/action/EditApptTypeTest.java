@@ -59,4 +59,17 @@ public class EditApptTypeTest extends TestCase {
 		assertEquals("Appointment Type: General Checkup already has a duration of 45 minutes.", action.editApptType(a));
 	}
 	
+	public void testAddApptTypeLengthZero() throws SQLException{
+		ApptTypeBean a = new ApptTypeBean();
+		a.setName("Test");
+		a.setDuration(0);
+		
+		try {
+			action.addApptType(a);
+		} catch (FormValidationException e) {
+			//Exception is good.
+			return;
+		}
+		assertTrue(false);
+	}
 }

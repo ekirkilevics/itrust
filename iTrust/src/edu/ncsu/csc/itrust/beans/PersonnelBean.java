@@ -9,7 +9,7 @@ import java.util.List;
  * 
  * A bean's purpose is to store data. Period. Little or no functionality is to be added to a bean 
  * (with the exception of minor formatting such as concatenating phone numbers together). 
- * A bean must only have Getters and Setters (Eclipse Hint: Use Source > Generate Getters and Setters… 
+ * A bean must only have Getters and Setters (Eclipse Hint: Use Source > Generate Getters and Settersï¿½ 
  * to create these easily)
  */
 public class PersonnelBean implements Serializable {
@@ -28,11 +28,8 @@ public class PersonnelBean implements Serializable {
 	private String streetAddress2 = "";
 	private String city = "";
 	private String state = "";
-	private String zip1 = "";
-	private String zip2 = "";
-	private String phone1 = "";
-	private String phone2 = "";
-	private String phone3 = "";
+	private String zip = "";
+	private String phone = "";
 	private String email = "";
 	private String specialty = "";
 
@@ -105,31 +102,11 @@ public class PersonnelBean implements Serializable {
 	}
 
 	public String getPhone() {
-		return phone1 + "-" + phone2 + "-" + phone3;
+		return phone;
 	}
 
-	public String getPhone1() {
-		return phone1;
-	}
-
-	public void setPhone1(String phone1) {
-		this.phone1 = phone1;
-	}
-
-	public String getPhone2() {
-		return phone2;
-	}
-
-	public void setPhone2(String phone2) {
-		this.phone2 = phone2;
-	}
-
-	public String getPhone3() {
-		return phone3;
-	}
-
-	public void setPhone3(String phone3) {
-		this.phone3 = phone3;
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 
 	public String getRoleString() {
@@ -177,26 +154,11 @@ public class PersonnelBean implements Serializable {
 	}
 
 	public String getZip() {
-		if (getZip2() != null && !"".equals(getZip2()))
-			return getZip1() + "-" + getZip2();
-		else
-			return getZip1();
+		return zip;
 	}
 
-	public String getZip1() {
-		return zip1;
-	}
-
-	public void setZip1(String zip1) {
-		this.zip1 = zip1;
-	}
-
-	public String getZip2() {
-		return zip2;
-	}
-
-	public void setZip2(String zip2) {
-		this.zip2 = zip2;
+	public void setZip(String zip) {
+		this.zip = zip;
 	}
 	
 	public String getSpecialty() {

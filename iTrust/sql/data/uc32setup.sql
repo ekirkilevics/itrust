@@ -1,5 +1,5 @@
 
-INSERT INTO ICDCodes(Code, Description, Chronic) VALUES
+INSERT INTO icdcodes(Code, Description, Chronic) VALUES
 ('493.00', 'Asthma', 'yes'),
 ('389.99', 'Below Circulatory Disease', 'no'),
 ('390.00', 'Min Circulatory Disease', 'yes'),

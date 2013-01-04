@@ -1,4 +1,4 @@
-INSERT INTO OVProcedure(ID, VisitID, CPTCode, HCPID )
+INSERT INTO ovprocedure(ID, VisitID, CPTCode, HCPID )
                     VALUES (998, 998, '90371', 9000000000),
                     (555, 555, '90371', 9000000000),
                     (556, 556, '90371', 9000000000),
@@ -6,7 +6,7 @@ INSERT INTO OVProcedure(ID, VisitID, CPTCode, HCPID )
                     (558, 558, '90371', 9000000000),
                     (559, 559, '90371', 9000000000);
                     
-INSERT INTO OfficeVisits(
+INSERT INTO officevisits(
 	id,
 	visitDate,
 	HCPID,
@@ -21,12 +21,12 @@ VALUES (998,'2009-05-19',9000000000,'The adEvent3 test visit','1',2),
 (558,'2009-01-01',9000000000,'The adEvent3 test visit','1',13),
 (559,'2009-01-18',9000000000,'The adEvent3 test visit','1',4);
 
-INSERT INTO CPTCodes(Code, Description) VALUES
+INSERT INTO cptcodes(Code, Description) VALUES
 ('90371','Hepatitis B')
 
 ON DUPLICATE KEY UPDATE Code = Code;
 
-INSERT INTO AdverseEvents(
+INSERT INTO adverseevents(
 	id,
 	Status,
 	PatientMID,

@@ -114,16 +114,13 @@ loggingAction.logEvent(TransactionType.PERSONNEL_VIEW, loggedInMID.longValue(), 
 	      <tr ><td class="subHeaderVertical">
 		  Zip:
 		</td><td>
-		  <input name="zip1" value="<%= StringEscapeUtils.escapeHtml("" + (personnelForm.getZip1())) %>"  maxlength="5" type="text" size="5"> - 
-		  <input name="zip2" value="<%= StringEscapeUtils.escapeHtml("" + (personnelForm.getZip2())) %>"  maxlength="4" type="text" size="4">
+		  <input name="zip" value="<%= StringEscapeUtils.escapeHtml("" + (personnelForm.getZip())) %>"  maxlength="10" type="text" size="10">
 	      </td></tr>
 	      <tr ><td class="subHeaderVertical">
 
 		  Phone:
 		</td><td>
-		  <input name="phone1"  value="<%= StringEscapeUtils.escapeHtml("" + (personnelForm.getPhone1())) %>"  type="text" size="3" maxlength="3"> -
-		  <input name="phone2"  value="<%= StringEscapeUtils.escapeHtml("" + (personnelForm.getPhone2())) %>"  type="text" size="3" maxlength="3"> -
-		  <input name="phone3"  value="<%= StringEscapeUtils.escapeHtml("" + (personnelForm.getPhone3())) %>"  type="text" size="4" maxlength="4">
+		  <input name="phone"  value="<%= StringEscapeUtils.escapeHtml("" + (personnelForm.getPhone())) %>"  type="text" size="12" maxlength="12">
 	      </td></tr>
 		  <tr>
 		  	<td class="subHeaderVertical">Email:</td>

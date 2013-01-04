@@ -45,7 +45,7 @@ public class GetLoginFailureTest extends TestCase {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("INSERT INTO LoginFailures(IPAddress,failureCount, lastFailure) "
+			ps = conn.prepareStatement("INSERT INTO loginfailures(IPAddress,failureCount, lastFailure) "
 					+ "VALUES(?,?,?)");
 			ps.setString(1, ipAddr);
 			ps.setInt(2, count);

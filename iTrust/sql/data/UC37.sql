@@ -1,4 +1,4 @@
-INSERT INTO Allergies(
+INSERT INTO allergies(
 	PatientID,
 	Description,
 	Code,

@@ -57,7 +57,7 @@ public class RemoteMonitoringDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("SELECT * FROM RemoteMonitoringLists WHERE PatientMID=?");
+			ps = conn.prepareStatement("SELECT * FROM remotemonitoringlists WHERE PatientMID=?");
 			ps.setLong(1, patientMID);
 			ResultSet rs = ps.executeQuery();
 			
@@ -81,10 +81,10 @@ public class RemoteMonitoringDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("SELECT * FROM RemoteMonitoringLists WHERE HCPMID=? ORDER BY PatientMID");
+			ps = conn.prepareStatement("SELECT * FROM remotemonitoringlists WHERE HCPMID=? ORDER BY PatientMID");
 			ps.setLong(1, loggedInMID);
 			ResultSet patientRS = ps.executeQuery();
-			ps = conn.prepareStatement("SELECT * FROM RemoteMonitoringData WHERE timelogged >= CURRENT_DATE ORDER BY PatientID, timeLogged DESC");
+			ps = conn.prepareStatement("SELECT * FROM remotemonitoringdata WHERE timelogged >= CURRENT_DATE ORDER BY PatientID, timeLogged DESC");
 			ResultSet dataRS = ps.executeQuery();
 
 			List<String> patientList = new ArrayList<String>();
@@ -221,7 +221,7 @@ public class RemoteMonitoringDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("INSERT INTO RemoteMonitoringData(PatientID, height, weight, "
+			ps = conn.prepareStatement("INSERT INTO remotemonitoringdata(PatientID, height, weight, "
 					+ "pedometerReading, systolicBloodPressure, diastolicBloodPressure, glucoseLevel, ReporterRole, ReporterID) VALUES(?,?,?,?,?,?,?,?,?)");
 			ps.setLong(1, patientMID);
 			ps.setFloat(2, height);
@@ -279,7 +279,7 @@ public class RemoteMonitoringDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("SELECT * FROM RemoteMonitoringData WHERE PatientID=? AND "
+			ps = conn.prepareStatement("SELECT * FROM remotemonitoringdata WHERE PatientID=? AND "
 										+ dataType + "!=? AND DATE(timeLogged)=CURRENT_DATE");
 			ps.setLong(1, patientMID);
 			ps.setInt(2, -1);
@@ -300,7 +300,7 @@ public class RemoteMonitoringDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("SELECT * FROM Representatives WHERE RepresenterMID=? AND RepresenteeMID=?");
+			ps = conn.prepareStatement("SELECT * FROM representatives WHERE RepresenterMID=? AND RepresenteeMID=?");
 			ps.setLong(1, representativeMID);
 			ps.setLong(2, patientMID);
 			ResultSet rs = ps.executeQuery();
@@ -326,8 +326,8 @@ public class RemoteMonitoringDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("SELECT * FROM Personnel, RemoteMonitoringLists "
-					+ "WHERE RemoteMonitoringLists.PatientMID=? AND RemoteMonitoringLists.HCPMID=Personnel.MID");
+			ps = conn.prepareStatement("SELECT * FROM personnel, remotemonitoringlists "
+					+ "WHERE remotemonitoringlists.PatientMID=? AND remotemonitoringlists.HCPMID=personnel.MID");
 			ps.setLong(1, patientMID);
 			ResultSet rs = ps.executeQuery();
 			return personnelLoader.loadList(rs);
@@ -355,14 +355,14 @@ public class RemoteMonitoringDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("SELECT * FROM RemoteMonitoringLists WHERE PatientMID = ? AND HCPMID = ?");
+			ps = conn.prepareStatement("SELECT * FROM remotemonitoringlists WHERE PatientMID = ? AND HCPMID = ?");
 			ps.setLong(1, patientMID);
 			ps.setLong(2, HCPMID);
 			ResultSet rs = ps.executeQuery();
 			if(rs.next())
 				return false;
 			String permissionPS = "SystolicBloodPressure, DiastolicBloodPressure, GlucoseLevel, Height, Weight, PedometerReading";
-			ps = conn.prepareStatement("INSERT INTO RemoteMonitoringLists(PatientMID, HCPMID, " + permissionPS + ") VALUES(?,?,?,?,?,?,?,?)");
+			ps = conn.prepareStatement("INSERT INTO remotemonitoringlists(PatientMID, HCPMID, " + permissionPS + ") VALUES(?,?,?,?,?,?,?,?)");
 			ps.setLong(1, patientMID);
 			ps.setLong(2, HCPMID);
 			ps.setBoolean(3, tBean.isSystolicBloodPressureAllowed());
@@ -393,7 +393,7 @@ public class RemoteMonitoringDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("DELETE FROM RemoteMonitoringLists WHERE PatientMID = ? AND HCPMID = ?");
+			ps = conn.prepareStatement("DELETE FROM remotemonitoringlists WHERE PatientMID = ? AND HCPMID = ?");
 			ps.setLong(1, patientMID);
 			ps.setLong(2, HCPMID);
 			if(ps.executeUpdate() == 0)

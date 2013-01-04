@@ -11,7 +11,13 @@
 	
 	String query = (String)request.getParameter("q");
 	SearchUsersAction searchAction = new SearchUsersAction(prodDAO,loggedInMID.longValue());
-	List<PatientBean> patients = searchAction.fuzzySearchForPatients(query);
+	List<PatientBean> patients;
+	
+	if(request.getParameter("allowDeactivated").equals("on")){
+		patients=searchAction.fuzzySearchForPatients(query,true);
+	}else{
+		patients=searchAction.fuzzySearchForPatients(query);
+	}
 
 	%>
 			<span class="searchResults">Found <%=StringEscapeUtils.escapeHtml("" + patients.size())%> Records</span>

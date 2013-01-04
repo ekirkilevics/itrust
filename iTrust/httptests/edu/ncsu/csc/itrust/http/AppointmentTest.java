@@ -228,4 +228,31 @@ public class AppointmentTest extends iTrustHTTPTest {
 		assertLogged(TransactionType.APPOINTMENT_ADD,9000000000L,100L,"");
 		
 	}
+	
+	public void testAddApptInvalidDate() throws Exception {
+		gen.uc22();
+		
+		WebConversation wc = login("9000000000", "pw");
+		WebResponse wr = wc.getCurrentPage();
+		wr = wr.getLinkWith("Schedule Appointment").click();
+		
+		WebForm patientForm = wr.getForms()[0];
+		patientForm.getScriptableObject().setParameterValue("UID_PATIENTID", "100");
+		patientForm.submit();
+		wr = wc.getCurrentPage();
+		
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.DAY_OF_YEAR, 1);
+		
+		WebForm apptForm = wr.getForms()[0];
+		apptForm.setParameter("apptType", "Physical");
+		apptForm.setParameter("schedDate", "38/38/2025");
+		apptForm.setParameter("time1", "10");
+		apptForm.setParameter("time2", "30");
+		apptForm.setParameter("time3", "AM");
+		wr = apptForm.submit();
+		
+		assertFalse(wr.getText().contains("Success: Physical for"));
+		assertNotLogged(TransactionType.APPOINTMENT_ADD,9000000000L,100L,"");
+	}
 }

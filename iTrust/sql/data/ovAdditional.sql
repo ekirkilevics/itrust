@@ -1,4 +1,4 @@
-INSERT INTO OfficeVisits(
+INSERT INTO officevisits(
 	id,
 	visitDate,
 	HCPID,

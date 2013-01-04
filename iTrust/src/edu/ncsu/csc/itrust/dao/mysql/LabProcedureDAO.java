@@ -42,7 +42,7 @@ public class LabProcedureDAO {
 		try {
 			if (id == 0L) throw new SQLException("PatientMID cannot be null");
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("SELECT * FROM LabProcedure WHERE PatientMID = ? AND Rights = ? ORDER BY UpdatedDate DESC");
+			ps = conn.prepareStatement("SELECT * FROM labprocedure WHERE PatientMID = ? AND Rights = ? ORDER BY UpdatedDate DESC");
 			ps.setLong(1, id);
 			ps.setString(2, LabProcedureBean.Allow);
 			ResultSet rs = ps.executeQuery();
@@ -69,7 +69,7 @@ public class LabProcedureDAO {
 
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("SELECT * FROM LabProcedure WHERE OfficeVisitID = ? AND Rights = ? ORDER BY UpdatedDate DESC");
+			ps = conn.prepareStatement("SELECT * FROM labprocedure WHERE OfficeVisitID = ? AND Rights = ? ORDER BY UpdatedDate DESC");
 			ps.setLong(1, ovid);
 			ps.setString(2, LabProcedureBean.Allow);
 			ResultSet rs = ps.executeQuery();
@@ -95,7 +95,7 @@ public class LabProcedureDAO {
 		try {
 			if (id == 0L) throw new SQLException("PatientMID cannot be null");
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("SELECT * FROM LabProcedure WHERE PatientMID = ? AND Rights = ? AND Status = ? AND (DateDiff(SYSDATE(),UpdatedDate) <= 30) ORDER BY UpdatedDate DESC");
+			ps = conn.prepareStatement("SELECT * FROM labprocedure WHERE PatientMID = ? AND Rights = ? AND Status = ? AND (DateDiff(SYSDATE(),UpdatedDate) <= 30) ORDER BY UpdatedDate DESC");
 			ps.setLong(1, id);
 			ps.setString(2, LabProcedureBean.Allow);
 			ps.setString(3, LabProcedureBean.Completed);
@@ -120,7 +120,7 @@ public class LabProcedureDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("SELECT * FROM LabProcedure WHERE LaboratoryProcedureID = ?");
+			ps = conn.prepareStatement("SELECT * FROM labprocedure WHERE LaboratoryProcedureID = ?");
 			ps.setLong(1, id);
 			ResultSet rs = ps.executeQuery();
 			rs.next();
@@ -145,7 +145,7 @@ public class LabProcedureDAO {
 		try {
 			if (mid == 0L) throw new SQLException("PatientMID cannot be null");
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("SELECT * FROM LabProcedure WHERE PatientMID = ? ORDER BY UpdatedDate DESC");
+			ps = conn.prepareStatement("SELECT * FROM labprocedure WHERE PatientMID = ? ORDER BY UpdatedDate DESC");
 			ps.setLong(1, mid);
 			ResultSet rs = ps.executeQuery();
 			return labProcedureLoader.loadList(rs);
@@ -170,7 +170,7 @@ public class LabProcedureDAO {
 		try {
 			if (mid == 0L) throw new SQLException("PatientMID cannot be null");
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("SELECT * FROM LabProcedure WHERE PatientMID = ? AND OfficeVisitID = ? ORDER BY UpdatedDate DESC");
+			ps = conn.prepareStatement("SELECT * FROM labprocedure WHERE PatientMID = ? AND OfficeVisitID = ? ORDER BY UpdatedDate DESC");
 			ps.setLong(1, mid);
 			ps.setLong(2, ovid);
 			ResultSet rs = ps.executeQuery();
@@ -195,7 +195,7 @@ public class LabProcedureDAO {
 
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("SELECT * FROM LabProcedure WHERE OfficeVisitID = ? ");
+			ps = conn.prepareStatement("SELECT * FROM labprocedure WHERE OfficeVisitID = ? ");
 			ps.setLong(1, ovid);
 			ResultSet rs = ps.executeQuery();
 			return labProcedureLoader.loadList(rs);
@@ -218,7 +218,7 @@ public class LabProcedureDAO {
 
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("SELECT * FROM LabProcedure ORDER BY UpdatedDate ASC");
+			ps = conn.prepareStatement("SELECT * FROM labprocedure ORDER BY UpdatedDate ASC");
 			ResultSet rs = ps.executeQuery();
 			return labProcedureLoader.loadList(rs);
 		} catch (SQLException e) {
@@ -244,8 +244,8 @@ public class LabProcedureDAO {
 			if (mid == 0L) throw new SQLException("HCP id cannot be null");
 			conn = factory.getConnection();
 			ps = conn.prepareStatement(
-					"SELECT * FROM LabProcedure WHERE LabProcedure.OfficeVisitID IN " +
-					    "(SELECT OfficeVisits.ID FROM OfficeVisits WHERE OfficeVisits.HCPID = ?)"
+					"SELECT * FROM LabProcedure WHERE labprocedure.OfficeVisitID IN " +
+					    "(SELECT officevisits.ID FROM officevisits WHERE officevisits.HCPID = ?)"
 					);
 			ps.setLong(1, mid);
 			ResultSet rs = ps.executeQuery();
@@ -273,9 +273,9 @@ public class LabProcedureDAO {
 			if (pid == 0L) throw new SQLException("HCP id cannot be null");
 			conn = factory.getConnection();
 			ps = conn.prepareStatement(
-					"SELECT * FROM LabProcedure WHERE LabProcedure.OfficeVisitID IN " +
-					    "(SELECT OfficeVisits.ID FROM OfficeVisits WHERE " +
-					    " OfficeVisits.HCPID = ? AND OfficeVisits.PatientID = ?)"
+					"SELECT * FROM labprocedure WHERE labprocedure.OfficeVisitID IN " +
+					    "(SELECT officevisits.ID FROM officevisits WHERE " +
+					    " officevisits.HCPID = ? AND officevisits.PatientID = ?)"
 					);
 			ps.setLong(1, mid);
 			ps.setLong(2, pid);
@@ -302,8 +302,8 @@ public class LabProcedureDAO {
 			int count = 0;
 			conn = factory.getConnection();
 			ps = conn.prepareStatement(
-					"SELECT COUNT(*) FROM LabProcedure WHERE Status = ? AND LabProcedure.OfficeVisitID IN " +
-					    "(SELECT OfficeVisits.ID FROM OfficeVisits WHERE OfficeVisits.HCPID = ?)"
+					"SELECT COUNT(*) FROM labprocedure WHERE Status = ? AND labprocedure.OfficeVisitID IN " +
+					    "(SELECT officevisits.ID FROM officevisits WHERE officevisits.HCPID = ?)"
 					);
 			ps.setString(1, LabProcedureBean.Pending);
 			ps.setLong(2, mid);
@@ -332,7 +332,7 @@ public class LabProcedureDAO {
 		try {
 			if (ovid == 0L) throw new SQLException("OfficeVisitID cannot be null");
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("SELECT * FROM LabProcedure WHERE OfficeVisitID = ? AND Status = ? AND (DateDiff(SYSDATE(),UpdatedDate) <= 30) ORDER BY UpdatedDate DESC");
+			ps = conn.prepareStatement("SELECT * FROM labprocedure WHERE OfficeVisitID = ? AND Status = ? AND (DateDiff(SYSDATE(),UpdatedDate) <= 30) ORDER BY UpdatedDate DESC");
 			ps.setLong(1, ovid);
 			ps.setString(2, LabProcedureBean.Completed);
 			ResultSet rs = ps.executeQuery();
@@ -358,7 +358,7 @@ public class LabProcedureDAO {
 			if (b.getPid() == 0L) throw new SQLException("PatientMID cannot be null");
 			conn = factory.getConnection();
 			ps = conn.prepareStatement(
-					"INSERT INTO LabProcedure " +
+					"INSERT INTO labprocedure " +
 					"(PatientMID, LaboratoryProcedureCode, Status, Commentary, " + 
 					 "Results, OfficeVisitID, Rights, LabTechID, PriorityCode, " + 
 					 "NumericalResults, LowerBound, UpperBound) " + 
@@ -397,7 +397,7 @@ public class LabProcedureDAO {
 		try {
 			if (b.getPid() == 0L) throw new SQLException("PatientMID cannot be null");
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("UPDATE LabProcedure SET "+
+			ps = conn.prepareStatement("UPDATE labprocedure SET "+
 					" Status = ?, Commentary = ?, Results = ?, UpdatedDate = ?, "+
 					" LabTechID = ?, PriorityCode = ? , NumericalResults = ?, "+
 					" LowerBound = ?, UpperBound = ? "+
@@ -432,7 +432,7 @@ public class LabProcedureDAO {
 		try {
 			if (b.getPid() == 0L) throw new SQLException("PatientMID cannot be null");
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("UPDATE LabProcedure SET ViewedByPatient = ? WHERE LaboratoryProcedureID=?");
+			ps = conn.prepareStatement("UPDATE labprocedure SET ViewedByPatient = ? WHERE LaboratoryProcedureID=?");
 			ps.setBoolean(1, b.isViewedByPatient());
 			ps.setLong(2, b.getProcedureID());
 			ps.executeUpdate();
@@ -457,7 +457,7 @@ public class LabProcedureDAO {
 			if (pid == 0L) throw new SQLException("PatientMID cannot be null");
 			int count = 0;
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("SELECT COUNT(*) FROM LabProcedure WHERE PatientMID = ? AND Rights = ? AND Status = ? AND ViewedByPatient = FALSE ");
+			ps = conn.prepareStatement("SELECT COUNT(*) FROM labprocedure WHERE PatientMID = ? AND Rights = ? AND Status = ? AND ViewedByPatient = FALSE ");
 			ps.setLong(1, pid);
 			ps.setString(2, LabProcedureBean.Allow);
 			ps.setString(3, LabProcedureBean.Completed);
@@ -487,7 +487,7 @@ public class LabProcedureDAO {
 
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("SELECT * FROM LabProcedure WHERE PatientMID = ? AND LaboratoryProcedureCode = ? AND Status = ?");
+			ps = conn.prepareStatement("SELECT * FROM labprocedure WHERE PatientMID = ? AND LaboratoryProcedureCode = ? AND Status = ?");
 			ps.setLong(1, id);
 			ps.setString(2, loinc);
 			ps.setString(3, "Completed");
@@ -512,7 +512,7 @@ public class LabProcedureDAO {
 		try {
 			if (b.getPid() == 0L) throw new SQLException("PatientMID cannot be null");
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("UPDATE LabProcedure SET Rights = ?, UpdatedDate = ? WHERE LaboratoryProcedureID=?");
+			ps = conn.prepareStatement("UPDATE labprocedure SET Rights = ?, UpdatedDate = ? WHERE LaboratoryProcedureID=?");
 			ps.setString(1, b.getRights());
 			ps.setTimestamp(2, new java.sql.Timestamp(System.currentTimeMillis()));
 			ps.setLong(3, b.getProcedureID());
@@ -560,7 +560,7 @@ public class LabProcedureDAO {
 		try {
 			if (id == 0L) throw new SQLException("LabTechID cannot be null");
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("SELECT * FROM LabProcedure WHERE LabTechID = ? AND Status = ? ORDER BY UpdatedDate ASC");
+			ps = conn.prepareStatement("SELECT * FROM labprocedure WHERE LabTechID = ? AND Status = ? ORDER BY UpdatedDate ASC");
 			ps.setLong(1, id);
 			ps.setString(2, LabProcedureBean.In_Transit);
 			ResultSet rs = ps.executeQuery();
@@ -586,7 +586,7 @@ public class LabProcedureDAO {
 		try {
 			if (id == 0L) throw new SQLException("LabTechID cannot be null");
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("SELECT * FROM LabProcedure WHERE LabTechID = ? AND Status = ? ORDER BY PriorityCode ASC, UpdatedDate DESC");
+			ps = conn.prepareStatement("SELECT * FROM labprocedure WHERE LabTechID = ? AND Status = ? ORDER BY PriorityCode ASC, UpdatedDate DESC");
 			ps.setLong(1, id);
 			ps.setString(2, LabProcedureBean.Received);
 			ResultSet rs = ps.executeQuery();
@@ -612,7 +612,7 @@ public class LabProcedureDAO {
 		try {
 			if (id == 0L) throw new SQLException("LabTechID cannot be null");
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("SELECT * FROM LabProcedure WHERE LabTechID = ? AND Status = ? ORDER BY UpdatedDate DESC");
+			ps = conn.prepareStatement("SELECT * FROM labprocedure WHERE LabTechID = ? AND Status = ? ORDER BY UpdatedDate DESC");
 			ps.setLong(1, id);
 			ps.setString(2, LabProcedureBean.Testing);
 			ResultSet rs = ps.executeQuery();
@@ -641,7 +641,7 @@ public class LabProcedureDAO {
 			if (mid == 0L) throw new SQLException("LabTechID cannot be null");
 			conn = factory.getConnection();
 			int count = 0;
-			ps = conn.prepareStatement("SELECT COUNT(*) FROM LabProcedure WHERE LabTechID = ? AND (Status = ? OR Status = ?)");
+			ps = conn.prepareStatement("SELECT COUNT(*) FROM labprocedure WHERE LabTechID = ? AND (Status = ? OR Status = ?)");
 			ps.setLong(1, mid);
 			ps.setString(2, LabProcedureBean.In_Transit);
 			ps.setString(3, LabProcedureBean.Received);
@@ -676,7 +676,7 @@ public class LabProcedureDAO {
 			conn = factory.getConnection();
 			for(int i=1; i<=3; i++) {
 				int count = 0;
-				ps = conn.prepareStatement("SELECT COUNT(*) FROM LabProcedure WHERE LabTechID = ? AND (Status = ? OR Status = ?) AND PriorityCode = ?");
+				ps = conn.prepareStatement("SELECT COUNT(*) FROM labprocedure WHERE LabTechID = ? AND (Status = ? OR Status = ?) AND PriorityCode = ?");
 				ps.setLong(1, mid);
 				ps.setString(2, LabProcedureBean.In_Transit);
 				ps.setString(3, LabProcedureBean.Received);
@@ -708,7 +708,7 @@ public class LabProcedureDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("UPDATE LabProcedure SET NumericalResults = ?, NumericalResultsUnit = ?, UpperBound = ?, LowerBound = ?, Status = ?, UpdatedDate = ? WHERE LaboratoryProcedureID=?");
+			ps = conn.prepareStatement("UPDATE labprocedure SET NumericalResults = ?, NumericalResultsUnit = ?, UpperBound = ?, LowerBound = ?, Status = ?, UpdatedDate = ? WHERE LaboratoryProcedureID=?");
 			ps.setString(1, numericalResult);
 			ps.setString(2, numericalResultUnit);
 			ps.setString(3, upper);
@@ -735,7 +735,7 @@ public class LabProcedureDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("UPDATE LabProcedure SET Status = ?, UpdatedDate = ? WHERE LaboratoryProcedureID=?");
+			ps = conn.prepareStatement("UPDATE labprocedure SET Status = ?, UpdatedDate = ? WHERE LaboratoryProcedureID=?");
 			ps.setString(1, "Received");
 			ps.setTimestamp(2, new java.sql.Timestamp(System.currentTimeMillis()));
 			ps.setLong(3, id);
@@ -757,7 +757,7 @@ public class LabProcedureDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("UPDATE LabProcedure SET Status = ?, UpdatedDate = ? WHERE LaboratoryProcedureID=?");
+			ps = conn.prepareStatement("UPDATE labprocedure SET Status = ?, UpdatedDate = ? WHERE LaboratoryProcedureID=?");
 			ps.setString(1, "Testing");
 			ps.setTimestamp(2, new java.sql.Timestamp(System.currentTimeMillis()));
 			ps.setLong(3, id);
@@ -777,7 +777,7 @@ public class LabProcedureDAO {
 		try {
 			if (id == 0L) throw new SQLException("PatientMID cannot be null");
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("SELECT * FROM LabProcedure WHERE PatientMID = ? ORDER BY LaboratoryProcedureCode ASC");
+			ps = conn.prepareStatement("SELECT * FROM labprocedure WHERE PatientMID = ? ORDER BY LaboratoryProcedureCode ASC");
 			ps.setLong(1, id);
 			ResultSet rs = ps.executeQuery();
 			return labProcedureLoader.loadList(rs);

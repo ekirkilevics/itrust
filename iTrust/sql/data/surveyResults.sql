@@ -1,13 +1,13 @@
-INSERT INTO Personnel (MID, lastName, firstName, address1, address2, city, state, zip, specialty)
+INSERT INTO personnel (MID, lastName, firstName, address1, address2, city, state, zip, specialty)
 	VALUES (9100000000, 'Doctor', 'Good', 'Street 1', 'Street 2', 'Raleigh', 'NC', '27613', 'None'),
 		   (9100000001, 'Doctor', 'Bad', 'Avenue 1', 'Avenue 2', 'Raleigh', 'NC', '27613', 'Heart Specialist');
 
-INSERT INTO HCPAssignedHos (HCPID, HosID) 
+INSERT INTO hcpassignedhos (HCPID, HosID) 
 	VALUES (9100000000,'9191919191'), 
 		   (9100000000,'8181818181'),
 		   (9100000001,'8181818181');
 
-INSERT INTO OfficeVisits (id,visitDate,HCPID,notes,HospitalID,PatientID)
+INSERT INTO officevisits (id,visitDate,HCPID,notes,HospitalID,PatientID)
 	VALUES (900,'2007-6-09',9100000000,'Good has 10 visits and 5 surveys','1',2),
 		   (901,'2007-6-09',9100000000,'Good has 10 visits and 5 surveys','1',2),
 		   (902,'2007-6-09',9100000000,'Good has 10 visits and 5 surveys','1',2),
@@ -28,7 +28,7 @@ INSERT INTO OfficeVisits (id,visitDate,HCPID,notes,HospitalID,PatientID)
 		   (917,'2007-6-09',9100000001,'Bad has 8 visits and 6 surveys','1',2)
 		ON DUPLICATE KEY UPDATE HCPID = VALUES(HCPID);
 
-INSERT INTO OVSurvey (VisitID, SurveyDate, WaitingRoomMinutes, ExamRoomMinutes, VisitSatisfaction, TreatmentSatisfaction)
+INSERT INTO ovsurvey (VisitID, SurveyDate, WaitingRoomMinutes, ExamRoomMinutes, VisitSatisfaction, TreatmentSatisfaction)
 	VALUES (900, '2008-03-01 12:00:00', null, 10, 5, 5),
 		   (902, '2008-03-01 12:00:00', null, null, 5, 5),
 		   (904, '2008-03-01 12:00:00', 10, null, null, 5),

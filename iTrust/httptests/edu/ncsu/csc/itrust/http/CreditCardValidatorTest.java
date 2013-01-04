@@ -81,13 +81,6 @@ public class CreditCardValidatorTest extends iTrustHTTPTest {
 		wr = form.submit();
 		assertTrue(wr.getText().contains("not properly filled in: [Credit Card Number]"));
 		assertNotLogged(TransactionType.DEMOGRAPHICS_EDIT, 1L, 1L, "");
-		
-		form.setParameter("creditCardNumber", "");
-		wr = form.submit();
-		assertTrue(wr.getText().contains("not properly filled in: [Credit Card Number]"));
-		assertNotLogged(TransactionType.DEMOGRAPHICS_EDIT, 1L, 1L, "");
-
-		
 	}
 	
 	public void testGoodVisas() throws Exception {
@@ -148,13 +141,6 @@ public class CreditCardValidatorTest extends iTrustHTTPTest {
 		wr = form.submit();
 		assertTrue(wr.getText().contains("not properly filled in: [Credit Card Number]"));
 		assertNotLogged(TransactionType.DEMOGRAPHICS_EDIT, 1L, 1L, "");
-		
-		form.setParameter("creditCardNumber", "");
-		wr = form.submit();
-		assertTrue(wr.getText().contains("not properly filled in: [Credit Card Number]"));
-		assertNotLogged(TransactionType.DEMOGRAPHICS_EDIT, 1L, 1L, "");
-
-		
 	}
 	
 	public void testGoodDiscovers() throws Exception {
@@ -215,13 +201,6 @@ public class CreditCardValidatorTest extends iTrustHTTPTest {
 		wr = form.submit();
 		assertTrue(wr.getText().contains("not properly filled in: [Credit Card Number]"));
 		assertNotLogged(TransactionType.DEMOGRAPHICS_EDIT, 1L, 1L, "");
-		
-		form.setParameter("creditCardNumber", "");
-		wr = form.submit();
-		assertTrue(wr.getText().contains("not properly filled in: [Credit Card Number]"));
-		assertNotLogged(TransactionType.DEMOGRAPHICS_EDIT, 1L, 1L, "");
-
-		
 	}
 	
 	/*
@@ -285,13 +264,6 @@ public class CreditCardValidatorTest extends iTrustHTTPTest {
 		wr = form.submit();
 		assertTrue(wr.getText().contains("not properly filled in: [Credit Card Number]"));
 		assertNotLogged(TransactionType.DEMOGRAPHICS_EDIT, 1L, 1L, "");
-		
-		form.setParameter("creditCardNumber", "");
-		wr = form.submit();
-		assertTrue(wr.getText().contains("not properly filled in: [Credit Card Number]"));
-		assertNotLogged(TransactionType.DEMOGRAPHICS_EDIT, 1L, 1L, "");
-
-		
 	}
 	
 	public void testEmptyTypeEmptyNumber() throws Exception {

@@ -209,6 +209,10 @@ public class TestDataGenerator {
 	public void labProcedures() throws SQLException, FileNotFoundException, IOException {
 		new DBBuilder(factory).executeSQLFile(DIR + "/labprocedures.sql");
 	}
+	
+	public void labProcedures2() throws SQLException, FileNotFoundException, IOException {
+		new DBBuilder(factory).executeSQLFile(DIR + "/labprocedures2.sql");
+	}
 
 	public void loincs() throws SQLException, FileNotFoundException, IOException {
 		new DBBuilder(factory).executeSQLFile(DIR + "/loincs.sql");
@@ -256,6 +260,10 @@ public class TestDataGenerator {
 		new DBBuilder(factory).executeSQLFile(DIR + "/ndcodes100.sql");
 	} //NEW
 
+	public void officeVisit0Multiple() throws SQLException, FileNotFoundException, IOException {
+		new DBBuilder(factory).executeSQLFile(DIR + "/ov0Multiple.sql");
+	}
+	
 	public void officeVisit1() throws SQLException, FileNotFoundException, IOException {
 		new DBBuilder(factory).executeSQLFile(DIR + "/ov1.sql");
 	}
@@ -359,6 +367,10 @@ public class TestDataGenerator {
 	public void patient15() throws FileNotFoundException, SQLException, IOException {
 		new DBBuilder(factory).executeSQLFile(DIR + "/patient15.sql");
 	}
+	
+	public void patientDeactivate() throws FileNotFoundException, SQLException, IOException {
+		new DBBuilder(factory).executeSQLFile(DIR + "/patientDeactivate.sql");
+	}
 
 	public void UC32Acceptance() throws FileNotFoundException, SQLException, IOException {
 		new DBBuilder(factory).executeSQLFile(DIR + "/UC32Acceptance.sql");
@@ -432,6 +444,14 @@ public class TestDataGenerator {
 	
 	public void patientLabProcedures() throws FileNotFoundException, SQLException, IOException {
 		new DBBuilder(factory).executeSQLFile(DIR + "/patientLabProc.sql");
+	}
+	
+	public void pendingAppointmentAlert() throws FileNotFoundException, SQLException, IOException {
+		new DBBuilder(factory).executeSQLFile(DIR + "/pendingAppointmentAlert.sql");
+	}
+	
+	public void pendingAppointmentConflict() throws FileNotFoundException, SQLException, IOException {
+		new DBBuilder(factory).executeSQLFile(DIR + "/pendingAppointmentConflict.sql");
 	}
 
 	public void reportRequests() throws FileNotFoundException, SQLException, IOException {
@@ -624,6 +644,9 @@ public class TestDataGenerator {
 	public void apptRequestConflicts() throws SQLException, FileNotFoundException, IOException {
 		new DBBuilder(factory).executeSQLFile(DIR + "/apptRequestConflicts.sql");
 	}
+	public void expertHospitals() throws SQLException, FileNotFoundException, IOException {
+		new DBBuilder(factory).executeSQLFile(DIR + "/expertHospitals.sql");
+	}
 	
 	/*
 	public void uc10() throws FileNotFoundException, SQLException, IOException {
@@ -725,7 +748,7 @@ public class TestDataGenerator {
 		
 		hcp8();
 		hcp9(); //NEW
-
+		expertHospitals();
 		viewAccessLogTestData();
 		
 		System.out.println("Operation completed.");

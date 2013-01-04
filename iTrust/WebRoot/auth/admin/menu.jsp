@@ -23,4 +23,5 @@
 	<div class="menuItem"><a href="/iTrust/auth/admin/hospitalListing.jsp">Manage Hospital Listing </a></div>
 	<div class="menuItem"><a href="/iTrust/auth/admin/sessionTimeout.jsp">Change Global Session Timeout </a></div>
 	<div class="menuItem"><a href="/iTrust/auth/surveyResults.jsp">Satisfaction Survey Results</a></div>
+	<div class="menuItem"><a href="/iTrust/auth/admin/activatePatient.jsp">Activate Patient</a></div>
 </div>

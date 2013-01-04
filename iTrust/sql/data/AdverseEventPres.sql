@@ -1,4 +1,4 @@
-INSERT INTO AdverseEvents(id, Status, PatientMID, PresImmu, Code, Comment, Prescriber, TimeLogged) VALUES
+INSERT INTO adverseevents(id, Status, PatientMID, PresImmu, Code, Comment, Prescriber, TimeLogged) VALUES
 (1, 'Active', 1, 'Prioglitazone', '647641512', 'IM DYING', 9000000000, '2009-11-09 14:26:11.0'),
 (8, 'Active', 1, 'Prioglitazone', '647641512', 'IM DYING', 9000000000, '2009-11-09 14:26:11.0'),
 (3, 'Active', 1, 'Prioglitazone', '647641512', 'IM DYING', 9000000000, '2009-11-09 14:26:11.0'),

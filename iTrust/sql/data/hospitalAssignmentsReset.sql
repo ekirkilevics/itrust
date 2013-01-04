@@ -1,1 +1,1 @@
-DELETE FROM HCPAssignedHos;
+DELETE FROM hcpassignedhos;

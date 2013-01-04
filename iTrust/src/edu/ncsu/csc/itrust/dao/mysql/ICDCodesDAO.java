@@ -55,7 +55,7 @@ public class ICDCodesDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("SELECT * FROM ICDCodes ORDER BY CODE");
+			ps = conn.prepareStatement("SELECT * FROM icdcodes ORDER BY CODE");
 			ResultSet rs = ps.executeQuery();
 			return diagnosisLoader.loadList(rs);
 		} catch (SQLException e) {
@@ -78,7 +78,7 @@ public class ICDCodesDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("SELECT * FROM ICDCodes WHERE Code = ?");
+			ps = conn.prepareStatement("SELECT * FROM icdcodes WHERE Code = ?");
 			ps.setString(1, code);
 			ResultSet rs = ps.executeQuery();
 			if (rs.next())
@@ -105,7 +105,7 @@ public class ICDCodesDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("INSERT INTO ICDCodes (Code, Description, Chronic) " + "VALUES (?,?,?)");
+			ps = conn.prepareStatement("INSERT INTO icdcodes (Code, Description, Chronic) " + "VALUES (?,?,?)");
 			ps.setString(1, diag.getICDCode());
 			ps.setString(2, diag.getDescription());
 			ps.setString(3, diag.getClassification());
@@ -133,7 +133,7 @@ public class ICDCodesDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("UPDATE ICDCodes SET Description = ?, Chronic = ? WHERE Code = ?");
+			ps = conn.prepareStatement("UPDATE icdcodes SET Description = ?, Chronic = ? WHERE Code = ?");
 			ps.setString(1, diag.getDescription());
 			ps.setString(2, diag.getClassification());
 			ps.setString(3, diag.getICDCode());

@@ -217,4 +217,21 @@ public class AppointmentTypeTest extends iTrustHTTPTest {
 		
 		assertLogged(TransactionType.APPOINTMENT_ALL_VIEW, 9000000000L, 0L, "");
 	}
+	
+	public void testAddAppointmentTypeLengthZero() throws Exception {
+		// Login
+		WebConversation wc = login("9000000001", "pw");
+		WebResponse wr = wc.getCurrentPage();
+		wr = wr.getLinkWith("Edit Appointment Types").click();
+		
+		//Fill form
+		assertEquals("iTrust - Maintain Appointment Types", wr.getTitle());
+		assertLogged(TransactionType.APPOINTMENT_TYPE_VIEW, 9000000001L, 0L, "");
+		WebForm wf = wr.getFormWithID("mainForm");
+		wf.getScriptableObject().setParameterValue("name", "Immunization");
+		wf.getScriptableObject().setParameterValue("duration", "0");
+		wr = wf.submit(wf.getSubmitButton("add"));
+		
+		assertTrue(wr.getText().contains("This form has not been validated correctly."));
+	}
 }

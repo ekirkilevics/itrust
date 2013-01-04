@@ -77,7 +77,7 @@ public class ViewDiagnosisStatisticsAction {
 			if (lower.after(upper))
 				throw new FormValidationException("Start date must be before end date!");
 			
-			if (!zip.matches("[0-9]{5}"))
+			if (!zip.matches("([0-9]{5})|([0-9]{5}-[0-9]{4})"))
 				throw new FormValidationException("Zip Code must be 5 digits!");
 
 			boolean validCode = false;
@@ -132,7 +132,7 @@ public class ViewDiagnosisStatisticsAction {
 			// TODO Auto-generated catch block
 			throw new FormValidationException("Enter dates in MM/dd/yyyy");
 		}
-		if (!zip.matches("[0-9]{5}"))
+		if (!zip.matches("([0-9]{5})|([0-9]{5}-[0-9]{4})"))
 			throw new FormValidationException("Zip Code must be 5 digits!");
 		
 		DiagnosisStatisticsBean dbWeek = diagnosesDAO.getCountForWeekOf(icdCode, zip, lower);

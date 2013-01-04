@@ -1,1 +1,1 @@
-DELETE FROM LoginFailures;
+DELETE FROM loginfailures;

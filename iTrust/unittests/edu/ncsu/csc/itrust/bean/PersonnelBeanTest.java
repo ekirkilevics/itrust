@@ -25,9 +25,7 @@ public class PersonnelBeanTest extends TestCase {
 		p.setFirstName("John");
 		p.setLastName("Doe");
 		p.setEmail("email@email.com");
-		p.setPhone1("828");
-		p.setPhone2("464");
-		p.setPhone3("3333");
+		p.setPhone("828-464-3333");
 		p.setSpecialty("Special");
 		
 		assertEquals("John", p.getFirstName());
@@ -35,24 +33,19 @@ public class PersonnelBeanTest extends TestCase {
 		assertEquals("John Doe", p.getFullName());
 		assertEquals("email@email.com", p.getEmail());
 		assertEquals("828-464-3333", p.getPhone());
-		assertEquals("828", p.getPhone1());
-		assertEquals("464", p.getPhone2());
-		assertEquals("3333", p.getPhone3());
+		assertEquals("828-464-3333", p.getPhone());
 		assertEquals("Special", p.getSpecialty());
 
 		p.setCity("City");
 		p.setState("NC");
-		p.setZip1("28658");
-		p.setZip2("27607");
+		p.setZip("28658-2760");
 		
 		assertEquals("City", p.getCity());
 		assertEquals("NC", p.getState());
-		assertEquals("28658", p.getZip1());
-		assertEquals("27607", p.getZip2());
-		assertEquals("28658-27607", p.getZip());
+		assertEquals("28658-2760", p.getZip());
 		
-		p.setZip2("");
-		assertEquals("28658", p.getZip());
+		p.setZip("");
+		assertEquals("", p.getZip());
 		
 		p.setMID(000001);
 		p1.setMID(000002);

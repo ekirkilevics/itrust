@@ -60,7 +60,7 @@ public class OfficeVisitDAO {
 		try {
 			conn = factory.getConnection();
 			ps = conn
-					.prepareStatement("INSERT INTO OfficeVisits (VisitDate, Notes, HCPID, PatientID, HospitalID, IsERIncident) VALUES (?,?,?,?,?,?)");
+					.prepareStatement("INSERT INTO officevisits (VisitDate, Notes, HCPID, PatientID, HospitalID, IsERIncident) VALUES (?,?,?,?,?,?)");
 			setValues(ps, ov);
 			ps.executeUpdate();
 			return DBUtil.getLastInsert(conn);
@@ -92,7 +92,7 @@ public class OfficeVisitDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("UPDATE OfficeVisits SET VisitDate=?, Notes=?, HCPID=?, "
+			ps = conn.prepareStatement("UPDATE officevisits SET VisitDate=?, Notes=?, HCPID=?, "
 					+ "PatientID=?, HospitalID=? WHERE ID=?");
 			setValues(ps, ov);
 			ps.setLong(6, ov.getID());
@@ -117,7 +117,7 @@ public class OfficeVisitDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("Select * From OfficeVisits Where ID = ?");
+			ps = conn.prepareStatement("Select * From officevisits Where ID = ?");
 			ps.setLong(1, visitID);
 			ResultSet rs = ps.executeQuery();
 			if (rs.next())
@@ -145,7 +145,7 @@ public class OfficeVisitDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("SELECT * FROM OfficeVisits WHERE ID=? AND PatientID=?");
+			ps = conn.prepareStatement("SELECT * FROM officevisits WHERE ID=? AND PatientID=?");
 			ps.setLong(1, ovID);
 			ps.setLong(2, pid);
 			ResultSet rs = ps.executeQuery();
@@ -171,7 +171,7 @@ public class OfficeVisitDAO {
 		try {
 			conn = factory.getConnection();
 			ps = conn
-					.prepareStatement("SELECT * FROM OfficeVisits WHERE PatientID=? ORDER BY VisitDate DESC");
+					.prepareStatement("SELECT * FROM officevisits WHERE PatientID=? ORDER BY VisitDate DESC");
 			ps.setLong(1, pid);
 			ResultSet rs = ps.executeQuery();
 			return officeVisitLoader.loadList(rs);
@@ -197,7 +197,7 @@ public class OfficeVisitDAO {
 			if (mid == 0L) throw new SQLException("HCPID cannot be null");
 			conn = factory.getConnection();
 			ps = conn
-					.prepareStatement("SELECT * FROM OfficeVisits WHERE HCPID=? ORDER BY VisitDate DESC");
+					.prepareStatement("SELECT * FROM officevisits WHERE HCPID=? ORDER BY VisitDate DESC");
 			ps.setLong(1, mid);
 			ResultSet rs = ps.executeQuery();
 			return officeVisitLoader.loadList(rs);
@@ -222,7 +222,7 @@ public class OfficeVisitDAO {
 		try {
 			conn = factory.getConnection();
 			ps = conn
-					.prepareStatement("SELECT * FROM OfficeVisits where id not in (select visitid from OVSurvey) and PatientID = ? ORDER BY VisitDate DESC");
+					.prepareStatement("SELECT * FROM officevisits where id not in (select visitid from ovsurvey) and PatientID = ? ORDER BY VisitDate DESC");
 			ps.setLong(1, pid);
 			ResultSet rs = ps.executeQuery();
 			return officeVisitLoader.loadList(rs);

@@ -1,4 +1,4 @@
-INSERT INTO LOINC
+INSERT INTO loinc
 (LaboratoryProcedureCode,Component,KindOfProperty,TimeAspect,System,ScaleType,MethodType)
 VALUES
 ('10763-1','Microscopic Observation','Prid','Pt','Body Fluid','Nominal','Sudan Black Stain'),

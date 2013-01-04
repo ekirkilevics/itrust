@@ -84,7 +84,6 @@ public class UpdateHospitalListActionTest extends TestCase {
 		assertEquals(getAddHospitalSuccessString(hosp), action.addHospital(hosp));
 		hosp = factory.getHospitalsDAO().getHospital(id);
 		assertEquals(name, hosp.getHospitalName());
-
 	}
 
 	public void testAddDuplicate() throws Exception {
@@ -114,7 +113,31 @@ public class UpdateHospitalListActionTest extends TestCase {
 		HospitalBean hosp = new HospitalBean(id, "shouldn't be here");
 		assertEquals("Error: Hospital not found.", action.updateInformation(hosp));
 		assertEquals(null, factory.getHospitalsDAO().getHospital(id));
-		assertEquals(7, factory.getHospitalsDAO().getAllHospitals().size());
+		assertEquals(9, factory.getHospitalsDAO().getAllHospitals().size());
 	}
-
+	
+	public void testAddAddress() throws Exception {
+		String id = "9999999999";
+		HospitalBean hosp = new HospitalBean(id, "shouldn't be here", "Address", "City", "ST", "00000-0000",0,0);
+		action.addHospital(hosp);
+		hosp = factory.getHospitalsDAO().getHospital(id);
+		assertEquals("Address",hosp.getHospitalAddress());
+		assertEquals("City",hosp.getHospitalCity());
+		assertEquals("ST",hosp.getHospitalState());
+		assertEquals("00000-0000",hosp.getHospitalZip());
+	}
+	
+	public void testUpdateAddress() throws Exception {
+		String id = "8888888888";
+		String name = "new hospital 8...";
+		HospitalBean hosp = new HospitalBean(id, name, "Address", "City", "ST", "00000-0000",0,0);
+		addEmpty(id);
+		hosp.setHospitalName(name);
+		assertEquals("Success: 1 row(s) updated", action.updateInformation(hosp));
+		hosp = factory.getHospitalsDAO().getHospital(id);
+		assertEquals("Address",hosp.getHospitalAddress());
+		assertEquals("City",hosp.getHospitalCity());
+		assertEquals("ST",hosp.getHospitalState());
+		assertEquals("00000-0000",hosp.getHospitalZip());
+	}
 }

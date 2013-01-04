@@ -1,5 +1,5 @@
-DELETE FROM PersonalHealthInformation WHERE PatientID = 2;
-INSERT INTO PersonalHealthInformation 
+DELETE FROM personalhealthinformation WHERE PatientID = 2;
+INSERT INTO personalhealthinformation 
 	   (PatientID,Height,Weight,Smoker,BloodPressureN,BloodPressureD,CholesterolHDL,CholesterolLDL,CholesterolTri,HCPID, AsOfDate)
 VALUES ( 2,  62.2,   205.5,   1,      165,          220,           40,             255,         230,          9000000000, CONCAT(YEAR(NOW())-2, '-08-12 08:34:58')),
 	   ( 2,  62.0,   209.1,   1,      170,          200,           70,             200,         290,          9000000000, CONCAT(YEAR(NOW())-2, '-10-30 10:54:22')),

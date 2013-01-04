@@ -29,8 +29,6 @@ public class VisitReminderReturnFormLoader implements BeanLoader<VisitReminderRe
 				rs.getLong(++i),// patient ID
 				rs.getString(++i),// last name
 				rs.getString(++i),// first
-				rs.getString(++i),// phone1
-				rs.getString(++i),// phone2
 				rs.getString(++i));// ,// phone3
 		// "diagnosis: " + rs.getString(++i),
 		// "last visit: " + rs.getString(++i));

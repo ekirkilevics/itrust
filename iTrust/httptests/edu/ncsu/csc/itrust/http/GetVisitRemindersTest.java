@@ -41,10 +41,8 @@ public class GetVisitRemindersTest extends iTrustHTTPTest {
 		wf.getButtonWithID("getReminders").click();
 		wr = wc.getCurrentPage();
 		
-		//TODO: TEST LOGGING?
-		
 		assertEquals("iTrust - Visit Reminders", wr.getTitle());
-		assertEquals(3, wr.getTables().length);
+		assertEquals(4, wr.getTables().length);
 
 		WebTable table = wr.getTables()[0];
 		assertEquals("Zappic Clith", table.getCellAsText(1, 1));
@@ -56,9 +54,12 @@ public class GetVisitRemindersTest extends iTrustHTTPTest {
 		assertEquals("919-971-0000", table.getCellAsText(2, 1));
 		assertEquals("Diagnosed:    250.00\n Last Visit:    2008-10-10", table.getCellAsText(3,1));
 		
-		//FIXME: sometimes they swap... Also dont show last visit twice
-		
 		table = wr.getTables()[2];
+		assertEquals("Anakin Skywalker", table.getCellAsText(1, 1));
+		assertEquals("919-419-5555", table.getCellAsText(2, 1));
+		assertEquals("Diagnosed:    493.00\n Last Visit:    2012-01-01", table.getCellAsText(3,1));
+		
+		table = wr.getTables()[3];
 		assertEquals("Darryl Thompson", table.getCellAsText(1, 1));
 		assertEquals("919-555-6709", table.getCellAsText(2, 1));
 		assertEquals("Diagnosed:    390.00\n Diagnosed:    493.00\n Last Visit:    2007-06-10", table.getCellAsText(3,1));
@@ -75,8 +76,6 @@ public class GetVisitRemindersTest extends iTrustHTTPTest {
 		wf.setParameter("ReminderType", "Flu Shot Needers");
 		wf.getButtonWithID("getReminders").click();
 		wr = wc.getCurrentPage();
-		
-		//TODO: TEST LOGGING?
 		
 		assertEquals("iTrust - Visit Reminders", wr.getTitle());
 		assertEquals(4, wr.getTables().length);
@@ -118,8 +117,6 @@ public class GetVisitRemindersTest extends iTrustHTTPTest {
 		wf.setParameter("ReminderType", "Immunization Needers");
 		wf.getButtonWithID("getReminders").click();
 		wr = wc.getCurrentPage();
-		
-		//TODO: TEST LOGGING?
 		
 		assertEquals("iTrust - Visit Reminders", wr.getTitle());
 		assertEquals(2, wr.getTables().length);

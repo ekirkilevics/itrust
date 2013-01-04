@@ -5,6 +5,7 @@ import edu.ncsu.csc.itrust.dao.DAOFactory;
 import edu.ncsu.csc.itrust.dao.mysql.HospitalsDAO;
 import edu.ncsu.csc.itrust.exception.DBException;
 import edu.ncsu.csc.itrust.exception.FormValidationException;
+import edu.ncsu.csc.itrust.exception.GoogleGeocoderException;
 import edu.ncsu.csc.itrust.exception.iTrustException;
 import edu.ncsu.csc.itrust.validate.HospitalBeanValidator;
 
@@ -28,15 +29,15 @@ public class UpdateHospitalListAction {
 	}
 
 	/**
-	 * Adds a hosptial using the HospitalBean passed as a param
+	 * Adds a hospital using the HospitalBean passed as a parameter
 	 * 
-	 * @param hosp
-	 *            the new hospital listing
+	 * @param hosp the new hospital listing
 	 * @return Status message
 	 * @throws FormValidationException
 	 */
 	public String addHospital(HospitalBean hosp) throws FormValidationException {
 		new HospitalBeanValidator().validate(hosp);
+		
 		try {
 			if (hospDAO.addHospital(hosp)) {
 				return "Success: " + hosp.getHospitalID() + " - " + hosp.getHospitalName() + " added";
@@ -52,15 +53,15 @@ public class UpdateHospitalListAction {
 
 	/**
 	 * Updates a hospital (based on the hospital id) using new information from the HospitalBean passed as a
-	 * param
+	 * parameter
 	 * 
-	 * @param hosp
-	 *            the new hospital information with the same hospital id
+	 * @param hosp the new hospital information with the same hospital id
 	 * @return Status message
 	 * @throws FormValidationException
 	 */
 	public String updateInformation(HospitalBean hosp) throws FormValidationException {
 		new HospitalBeanValidator().validate(hosp);
+		
 		try {
 			int rows = 0;
 			return ((0 == (rows = updateHospital(hosp))) ? "Error: Hospital not found." : "Success: " + rows

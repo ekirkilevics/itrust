@@ -36,11 +36,11 @@ public class PrescriptionReportDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("SELECT * FROM NDCodes, OVMedication, OfficeVisits "
-					+ "WHERE NDCodes.Code=OVMedication.NDCode AND OVMedication.VisitID=OfficeVisits.ID "
-					+ "AND PatientID=? AND ((DATE(?) < OVMedication.EndDate AND DATE(?) > OVMedication.StartDate)"
-					+ "OR (DATE(?) > OVMedication.StartDate  AND DATE(?) < OVMedication.EndDate ) OR "
-					+ "(DATE(?) <= OVMedication.StartDate AND DATE(?) >= OVMedication.StartDate)) "
+			ps = conn.prepareStatement("SELECT * FROM ndcodes, ovmedication, officevisits "
+					+ "WHERE ndcodes.Code=ovmedication.NDCode AND ovmedication.VisitID=officevisits.ID "
+					+ "AND PatientID=? AND ((DATE(?) < ovmedication.EndDate AND DATE(?) > ovmedication.StartDate)"
+					+ "OR (DATE(?) > ovmedication.StartDate  AND DATE(?) < ovmedication.EndDate ) OR "
+					+ "(DATE(?) <= ovmedication.StartDate AND DATE(?) >= ovmedication.StartDate)) "
 					+ "ORDER BY VisitDate DESC");
 			ps.setLong(1, patientID);
 			ps.setString(2, startDate);
@@ -76,8 +76,8 @@ public class PrescriptionReportDAO {
 		try {
 			conn = factory.getConnection();
 			String preps = buildPreps(ovIDs.size());
-			ps = conn.prepareStatement("SELECT * FROM NDCodes, OVMedication, OfficeVisits "
-					+ "WHERE NDCodes.Code=OVMedication.NDCode AND OVMedication.VisitID=OfficeVisits.ID "
+			ps = conn.prepareStatement("SELECT * FROM ndcodes, ovmedication, officevisits "
+					+ "WHERE ndcodes.Code=ovmedication.NDCode AND ovmedication.VisitID=officevisits.ID "
 					+ "AND PatientID=? AND VisitID IN(" + preps + ") ORDER BY VisitDate DESC");
 			ps.setLong(1, patientID);
 			prepareOVIDs(ps, ovIDs);

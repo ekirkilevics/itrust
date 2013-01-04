@@ -250,6 +250,14 @@ public class MedicalReportFilter extends ReportFilter {
 	public MedicalReportFilterType getFilterType() {
 		return filterType;
 	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public String getFilterTypeString() {
+		return filterType.toString();
+	}
 
 	/**
 	 * 

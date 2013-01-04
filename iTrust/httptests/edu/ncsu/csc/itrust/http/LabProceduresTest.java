@@ -169,7 +169,7 @@ public class LabProceduresTest extends iTrustHTTPTest {
 		
 		assertEquals("iTrust - View Lab Procedures", wr.getTitle());
 		WebTable tbl = wr.getTableWithID("labProceduresTable");
-		assertEquals(14, tbl.getRowCount());
+		assertEquals(51, tbl.getRowCount());
 		
 		int numericalColumn = 5;
 		assertEquals("", tbl.getCellAsText(13, numericalColumn));
@@ -335,7 +335,7 @@ public class LabProceduresTest extends iTrustHTTPTest {
 		
 		// Check table of in-transit lab procedures
 		tbl = wr.getTableWithID("inTransitTable");
-		assertEquals(5, tbl.getRowCount());
+		assertEquals(20, tbl.getRowCount());
 		String labProcID = tbl.getCellAsText(2, 0); // lab proc id is auto-assigned
 		// Click "Set to Received" on Lab Procedure 
 		WebForm form = wr.getFormWithID("inTransitForm");
@@ -355,7 +355,7 @@ public class LabProceduresTest extends iTrustHTTPTest {
 		
 		// Check that table of in-transit lab procedures has no lab procedures
 		tbl = wr.getTableWithID("inTransitTable");
-		assertEquals(4, tbl.getRowCount());
+		assertEquals(19, tbl.getRowCount());
 		//assertTrue(tbl.getCellAsText(2, 0).contains("There are no lab procedures in transit"));  // lab procedure ID
 	}
 	

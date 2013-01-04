@@ -1,4 +1,4 @@
-INSERT INTO Patients
+INSERT INTO patients
 (MID, 
 firstName,
 lastName, 
@@ -7,25 +7,17 @@ address1,
 address2,
 city,
 state,
-zip1,
-zip2,
-phone1,
-phone2,
-phone3,
+zip,
+phone,
 eName,
-ePhone1,
-ePhone2,
-ePhone3,
+ePhone,
 iCName,
 iCAddress1,
 iCAddress2,
 iCCity, 
 ICState,
-iCZip1,
-iCZip2,
-iCPhone1,
-iCPhone2,
-iCPhone3,
+iCZip,
+iCPhone,
 iCID,
 DateOfBirth,
 MotherMID,
@@ -45,24 +37,16 @@ VALUES (
 'New York',
 'NY',
 '10001',
-'',
-'555',
-'555',
-'5555',
+'555-555-5555',
 'Kermit the Frog',
-'555',
-'555',
-'5551',
+'555-555-5551',
 'IC',
 'Street1',
 'Street2',
 'City',
 'PA',
-'19003',
-'2715',
-'555',
-'555',
-'5555',
+'19003-2715',
+'555-555-5555',
 '1',
 '1976-04-25',
 0,
@@ -73,19 +57,19 @@ VALUES (
 "Fozzie has a low tolerance for pain--he simply can\'t bear it.  Wakka, Wakka, Wakka."
 )  ON DUPLICATE KEY UPDATE MID = MID;
 
-INSERT INTO Users(MID, password, role, sQuestion, sAnswer) 
+INSERT INTO users(MID, password, role, sQuestion, sAnswer) 
 			VALUES (22, '1a91d62f7ca67399625a4368a6ab5d4a3baa6073', 'patient', 'how you doin?', 'good')
  ON DUPLICATE KEY UPDATE MID = MID;
 /*password: pw*/
 
-INSERT INTO OfficeVisits(id,visitDate,HCPID,notes,HospitalID,PatientID)
+INSERT INTO officevisits(id,visitDate,HCPID,notes,HospitalID,PatientID)
 VALUES (1952,'2010-6-09',9000000007,'Meep meep meep?','1',22),
 	   (1953,'2010-10-31',9000000000,'If you say Wakka, Wakka, Wakka one more time...','1',22),
 	   (1954,'2010-12-11',9000000003,'Wakka Wakka this!','1',22),
 	   (1955,'2011-3-31',9000000007,'MEEP. Meep Meep.','1',22)
 		 ON DUPLICATE KEY UPDATE id = id;
 
-INSERT INTO DeclaredHCP(PatientID,HCPID) VALUE(22, 9000000007)
+INSERT INTO declaredhcp(PatientID,HCPID) VALUE(22, 9000000007)
  ON DUPLICATE KEY UPDATE PatientID = PatientID;
 
 
@@ -113,7 +97,7 @@ VALUES
 ON DUPLICATE KEY UPDATE id = id
 ;
 
-INSERT INTO LabProcedure
+INSERT INTO labprocedure
 (PatientMID,LaboratoryProcedureCode,Rights,Status,Commentary,Results,
  NumericalResults, NumericalResultsUnit, LowerBound, UpperBound,
  OfficeVisitID, UpdatedDate, LabTechID, PriorityCode)

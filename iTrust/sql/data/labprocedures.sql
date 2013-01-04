@@ -1,4 +1,4 @@
-INSERT INTO LabProcedure
+INSERT INTO labprocedure
 (PatientMID,LaboratoryProcedureCode,Rights,Status,Commentary,Results,
  NumericalResults, NumericalResultsUnit, LowerBound, UpperBound,
  OfficeVisitID, UpdatedDate, LabTechID, PriorityCode)
@@ -24,9 +24,9 @@ VALUES
 (4,'10763-1','ALLOWED','Testing','','Patient needs more tests',
  '','','','',
  955,'2007-07-20', 5000000001, 3);
-UPDATE LabProcedure SET UpdatedDate=(SYSDATE() - INTERVAL 1 DAY) WHERE PatientMID=4;
+UPDATE labprocedure SET UpdatedDate=(SYSDATE() - INTERVAL 1 DAY) WHERE PatientMID=4;
 
-INSERT INTO OfficeVisits(
+INSERT INTO officevisits(
 	id,
 	visitDate,
 	HCPID,

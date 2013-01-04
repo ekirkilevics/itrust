@@ -24,8 +24,7 @@ public class HospitalBeanLoader implements BeanLoader<HospitalBean> {
 	}
 
 	public HospitalBean loadSingle(ResultSet rs) throws SQLException {
-		// HospitalBean hosp = new HospitalBean();
-		HospitalBean hosp = new HospitalBean(rs.getString("HospitalID"), rs.getString("HospitalName"));
+		HospitalBean hosp = new HospitalBean(rs.getString("HospitalID"), rs.getString("HospitalName"), rs.getString("Address"), rs.getString("City"), rs.getString("State"), rs.getString("Zip"), rs.getDouble("Lat"), rs.getDouble("Lng"));
 		return hosp;
 	}
 

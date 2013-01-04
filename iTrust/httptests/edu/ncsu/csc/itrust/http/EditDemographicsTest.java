@@ -88,7 +88,7 @@ public class EditDemographicsTest extends iTrustHTTPTest {
 		form.setParameter("streetAddress1", "100 New Address");
 		form.setParameter("city", "New Bern");
 		form.setParameter("state", "NC");
-		form.setParameter("zip1", "28562");
+		form.setParameter("zip", "28562");
 		form.getSubmitButtons()[0].click();
 		wr = wc.getCurrentPage();
 		assertTrue(wr.getText().contains("Information Successfully Updated"));
@@ -161,9 +161,7 @@ public class EditDemographicsTest extends iTrustHTTPTest {
 		assertEquals(ADDRESS + "auth/hcp-uap/editPatient.jsp", wr.getURL().toString());
 		// update phone number with invalid characters
 		WebForm form = wr.getForms()[0];
-		form.setParameter("phone1", "xxx");
-		form.setParameter("phone2", "xxx");
-		form.setParameter("phone3", "xxxx");
+		form.setParameter("phone", "xxx-xxx-xxxx");
 		form.setParameter("dateOfDeathStr", "");
 		form.getButtons()[2].click();
 		WebResponse add = wc.getCurrentPage();

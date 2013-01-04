@@ -1,7 +1,7 @@
-DELETE FROM RemoteMonitoringLists where HCPMID = '8000000009';
-DELETE FROM RemoteMonitoringData where PatientID = '2';
+DELETE FROM remotemonitoringlists where HCPMID = '8000000009';
+DELETE FROM remotemonitoringdata where PatientID = '2';
 
-INSERT INTO RemoteMonitoringLists(PatientMID, HCPMID)
+INSERT INTO remotemonitoringlists(PatientMID, HCPMID)
 					VALUES (2, 8000000009);
 
 

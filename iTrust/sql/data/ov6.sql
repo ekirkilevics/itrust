@@ -1,6 +1,6 @@
 /* for UC11-UC37 accept test scenario 4 */
 
-INSERT INTO OfficeVisits(
+INSERT INTO officevisits(
 	id,
 	visitDate,
 	HCPID,
@@ -10,7 +10,7 @@ INSERT INTO OfficeVisits(
 )
 VALUES (390,'2011-2-2',9000000004,'Second medical visit in two days','2',2);
 
-INSERT INTO OVMedication(
+INSERT INTO ovmedication(
     VisitID, 
     NDCode, 
     StartDate, 

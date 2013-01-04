@@ -1,4 +1,4 @@
-INSERT INTO LabProcedure
+INSERT INTO labprocedure
 (PatientMID,LaboratoryProcedureCode,Rights,Status,Commentary,Results,
  NumericalResults, NumericalResultsUnit, LowerBound, UpperBound,
  OfficeVisitID, UpdatedDate, LabTechID, PriorityCode)
@@ -19,7 +19,7 @@ VALUES
  '28','grams','21','36',
   1525,'2010-11-16',5000000001,2);
 
-INSERT INTO OfficeVisits(
+INSERT INTO officevisits(
 	id,
 	visitDate,
 	HCPID,

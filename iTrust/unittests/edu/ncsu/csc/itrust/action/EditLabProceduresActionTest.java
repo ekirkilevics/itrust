@@ -114,8 +114,8 @@ public class EditLabProceduresActionTest extends TestCase {
 	
 	public void testGetLabTechQueueSize() throws Exception {
 		action = new EditLabProceduresAction(factory, 9000000000L, "1", "11");
-		assertEquals(4, action.getLabTechQueueSize(5000000001L));
-		assertEquals(4, action.getLabTechQueueSize(5000000002L));
+		assertEquals(19, action.getLabTechQueueSize(5000000001L));
+		assertEquals(26, action.getLabTechQueueSize(5000000002L));
 		assertEquals(0, action.getLabTechQueueSize(5000000003L));
 		assertEquals(0, action.getLabTechQueueSize(5432100001L)); // bad id
 	}
@@ -125,7 +125,7 @@ public class EditLabProceduresActionTest extends TestCase {
 		int[] sizes = action.getLabTechQueueSizeByPriority(5000000001L);
 		assertEquals(3, sizes[1]);
 		assertEquals(0, sizes[2]);
-		assertEquals(1, sizes[3]);
+		assertEquals(16, sizes[3]);
 	}
 
 }

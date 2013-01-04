@@ -1,6 +1,8 @@
 package edu.ncsu.csc.itrust.action;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import edu.ncsu.csc.itrust.action.base.PatientBaseAction;
 import edu.ncsu.csc.itrust.beans.Email;
@@ -96,7 +98,19 @@ public class EditPatientAction extends PatientBaseAction {
 		return email;
 	}
 	
-
+	public void deactivate() throws DBException{
+		PatientBean p=patientDAO.getPatient(this.getPid());
+		p.setMID(pid);
+		p.setDateOfDeactivationStr(new SimpleDateFormat("MM/dd/yyyy").format(Calendar.getInstance().getTime()));
+		patientDAO.editPatient(p, loggedInMID);
+	}
+	
+	public void activate() throws DBException{
+		PatientBean p=patientDAO.getPatient(this.getPid());
+		p.setMID(pid);
+		p.setDateOfDeactivationStr(null);
+		patientDAO.editPatient(p, loggedInMID);
+	}
 	
 	public boolean hasHistory() throws DBException {
 		return patientDAO.hasHistory(this.getPid());

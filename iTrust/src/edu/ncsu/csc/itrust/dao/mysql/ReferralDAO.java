@@ -135,7 +135,7 @@ public class ReferralDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("INSERT INTO ReferralMessage (messageID,referralID) VALUES (?,?) ");
+			ps = conn.prepareStatement("INSERT INTO referralmessage (messageID,referralID) VALUES (?,?) ");
 			ps.setLong(1, messageID);
 			ps.setLong(2, referralID);
 			ps.executeUpdate();
@@ -160,7 +160,7 @@ public class ReferralDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("SELECT * FROM ReferralMessage WHERE messageID = ?");
+			ps = conn.prepareStatement("SELECT * FROM referralmessage WHERE messageID = ?");
 			ps.setLong(1, messageID);
 			ResultSet rs = ps.executeQuery();
 			if(rs.next()){

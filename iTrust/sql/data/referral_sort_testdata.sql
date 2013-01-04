@@ -13,7 +13,7 @@
         9000000007  Beaker Beaker
 */
 
-INSERT INTO OfficeVisits(
+INSERT INTO officevisits(
 	id,
     PatientID,
     HCPID,

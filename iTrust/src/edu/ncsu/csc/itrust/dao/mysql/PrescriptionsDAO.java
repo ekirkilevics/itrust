@@ -44,8 +44,8 @@ public class PrescriptionsDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("Select * From OVMedication,NDCodes Where OVMedication.VisitID = ? "
-					+ "AND NDCodes.Code=OVMedication.NDCode");
+			ps = conn.prepareStatement("Select * From ovmedication,ndcodes Where ovmedication.VisitID = ? "
+					+ "AND ndcodes.Code=ovmedication.NDCode");
 			ps.setLong(1, visitID);
 			ResultSet rs = ps.executeQuery();
 
@@ -71,7 +71,7 @@ public class PrescriptionsDAO {
 			
 			
 			ps = conn
-					.prepareStatement("INSERT INTO OVMedication (VisitID,NDCode,StartDate,EndDate,Dosage,Instructions,OverrideOther) VALUES (?,?,?,?,?,?,?)");
+					.prepareStatement("INSERT INTO ovmedication (VisitID,NDCode,StartDate,EndDate,Dosage,Instructions,OverrideOther) VALUES (?,?,?,?,?,?,?)");
 			loader.loadParameters(ps, pres);
 			ps.executeUpdate();
 			
@@ -98,7 +98,7 @@ public class PrescriptionsDAO {
 		try {
 			conn = factory.getConnection();
 			//ps = conn.prepareStatement("UPDATE OVMedication (VisitID,NDCode,StartDate,EndDate,Dosage,Instructions) VALUES (?,?,?,?,?,?)");
-			String statement = "UPDATE OVMedication " +
+			String statement = "UPDATE ovmedication " +
 				"SET VisitID=?, NDCode=?, StartDate=?, EndDate=?, Dosage=?, Instructions=?, OverrideOther=? " +
 				"WHERE ID=?";
 			ps = conn.prepareStatement(statement);
@@ -125,7 +125,7 @@ public class PrescriptionsDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("DELETE FROM OVMedication WHERE ID=? ");
+			ps = conn.prepareStatement("DELETE FROM ovmedication WHERE ID=? ");
 			ps.setLong(1, ovMedicationID);
 			ps.executeUpdate();
 		} catch (SQLException e) {

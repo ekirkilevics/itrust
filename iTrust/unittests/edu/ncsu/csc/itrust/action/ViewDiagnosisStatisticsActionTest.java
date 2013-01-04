@@ -34,7 +34,7 @@ public class ViewDiagnosisStatisticsActionTest extends TestCase {
 	}
 	
 	public void testGetDiagnosisStatisticsValid() throws Exception {
-		DiagnosisStatisticsBean dsBean = action.getDiagnosisStatistics("06/28/2011", "09/28/2011", "487.00", "27606");
+		DiagnosisStatisticsBean dsBean = action.getDiagnosisStatistics("06/28/2011", "09/28/2011", "487.00", "27606-1234");
 		assertEquals(2, dsBean.getZipStats());
 		assertEquals(5, dsBean.getRegionStats());
 	}
@@ -99,7 +99,7 @@ public class ViewDiagnosisStatisticsActionTest extends TestCase {
 	
 	public void testGetEpidemicStatistics() throws Exception {
 		gen.malaria_epidemic();
-		ArrayList<DiagnosisStatisticsBean> dsList = action.getEpidemicStatistics("11/02/" + thisYear, "84.50", "27606", "1");
+		ArrayList<DiagnosisStatisticsBean> dsList = action.getEpidemicStatistics("11/02/" + thisYear, "84.50", "27606-1234", "1");
 		assertEquals(5, dsList.get(0).getRegionStats());
 		assertEquals(4, dsList.get(0).getZipStats());
 	}

@@ -1,4 +1,4 @@
-INSERT INTO NDCodes(Code, Description) VALUES
+INSERT INTO ndcodes(Code, Description) VALUES
 ('678771191','Ibuprofen')
 ON DUPLICATE KEY UPDATE Code = Code;
 

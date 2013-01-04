@@ -108,11 +108,11 @@ public class GetVisitRemindersTest extends TestCase {
 		try {
 			conn = factory.getConnection();
 			ps = conn.prepareStatement("SELECT DISTINCT "
-					+ "? as hid, ov.patientid, p.lastname, p.firstname, " + "p.phone1, p.phone2, p.phone3 "
-					+ "FROM OfficeVisits ov, Patients p " + "WHERE ov.patientid=p.mid "
+					+ "? as hid, ov.patientid, p.lastname, p.firstname, " + "p.phone "
+					+ "FROM officevisits ov, patients p " + "WHERE ov.patientid=p.mid "
 					+ "AND p.dateofdeath IS NULL "
 					+ "AND p.dateofbirth < DATE_SUB(CURDATE(), INTERVAL 50 YEAR) " + "AND patientid NOT IN "
-					+ "(SELECT patientid FROM OfficeVisits ov, OVMedication om " + "WHERE ov.id=om.visitid "
+					+ "(SELECT patientid FROM officevisits ov, ovmedication om " + "WHERE ov.id=om.visitid "
 					+ "AND NDCode IN (90656, 90658, 90660) " + "AND ((StartDate BETWEEN ? AND ?) "
 					+ "OR (EndDate BETWEEN ? AND ?))) " + "ORDER BY lastname, firstname, ov.patientid");
 			ps.setLong(1, this.LHCP);

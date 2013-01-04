@@ -1,3 +1,4 @@
+<%@page import="java.text.ParseException"%>
 <%@page errorPage="/auth/exceptionHandler.jsp"%>
 
 <%@page import="java.util.List"%>
@@ -35,6 +36,7 @@ String headerMessage = "Please fill out the form properly - comments are optiona
 	
 	long patientID = 0L;
 	boolean error = false;
+	boolean invalidDate = false;
 	String hidden = ""; 
 	
 	boolean isDead = false;
@@ -83,75 +85,84 @@ String headerMessage = "Please fill out the form properly - comments are optiona
 				
 				ApptBean appt = new ApptBean();
 				DateFormat format = new SimpleDateFormat("MM/dd/yyyy hh:mm a");
-				Date date = format.parse(lastSchedDate+" "+lastTime1+":"+lastTime2+" "+lastTime3);
-				appt.setHcp(loggedInMID);
-				appt.setPatient(patientID);
-				appt.setApptType(lastApptType);
-				appt.setDate(new Timestamp(date.getTime()));
-				String comment = "";
-				boolean ignoreConflicts = false;
-				if("Override".equals(request.getParameter("scheduleButton"))){
-					ignoreConflicts = true;
+				format.setLenient(false);
+				try{
+					Date date = format.parse(lastSchedDate+" "+lastTime1+":"+lastTime2+" "+lastTime3);
+					appt.setDate(new Timestamp(date.getTime()));
+				}catch(ParseException e){
+					invalidDate=true;
 				}
-				
-				if(request.getParameter("comment").equals(""))
-					comment = null;
-				else 
-					comment = request.getParameter("comment");
-				appt.setComment(comment);
-				try {
-					headerMessage = action.addAppt(appt, ignoreConflicts);
-					if(headerMessage.startsWith("Success")) {
-						session.removeAttribute("pid");
-						loggingAction.logEvent(TransactionType.APPOINTMENT_ADD, loggedInMID.longValue(), patientID, "");
-						if(ignoreConflicts){
-							loggingAction.logEvent(TransactionType.APPOINTMENT_CONFLICT_OVERRIDE, loggedInMID.longValue(), patientID, "");
-						}
-						
-					}else{
-						error = true;
-						
-						if (headerMessage.contains("conflict")){
-							hidden = "style='display:none;'";
-							List<ApptBean> conflicts = action.getConflictsForAppt(loggedInMID.longValue(), appt);
-							%>
-							<div align=center id="conflictTable">
-								<span class="iTrustError"><%=headerMessage %></span>
-								
-								<table class="fancyTable">
-								<tr><th>Patient</th><th>Appointment Type</th><th>Date / Time</th><th>Duration</th></tr>
-								<% for( ApptBean conflict : conflicts){ 
-										Date d = new Date(conflict.getDate().getTime());
-								%>
-								
-									<tr>
-										<td><%= StringEscapeUtils.escapeHtml("" + ( viewAction.getName(conflict.getPatient()) )) %></td>
-										<td><%= StringEscapeUtils.escapeHtml("" + ( conflict.getApptType() )) %></td>
-											<td><%= StringEscapeUtils.escapeHtml("" + ( format.format(d) )) %></td> 
-						 				<td><%= StringEscapeUtils.escapeHtml("" + ( apptTypeDAO.getApptType(conflict.getApptType()).getDuration()+" minutes" )) %></td>
-									</tr>
-								<% }  %>
-								</table>
-								<input type="submit" id="overrideButton" name="scheduleButton" value="Override"/>
-								<input type="button" id="cancel" name="cancel" value="Cancel" onClick="$('#apptDiv').css('display','block');$('#conflictTable').hide();"/>
-							</div>
-							<%
-						} else {
-							%>
-								<div align=center>
-									<span class="iTrustError"><%=headerMessage %></span>
-								</div>
-							<%
-						}
+				if(invalidDate==false){
+					appt.setHcp(loggedInMID);
+					appt.setPatient(patientID);
+					appt.setApptType(lastApptType);
+					String comment = "";
+					boolean ignoreConflicts = false;
+					if("Override".equals(request.getParameter("scheduleButton"))){
+						ignoreConflicts = true;
 					}
-				} catch (FormValidationException e){
-				%>
-				<div align=center><span class="iTrustError"><%=StringEscapeUtils.escapeHtml(e.getMessage())%></span></div>
-				<%	
+				
+					if(request.getParameter("comment").equals(""))
+						comment = null;
+					else 
+						comment = request.getParameter("comment");
+					appt.setComment(comment);
+					try {
+						headerMessage = action.addAppt(appt, ignoreConflicts);
+						if(headerMessage.startsWith("Success")) {
+							session.removeAttribute("pid");
+							loggingAction.logEvent(TransactionType.APPOINTMENT_ADD, loggedInMID.longValue(), patientID, "");
+							if(ignoreConflicts){
+								loggingAction.logEvent(TransactionType.APPOINTMENT_CONFLICT_OVERRIDE, loggedInMID.longValue(), patientID, "");
+							}
+							
+						}else{
+							error = true;
+							
+							if (headerMessage.contains("conflict")){
+								hidden = "style='display:none;'";
+								List<ApptBean> conflicts = action.getConflictsForAppt(loggedInMID.longValue(), appt);
+								%>
+								<div align=center id="conflictTable">
+									<span class="iTrustError"><%=headerMessage %></span>
+									
+									<table class="fancyTable">
+									<tr><th>Patient</th><th>Appointment Type</th><th>Date / Time</th><th>Duration</th></tr>
+									<% for( ApptBean conflict : conflicts){ 
+											Date d = new Date(conflict.getDate().getTime());
+									%>
+									
+										<tr>
+											<td><%= StringEscapeUtils.escapeHtml("" + ( viewAction.getName(conflict.getPatient()) )) %></td>
+											<td><%= StringEscapeUtils.escapeHtml("" + ( conflict.getApptType() )) %></td>
+												<td><%= StringEscapeUtils.escapeHtml("" + ( format.format(d) )) %></td> 
+							 				<td><%= StringEscapeUtils.escapeHtml("" + ( apptTypeDAO.getApptType(conflict.getApptType()).getDuration()+" minutes" )) %></td>
+										</tr>
+									<% }  %>
+									</table>
+									<input type="submit" id="overrideButton" name="scheduleButton" value="Override"/>
+									<input type="button" id="cancel" name="cancel" value="Cancel" onClick="$('#apptDiv').css('display','block');$('#conflictTable').hide();"/>
+								</div>
+								<%
+							} else {
+								%>
+									<div align=center>
+										<span class="iTrustError"><%=headerMessage %></span>
+									</div>
+								<%
+							}
+						}
+					} catch (FormValidationException e){
+					%>
+					<div align=center><span class="iTrustError"><%=StringEscapeUtils.escapeHtml(e.getMessage())%></span></div>
+					<%	
+					}
+				}else{
+					headerMessage = "Please input a valid date for the appointment.";
 				}
-			}
-			else 
+			}else{
 				headerMessage = "Please input a date for the appointment.";
+			}
 		}
 		
 		List<ApptTypeBean> apptTypes = types.getApptTypes();

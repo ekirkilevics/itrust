@@ -1,3 +1,3 @@
-DELETE FROM GlobalVariables WHERE Name='Timeout';
+DELETE FROM globalvariables WHERE Name='Timeout';
 
-INSERT INTO GlobalVariables(Name, Value) VALUES ('Timeout', '20');
+INSERT INTO globalvariables(Name, Value) VALUES ('Timeout', '20');

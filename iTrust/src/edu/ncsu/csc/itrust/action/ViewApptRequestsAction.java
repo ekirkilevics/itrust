@@ -33,6 +33,22 @@ public class ViewApptRequestsAction {
 		List<ApptRequestBean> reqs = arDAO.getApptRequestsFor(hcpid);
 		return reqs;
 	}
+	/**
+	 * 
+	 * @param reqs
+	 * @return int 
+	 * 
+	 * Returns the number of times in the appointment request list
+	 */
+	public int getNumRequests(List<ApptRequestBean> reqs){
+		int numOfPendingAppointments = 0;
+		for(int i = 0; i < reqs.size(); i++){
+			if(reqs.get(i).isPending() == true){
+				numOfPendingAppointments++;
+			}
+		}
+		return numOfPendingAppointments;
+	}
 
 	public String acceptApptRequest(int reqID) throws SQLException {
 		ApptRequestBean req = arDAO.getApptRequest(reqID);

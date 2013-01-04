@@ -1,4 +1,4 @@
-INSERT INTO ICDCodes(Code, Description, Chronic) VALUES
+INSERT INTO icdcodes(Code, Description, Chronic) VALUES
 ('250.10', 'Diabetes with ketoacidosis', 'yes'),
 ('250.30','Diabetes with other coma', 'yes'),
 ('487.00', 'Influenza', 'no'),

@@ -53,11 +53,8 @@ public class EditPersonnelTest extends TestCase {
 	
 	public void testEditPersonnelZipCode() throws Exception {
 		PersonnelBean p = personnelDAO.getPersonnel(8000000009l);
-		p.setZip1("55555");
-		p.setZip2("6666");
+		p.setZip("55555-6666");
 		personnelDAO.editPersonnel(p);
-		assertEquals("55555", p.getZip1());
-		assertEquals("6666", p.getZip2());
 		assertEquals("55555-6666", p.getZip());
 	}
 	

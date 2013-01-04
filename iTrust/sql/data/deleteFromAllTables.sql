@@ -1,53 +1,53 @@
-DELETE FROM DeclaredHCP /* Please use DELETE FROM and not TRUNCATE, otherwise the auto_increment start value gets wiped out */; 
-DELETE FROM FakeEmail;
-DELETE FROM GlobalVariables;
-DELETE FROM HCPAssignedHos;
-DELETE FROM HCPRelations;
-DELETE FROM LabProcedure;
-DELETE FROM LoginFailures;
-DELETE FROM LOINC;
-DELETE FROM Message;
+DELETE FROM declaredhcp /* Please use DELETE FROM and not TRUNCATE, otherwise the auto_increment start value gets wiped out */; 
+DELETE FROM fakeemail;
+DELETE FROM globalvariables;
+DELETE FROM hcpassignedhos;
+DELETE FROM hcprelations;
+DELETE FROM labprocedure;
+DELETE FROM loginfailures;
+DELETE FROM loinc;
+DELETE FROM message;
 DELETE FROM referrals;
-DELETE FROM OVDiagnosis;
-DELETE FROM OVMedication;
-DELETE FROM OVProcedure;
-DELETE FROM OVSurvey;
-DELETE FROM OfficeVisits;
-DELETE FROM ReportRequests;
-DELETE FROM Representatives;
-DELETE FROM ResetPasswordFailures;
-DELETE FROM TransactionLog;
-DELETE FROM AdverseEvents;
+DELETE FROM ovdiagnosis;
+DELETE FROM ovmedication;
+DELETE FROM ovprocedure;
+DELETE FROM ovsurvey;
+DELETE FROM officevisits;
+DELETE FROM reportrequests;
+DELETE FROM representatives;
+DELETE FROM resetpasswordfailures;
+DELETE FROM transactionlog;
+DELETE FROM adverseevents;
 
-DELETE FROM Appointment;
-DELETE FROM AppointmentType;
+DELETE FROM appointment;
+DELETE FROM appointmenttype;
 
-DELETE FROM PersonalAllergies;
-DELETE FROM PersonalHealthInformation;
-DELETE FROM PersonalRelations;
-DELETE FROM Allergies;
-DELETE FROM ICDCodes;
+DELETE FROM personalallergies;
+DELETE FROM personalhealthinformation;
+DELETE FROM personalrelations;
+DELETE FROM allergies;
+DELETE FROM icdcodes;
 
 
-DELETE FROM Personnel;
-DELETE FROM Hospitals;
-DELETE FROM NDCodes;
+DELETE FROM personnel;
+DELETE FROM hospitals;
+DELETE FROM ndcodes;
 DELETE FROM druginteractions;
 
-DELETE FROM CPTCodes;
-DELETE FROM Patients;
-DELETE FROM HistoryPatients;
-DELETE FROM Users;
+DELETE FROM cptcodes;
+DELETE FROM patients;
+DELETE FROM historypatients;
+DELETE FROM users;
 
-DELETE FROM RemoteMonitoringData;
-DELETE FROM RemoteMonitoringLists;
+DELETE FROM remotemonitoringdata;
+DELETE FROM remotemonitoringlists;
 
-DELETE FROM DrugReactionOverrideCodes;
-DELETE FROM OVReactionOverride;
+DELETE FROM drugreactionoverridecodes;
+DELETE FROM ovreactionoverride;
 
-DELETE FROM ProfilePhotos;
-DELETE FROM OVProcedure;
+DELETE FROM profilephotos;
+DELETE FROM ovprocedure;
 
-DELETE FROM PatientSpecificInstructions;
+DELETE FROM patientspecificinstructions;
 
-DELETE FROM AppointmentRequests;
+DELETE FROM appointmentrequests;

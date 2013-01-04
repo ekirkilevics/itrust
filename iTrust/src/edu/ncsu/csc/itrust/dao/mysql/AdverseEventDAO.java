@@ -54,7 +54,7 @@ public List<AdverseEventBean> getReportsFor(long mid) throws DBException {
 		PreparedStatement ps = null;	
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("SELECT * FROM AdverseEvents WHERE PatientMID = ?");
+			ps = conn.prepareStatement("SELECT * FROM adverseevents WHERE PatientMID = ?");
 			ps.setLong(1, mid);
 			ResultSet rs = ps.executeQuery();
 
@@ -80,7 +80,7 @@ public List<AdverseEventBean> getReportsFor(long mid) throws DBException {
 		try{
 			conn = factory.getConnection();
 			ps = conn.prepareStatement(
-					"INSERT INTO AdverseEvents (PatientMID, PresImmu, Code, Comment, Prescriber, Status) "
+					"INSERT INTO adverseevents (PatientMID, PresImmu, Code, Comment, Prescriber, Status) "
 					  + "VALUES (?, ?, ?, ?, ?, ?)");
 			ps.setString(1, aeBean.getMID());
 			ps.setString(2, aeBean.getDrug());
@@ -102,7 +102,7 @@ public List<AdverseEventBean> getReportsFor(long mid) throws DBException {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("SELECT * FROM AdverseEvents WHERE id=?");
+			ps = conn.prepareStatement("SELECT * FROM adverseevents WHERE id=?");
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
 	
@@ -125,7 +125,7 @@ public List<AdverseEventBean> getReportsFor(long mid) throws DBException {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("SELECT * FROM AdverseEvents WHERE id=?");
+			ps = conn.prepareStatement("SELECT * FROM adverseevents WHERE id=?");
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
 	
@@ -144,7 +144,7 @@ public List<AdverseEventBean> getReportsFor(long mid) throws DBException {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("UPDATE AdverseEvents SET Status = ? WHERE id = ?");
+			ps = conn.prepareStatement("UPDATE adverseevents SET Status = ? WHERE id = ?");
 			String removed = "removed";
 			ps.setString(1, removed);
 			ps.setInt(2,id);
@@ -212,7 +212,7 @@ public List<AdverseEventBean> getReportsFor(long mid) throws DBException {
 	 
 			conn = factory.getConnection();
 			//AND NDCodes.Code=AdverseEvents.Code 
-			ps = conn.prepareStatement("SELECT * FROM AdverseEvents,NDCodes WHERE AdverseEvents.TimeLogged >= ? AND AdverseEvents.TimeLogged <= ? AND NDCodes.Code=AdverseEvents.Code ORDER BY AdverseEvents.Code, AdverseEvents.TimeLogged DESC");
+			ps = conn.prepareStatement("SELECT * FROM adverseevents,ndcodes WHERE adverseevents.TimeLogged >= ? AND adverseevents.TimeLogged <= ? AND ndcodes.Code=adverseevents.Code ORDER BY adverseevents.Code, adverseevents.TimeLogged DESC");
 			 
 			ps.setTimestamp(1, new Timestamp(beginning.getTime()));
 			ps.setTimestamp(2, new Timestamp(ending.getTime() + 1000L * 60L * 60 * 24L));
@@ -238,7 +238,7 @@ public List<AdverseEventBean> getReportsFor(long mid) throws DBException {
 	 
 			conn = factory.getConnection();
 			//AND NDCodes.Code=AdverseEvents.Code 
-			ps = conn.prepareStatement("SELECT * FROM AdverseEvents,CPTCodes WHERE AdverseEvents.TimeLogged >= ? AND AdverseEvents.TimeLogged <= ? AND CPTCodes.Code=AdverseEvents.Code ORDER BY AdverseEvents.Code, AdverseEvents.TimeLogged DESC");
+			ps = conn.prepareStatement("SELECT * FROM adverseevents,cptcodes WHERE adverseevents.TimeLogged >= ? AND adverseevents.TimeLogged <= ? AND cptcodes.Code=adverseevents.Code ORDER BY adverseevents.Code, adverseevents.TimeLogged DESC");
 			 
 			ps.setTimestamp(1, new Timestamp(beginning.getTime()));
 			ps.setTimestamp(2, new Timestamp(ending.getTime() + 1000L * 60L * 60 * 24L));

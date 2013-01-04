@@ -1,7 +1,7 @@
-INSERT INTO OVMedication(VisitID, NDCode, StartDate, EndDate, Dosage, Instructions) 
+INSERT INTO ovmedication(VisitID, NDCode, StartDate, EndDate, Dosage, Instructions) 
                     VALUES (999, 54868-4985, '2007-06-15', '2007-12-15', 10, 'Take once daily with water');
                     
-INSERT INTO OfficeVisits(
+INSERT INTO officevisits(
 	id,
 	visitDate,
 	HCPID,
@@ -11,12 +11,12 @@ INSERT INTO OfficeVisits(
 )
 VALUES (999,'2007-05-10',9000000000,'The adEvent test visit','1',2);
 
-INSERT INTO NDCodes(Code, Description) VALUES
+INSERT INTO ndcodes(Code, Description) VALUES
 ('548684985','Citalopram Hydrobromide')
 
 ON DUPLICATE KEY UPDATE Code = Code;
 
-INSERT INTO AdverseEvents(
+INSERT INTO adverseevents(
 	id,
 	Status,
 	PatientMID,

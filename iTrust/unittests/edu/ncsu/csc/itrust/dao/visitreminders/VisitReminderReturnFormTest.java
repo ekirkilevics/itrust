@@ -9,7 +9,7 @@ public class VisitReminderReturnFormTest extends TestCase {
 	
 	public void testSetVisitFlags()
 	{
-		VisitReminderReturnForm vrrf = new VisitReminderReturnForm(90l, 2l, "JONES", "BOB", "111", "222", "3333");
+		VisitReminderReturnForm vrrf = new VisitReminderReturnForm(90l, 2l, "JONES", "BOB", "111-222-3333");
 		VisitFlag[] array = new VisitFlag[] {new VisitFlag("this is the type")};
 		vrrf.setVisitFlags(array);
 		assertEquals("this is the type", vrrf.getVisitFlags()[0].getType());
@@ -17,7 +17,7 @@ public class VisitReminderReturnFormTest extends TestCase {
 	
 	public void testOtherFields()
 	{
-		VisitReminderReturnForm vrrf = new VisitReminderReturnForm(90l, 2l, "JONES", "BOB", "111", "222", "3333");
+		VisitReminderReturnForm vrrf = new VisitReminderReturnForm(90l, 2l, "JONES", "BOB", "111-222-3333");
 		vrrf.setFirstName("actually, it's bob");
 		assertEquals("actually, it's bob", vrrf.getFirstName());
 		vrrf.setHcpID(2l);

@@ -46,7 +46,7 @@ public class AllergyDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("SELECT * FROM Allergies WHERE PatientID=? ORDER BY FirstFound DESC");
+			ps = conn.prepareStatement("SELECT * FROM allergies WHERE PatientID=? ORDER BY FirstFound DESC");
 			ps.setLong(1, pid);
 			ResultSet rs = ps.executeQuery();
 			return allergyBeanLoader.loadList(rs);
@@ -68,7 +68,7 @@ public class AllergyDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("INSERT INTO Allergies(PatientID, Code, FirstFound, Description) VALUES (?,?,?,?)");
+			ps = conn.prepareStatement("INSERT INTO allergies(PatientID, Code, FirstFound, Description) VALUES (?,?,?,?)");
 			ps.setLong(1, allergy.getPatientID());
 			ps.setString(2, allergy.getNDCode());
 			if(allergy.getFirstFound() == null){

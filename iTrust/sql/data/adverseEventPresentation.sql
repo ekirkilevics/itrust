@@ -1,4 +1,4 @@
-INSERT INTO OVProcedure(ID, VisitID, CPTCode, HCPID )
+INSERT INTO ovprocedure(ID, VisitID, CPTCode, HCPID )
                     VALUES (998, 998, '90371', 9000000000),
                     (555, 555, '90371', 9000000000),
                     (556, 556, '90712', 9000000000),
@@ -8,17 +8,17 @@ INSERT INTO OVProcedure(ID, VisitID, CPTCode, HCPID )
                     (560, 560, '90712', 9000000000),
                     (570, 570, '90707', 9000000000);
                     
-INSERT INTO OVMedication(VisitID, NDCode, StartDate, EndDate, Dosage, Instructions) 
+INSERT INTO ovmedication(VisitID, NDCode, StartDate, EndDate, Dosage, Instructions) 
                     VALUES (122, '548684985', '2009-06-15', '2009-12-15', 10, 'Take once daily with water'),
                     (112, '009042407', '2008-12-15', '2009-12-18', 500, 'Take once daily'),
                     (113, '081096', '2009-04-06', '2010-04-06', 100, 'Take when you get headaches');
                     
-INSERT INTO NDCodes(Code, Description) VALUES
+INSERT INTO ndcodes(Code, Description) VALUES
 ('548684985','Citalopram Hydrobromide'),
 ('009042407','Tetracycline'),
 ('081096','Aspirin');
 
-INSERT INTO OfficeVisits(
+INSERT INTO officevisits(
 	id,
 	visitDate,
 	HCPID,
@@ -38,14 +38,14 @@ VALUES (998,'2009-05-19',9000000000,'The adEvent test visit','1',2),
 (113,'2009-04-06',9000000000,'The adEvent test visit','1',2),
 (560,'2009-09-27',9000000000,'The adEvent test visit','1',2);
 
-INSERT INTO CPTCodes(Code, Description, Attribute) VALUES
+INSERT INTO cptcodes(Code, Description, Attribute) VALUES
 ('90371','Hepatitis B','immunization'),
 ('90707','Measles, Mumps, Rubella','immunization'),
 ('90712','Poliovirus','immunization')
 
 ON DUPLICATE KEY UPDATE Code = Code;
 
-INSERT INTO AdverseEvents(
+INSERT INTO adverseevents(
 	Status,
 	PatientMID,
 	PresImmu,

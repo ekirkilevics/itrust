@@ -135,6 +135,10 @@ public class DAOFactory {
 	public HospitalsDAO getHospitalsDAO() {
 		return new HospitalsDAO(this);
 	}
+	
+	public ExpertsDAO getExpertsDAO() {
+		return new ExpertsDAO(this);
+	}
 
 	/**
 	 * 

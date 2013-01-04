@@ -1,4 +1,4 @@
-INSERT INTO Patients
+INSERT INTO patients
 (MID, 
 lastName, 
 firstName,
@@ -7,25 +7,17 @@ address1,
 address2,
 city,
 state,
-zip1,
-zip2,
-phone1,
-phone2,
-phone3,
+zip,
+phone,
 eName,
-ePhone1,
-ePhone2,
-ePhone3,
+ePhone,
 iCName,
 iCAddress1,
 iCAddress2,
 iCCity, 
 ICState,
-iCZip1,
-iCZip2,
-iCPhone1,
-iCPhone2,
-iCPhone3,
+iCZip,
+iCPhone,
 iCID,
 dateofbirth,
 mothermid,
@@ -43,25 +35,17 @@ VALUES
 'Suite 106', 
 'Raleigh', 
 'NC', 
-'27606',
-'1234', 
-'919',
-'123',
-'4567', 
+'27606-1234', 
+'919-123-4567', 
 'Mommy Person', 
-'704',
-'123',
-'4567', 
+'704-123-4567', 
 'Aetna', 
 '1234 Aetna Blvd', 
 'Suite 602', 
 'Charlotte',
 'NC', 
 '28215',
-'', 
-'704',
-'555',
-'1234', 
+'704-555-1234', 
 'ChetumNHowe', 
 '1950-05-10',
 0,
@@ -72,26 +56,26 @@ VALUES
 'Beware his terrible Death Whinny!')
  ON DUPLICATE KEY UPDATE MID = MID;
 
-INSERT INTO Users(MID, password, role, sQuestion, sAnswer) 
+INSERT INTO users(MID, password, role, sQuestion, sAnswer) 
 			VALUES (42, '1a91d62f7ca67399625a4368a6ab5d4a3baa6073', 'patient', 'what is your favorite color?', 'blue')
  ON DUPLICATE KEY UPDATE MID = MID;
  /*password: pw*/
 
-INSERT INTO DeclaredHCP(PatientID,HCPID) VALUE(1, 9000000000)
+INSERT INTO declaredhcp(PatientID,HCPID) VALUE(1, 9000000000)
  ON DUPLICATE KEY UPDATE PatientID = PatientID;
  
-INSERT INTO OfficeVisits(ID, visitDate, HCPID, notes, PatientID, HospitalID)
+INSERT INTO officevisits(ID, visitDate, HCPID, notes, PatientID, HospitalID)
 	VALUES (5001, '2010-11-28', 9000000000, 'Voice is a little hoarse.', 42, 1)
 	ON DUPLICATE KEY UPDATE ID = ID;
 	
-DELETE FROM RemoteMonitoringLists where PatientMID = '42';
-DELETE FROM RemoteMonitoringData where PatientID = '42';
+DELETE FROM remotemonitoringlists where PatientMID = '42';
+DELETE FROM remotemonitoringdata where PatientID = '42';
 
-INSERT INTO RemoteMonitoringLists(PatientMID, HCPMID, systolicBloodPressure, diastolicBloodPressure)
+INSERT INTO remotemonitoringlists(PatientMID, HCPMID, systolicBloodPressure, diastolicBloodPressure)
 					VALUES (42, 9000000000, 1, 1);
 
-DELETE FROM PersonalHealthInformation WHERE PatientID = 42;
-INSERT INTO PersonalHealthInformation(PatientID, Weight, Height, AsOfDate, Smoker, HCPID)
+DELETE FROM personalhealthinformation WHERE PatientID = 42;
+INSERT INTO personalhealthinformation(PatientID, Weight, Height, AsOfDate, Smoker, HCPID)
 	VALUES	(42, 280, 70, '2010-11-25 05:30:00', 1, 9000000000),
 			(42, 282, 70, '2010-8-13 05:30:00', 1, 9000000000),
 			(42, 281.5, 70, '2010-5-19 05:30:00', 1, 9000000000),
@@ -105,5 +89,5 @@ INSERT INTO PersonalHealthInformation(PatientID, Weight, Height, AsOfDate, Smoke
 			(42, 296, 70, '2008-4-10 05:30:00', 1, 9000000000),
 			(42, 294.2, 70, '2008-2-10 05:30:00', 1, 9000000000);
 	
-INSERT INTO Appointment(doctor_id, patient_id, sched_date, appt_type)
+INSERT INTO appointment(doctor_id, patient_id, sched_date, appt_type)
 	VALUE	(9000000000, 42, CONCAT(SUBDATE(CURDATE(),1), ' 15:00:00.0'), 'Consultation');

@@ -1,4 +1,4 @@
-INSERT INTO Patients
+INSERT INTO patients
 (MID,
 lastName, 
 firstName,
@@ -7,25 +7,17 @@ address1,
 address2,
 city,
 state,
-zip1,
-zip2,
-phone1,
-phone2,
-phone3,
+zip,
+phone,
 eName,
-ePhone1,
-ePhone2,
-ePhone3,
+ePhone,
 iCName,
 iCAddress1,
 iCAddress2,
 iCCity, 
 ICState,
-iCZip1,
-iCZip2,
-iCPhone1,
-iCPhone2,
-iCPhone3,
+iCZip,
+iCPhone,
 iCID,
 dateofbirth,
 dateofdeath,
@@ -45,24 +37,16 @@ VALUES
 'Raleigh', 
 'NC',
 '27603',
-'',
-'222',
-'222',
-'1234',
+'222-222-1234',
 'Mario',
-'888',
-'333',
-'8942',
+'888-333-8942',
 'Aetna', 
 '1234 Aetna Blvd', 
 'Suite 602',
 'Charlotte',
 'NC',
 '28215',
-'',
-'704',
-'555',
-'1234', 
+'704-555-1234', 
 'ChetumNHowe', 
 '2008-06-15',
 NULL,
@@ -74,9 +58,9 @@ NULL,
 ''
 );
 
-INSERT INTO Users(MID, password, role, sQuestion, sAnswer) 
+INSERT INTO users(MID, password, role, sQuestion, sAnswer) 
 VALUES (21, '1a91d62f7ca67399625a4368a6ab5d4a3baa6073', 'patient', 'first letter?', 'a');
 /*password: pw*/
 
-INSERT INTO DeclaredHCP(PatientID,HCPID)
+INSERT INTO declaredhcp(PatientID,HCPID)
 VALUE(21, 9000000003);

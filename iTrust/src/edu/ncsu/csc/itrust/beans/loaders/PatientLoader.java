@@ -46,25 +46,17 @@ public class PatientLoader implements BeanLoader<PatientBean> {
 		p.setStreetAddress2(rs.getString("address2"));
 		p.setCity(rs.getString("City"));
 		p.setState(rs.getString("State"));
-		p.setZip1((rs.getString("Zip1")));
-		p.setZip2((rs.getString("Zip2")));
-		p.setPhone1((rs.getString("phone1")));
-		p.setPhone2((rs.getString("phone2")));
-		p.setPhone3((rs.getString("phone3")));
+		p.setZip((rs.getString("Zip")));
+		p.setPhone((rs.getString("phone")));
 		p.setEmergencyName(rs.getString("eName"));
-		p.setEmergencyPhone1(rs.getString("ePhone1"));
-		p.setEmergencyPhone2(rs.getString("ePhone2"));
-		p.setEmergencyPhone3(rs.getString("ePhone3"));
+		p.setEmergencyPhone(rs.getString("ePhone"));
 		p.setIcName(rs.getString("icName"));
 		p.setIcAddress1(rs.getString("icAddress1"));
 		p.setIcAddress2(rs.getString("icAddress2"));
 		p.setIcCity(rs.getString("icCity"));
 		p.setIcState(rs.getString("icState"));
-		p.setIcZip1(rs.getString("icZip1"));
-		p.setIcZip2(rs.getString("icZip2"));
-		p.setIcPhone1(rs.getString("icPhone1"));
-		p.setIcPhone2(rs.getString("icPhone2"));
-		p.setIcPhone3(rs.getString("icPhone3"));
+		p.setIcZip(rs.getString("icZip"));
+		p.setIcPhone(rs.getString("icPhone"));
 		p.setIcID(rs.getString("icID"));
 		p.setMotherMID(rs.getString("MotherMID"));
 		p.setFatherMID(rs.getString("FatherMID"));
@@ -79,6 +71,10 @@ public class PatientLoader implements BeanLoader<PatientBean> {
 		p.setLanguage(rs.getString("Language"));
 		p.setSpiritualPractices(rs.getString("SpiritualPractices"));
 		p.setAlternateName(rs.getString("AlternateName"));
+		Date dateOfDeactivation = rs.getDate("DateOfDeactivation");
+		if (dateOfDeactivation != null){
+			p.setDateOfDeactivationStr(DATE_FORMAT.format(dateOfDeactivation));
+		}
 	}
 	
 	public PatientBean loadSingle(ResultSet rs) throws SQLException {
@@ -109,25 +105,17 @@ public class PatientLoader implements BeanLoader<PatientBean> {
 		ps.setString(i++, p.getStreetAddress2());
 		ps.setString(i++, p.getCity());
 		ps.setString(i++, p.getState());
-		ps.setString(i++, p.getZip1());
-		ps.setString(i++, p.getZip2());
-		ps.setString(i++, p.getPhone1());
-		ps.setString(i++, p.getPhone2());
-		ps.setString(i++, p.getPhone3());
+		ps.setString(i++, p.getZip());
+		ps.setString(i++, p.getPhone());
 		ps.setString(i++, p.getEmergencyName());
-		ps.setString(i++, p.getEmergencyPhone1());
-		ps.setString(i++, p.getEmergencyPhone2());
-		ps.setString(i++, p.getEmergencyPhone3());
+		ps.setString(i++, p.getEmergencyPhone());
 		ps.setString(i++, p.getIcName());
 		ps.setString(i++, p.getIcAddress1());
 		ps.setString(i++, p.getIcAddress2());
 		ps.setString(i++, p.getIcCity());
 		ps.setString(i++, p.getIcState());
-		ps.setString(i++, p.getIcZip1());
-		ps.setString(i++, p.getIcZip2());
-		ps.setString(i++, p.getIcPhone1());
-		ps.setString(i++, p.getIcPhone2());
-		ps.setString(i++, p.getIcPhone3());
+		ps.setString(i++, p.getIcZip());
+		ps.setString(i++, p.getIcPhone());
 		ps.setString(i++, p.getIcID());
 		Date date = null;
 		try {
@@ -163,6 +151,24 @@ public class PatientLoader implements BeanLoader<PatientBean> {
 		ps.setString(i++, p.getLanguage());
 		ps.setString(i++, p.getSpiritualPractices());
 		ps.setString(i++, p.getAlternateName());
+		date = null;
+		try {
+			date = new java.sql.Date(DATE_FORMAT.parse(p.getDateOfDeactivationStr())
+					.getTime());
+		} catch (ParseException e) {
+			if ("".equals(p.getDateOfDeactivationStr())){
+				date = null;
+			}else{
+				e.printStackTrace();
+			}
+		}catch (NullPointerException e) {
+			if ("".equals(p.getDateOfDeactivationStr())){
+				date = null;
+			}else{
+				e.printStackTrace();
+			}
+		}
+		ps.setDate(i++, date);
 		return ps;
 	}
 }

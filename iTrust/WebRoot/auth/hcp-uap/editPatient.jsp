@@ -125,18 +125,14 @@
 			</tr>
 			<tr>
 				<td class="subHeaderVertical">Zip:</td>
-				<td><input name="zip1" value="<%= StringEscapeUtils.escapeHtml("" + (p.getZip1())) %>" maxlength="5"
-					type="text" size="5"> - <input name="zip2"
-					value="<%= StringEscapeUtils.escapeHtml("" + (p.getZip2())) %>" maxlength="4" type="text" size="4">
+				<td>
+					<input name="zip" value="<%= StringEscapeUtils.escapeHtml("" + (p.getZip())) %>" maxlength="10" type="text" size="10">
 				</td>
 			</tr>
 			<tr>
 				<td class="subHeaderVertical">Phone:</td>
-				<td><input name="phone1" value="<%= StringEscapeUtils.escapeHtml("" + (p.getPhone1())) %>" type="text"
-					size="3" maxlength="3"> - <input name="phone2"
-					value="<%= StringEscapeUtils.escapeHtml("" + (p.getPhone2())) %>" type="text" size="3" maxlength="3">
-				- <input name="phone3" value="<%= StringEscapeUtils.escapeHtml("" + (p.getPhone3())) %>" type="text"
-					size="4" maxlength="4"></td>
+				<td>
+					<input name="phone" value="<%= StringEscapeUtils.escapeHtml("" + (p.getPhone())) %>" type="text" size="12" maxlength="12">
 			</tr>
 			<tr>
 				<td class="subHeaderVertical">Mother MID:</td>
@@ -216,19 +212,14 @@
 			</tr>
 			<tr>
 				<td class="subHeaderVertical">Zip:</td>
-				<td><input name="icZip1" value="<%= StringEscapeUtils.escapeHtml("" + (p.getIcZip1())) %>"
-					maxlength="5" type="text" size="5"> - <input name="icZip2"
-					value="<%= StringEscapeUtils.escapeHtml("" + (p.getIcZip2())) %>" maxlength="4" type="text" size="4">
+				<td>
+					<input name="icZip" value="<%= StringEscapeUtils.escapeHtml("" + (p.getIcZip())) %>" maxlength="10" type="text" size="10">
 				</td>
 			</tr>
 			<tr>
 				<td class="subHeaderVertical">Phone:</td>
-				<td><input name="icPhone1" value="<%= StringEscapeUtils.escapeHtml("" + (p.getIcPhone1())) %>"
-					type="text" size="3" maxlength="3"> - <input
-					name="icPhone2" value="<%= StringEscapeUtils.escapeHtml("" + (p.getIcPhone2())) %>" type="text" size="3"
-					maxlength="3"> - <input name="icPhone3"
-					value="<%= StringEscapeUtils.escapeHtml("" + (p.getIcPhone3())) %>" type="text" size="4" maxlength="4">
-
+				<td>
+					<input name="icPhone" value="<%= StringEscapeUtils.escapeHtml("" + (p.getIcPhone())) %>" type="text" size="12" maxlength="12">
 				</td>
 			</tr>
 			<tr>
@@ -265,13 +256,9 @@
 			</tr>
 			<tr>
 				<td class="subHeaderVertical">Phone:</td>
-				<td><input name="emergencyPhone1"
-					value="<%= StringEscapeUtils.escapeHtml("" + (p.getEmergencyPhone1())) %>" type="text" size="3"
-					maxlength="3"> - <input name="emergencyPhone2"
-					value="<%= StringEscapeUtils.escapeHtml("" + (p.getEmergencyPhone2())) %>" type="text" size="3"
-					maxlength="3"> - <input name="emergencyPhone3"
-					value="<%= StringEscapeUtils.escapeHtml("" + (p.getEmergencyPhone3())) %>" type="text" size="4"
-					maxlength="4"></td>
+				<td>
+					<input name="emergencyPhone" value="<%= StringEscapeUtils.escapeHtml("" + (p.getEmergencyPhone())) %>" type="text" size="12" maxlength="12">
+				</td>
 			</tr>
 		</table>
 		<br />
@@ -363,8 +350,12 @@
 </table>
 <br />
 <div align=center>
-	<input type="submit" name="action"
-		style="font-size: 16pt; font-weight: bold;" value="Edit Patient Record"><br /><br />
+	<% if(p.getDateOfDeactivationStr().equals("")){ %>
+	<input type="submit" name="action" style="font-size: 16pt; font-weight: bold;" value="Edit Patient Record">
+	<% } else { %>
+	<span style="font-size: 16pt; font-weight: bold;">Patient is deactivated.  Cannot edit.</span>
+	<% } %>
+	<br /><br />
 	<span style="font-size: 14px;">
 		Note: in order to set the password for this user, use the "Reset Password" link at the login page.
 	</span>

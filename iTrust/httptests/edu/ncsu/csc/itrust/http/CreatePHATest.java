@@ -88,11 +88,8 @@ public class CreatePHATest extends iTrustHTTPTest {
 		form.setParameter("streetAddress1", "98765 Oak Hills Dr");
 		form.setParameter("city", "Capitol City");
 		form.setParameter("state", "NC");
-		form.setParameter("zip1", "28700");
-		form.setParameter("zip2", "0458");
-		form.setParameter("phone1", "555");
-		form.setParameter("phone2", "877");
-		form.setParameter("phone3", "5100");
+		form.setParameter("zip", "28700-0458");
+		form.setParameter("phone", "555-877-5100");
 		form.getSubmitButtons()[0].click();
 		wr = wc.getCurrentPage();
 		assertTrue(wr.getText().contains("Information Successfully Updated"));

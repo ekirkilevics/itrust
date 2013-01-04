@@ -1,24 +1,24 @@
-INSERT INTO Patients 
+INSERT INTO patients 
 (MID,	LastName,	FirstName,		DateOfBirth,					Gender)
 VALUES
 /* Diabetic who hasn't visited in last year*/
 (1,		'Brimley',	'Wilford',		CURDATE() - INTERVAL 40 YEAR,	'Male')
 ON DUPLICATE KEY UPDATE MID = MID;
 
-INSERT INTO DeclaredHCP
+INSERT INTO declaredhcp
 (PatientID,	HCPID)
 VALUES
 (1,			9000000000)
 ON DUPLICATE KEY UPDATE PatientID = PatientID;
 
 /* Chronic visitor, Diabetes with Ketoacidosis */
-INSERT INTO OVDiagnosis
+INSERT INTO ovdiagnosis
 (ID,	VisitID,	ICDCode)
 VALUES
 (1,		1,			250.10)
 ON DUPLICATE KEY UPDATE ID = ID;
 
-INSERT INTO OfficeVisits
+INSERT INTO officevisits
 (ID,	VisitDate,						HCPID,		Notes,		PatientID)
 VALUES
 (1,		CURDATE() - INTERVAL 3 YEAR,	9000000000,	'Diabeetus',	  1), /* Chronic patient, diabetes */

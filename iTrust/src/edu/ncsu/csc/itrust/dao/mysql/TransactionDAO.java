@@ -53,7 +53,7 @@ public class TransactionDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("SELECT * FROM TransactionLog ORDER BY timeLogged DESC");
+			ps = conn.prepareStatement("SELECT * FROM transactionlog ORDER BY timeLogged DESC");
 			ResultSet rs = ps.executeQuery();
 			return loader.loadList(rs);
 		} catch (SQLException e) {
@@ -91,7 +91,7 @@ public class TransactionDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("INSERT INTO TransactionLog(loggedInMID, secondaryMID, "
+			ps = conn.prepareStatement("INSERT INTO transactionlog(loggedInMID, secondaryMID, "
 					+ "transactionCode, addedInfo) VALUES(?,?,?,?)");
 			ps.setLong(1, loggedInMID);
 			ps.setLong(2, secondaryMID);
@@ -120,7 +120,7 @@ public class TransactionDAO {
 		try {
 			conn = factory.getConnection();
 			ps = conn
-					.prepareStatement("SELECT * FROM TransactionLog WHERE secondaryMID=? AND transactionCode "
+					.prepareStatement("SELECT * FROM transactionlog WHERE secondaryMID=? AND transactionCode "
 							+ "IN(" + TransactionType.patientViewableStr + ") AND loggedInMID!=? ORDER BY timeLogged DESC");
 			ps.setLong(1, patientID);
 			ps.setLong(2, dlhcpID);
@@ -154,7 +154,7 @@ public class TransactionDAO {
 		try {
 			conn = factory.getConnection();
 			ps = conn
-					.prepareStatement("SELECT * FROM TransactionLog WHERE ((timeLogged < ?) " +
+					.prepareStatement("SELECT * FROM transactionlog WHERE ((timeLogged < ?) " +
 							"AND  (secondaryMID=? AND transactionCode " +
 								"IN (" + 
 								TransactionType.patientViewableStr+ ")) " +
@@ -194,7 +194,7 @@ public class TransactionDAO {
 		try {
 			conn = factory.getConnection();
 			ps = conn
-					.prepareStatement("SELECT * FROM TransactionLog WHERE secondaryMID=? AND transactionCode IN ("
+					.prepareStatement("SELECT * FROM transactionlog WHERE secondaryMID=? AND transactionCode IN ("
 							+ TransactionType.patientViewableStr
 							+ ") "
 							+ "AND timeLogged >= ? AND timeLogged <= ? "
@@ -233,7 +233,7 @@ public class TransactionDAO {
 			ps = conn.prepareStatement("SELECT TransactionCode, count(transactionID) as TotalCount, "
 					+ "count(if(loggedInMID<9000000000, transactionID, null)) as PatientCount, "
 					+ "count(if(loggedInMID>=9000000000, transactionID, null)) as PersonnelCount "
-					+ "FROM TransactionLog GROUP BY transactionCode ORDER BY transactionCode ASC");
+					+ "FROM transactionlog GROUP BY transactionCode ORDER BY transactionCode ASC");
 			ResultSet rs = ps.executeQuery();
 			return operationalProfileLoader.loadSingle(rs);
 		} catch (SQLException e) {
@@ -261,7 +261,7 @@ public class TransactionDAO {
 			
 			for(TransactionBean t : tbList) {
 				ps = conn
-						.prepareStatement("SELECT Role FROM Users WHERE MID=?");
+						.prepareStatement("SELECT Role FROM users WHERE MID=?");
 				ps.setLong(1, t.getLoggedInMID());
 				ResultSet rs = ps.executeQuery();
 				String role = "";
@@ -274,7 +274,7 @@ public class TransactionDAO {
 				else if(role.equals("hcp")) {
 					role = "LHCP";
 					ps = conn
-							.prepareStatement("SELECT PatientID FROM DeclaredHCP WHERE HCPID=?");
+							.prepareStatement("SELECT PatientID FROM declaredhcp WHERE HCPID=?");
 					ps.setLong(1, t.getLoggedInMID());
 					ResultSet rs2 = ps.executeQuery();
 					while(rs2.next()) {
@@ -287,7 +287,7 @@ public class TransactionDAO {
 				else if(role.equals("patient")){
 					role = "Patient";
 					ps = conn
-							.prepareStatement("SELECT representeeMID FROM Representatives WHERE representerMID=?");
+							.prepareStatement("SELECT representeeMID FROM representatives WHERE representerMID=?");
 					ps.setLong(1, t.getLoggedInMID());
 					ResultSet rs2 = ps.executeQuery();
 					while(rs2.next()) {

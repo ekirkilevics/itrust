@@ -18,7 +18,7 @@ public class DemographicReportFilter extends ReportFilter {
 	 *
 	 */
 	public enum DemographicReportFilterType {
-		// MID,
+		MID("MID"),
 		GENDER("GENDER"),
 		LAST_NAME("LAST NAME"),
 		FIRST_NAME("FIRST NAME"),
@@ -45,7 +45,8 @@ public class DemographicReportFilter extends ReportFilter {
 		SIBLING_LAST_NAME("SIBLING'S LAST NAME"),
 		// DOB("DATE OF BIRTH");
 		LOWER_AGE_LIMIT("LOWER AGE LIMIT"),
-		UPPER_AGE_LIMIT("UPPER AGE LIMIT");
+		UPPER_AGE_LIMIT("UPPER AGE LIMIT"),
+		DEACTIVATED("DEACTIVATED");
 
 		private final String name;
 
@@ -107,7 +108,9 @@ public class DemographicReportFilter extends ReportFilter {
 			for (PatientBean patient : patients) {
 				add = false;
 				switch (filterType) {
-				// case MID:
+				case MID:
+					add = filterValue.equalsIgnoreCase(Long.toString(patient.getMID()));
+					break;
 				case GENDER:
 					add = filterValue.equalsIgnoreCase(patient.getGender().toString());
 					break;
@@ -133,7 +136,7 @@ public class DemographicReportFilter extends ReportFilter {
 					add = patient.getState().equalsIgnoreCase(filterValue);
 					break;
 				case ZIP:
-					add = filterValue.equalsIgnoreCase(patient.getZip1()) || patient.getZip().equalsIgnoreCase(filterValue);
+					add = patient.getZip().contains(filterValue);
 					break;
 				case PHONE:
 					add = patient.getPhone().equalsIgnoreCase(filterValue);
@@ -261,19 +264,26 @@ public class DemographicReportFilter extends ReportFilter {
 				// }
 				// break;
 				case LOWER_AGE_LIMIT:
-					try {
-						int val = Integer.parseInt(filterValue);
-						add = val <= patient.getAge();
-					} catch (Exception e) {
-						break;
+					int lalval = Integer.parseInt(filterValue);
+					if(lalval<0){
+						throw new NumberFormatException("Age must be GTE 0!");
 					}
+					add = lalval <= patient.getAge();
 					break;
 				case UPPER_AGE_LIMIT:
-					try {
-						int val = Integer.parseInt(filterValue);
-						add = patient.getAge() > 0 && val >= patient.getAge();
-					} catch (Exception e) {
-						break;
+					int ualval = Integer.parseInt(filterValue);
+					if(ualval<0){
+						throw new NumberFormatException("Age must be GTE 0!");
+					}
+					add = patient.getAge() > 0 && ualval >= patient.getAge();
+					break;
+				case DEACTIVATED:
+					if(filterValue.equals("exclude")){
+						add = patient.getDateOfDeactivationStr().equals("");
+					}else if(filterValue.equals("only")){
+						add = !patient.getDateOfDeactivationStr().equals("");
+					}else{
+						add=true;
 					}
 					break;
 				default:
@@ -294,6 +304,14 @@ public class DemographicReportFilter extends ReportFilter {
 	 */
 	public DemographicReportFilterType getFilterType() {
 		return filterType;
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public String getFilterTypeString() {
+		return filterType.toString();
 	}
 
 	/**

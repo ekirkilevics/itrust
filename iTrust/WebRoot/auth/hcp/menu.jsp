@@ -11,6 +11,7 @@
     <div class="menuItem"><span class="highlighted">&#187;</span><a href="/iTrust/auth/hcp-uap/chronicDiseaseRisks.jsp">Chronic Disease Risks</a></div>
 	<div class="menuItem"><span class="highlighted">&#187;</span><a href="/iTrust/auth/hcp-pha/viewDiagnosisStatistics.jsp">Diagnosis Trends</a></div>
 	<div class="menuItem"><span class="highlighted">&#187;</span><a href="/iTrust/auth/hcp/groupReport.jsp">Group Report</a></div>
+	<div class="menuItem"><span class="highlighted">&#187;</span><a href="/iTrust/auth/hcp-uap/deactivatePatient.jsp">Deactivate Patient</a></div>
 </div>
 <div class="menu_category">
 	<span>Appointments</span><br />
@@ -42,6 +43,7 @@
 <div class="menu_category">
     <span>Add</span><br />
     <div class="menuItem"><span class="highlighted">&#187;</span><a href="/iTrust/auth/hcp-uap/addPatient.jsp">Patient</a></div>
+    <div class="menuItem"><span class="highlighted">&#187;</span><a href="/iTrust/auth/hcp-uap/uploadPatientFile.jsp">Upload Patient File</a></div>
     <div class="menuItem"><span class="highlighted">&#187;</span><a href="/iTrust/auth/hcp/addUAP.jsp">UAP</a></div>
 </div>
 <div class="menu_category">

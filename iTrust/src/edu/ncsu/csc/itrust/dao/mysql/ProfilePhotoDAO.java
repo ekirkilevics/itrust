@@ -57,7 +57,7 @@ public class ProfilePhotoDAO {
 		try {
 			conn = factory.getConnection();
 			ps = conn
-					.prepareStatement("INSERT INTO ProfilePhotos(MID, Photo) VALUES(?,?) ON DUPLICATE KEY UPDATE Photo=?");
+					.prepareStatement("INSERT INTO profilephotos(MID, Photo) VALUES(?,?) ON DUPLICATE KEY UPDATE Photo=?");
 			ps.setLong(1, mid);
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
 			ImageOutputStream ios = new MemoryCacheImageOutputStream(baos);
@@ -87,7 +87,7 @@ public class ProfilePhotoDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("SELECT * FROM ProfilePhotos WHERE MID = ?");
+			ps = conn.prepareStatement("SELECT * FROM profilephotos WHERE MID = ?");
 			ps.setLong(1, mid);
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
@@ -117,7 +117,7 @@ public class ProfilePhotoDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("DELETE FROM ProfilePhotos WHERE mid=?");
+			ps = conn.prepareStatement("DELETE FROM profilephotos WHERE mid=?");
 			ps.setLong(1, mid);
 			return ps.executeUpdate();
 		} catch (SQLException e) {

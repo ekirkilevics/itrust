@@ -63,11 +63,9 @@ public class VisitRemindersDAO {
 					+ "       dhcp.patientid, "
 					+ "       p.lastName, "
 					+ "       p.firstName, "
-					+ "       p.phone1, "
-					+ "       p.phone2, "
-					+ "       p.phone3 "
+					+ "       p.phone "
 					+ "  FROM "
-					+ "       Patients p, "
+					+ "       patients p, "
 					+ "       declaredhcp dhcp "
 					+ " WHERE "
 					+ "		dhcp.hcpid = ? "
@@ -116,20 +114,18 @@ public class VisitRemindersDAO {
 		try {
 			conn = factory.getConnection();
 			ps = conn.prepareStatement(
-					"SELECT  hid, MID, lastName, firstName, phone1, phone2, phone3, ICDcode, visitDate FROM " +
+					"SELECT  hid, MID, lastName, firstName, phone, ICDcode, visitDate FROM " +
 					"(SELECT DISTINCT " +
 					"  ? as hid, " +
 					"  p.MID as MID, " +
 					"  p.lastName, " +
 					"  p.firstName, " +
-					"  p.phone1, " +
-					"  p.phone2, " +
-					"  p.phone3, " +
+					"  p.phone, " +
 					"  ovd.ICDcode " +
 					" FROM " +
-					"  Patients p, " +
-					"  OfficeVisits ov, " +
-					"  OVDiagnosis ovd " +
+					"  patients p, " +
+					"  officevisits ov, " +
+					"  ovdiagnosis ovd " +
 					" WHERE " +
 					"  p.MID = ov.PatientID " +
 					" AND " +
@@ -147,7 +143,7 @@ public class VisitRemindersDAO {
 					" AND " +
 					"  p.MID NOT IN " +
 					"   ( " +
-					"    SELECT p.MID FROM Patients p, OfficeVisits ov " +
+					"    SELECT p.MID FROM patients p, officevisits ov " +
 					"    WHERE " +
 					"     p.MID = ov.PatientID " +
 					"	 AND " +
@@ -156,7 +152,7 @@ public class VisitRemindersDAO {
 					") a " +
 					" INNER JOIN " +
 					"  ( " +
-					"   SELECT p.MID, MAX(ov.visitDate) as visitDate FROM Patients p, OfficeVisits ov " +
+					"   SELECT p.MID, MAX(ov.visitDate) as visitDate FROM patients p, officevisits ov " +
 					"   WHERE " +
 					"    p.MID = ov.PatientID " +
 					"   GROUP BY " +
@@ -184,12 +180,12 @@ public class VisitRemindersDAO {
 			long lastId = -1;
 			while (rs.next()) {
 				if (lastId == rs.getLong(2)) {
-					patients.get(patients.size()-1).addVisitFlag(new VisitFlag(VisitFlag.DIAGNOSED, rs.getString(8)));
+					patients.get(patients.size()-1).addVisitFlag(new VisitFlag(VisitFlag.DIAGNOSED, rs.getString(6)));
 				} else {
 					lastId = rs.getLong(2);
 					temp = loader.loadSingle(rs);
-					temp.addVisitFlag(new VisitFlag(VisitFlag.DIAGNOSED, rs.getString(8)));
-					temp.addVisitFlag(new VisitFlag(VisitFlag.LAST_VISIT, rs.getString(9)));
+					temp.addVisitFlag(new VisitFlag(VisitFlag.DIAGNOSED, rs.getString(6)));
+					temp.addVisitFlag(new VisitFlag(VisitFlag.LAST_VISIT, rs.getString(7)));
 					patients.add(temp);
 				}
 			}
@@ -237,14 +233,14 @@ public class VisitRemindersDAO {
 		try {
 			conn = factory.getConnection();
 			ps = conn.prepareStatement("SELECT DISTINCT " +
-					"? as hid, p.mid as patientid, p.lastname, p.firstname, p.phone1, p.phone2, p.phone3 " +
-					"FROM OfficeVisits ov, Patients p " +
+					"? as hid, p.mid as patientid, p.lastname, p.firstname, p.phone " +
+					"FROM officevisits ov, patients p " +
 					"WHERE (ov.patientid=p.mid " +
-					"OR p.mid NOT IN (SELECT ov.patientid FROM OfficeVisits ov)) " +
+					"OR p.mid NOT IN (SELECT ov.patientid FROM officevisits ov)) " +
 					"AND p.dateofdeath IS NULL " +
 					"AND p.dateofbirth < DATE_SUB(CURDATE(), INTERVAL 50 YEAR) " +
 					"AND p.mid NOT IN " +
-					"(SELECT patientid AS mid FROM OfficeVisits ov, OVProcedure op " +
+					"(SELECT patientid AS mid FROM officevisits ov, ovprocedure op " +
 					"WHERE ov.id=op.visitid " +
 					"AND CPTCode IN (90656, 90658, 90660) " +
 					"AND ((ov.visitdate BETWEEN ? AND ?) " +

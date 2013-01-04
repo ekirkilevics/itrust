@@ -1,1 +1,1 @@
-DELETE FROM TransactionLog;
+DELETE FROM transactionlog;

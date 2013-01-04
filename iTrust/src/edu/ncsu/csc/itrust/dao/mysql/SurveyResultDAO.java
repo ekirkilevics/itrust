@@ -105,12 +105,12 @@ public class SurveyResultDAO {
 		sql.append("avg(s.VisitSatisfaction) AvgVisitSatisfaction, ");
 		sql.append("avg(s.TreatmentSatisfaction) AvgTreatmentSatisfation, ");
 		sql.append("count(*) / ");
-		sql.append("	(select count(*) from personnel p1, officevisits v1, HCPAssignedHos h1 ");
+		sql.append("	(select count(*) from personnel p1, officevisits v1, hcpassignedhos h1 ");
 		sql.append("	 where v1.hcpid = p1.mid ");
 		sql.append("	 and v1.hcpid = h1.hcpid ");
 		sql.append("	 and h1.hosid = ? ");
 		sql.append("	 and p1.mid = p.mid) * 100 PercentSatisfactionResults ");
-		sql.append("from ovsurvey s, personnel p, officevisits v, HCPAssignedHos h ");
+		sql.append("from ovsurvey s, personnel p, officevisits v, hcpassignedhos h ");
 		sql.append("where s.visitid = v.id ");
 		sql.append("and v.hcpid = p.mid ");
 		sql.append("and v.hcpid = h.hcpid ");

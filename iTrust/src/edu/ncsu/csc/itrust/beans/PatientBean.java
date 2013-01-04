@@ -13,7 +13,7 @@ import edu.ncsu.csc.itrust.enums.Gender;
  * 
  * A bean's purpose is to store data. Period. Little or no functionality is to be added to a bean 
  * (with the exception of minor formatting such as concatenating phone numbers together). 
- * A bean must only have Getters and Setters (Eclipse Hint: Use Source > Generate Getters and Setters… 
+ * A bean must only have Getters and Setters (Eclipse Hint: Use Source > Generate Getters and Settersï¿½ 
  * to create these easily)
  */
 public class PatientBean implements Serializable, Comparable<PatientBean> {
@@ -31,25 +31,17 @@ public class PatientBean implements Serializable, Comparable<PatientBean> {
 	private String streetAddress2 = "";
 	private String city = "";
 	private String state = "AK";
-	private String zip1 = "";
-	private String zip2 = "";
-	private String phone1 = "";
-	private String phone2 = "";
-	private String phone3 = "";
+	private String zip = "";
+	private String phone = "";
 	private String emergencyName = "";
-	private String emergencyPhone1 = "";
-	private String emergencyPhone2 = "";
-	private String emergencyPhone3 = "";
+	private String emergencyPhone = "";
 	private String icName = "";
 	private String icAddress1 = "";
 	private String icAddress2 = "";
 	private String icCity = "";
 	private String icState = "AK";
-	private String icZip1 = "";
-	private String icZip2 = "";
-	private String icPhone1 = "";
-	private String icPhone2 = "";
-	private String icPhone3 = "";
+	private String icZip = "";
+	private String icPhone = "";
 	private String icID = "";
 	private String creditCardType = "";
 	private String creditCardNumber = "";
@@ -68,6 +60,7 @@ public class PatientBean implements Serializable, Comparable<PatientBean> {
 	private String language = "";
 	private String spiritualPractices = "";
 	private String alternateName = "";
+	private String dateOfDeactivationStr = "";
 
 
 	public BloodType getBloodType() {
@@ -304,26 +297,11 @@ public class PatientBean implements Serializable, Comparable<PatientBean> {
 	}
 
 	public String getIcZip() {
-		if (getIcZip2() != null && !"".equals(getIcZip2()))
-			return getIcZip1() + "-" + getIcZip2();
-		else
-			return getIcZip1();
+		return icZip;
 	}
 
-	public String getIcZip1() {
-		return icZip1;
-	}
-
-	public void setIcZip1(String icZip1) {
-		this.icZip1 = icZip1;
-	}
-
-	public String getIcZip2() {
-		return icZip2;
-	}
-
-	public void setIcZip2(String icZip2) {
-		this.icZip2 = icZip2;
+	public void setIcZip(String icZip) {
+		this.icZip = icZip;
 	}
 
 	public String getIcState() {
@@ -358,33 +336,12 @@ public class PatientBean implements Serializable, Comparable<PatientBean> {
 		this.motherMID = motherMID;
 	}
 
-	// Note that there is no setter for this - it's stored in the database as 3 separate columns
 	public String getPhone() {
-		return getPhone1() + "-" + getPhone2() + "-" + getPhone3();
+		return phone;
 	}
 
-	public String getPhone1() {
-		return phone1;
-	}
-
-	public String getPhone2() {
-		return phone2;
-	}
-
-	public String getPhone3() {
-		return phone3;
-	}
-
-	public void setPhone1(String phone1) {
-		this.phone1 = phone1;
-	}
-
-	public void setPhone2(String phone2) {
-		this.phone2 = phone2;
-	}
-
-	public void setPhone3(String phone3) {
-		this.phone3 = phone3;
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 
 	public String getSecurityAnswer() {
@@ -441,84 +398,27 @@ public class PatientBean implements Serializable, Comparable<PatientBean> {
 	}
 
 	public String getZip() {
-		if (getZip2() != null && !"".equals(getZip2()))
-			return getZip1() + "-" + getZip2();
-		else
-			return getZip1();
+		return zip;
 	}
 
-	public String getZip1() {
-		return zip1;
+	public void setZip(String zip) {
+		this.zip = zip;
 	}
 
-	public void setZip1(String zip1) {
-		this.zip1 = zip1;
-	}
-
-	public String getZip2() {
-		return zip2;
-	}
-
-	public void setZip2(String zip2) {
-		this.zip2 = zip2;
-	}
-
-	// Same idea as "phone"
 	public String getEmergencyPhone() {
-		return getEmergencyPhone1() + "-" + getEmergencyPhone2() + "-" + getEmergencyPhone3();
+		return emergencyPhone;
 	}
 
-	public String getEmergencyPhone1() {
-		return emergencyPhone1;
+	public void setEmergencyPhone(String emergencyPhone) {
+		this.emergencyPhone = emergencyPhone;
 	}
 
-	public void setEmergencyPhone1(String emergencyPhone1) {
-		this.emergencyPhone1 = emergencyPhone1;
-	}
-
-	public String getEmergencyPhone2() {
-		return emergencyPhone2;
-	}
-
-	public void setEmergencyPhone2(String emergencyPhone2) {
-		this.emergencyPhone2 = emergencyPhone2;
-	}
-
-	public String getEmergencyPhone3() {
-		return emergencyPhone3;
-	}
-
-	public void setEmergencyPhone3(String emergencyPhone3) {
-		this.emergencyPhone3 = emergencyPhone3;
-	}
-
-	// Same idea as "phone"
 	public String getIcPhone() {
-		return getIcPhone1() + "-" + getIcPhone2() + "-" + getIcPhone3();
+		return icPhone;
 	}
 
-	public String getIcPhone1() {
-		return icPhone1;
-	}
-
-	public void setIcPhone1(String icPhone1) {
-		this.icPhone1 = icPhone1;
-	}
-
-	public String getIcPhone2() {
-		return icPhone2;
-	}
-
-	public void setIcPhone2(String icPhone2) {
-		this.icPhone2 = icPhone2;
-	}
-
-	public String getIcPhone3() {
-		return icPhone3;
-	}
-
-	public void setIcPhone3(String icPhone3) {
-		this.icPhone3 = icPhone3;
+	public void setIcPhone(String icPhone) {
+		this.icPhone = icPhone;
 	}
 
 	public String getConfirmPassword() {
@@ -577,6 +477,13 @@ public class PatientBean implements Serializable, Comparable<PatientBean> {
 		this.alternateName = alternateName;
 	}
 	
+	public String getDateOfDeactivationStr() {
+		return dateOfDeactivationStr;
+	}
+
+	public void setDateOfDeactivationStr(String dateOfDeactivationStr) {
+		this.dateOfDeactivationStr = dateOfDeactivationStr;
+	}
 
 	public int compareTo(PatientBean o) {
 		return (int)(o.MID-this.MID);

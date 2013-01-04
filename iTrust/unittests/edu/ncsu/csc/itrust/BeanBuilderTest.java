@@ -20,16 +20,16 @@ public class BeanBuilderTest extends TestCase {
 		PatientBean p = new PatientBean();
 		p.setFirstName("Bob");
 		p.setDateOfBirthStr("10/10/1950");
-		p.setPhone1("85");
+		p.setPhone("85");
 		Map<String, Object> m = new HashMap<String, Object>();
 		m.put("firstName", new String[] { "Bob" });
 		m.put("dateOfBirthStr", new String[] { "10/10/1950" });
-		m.put("phone1", new String[] { "85" });
+		m.put("phone", new String[] { "85" });
 		PatientBean builtBean = new BeanBuilder<PatientBean>().build(m, new PatientBean());
 		assertEquals("correctly built patient bean from hashmap", p.getFirstName(), builtBean.getFirstName());
 		assertEquals("correctly built patient bean from hashmap", p.getDateOfBirthStr(), builtBean
 				.getDateOfBirthStr());
-		assertEquals("correctly built patient bean from hashmap", p.getPhone1(), builtBean.getPhone1());
+		assertEquals("correctly built patient bean from hashmap", p.getPhone(), builtBean.getPhone());
 		assertEquals("correctly built patient bean from hashmap", p.getLastName(), builtBean.getLastName());
 	}
 

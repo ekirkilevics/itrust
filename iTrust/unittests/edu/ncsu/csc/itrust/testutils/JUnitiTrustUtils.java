@@ -1,6 +1,7 @@
 package edu.ncsu.csc.itrust.testutils;
 
 import java.util.List;
+import edu.ncsu.csc.itrust.beans.DiagnosisBean;
 import edu.ncsu.csc.itrust.beans.TransactionBean;
 import edu.ncsu.csc.itrust.enums.TransactionType;
 import edu.ncsu.csc.itrust.exception.DBException;
@@ -37,6 +38,10 @@ public class JUnitiTrustUtils  extends iTrustHTTPTest{
 		assertEquals(loggedInMID, trans.getLoggedInMID());
 		assertEquals(secondaryMID, trans.getSecondaryMID());
 		assertEquals(addedInfo, trans.getAddedInfo());
+	}
+	
+	public void testNull(){
+		assert(true);
 	}
 	
 }

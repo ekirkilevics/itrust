@@ -49,7 +49,7 @@ public class HospitalsDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("SELECT * FROM Hospitals ORDER BY HospitalName");
+			ps = conn.prepareStatement("SELECT * FROM hospitals ORDER BY HospitalName");
 			ResultSet rs = ps.executeQuery();
 			return hospitalLoader.loadList(rs);
 		} catch (SQLException e) {
@@ -72,7 +72,7 @@ public class HospitalsDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("SELECT * FROM Hospitals WHERE HospitalID = ?");
+			ps = conn.prepareStatement("SELECT * FROM hospitals WHERE HospitalID = ?");
 			ps.setString(1, id);
 			ResultSet rs = ps.executeQuery();
 			if (rs.next())
@@ -99,9 +99,15 @@ public class HospitalsDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("INSERT INTO Hospitals (HospitalID, HospitalName) " + "VALUES (?,?)");
+			ps = conn.prepareStatement("INSERT INTO hospitals (HospitalID, HospitalName, Address, City, State, Zip, Lat, Lng) " + "VALUES (?,?,?,?,?,?,?,?)");
 			ps.setString(1, hosp.getHospitalID());
 			ps.setString(2, hosp.getHospitalName());
+			ps.setString(3, hosp.getHospitalAddress());
+			ps.setString(4, hosp.getHospitalCity());
+			ps.setString(5, hosp.getHospitalState());
+			ps.setString(6, hosp.getHospitalZip());
+			ps.setDouble(7, hosp.getHospitalLat());
+			ps.setDouble(8, hosp.getHospitalLng());
 			return (1 == ps.executeUpdate());
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -125,9 +131,15 @@ public class HospitalsDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("UPDATE Hospitals SET HospitalName = ? " + "WHERE HospitalID = ?");
+			ps = conn.prepareStatement("UPDATE hospitals SET HospitalName=?,Address=?,City=?,State=?,Zip=?,Lat=?,Lng=? " + "WHERE HospitalID = ?");
 			ps.setString(1, hosp.getHospitalName());
-			ps.setString(2, hosp.getHospitalID());
+			ps.setString(2, hosp.getHospitalAddress());
+			ps.setString(3, hosp.getHospitalCity());
+			ps.setString(4, hosp.getHospitalState());
+			ps.setString(5, hosp.getHospitalZip());
+			ps.setDouble(6, hosp.getHospitalLat());
+			ps.setDouble(7, hosp.getHospitalLng());
+			ps.setString(8, hosp.getHospitalID());
 			return ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -152,7 +164,7 @@ public class HospitalsDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("INSERT INTO HCPAssignedHos (HCPID, HosID) VALUES (?,?)");
+			ps = conn.prepareStatement("INSERT INTO hcpassignedhos (HCPID, HosID) VALUES (?,?)");
 			ps.setLong(1, hcpID);
 			ps.setString(2, hospitalID);
 			return (1 == ps.executeUpdate());
@@ -179,7 +191,7 @@ public class HospitalsDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("DELETE FROM HCPAssignedHos WHERE HCPID = ? AND HosID = ?");
+			ps = conn.prepareStatement("DELETE FROM hcpassignedhos WHERE HCPID = ? AND HosID = ?");
 			ps.setLong(1, hcpID);
 			ps.setString(2, hospitalID);
 			return (1 == ps.executeUpdate());
@@ -203,7 +215,7 @@ public class HospitalsDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("DELETE FROM HCPAssignedHos WHERE HCPID = ?");
+			ps = conn.prepareStatement("DELETE FROM hcpassignedhos WHERE HCPID = ?");
 			ps.setLong(1, hcpID);
 			return ps.executeUpdate();
 		} catch (SQLException e) {
@@ -227,7 +239,7 @@ public class HospitalsDAO {
 		PreparedStatement ps = null;
 		try{
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("SELECT * FROM HCPAssignedHos WHERE HCPID = ?");
+			ps = conn.prepareStatement("SELECT * FROM hcpassignedhos WHERE HCPID = ?");
 			ps.setLong(1, hcpID);
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()){

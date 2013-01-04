@@ -58,11 +58,8 @@ public class CreateHCPTest extends iTrustHTTPTest {
 		form.setParameter("streetAddress2", "Box 2509");
 		form.setParameter("city", "Raleigh");
 		form.setParameter("state", "NC");
-		form.setParameter("zip1", "27606");
-		form.setParameter("zip2", "1234");
-		form.setParameter("phone1", "919");
-		form.setParameter("phone2", "100");
-		form.setParameter("phone3", "1000");
+		form.setParameter("zip", "27606-1234");
+		form.setParameter("phone", "919-100-1000");
 		form.getSubmitButtons()[0].click();
 		wr = wc.getCurrentPage();
 		assertTrue(wr.getText().contains("Information Successfully Updated"));

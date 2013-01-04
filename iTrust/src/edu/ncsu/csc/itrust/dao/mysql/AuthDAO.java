@@ -55,7 +55,7 @@ public class AuthDAO {
 		try {
 			conn = factory.getConnection();
 			pstmt = conn
-					.prepareStatement("INSERT INTO Users (MID, PASSWORD, ROLE, sQuestion, sAnswer) VALUES (?,?,?,?,?)");
+					.prepareStatement("INSERT INTO users (MID, PASSWORD, ROLE, sQuestion, sAnswer) VALUES (?,?,?,?,?)");
 			pstmt.setLong(1, mid);
 			password = DigestUtils.shaHex(password);
 			
@@ -87,7 +87,7 @@ public class AuthDAO {
 		PreparedStatement pstmt = null;
 		try {
 			conn = factory.getConnection();
-			pstmt = conn.prepareStatement("UPDATE Users SET sQuestion = ?, sAnswer = ? WHERE MID = ?");
+			pstmt = conn.prepareStatement("UPDATE users SET sQuestion = ?, sAnswer = ? WHERE MID = ?");
 			pstmt.setString(1, question);
 			pstmt.setString(2, answer);
 			pstmt.setLong(3, mid);
@@ -140,7 +140,7 @@ public class AuthDAO {
 		PreparedStatement pstmt = null;
 		try {
 			conn = factory.getConnection();
-			pstmt = conn.prepareStatement("SELECT role FROM Users WHERE MID=?");
+			pstmt = conn.prepareStatement("SELECT role FROM users WHERE MID=?");
 			pstmt.setLong(1, mid);
 			ResultSet rs;
 			rs = pstmt.executeQuery();
@@ -156,6 +156,47 @@ public class AuthDAO {
 			DBUtil.closeConnection(conn, pstmt);
 		}
 	}
+	
+	/**
+	 * Returns whether a user is deactivated.
+	 * Currently works only for patients
+	 * 
+	 * @param mid The MID of the user to look up.
+	 * @return Activation status of the user
+	 * @throws DBException
+	 * @throws iTrustException
+	 */
+	public boolean getDeactivated(long mid) throws DBException, iTrustException{
+		Role role = getUserRole(mid);
+		switch (role) {
+			case PATIENT:
+				Connection conn = null;
+				PreparedStatement pstmt = null;
+				try {
+					conn = factory.getConnection();
+					pstmt = conn.prepareStatement("SELECT DateOfDeactivation FROM patients WHERE MID=?");
+					pstmt.setLong(1, mid);
+					ResultSet rs;
+					rs = pstmt.executeQuery();
+					if (rs.next()) {
+						if(rs.getString("DateOfDeactivation")==null){
+							return false;
+						}else{
+							return true;
+						}
+					} else {
+						throw new iTrustException("User does not exist");
+					}
+				} catch (SQLException e) {
+					e.printStackTrace();
+					throw new DBException(e);
+				} finally {
+					DBUtil.closeConnection(conn, pstmt);
+				}
+			default:
+				return false;
+		}
+	}
 
 	/**
 	 * Change the password of a particular user
@@ -169,7 +210,7 @@ public class AuthDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("UPDATE Users SET password=? WHERE MID=?");
+			ps = conn.prepareStatement("UPDATE users SET password=? WHERE MID=?");
 			password = DigestUtils.shaHex(password);
 			ps.setString(1, password);
 			ps.setLong(2, mid);
@@ -194,7 +235,7 @@ public class AuthDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("SELECT sQuestion FROM Users WHERE MID=?");
+			ps = conn.prepareStatement("SELECT sQuestion FROM users WHERE MID=?");
 			ps.setLong(1, mid);
 			ResultSet r = ps.executeQuery();
 			if (r.next())
@@ -221,7 +262,7 @@ public class AuthDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("SELECT sAnswer FROM Users WHERE MID=?");
+			ps = conn.prepareStatement("SELECT sAnswer FROM users WHERE MID=?");
 			ps.setLong(1, mid);
 			ResultSet r = ps.executeQuery();
 			if (r.next())
@@ -250,7 +291,7 @@ public class AuthDAO {
 		try {
 			conn = factory.getConnection();
 			ps = conn
-					.prepareStatement("UPDATE LoginFailures SET FailureCount=FailureCount+1, lastFailure=CURRENT_TIMESTAMP WHERE IPAddress=?");
+					.prepareStatement("UPDATE loginfailures SET FailureCount=FailureCount+1, lastFailure=CURRENT_TIMESTAMP WHERE IPAddress=?");
 					//.prepareStatement("INSERT INTO LoginFailures VALUES(?,?,?)");
 			ps.setString(1, ipAddr);
 			//ps.setInt(2, failures);
@@ -281,7 +322,7 @@ public class AuthDAO {
 		try {
 			conn = factory.getConnection();
 			ps = conn
-					.prepareStatement("UPDATE ResetPasswordFailures SET failurecount=failurecount+1 WHERE ipaddress=?");
+					.prepareStatement("UPDATE resetpasswordfailures SET failurecount=failurecount+1 WHERE ipaddress=?");
 			ps.setString(1, ipAddr);
 			int numUpdated = ps.executeUpdate();
 			if (numUpdated == 0) // if there wasn't an empty row to begin with
@@ -306,7 +347,7 @@ public class AuthDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("SELECT * FROM ResetPasswordFailures WHERE IPADDRESS=?");
+			ps = conn.prepareStatement("SELECT * FROM resetpasswordfailures WHERE IPADDRESS=?");
 			ps.setString(1, ipAddr);
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
@@ -341,7 +382,7 @@ public class AuthDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("SELECT * FROM LoginFailures WHERE IPADDRESS=?");
+			ps = conn.prepareStatement("SELECT * FROM loginfailures WHERE IPADDRESS=?");
 			ps.setString(1, ipAddr);
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
@@ -367,7 +408,7 @@ public class AuthDAO {
 	private void insertLoginFailureRow(String ipAddr, int failureCount, Connection conn) throws DBException,
 			SQLException {
 		PreparedStatement ps = conn
-				.prepareStatement("INSERT INTO LoginFailures(IPAddress, failureCount) VALUES(?,?)");
+				.prepareStatement("INSERT INTO loginfailures(IPAddress, failureCount) VALUES(?,?)");
 		ps.setString(1, ipAddr);
 		ps.setInt(2, failureCount);
 		ps.executeUpdate();
@@ -376,7 +417,7 @@ public class AuthDAO {
 	private void insertResetPasswordRow(String ipAddr, int failureCount, Connection conn) throws DBException,
 			SQLException {
 		PreparedStatement ps = conn
-				.prepareStatement("INSERT INTO ResetPasswordFailures(IPAddress, failureCount) VALUES(?,?)");
+				.prepareStatement("INSERT INTO resetpasswordfailures(IPAddress, failureCount) VALUES(?,?)");
 		ps.setString(1, ipAddr);
 		ps.setInt(2, failureCount);
 		ps.executeUpdate();
@@ -384,7 +425,7 @@ public class AuthDAO {
 
 	private void updateFailuresToZero(String ipAddr, Connection conn) throws DBException, SQLException {
 		PreparedStatement ps = conn
-				.prepareStatement("UPDATE LoginFailures SET failureCount=0 WHERE IPAddress=?");
+				.prepareStatement("UPDATE loginfailures SET failureCount=0 WHERE IPAddress=?");
 		ps.setString(1, ipAddr);
 		ps.executeUpdate();
 	}
@@ -395,7 +436,7 @@ public class AuthDAO {
 		try{
 			conn = factory.getConnection();
 			ps = conn
-					.prepareStatement("UPDATE LoginFailures SET failureCount=0 WHERE IPAddress=?");
+					.prepareStatement("UPDATE loginfailures SET failureCount=0 WHERE IPAddress=?");
 			ps.setString(1, ipAddr);
 			ps.executeUpdate();
 		} catch (SQLException e) {
@@ -408,7 +449,7 @@ public class AuthDAO {
 	
 	private void updateResetFailuresToZero(String ipAddr, Connection conn) throws DBException, SQLException {
 		PreparedStatement ps = conn
-				.prepareStatement("UPDATE ResetPasswordFailures SET failureCount=0 WHERE IPAddress=?");
+				.prepareStatement("UPDATE resetpasswordfailures SET failureCount=0 WHERE IPAddress=?");
 		ps.setString(1, ipAddr);
 		ps.executeUpdate();
 	}
@@ -425,7 +466,7 @@ public class AuthDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("SELECT * FROM Users WHERE MID=?");
+			ps = conn.prepareStatement("SELECT * FROM users WHERE MID=?");
 			ps.setLong(1, mid);
 			ResultSet rs = ps.executeQuery();
 			return rs.next();

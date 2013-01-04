@@ -58,7 +58,7 @@ public class ApptRequestDAO {
 		conn = factory.getConnection();
 
 		stmt = conn
-				.prepareStatement("INSERT INTO AppointmentRequests (appt_type, patient_id, doctor_id, sched_date, comment, pending, accepted) VALUES (?, ?, ?, ?, ?, ?, ?)");
+				.prepareStatement("INSERT INTO appointmentrequests (appt_type, patient_id, doctor_id, sched_date, comment, pending, accepted) VALUES (?, ?, ?, ?, ?, ?, ?)");
 		loader.loadParameters(stmt, req);
 
 		stmt.executeUpdate();
@@ -76,7 +76,7 @@ public class ApptRequestDAO {
 
 		conn = factory.getConnection();
 
-		stmt = conn.prepareStatement("UPDATE AppointmentRequests SET pending=?, accepted=? WHERE appt_id=?");
+		stmt = conn.prepareStatement("UPDATE appointmentrequests SET pending=?, accepted=? WHERE appt_id=?");
 
 		stmt.setBoolean(1, req.isPending());
 		stmt.setBoolean(2, req.isAccepted());

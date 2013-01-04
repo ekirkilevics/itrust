@@ -53,7 +53,7 @@ public class DrugReactionOverrideCodesDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("SELECT * FROM DrugReactionOverrideCodes ORDER BY CODE");
+			ps = conn.prepareStatement("SELECT * FROM drugreactionoverridecodes ORDER BY CODE");
 			ResultSet rs = ps.executeQuery();
 			return orcLoader.loadList(rs);
 		} catch (SQLException e) {
@@ -76,7 +76,7 @@ public class DrugReactionOverrideCodesDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("SELECT * FROM DrugReactionOverrideCodes WHERE Code = ?");
+			ps = conn.prepareStatement("SELECT * FROM drugreactionoverridecodes WHERE Code = ?");
 			ps.setString(1, code);
 			ResultSet rs = ps.executeQuery();
 			if (rs.next())
@@ -104,7 +104,7 @@ public class DrugReactionOverrideCodesDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("INSERT INTO DrugReactionOverrideCodes (Code, Description) " + "VALUES (?,?)");
+			ps = conn.prepareStatement("INSERT INTO drugreactionoverridecodes (Code, Description) " + "VALUES (?,?)");
 			ps.setString(1, orc.getORCode());
 			ps.setString(2, orc.getDescription());
 			return (1 == ps.executeUpdate());
@@ -130,7 +130,7 @@ public class DrugReactionOverrideCodesDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("UPDATE DrugReactionOverrideCodes SET Description = ? " + "WHERE Code = ?");
+			ps = conn.prepareStatement("UPDATE drugreactionoverridecodes SET Description = ? " + "WHERE Code = ?");
 			ps.setString(1, orc.getDescription());
 			ps.setString(2, orc.getORCode());
 			return ps.executeUpdate();

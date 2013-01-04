@@ -38,7 +38,7 @@ public class GetSessionTimeoutTest extends TestCase {
 		PreparedStatement ps = null;
 		try{
 			conn = TestDAOFactory.getTestInstance().getConnection();
-			ps = conn.prepareStatement("DELETE FROM GlobalVariables WHERE Name='Timeout'");
+			ps = conn.prepareStatement("DELETE FROM globalvariables WHERE Name='Timeout'");
 			ps.executeUpdate();
 		}
 		catch (SQLException ex){

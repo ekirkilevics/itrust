@@ -10,21 +10,22 @@ if(request.getUserPrincipal() != null) {
 	long mid = Long.valueOf(request.getUserPrincipal().getName());
 	userName = authDAO.getUserName(mid);
 	
-	if(session.getAttribute("pid") != null && ((String)session.getAttribute("pid")).length() > 0 && !session.getAttribute("pid").equals("null"))
-	{
+	if(authDAO.getDeactivated(mid)){
+		session.invalidate();
+		loginFailureAction.recordLoginFailure();
+		response.sendRedirect("/iTrust/auth/forwardUser.jsp");
+	}
+	
+	if(session.getAttribute("pid") != null && ((String)session.getAttribute("pid")).length() > 0 && !session.getAttribute("pid").equals("null")) {
 		String pid = (String)session.getAttribute("pid");
 		selectedPatientName = authDAO.getUserName(Long.parseLong(pid));
 	}
-}
-else
-{
-	if (null != userRole)
-	{
+} else {
+	if (null != userRole) {
 		userRole = null;
 		response.sendRedirect("/iTrust/errors/reboot.jsp");
 	}
 }
-
 
 if (request.getAuthType() != null) {
 			
@@ -34,13 +35,11 @@ if (request.getAuthType() != null) {
 			session.invalidate();
 			response.sendRedirect("/iTrust/login.jsp");
 			return;
-		}
-		else {
+		} else {
 			loggedInMID = new Long(Long.valueOf(request.getUserPrincipal().getName()));
 			session.setAttribute("loggedInMID", loggedInMID);
 			loginFailureAction.resetFailures();
 		}
 	}
 }
-
 %>

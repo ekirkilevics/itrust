@@ -52,7 +52,7 @@ public class LOINCDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("INSERT INTO LOINC (LaboratoryProcedureCode, Component, KindOfProperty, TimeAspect, System, ScaleType, MethodType) " + "VALUES (?,?,?,?,?,?,?)");
+			ps = conn.prepareStatement("INSERT INTO loinc (LaboratoryProcedureCode, Component, KindOfProperty, TimeAspect, System, ScaleType, MethodType) " + "VALUES (?,?,?,?,?,?,?)");
 			ps.setString(1, hosp.getLabProcedureCode());
 			ps.setString(2, hosp.getComponent());
 			ps.setString(3, hosp.getKindOfProperty());
@@ -83,7 +83,7 @@ public class LOINCDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("Select * From LOINC Where LaboratoryProcedureCode = ? ");
+			ps = conn.prepareStatement("Select * From loinc Where LaboratoryProcedureCode = ? ");
 			ps.setString(1, labProcCode);
 			ResultSet rs = ps.executeQuery();
 			return LOINCLoader.loadList(rs);
@@ -108,7 +108,7 @@ public class LOINCDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("UPDATE LOINC SET Component=?, KindOfProperty=?, TimeAspect=?, System=?, ScaleType=?, MethodType=? WHERE LaboratoryProcedureCode=?");
+			ps = conn.prepareStatement("UPDATE loinc SET Component=?, KindOfProperty=?, TimeAspect=?, System=?, ScaleType=?, MethodType=? WHERE LaboratoryProcedureCode=?");
 			ps.setString(1, ov.getComponent());
 			ps.setString(2, ov.getKindOfProperty());
 			ps.setString(3, ov.getTimeAspect());
@@ -136,7 +136,7 @@ public class LOINCDAO {
 		PreparedStatement ps = null;
 			try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("SELECT * FROM LOINC");
+			ps = conn.prepareStatement("SELECT * FROM loinc");
 			ResultSet rs = ps.executeQuery();
 			return LOINCLoader.loadList(rs);
 		} catch (SQLException e) {

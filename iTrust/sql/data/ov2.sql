@@ -1,4 +1,4 @@
-INSERT INTO OfficeVisits(
+INSERT INTO officevisits(
 	id,
 	visitDate,
 	HCPID,
@@ -6,4 +6,4 @@ INSERT INTO OfficeVisits(
 	HospitalID,
 	PatientID
 )
-VALUES (333,'2009-7-15',9000000000,'Test office visit','1',2);
+VALUES (333,'2009-7-15',9000000000,'Test office visit','2',2);

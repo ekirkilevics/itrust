@@ -18,6 +18,8 @@ public enum TransactionType {
 	USER_PREFERENCES_EDIT(33, "Edit peferences", "edited user preferences", false),
     PATIENT_CREATE(100, "Create a patient", "created your account", true),
     PATIENT_DISABLE(101, "Disable a patient", "disabled your account", true),
+    PATIENT_DEACTIVATE(102, "Deactivate a patient", "deactivated your account", true),
+    PATIENT_ACTIVATE(103, "Activate a patient", "activated your account", true),
     LHCP_CREATE(200, "Create a LHCP", "created an LHCP", false),
     LHCP_EDIT(201, "Edit LHCP information", "edited LHCP information", false),
     LHCP_DISABLE(202, "Disable a LHCP", "disbaled an LHCP", false),

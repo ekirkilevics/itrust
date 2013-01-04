@@ -19,5 +19,6 @@ public abstract class ReportFilter {
 	 * 
 	 */
 	public abstract String toString();
+	public abstract String getFilterTypeString();
 	public abstract String getFilterValue();
 }

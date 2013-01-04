@@ -73,7 +73,7 @@ public class PatientDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("SELECT firstName, lastName FROM Patients WHERE MID=?");
+			ps = conn.prepareStatement("SELECT firstName, lastName FROM patients WHERE MID=?");
 			ps.setLong(1, mid);
 			ResultSet rs;
 			rs = ps.executeQuery();
@@ -104,7 +104,7 @@ public class PatientDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("SELECT role FROM Users WHERE MID=? AND Role=?");
+			ps = conn.prepareStatement("SELECT role FROM users WHERE MID=? AND Role=?");
 			ps.setLong(1, mid);
 			ps.setString(2, role);
 			ResultSet rs;
@@ -133,7 +133,7 @@ public class PatientDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("INSERT INTO Patients(MID) VALUES(NULL)");
+			ps = conn.prepareStatement("INSERT INTO patients(MID) VALUES(NULL)");
 			ps.executeUpdate();
 			return DBUtil.getLastInsert(conn);
 		} catch (SQLException e) {
@@ -156,7 +156,7 @@ public class PatientDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("SELECT * FROM Patients WHERE MID = ?");
+			ps = conn.prepareStatement("SELECT * FROM patients WHERE MID = ?");
 			ps.setLong(1, mid);
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
@@ -182,17 +182,17 @@ public class PatientDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("UPDATE Patients SET firstName=?,lastName=?,email=?,"
-					+ "address1=?,address2=?,city=?,state=?,zip1=?, zip2=?,phone1=?,phone2=?,phone3=?,"
-					+ "eName=?,ePhone1=?,ePhone2=?,ePhone3=?,iCName=?,iCAddress1=?,iCAddress2=?,iCCity=?,"
-					+ "ICState=?,iCZip1=?, iCZip2=?, iCPhone1=?,iCPhone2=?,iCPhone3=?,iCID=?,DateOfBirth=?,"
+			ps = conn.prepareStatement("UPDATE patients SET firstName=?,lastName=?,email=?,"
+					+ "address1=?,address2=?,city=?,state=?,zip=?,phone=?,"
+					+ "eName=?,ePhone=?,iCName=?,iCAddress1=?,iCAddress2=?,iCCity=?,"
+					+ "ICState=?,iCZip=?,iCPhone=?,iCID=?,DateOfBirth=?,"
 					+ "DateOfDeath=?,CauseOfDeath=?,MotherMID=?,FatherMID=?,"
 					+ "BloodType=?,Ethnicity=?,Gender=?,TopicalNotes=?, CreditCardType=?, CreditCardNumber=?, "
 					+ "DirectionsToHome=?, Religion=?, Language=?, SpiritualPractices=?, "
-					+ "AlternateName=? WHERE MID=?");
+					+ "AlternateName=?, DateOfDeactivation=? WHERE MID=?");
 
 			patientLoader.loadParameters(ps, p);
-			ps.setLong(44, p.getMID());
+			ps.setLong(37, p.getMID());
 			ps.executeUpdate();
 			
 			addHistory(p.getMID(), hcpid);
@@ -248,7 +248,7 @@ public class PatientDAO {
 		ArrayList<PatientHistoryBean> pList;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("SELECT * FROM HistoryPatients WHERE MID = ?");
+			ps = conn.prepareStatement("SELECT * FROM historypatients WHERE MID = ?");
 			ps.setLong(1, mid);
 			ResultSet rs = ps.executeQuery();
 			pList = new ArrayList<PatientHistoryBean>();
@@ -276,7 +276,7 @@ public class PatientDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("SELECT * FROM Patients WHERE MID=?");
+			ps = conn.prepareStatement("SELECT * FROM patients WHERE MID=?");
 			ps.setLong(1, pid);
 			ResultSet rs = ps.executeQuery();
 			return rs.next();
@@ -301,8 +301,8 @@ public class PatientDAO {
 		try {
 			if (pid == 0L) throw new SQLException("pid cannot be 0");
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("SELECT * FROM DeclaredHCP, Personnel "
-					+ "WHERE PatientID=? AND Personnel.MID=DeclaredHCP.HCPID");
+			ps = conn.prepareStatement("SELECT * FROM declaredhcp, personnel "
+					+ "WHERE PatientID=? AND personnel.MID=declaredhcp.HCPID");
 			ps.setLong(1, pid);
 			ResultSet rs = ps.executeQuery();
 			return personnelLoader.loadList(rs);
@@ -328,7 +328,7 @@ public class PatientDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("INSERT INTO DeclaredHCP(PatientID, HCPID) VALUES(?,?)");
+			ps = conn.prepareStatement("INSERT INTO declaredhcp(PatientID, HCPID) VALUES(?,?)");
 			ps.setLong(1, pid);
 			ps.setLong(2, hcpID);
 			return 1 == ps.executeUpdate();
@@ -355,7 +355,7 @@ public class PatientDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("DELETE FROM DeclaredHCP WHERE PatientID=? AND HCPID=?");
+			ps = conn.prepareStatement("DELETE FROM declaredhcp WHERE PatientID=? AND HCPID=?");
 			ps.setLong(1, pid);
 			ps.setLong(2, hcpID);
 			return 1 == ps.executeUpdate();
@@ -380,7 +380,7 @@ public class PatientDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("SELECT * FROM DeclaredHCP WHERE PatientID=? AND HCPID=?");
+			ps = conn.prepareStatement("SELECT * FROM declaredhcp WHERE PatientID=? AND HCPID=?");
 			ps.setLong(1, pid);
 			ps.setLong(2, hcpid);
 			return ps.executeQuery().next();
@@ -404,8 +404,8 @@ public class PatientDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("SELECT Patients.* FROM Representatives, Patients "
-					+ "WHERE RepresenterMID=? AND RepresenteeMID=Patients.MID");
+			ps = conn.prepareStatement("SELECT patients.* FROM representatives, patients "
+					+ "WHERE RepresenterMID=? AND RepresenteeMID=patients.MID");
 			ps.setLong(1, pid);
 			ResultSet rs = ps.executeQuery();
 			return patientLoader.loadList(rs);
@@ -429,8 +429,8 @@ public class PatientDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("SELECT Patients.* FROM Representatives, Patients "
-					+ "WHERE RepresenteeMID=? AND RepresenterMID=Patients.MID");
+			ps = conn.prepareStatement("SELECT patients.* FROM representatives, patients "
+					+ "WHERE RepresenteeMID=? AND RepresenterMID=patients.MID");
 			ps.setLong(1, pid);
 			ResultSet rs = ps.executeQuery();
 			return patientLoader.loadList(rs);
@@ -456,7 +456,7 @@ public class PatientDAO {
 		try {
 			conn = factory.getConnection();
 			ps = conn
-					.prepareStatement("SELECT * FROM Representatives WHERE RepresenterMID=? AND RepresenteeMID=?");
+					.prepareStatement("SELECT * FROM representatives WHERE RepresenterMID=? AND RepresenteeMID=?");
 			ps.setLong(1, representer);
 			ps.setLong(2, representee);
 			ResultSet rs = ps.executeQuery();
@@ -484,7 +484,7 @@ public class PatientDAO {
 		try {
 			conn = factory.getConnection();
 			ps = conn
-					.prepareStatement("INSERT INTO Representatives(RepresenterMID,RepresenteeMID) VALUES (?,?)");
+					.prepareStatement("INSERT INTO representatives(RepresenterMID,RepresenteeMID) VALUES (?,?)");
 			ps.setLong(1, representer);
 			ps.setLong(2, representee);
 			return 1 == ps.executeUpdate();
@@ -513,7 +513,7 @@ public class PatientDAO {
 		try {
 			conn = factory.getConnection();
 			ps = conn
-					.prepareStatement("DELETE FROM Representatives WHERE RepresenterMID=? AND RepresenteeMID=?");
+					.prepareStatement("DELETE FROM representatives WHERE RepresenterMID=? AND RepresenteeMID=?");
 			ps.setLong(1, representer);
 			ps.setLong(2, representee);
 			return 1 == ps.executeUpdate();
@@ -538,7 +538,7 @@ public class PatientDAO {
 		try {
 			if (pid == 0L) throw new SQLException("pid cannot be 0");
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("SELECT * FROM OVDiagnosis ovd, OfficeVisits ov, ICDCodes icd "
+			ps = conn.prepareStatement("SELECT * FROM ovdiagnosis ovd, officevisits ov, icdcodes icd "
 					+ "WHERE ovd.VisitID=ov.ID and icd.Code=ovd.ICDCode and ov.PatientID=? "
 					+ "ORDER BY ov.visitDate DESC");
 			ps.setLong(1, pid);
@@ -565,7 +565,7 @@ public class PatientDAO {
 		try {
 			if (pid == 0L) throw new SQLException("pid cannot be 0");
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("Select * From OVProcedure ovp, OfficeVisits ov, CPTCodes cpt "
+			ps = conn.prepareStatement("Select * From ovprocedure ovp, officevisits ov, cptcodes cpt "
 					+ "Where ovp.VisitID=ov.ID and cpt.code=ovp.cptcode and ov.patientID=? "
 					+ "ORDER BY ov.visitDate desc");
 			ps.setLong(1, pid);
@@ -592,7 +592,7 @@ public class PatientDAO {
 		try {
 			if (pid == 0L) throw new SQLException("pid cannot be 0");
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("Select * From OVProcedure ovp, OfficeVisits ov, CPTCodes cpt "
+			ps = conn.prepareStatement("Select * From ovprocedure ovp, officevisits ov, cptcodes cpt "
 					+ "Where ovp.VisitID=ov.ID and cpt.code=ovp.cptcode and ov.patientID=? and cpt.attribute='immunization'"
 					+ "ORDER BY ov.visitDate desc");
 			ps.setLong(1, pid);
@@ -620,10 +620,10 @@ public class PatientDAO {
 		try {
 			if (patientID == 0L) throw new SQLException("pid cannot be 0");
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("Select * From OVMedication,NDCodes,OfficeVisits "
-					+ "Where OfficeVisits.PatientID = ? AND OVMedication.VisitID = "
-					+ "OfficeVisits.ID AND NDCodes.Code=OVMedication.NDCode "
-					+ "ORDER BY OfficeVisits.visitDate DESC, OVMedication.NDCode ASC;");
+			ps = conn.prepareStatement("Select * From ovmedication,ndcodes,officevisits "
+					+ "Where officevisits.PatientID = ? AND ovmedication.VisitID = "
+					+ "officevisits.ID AND ndcodes.Code=ovmedication.NDCode "
+					+ "ORDER BY officevisits.visitDate DESC, ovmedication.NDCode ASC;");
 			ps.setLong(1, patientID);
 			ResultSet rs = ps.executeQuery();
 			return prescriptionLoader.loadList(rs);
@@ -649,10 +649,10 @@ public class PatientDAO {
 			if (patientID == 0L) throw new SQLException("pid cannot be 0");
 			conn = factory.getConnection();
 			
-			ps = conn.prepareStatement("Select * From OVMedication,NDCodes,OfficeVisits "
-					+ "Where OfficeVisits.PatientID = ? AND OVMedication.VisitID = "
-					+ "OfficeVisits.ID AND NDCodes.Code=OVMedication.NDCode AND "
-					+ "OVMedication.EndDate >= ?" + "ORDER BY OVMedication.ID DESC;");
+			ps = conn.prepareStatement("Select * From ovmedication,ndcodes,officevisits "
+					+ "Where officevisits.PatientID = ? AND ovmedication.VisitID = "
+					+ "officevisits.ID AND ndcodes.Code=ovmedication.NDCode AND "
+					+ "ovmedication.EndDate >= ?" + "ORDER BY ovmedication.ID DESC;");
 			ps.setLong(1, patientID);
 			ps.setDate(2, DateUtil.getSQLdateXDaysAgoFromNow(0));
 			ResultSet rs = ps.executeQuery();
@@ -679,10 +679,10 @@ public class PatientDAO {
 		try {
 			if (patientID == 0L) throw new SQLException("pid cannot be 0");
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("Select * From OVMedication,NDCodes,OfficeVisits "
-					+ "Where OfficeVisits.PatientID = ? AND OVMedication.VisitID = "
-					+ "OfficeVisits.ID AND NDCodes.Code=OVMedication.NDCode AND "
-					+ "OVMedication.EndDate < ?" + "ORDER BY OVMedication.ID DESC;");
+			ps = conn.prepareStatement("Select * From ovmedication,ndcodes,officevisits "
+					+ "Where officevisits.PatientID = ? AND ovmedication.VisitID = "
+					+ "officevisits.ID AND ndcodes.Code=ovmedication.NDCode AND "
+					+ "ovmedication.EndDate < ?" + "ORDER BY ovmedication.ID DESC;");
 			ps.setLong(1, patientID);
 			ps.setDate(2, DateUtil.getSQLdateXDaysAgoFromNow(0));
 			ResultSet rs = ps.executeQuery();
@@ -738,7 +738,7 @@ public class PatientDAO {
 				"SELECT DISTINCT patients.* From patients, declaredhcp, ovdiagnosis, officevisits, ovmedication " + 
 				"Where " + 
 				
-				"declaredHCP.HCPID = ? AND " + 
+				"declaredhcp.HCPID = ? AND " + 
 				"patients.MID = declaredhcp.PatientID AND " + 
 				
 				
@@ -759,7 +759,7 @@ public class PatientDAO {
 				"SELECT DISTINCT patients.* From patients, declaredhcp, ovdiagnosis, officevisits, ovmedication " + 
 				"Where " + 
 				
-				"declaredHCP.HCPID = ? AND " + 
+				"declaredhcp.HCPID = ? AND " + 
 				"patients.MID = declaredhcp.PatientID AND " + 
 				
 				"( " + 

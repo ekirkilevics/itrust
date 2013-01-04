@@ -1,4 +1,4 @@
-INSERT INTO CPTCodes(Code, Description, Attribute) 
+INSERT INTO cptcodes(Code, Description, Attribute) 
 VALUES
 ('1270F','Injection procedure', NULL),
 ('87','Diagnostic Radiology', NULL),

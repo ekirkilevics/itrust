@@ -1,1 +1,1 @@
-DELETE FROM FakeEmail;
+DELETE FROM fakeemail;

@@ -1,4 +1,4 @@
-INSERT INTO DrugReactionOverrideCodes(Code, Description) VALUES
+INSERT INTO drugreactionoverridecodes(Code, Description) VALUES
 ('00001','Alerted interaction not clincally significant'),
 ('00002','Patient currently tolerates the medication or combination'),
 ('00003','Benefit of drug outweighs disadvantages'),

@@ -11,7 +11,7 @@
         9000000005  Sarah Soulcrusher
 */
 
-INSERT INTO OfficeVisits(
+INSERT INTO officevisits(
 	id,
     PatientID,
     HCPID,

@@ -8,7 +8,7 @@ import edu.ncsu.csc.itrust.beans.VisitFlag;
 /**
  * A form to contain data coming from reminding a user about an upcoming office visit.
  * 
- * A form is a bean, kinda. You could say that it's a “form” of a bean :) 
+ * A form is a bean, kinda. You could say that it's a ï¿½formï¿½ of a bean :) 
  * Think of a form as a real-life administrative form that you would fill out to get 
  * something done, not necessarily making sense by itself.
  */
@@ -22,12 +22,12 @@ public class VisitReminderReturnForm {
 	private ArrayList<VisitFlag> visitFlags;
 
 	public VisitReminderReturnForm(long hcpID, long patientID, String lastName, String firstName,
-			String phone1, String phone2, String phone3) {
+			String phone) {
 		this.hcpID = hcpID;
 		this.patientID = patientID;
 		this.lastName = lastName;
 		this.firstName = firstName;
-		setPhoneNumber(phone1, phone2, phone3);
+		setPhoneNumber(phone);
 	}
 
 	public long getHcpID() {
@@ -66,8 +66,8 @@ public class VisitReminderReturnForm {
 		return phoneNumber;
 	}
 
-	public void setPhoneNumber(String phone1, String phone2, String phone3) {
-		this.phoneNumber = phone1 + "-" + phone2 + "-" + phone3;
+	public void setPhoneNumber(String phone) {
+		this.phoneNumber = phone;
 	}
 
 	public VisitFlag[] getVisitFlags() {

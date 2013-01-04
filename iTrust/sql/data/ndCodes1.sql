@@ -1,4 +1,4 @@
-INSERT INTO NDCodes(Code, Description) VALUES
+INSERT INTO ndcodes(Code, Description) VALUES
 ('619580501','Adefovir'),
 ('081096','Aspirin')
 

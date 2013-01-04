@@ -29,7 +29,7 @@ public enum ValidationFormat {
 	ADDRESS("[a-zA-Z0-9.\\s]{1,30}", "Up to 30 alphanumeric characters, and ."),
 	APPT_COMMENT("[0-9a-zA-Z\\s'\"?!:;\\-._\n\t]{1,1000}", "Between 0 and 1000 alphanumerics with space, and other punctuation"),
 	APPT_TYPE_NAME("[a-zA-Z ]{1,30}", "Between 1 and 30 alpha characters and space"),
-	APPT_TYPE_DURATION("[0-9]{1,5}", "Between 1 and 5 numberics"),
+	APPT_TYPE_DURATION("[0-9]{1,5}", "Between 1 and 5 numeric digits"),
 	CITY("[a-zA-Z\\s]{1,15}", "Up to 15 characters"),
 	STATE("[A-Z]{2}", "Two capital letters"),
 	ZIPCODE("([0-9]{5})|([0-9]{5}-[0-9]{4})", "xxxxx or xxxxx-xxxx"), // ^[0-9]{5}(?:-[0-9]{4})?$

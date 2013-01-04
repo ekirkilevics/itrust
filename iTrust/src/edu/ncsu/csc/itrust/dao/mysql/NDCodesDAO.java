@@ -53,7 +53,7 @@ public class NDCodesDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("SELECT * FROM NDCodes ORDER BY CODE");
+			ps = conn.prepareStatement("SELECT * FROM ndcodes ORDER BY CODE");
 			ResultSet rs = ps.executeQuery();
 			return medicationLoader.loadList(rs);
 		} catch (SQLException e) {
@@ -76,7 +76,7 @@ public class NDCodesDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("SELECT * FROM NDCodes WHERE Code = ?");
+			ps = conn.prepareStatement("SELECT * FROM ndcodes WHERE Code = ?");
 			ps.setString(1, code);
 			ResultSet rs = ps.executeQuery();
 			if (rs.next())
@@ -104,7 +104,7 @@ public class NDCodesDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("INSERT INTO NDCodes (Code, Description) " + "VALUES (?,?)");
+			ps = conn.prepareStatement("INSERT INTO ndcodes (Code, Description) " + "VALUES (?,?)");
 			ps.setString(1, med.getNDCode());
 			ps.setString(2, med.getDescription());
 			return (1 == ps.executeUpdate());
@@ -130,7 +130,7 @@ public class NDCodesDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("UPDATE NDCodes SET Description = ? " + "WHERE Code = ?");
+			ps = conn.prepareStatement("UPDATE ndcodes SET Description = ? " + "WHERE Code = ?");
 			ps.setString(1, med.getDescription());
 			ps.setString(2, med.getNDCode());
 			return ps.executeUpdate();
@@ -155,7 +155,7 @@ public class NDCodesDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("DELETE FROM NDCodes WHERE Code=?");
+			ps = conn.prepareStatement("DELETE FROM ndcodes WHERE Code=?");
 			ps.setString(1, med.getNDCode());
 			return (1 == ps.executeUpdate());
 		} catch (SQLException e) {

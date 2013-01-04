@@ -1,4 +1,4 @@
-INSERT INTO NDCodes(Code, Description) VALUES
+INSERT INTO ndcodes(Code, Description) VALUES
 ('01864020','Nexium'),
 ('00882219','Lantus'),
 ('63739291','Oyster Shell Calcium with Vitamin D'),

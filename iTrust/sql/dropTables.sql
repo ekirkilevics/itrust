@@ -1,61 +1,61 @@
-DROP TABLE IF EXISTS Allergies;
+DROP TABLE IF EXISTS allergies;
 
-DROP TABLE IF EXISTS DeclaredHCP;
-DROP TABLE IF EXISTS FakeEmail;
-DROP TABLE IF EXISTS GlobalVariables;
-DROP TABLE IF EXISTS HCPAssignedHos;
-DROP TABLE IF EXISTS HCPRelations;
-DROP TABLE IF EXISTS ReferralMessage;
+DROP TABLE IF EXISTS declaredhcp;
+DROP TABLE IF EXISTS fakeemail;
+DROP TABLE IF EXISTS globalvariables;
+DROP TABLE IF EXISTS hcpassignedhos;
+DROP TABLE IF EXISTS hcprelations;
+DROP TABLE IF EXISTS referralmessage;
 
-DROP TABLE IF EXISTS LabProcedure;
-DROP TABLE IF EXISTS LoginFailures;
-DROP TABLE IF EXISTS LOINC;
+DROP TABLE IF EXISTS labprocedure;
+DROP TABLE IF EXISTS loginfailures;
+DROP TABLE IF EXISTS loinc;
 DROP TABLE IF EXISTS message;
 DROP TABLE IF EXISTS referrals;
-DROP TABLE IF EXISTS AdverseEvents;
+DROP TABLE IF EXISTS adverseevents;
 
-DROP TABLE IF EXISTS OVDiagnosis;
-DROP TABLE IF EXISTS OVMedication;
-DROP TABLE IF EXISTS OVReactionOverride;
-DROP TABLE IF EXISTS OVProcedure;
-DROP TABLE IF EXISTS OVSurvey;
+DROP TABLE IF EXISTS ovdiagnosis;
+DROP TABLE IF EXISTS ovmedication;
+DROP TABLE IF EXISTS ovreactionoverride;
+DROP TABLE IF EXISTS ovprocedure;
+DROP TABLE IF EXISTS ovsurvey;
 
-DROP TABLE IF EXISTS Appointment;
-DROP TABLE IF EXISTS AppointmentType;
-
-
-DROP TABLE IF EXISTS ReportRequests;
-DROP TABLE IF EXISTS Representatives;
-DROP TABLE IF EXISTS ResetPasswordFailures;
-DROP TABLE IF EXISTS TransactionLog;
+DROP TABLE IF EXISTS appointment;
+DROP TABLE IF EXISTS appointmenttype;
 
 
-DROP TABLE IF EXISTS Medication;
-DROP TABLE IF EXISTS PersonalAllergies;
-DROP TABLE IF EXISTS PersonalHealthInformation;
-DROP TABLE IF EXISTS PersonalImmunizations;
-DROP TABLE IF EXISTS PersonalRelations;
-DROP TABLE IF EXISTS PersonalStaticInformation;
-DROP TABLE IF EXISTS TransactionFailureAttempts;
+DROP TABLE IF EXISTS reportrequests;
+DROP TABLE IF EXISTS representatives;
+DROP TABLE IF EXISTS resetpasswordfailures;
+DROP TABLE IF EXISTS transactionlog;
 
-DROP TABLE IF EXISTS CPTCodes;
-DROP TABLE IF EXISTS ICDCodes;
-DROP TABLE IF EXISTS DrugReactionOverrideCodes;
-DROP TABLE IF EXISTS OfficeVisits;
-DROP TABLE IF EXISTS Hospitals;
-DROP TABLE IF EXISTS Personnel;
-DROP TABLE IF EXISTS NDCodes;
-DROP TABLE IF EXISTS DrugInteractions;
-DROP TABLE IF EXISTS Patients;
-DROP TABLE IF EXISTS HistoryPatients;
-DROP TABLE IF EXISTS Users;
-DROP TABLE IF EXISTS UserPrefs;
 
-DROP TABLE IF EXISTS RemoteMonitoringData;
-DROP TABLE IF EXISTS RemoteMonitoringLists;
+DROP TABLE IF EXISTS medication;
+DROP TABLE IF EXISTS personalallergies;
+DROP TABLE IF EXISTS personalhealthinformation;
+DROP TABLE IF EXISTS personalimmunizations;
+DROP TABLE IF EXISTS personalrelations;
+DROP TABLE IF EXISTS personalstaticinformation;
+DROP TABLE IF EXISTS transactionfailureattempts;
 
-DROP TABLE IF EXISTS ProfilePhotos;
+DROP TABLE IF EXISTS cptcodes;
+DROP TABLE IF EXISTS icdcodes;
+DROP TABLE IF EXISTS drugreactionoverridecodes;
+DROP TABLE IF EXISTS officevisits;
+DROP TABLE IF EXISTS hospitals;
+DROP TABLE IF EXISTS personnel;
+DROP TABLE IF EXISTS ndcodes;
+DROP TABLE IF EXISTS druginteractions;
+DROP TABLE IF EXISTS patients;
+DROP TABLE IF EXISTS historypatients;
+DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS userprefs;
 
-DROP TABLE IF EXISTS PatientSpecificInstructions;
+DROP TABLE IF EXISTS remotemonitoringdata;
+DROP TABLE IF EXISTS remotemonitoringlists;
 
-DROP TABLE IF EXISTS AppointmentRequests;
+DROP TABLE IF EXISTS profilephotos;
+
+DROP TABLE IF EXISTS patientspecificinstructions;
+
+DROP TABLE IF EXISTS appointmentrequests;

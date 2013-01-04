@@ -106,7 +106,7 @@ public class GroupReportTest extends iTrustHTTPTest {
 		assertEquals("iTrust - View Group Report", wr.getTitle());
 		assertLogged(TransactionType.GROUP_REPORT_VIEW, 9000000000L, 0L, "");
 		
-		assertTrue(wr.getText().contains("Baby</div></td>")); //TODO make sure space padding works
+		assertTrue(wr.getText().contains("Baby</div></td>"));
 		assertTrue(wr.getText().contains("B</div></td>"));
 		assertTrue(wr.getText().contains("C</div></td>"));
 	}
@@ -188,8 +188,75 @@ public class GroupReportTest extends iTrustHTTPTest {
 		assertTrue(wr.getText().contains("Koopa</div></td>"));
 		assertTrue(wr.getText().contains("Princess</div></td>"));
 		assertTrue(wr.getText().contains("Peach</div></td>"));
-
-
 	}
-
+	
+	public void testMID() throws Exception {
+		
+		WebConversation wc = login("9000000000", "pw");
+		WebResponse wr = wc.getCurrentPage();
+		assertEquals("iTrust - HCP Home", wr.getTitle());
+		assertLogged(TransactionType.HOME_VIEW, 9000000000L, 0L, "");
+		
+		wr = wr.getLinkWith("Group Report").click();
+		assertEquals("iTrust - Generate Group Report", wr.getTitle());
+		
+		WebForm form = wr.getFormWithID("mainForm");
+		wr = form.submit();
+		assertEquals("iTrust - Generate Group Report", wr.getTitle());
+		
+		WebForm form2 = wr.getFormWithID("mainForm2");
+		wr = form2.submit();
+		
+		assertTrue(wr.getText().contains("<th>MID</th>"));
+	}
+	
+	public void testGroupReportInvalidAge() throws Exception {
+		
+		WebConversation wc = login("9000000000", "pw");
+		WebResponse wr = wc.getCurrentPage();
+		assertEquals("iTrust - HCP Home", wr.getTitle());
+		assertLogged(TransactionType.HOME_VIEW, 9000000000L, 0L, "");
+		
+		wr = wr.getLinkWith("Group Report").click();
+		assertEquals("iTrust - Generate Group Report", wr.getTitle());
+		
+		WebForm form = wr.getFormWithID("mainForm");
+		form.setCheckbox("demographics", "LOWER_AGE_LIMIT", true);
+		form.setCheckbox("demographics", "UPPER_AGE_LIMIT", true);
+		wr = form.submit();
+		assertEquals("iTrust - Generate Group Report", wr.getTitle());
+		
+		WebForm form2 = wr.getFormWithID("mainForm2");
+		form2.getScriptableObject().setParameterValue("LOWER_AGE_LIMIT", "-1");
+		form2.getScriptableObject().setParameterValue("UPPER_AGE_LIMIT", "asdf");
+		wr = form2.submit();
+		
+		assertTrue(wr.getText().contains("Invalid age"));
+	}
+	
+public void testXMLCheckboxFalse() throws Exception {
+		
+		WebConversation wc = login("9000000000", "pw");
+		WebResponse wr = wc.getCurrentPage();
+		assertEquals("iTrust - HCP Home", wr.getTitle());
+		assertLogged(TransactionType.HOME_VIEW, 9000000000L, 0L, "");
+		
+		wr = wr.getLinkWith("Group Report").click();
+		assertEquals("iTrust - Generate Group Report", wr.getTitle());
+		
+		WebForm form = wr.getFormWithID("mainForm");
+		wr = form.submit();
+		assertEquals("iTrust - Generate Group Report", wr.getTitle());
+		
+		WebForm form2 = wr.getFormWithID("mainForm2");
+		wr = form2.submit();
+		
+		try{
+			wr = wr.getLinkWith("Download XML Report").click();
+		}catch(NullPointerException e){
+			//Exception is good
+			return;
+		}
+		fail("Should have thrown NullPointerException.");
+	}
 }

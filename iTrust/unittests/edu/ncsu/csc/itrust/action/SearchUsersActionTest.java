@@ -18,6 +18,7 @@ public class SearchUsersActionTest extends TestCase {
 	public void setUp() throws Exception {
 		gen.clearAllTables();
 		gen.standardData();
+		gen.patientDeactivate();
 	}
 	
 	public void testSearchForPatientsWithName(){
@@ -53,6 +54,18 @@ public class SearchUsersActionTest extends TestCase {
 		SearchUsersAction act = new SearchUsersAction(factory, 9000000003L);
 		List<PatientBean> patient = act.fuzzySearchForPatients("2");
 		assertEquals("Andy Programmer", patient.get(0).getFullName());
+	}
+	
+	public void testFuzzySearchForPatientDeactivated(){
+		SearchUsersAction act = new SearchUsersAction(factory, 9000000003L);
+		List<PatientBean> patient = act.fuzzySearchForPatients("314159");
+		assertEquals(patient.size(),0);
+	}
+	
+	public void testFuzzySearchForPatientDeactivatedOverride(){
+		SearchUsersAction act = new SearchUsersAction(factory, 9000000003L);
+		List<PatientBean> patient = act.fuzzySearchForPatients("314159",true);
+		assertEquals("Fake Baby", patient.get(0).getFullName());
 	}
 	
 	public void testSearchForPersonnelWithName(){

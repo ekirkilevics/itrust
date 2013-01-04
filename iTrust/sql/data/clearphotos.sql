@@ -1,1 +1,1 @@
-DELETE FROM ProfilePhotos;
+DELETE FROM profilephotos;

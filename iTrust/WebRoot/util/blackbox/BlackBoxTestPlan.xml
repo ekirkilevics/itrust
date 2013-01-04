@@ -1,6 +1,66 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <BlackBoxTestPlan>
 
+	<test id="HospitalOrderedDescending">
+		<role>Patient</role>
+		<dateAdded>11/7/2012</dateAdded>
+		<usecase>47</usecase>
+		<description>
+			<precondition>SQL File: Health Institute Dr. E has 5 procedures, HI Dr. Barry has 4 procedures, h3: 3 procedures, h4: 2 procedures, h5: 1 procedure.</precondition>
+			<step>Random Person logs on to iTrust.</step>
+			<step>Random Person clicks ‘Find Expert Hospital’</step>
+			<step>Random Person clicks on lab procedure, “Microscopic Observation”.</step>			
+		</description>
+		<expectedResults>
+			<eResult>Health Institute by Dr. E should be at the top of the list with 5 Microscopic Obs. procedures, then HI Mr. Barry with 4 procedures and so on in descending order.</eResult>
+		</expectedResults>
+	</test>
+
+	<test id="HospitalOrderedWithEmpty">
+		<role>Patient</role>
+		<dateAdded>11/7/2012</dateAdded>
+		<usecase>47</usecase>
+		<description>
+			<precondition>SQL File: Health Institute Dr. E: 5 procedures Health Institute Mr. Barry: 4 procedures all the other hospitals have 0.</precondition>
+			<step>Random Person logs on to iTrust.</step>
+			<step>Random Person clicks ‘Find Expert Hospital’</step>
+			<step>Random Person clicks on lab procedure, “Fungus Identitfied”.</step>			
+		</description>
+		<expectedResults>
+			<eResult>Health Institute Dr. E is first on list, then Health Institute Mr. Barry. The hospitals with 0 are not listed.</eResult>
+		</expectedResults>
+	</test>
+
+	<test id="HospitalListMoreThan5">
+		<role>Patient</role>
+		<dateAdded>11/7/2012</dateAdded>
+		<usecase>47</usecase>
+		<description>
+			<precondition>SQL File: 6 hospitals (including Health institute Dr. E and Barry) all have 2 lab procedures.</precondition>
+			<step>Random Person logs on to iTrust.</step>
+			<step>Random Person clicks ‘Find Expert Hospital’.</step>
+			<step>Random Person clicks on lab procedure, “Adenovirus 40-41”.</step>			
+		</description>
+		<expectedResults>
+			<eResult>Only five hospitals should be displayed. Among them including: Facebook Rehab, Mr. Barry, Mental Hospital, Mr. Donghoon and Ninja Hospital.</eResult>
+		</expectedResults>
+	</test>
+
+	<test id="EmptyHospitalList">
+		<role>Patient</role>
+		<dateAdded>11/7/2012</dateAdded>
+		<usecase>47</usecase>
+		<description>
+			<precondition>SQL File only contains lad procedures “Adenovirus”, “Fungus Identified” and “Microscopic Observation”</precondition>
+			<step>Random Person logs on to iTrust.</step>
+			<step>Random Person clicks ‘Find Expert Hospital’</step>
+			<step>Random Person clicks on lab procedure, “Specimen Volume”</step>			
+		</description>
+		<expectedResults>
+			<eResult>There should be no hospitals listed.</eResult>
+		</expectedResults>
+	</test>
+
 	<test id="ResetPasswordHash">
 		<role>Patient</role>
 		<dateAdded>04/12/2012</dateAdded>
@@ -8033,6 +8093,320 @@ E1">
     </expectedResults>
     <actualResults>The patient's Smoking Status Code and Description are listed under Basic Health Records
     </actualResults>
+    </description>
+  </test>
+  
+  <test id="testHCPAppointmentNonsenseDates">
+  <role>HCP</role>
+    <dateAdded>09/04/2012</dateAdded>
+    <description>
+    <precondition>LHCP 9000000000 and Patient 1 are registered users of the iTrust system.</precondition>
+    <precondition>LHCP 9000000000 has authenticated successfully.</precondition>
+    <step>LHCP 9000000000 clicks the Schedule Appointment link under the Appointments header</step>
+    <step>LHCP 9000000000 types 1 in the search box and clicks the button for "Random Person"</step>
+    <step>LHCP 9000000000 types a nonsense date, "38/38/9999" in the Schedule Date box</step>
+    <step>LHCP 9000000000 clicks Schedule</step>
+    <expectedResults>
+      <eResult>The system produces an error message indicating that the date is invalid.</eResult>
+    </expectedResults>
+    <actualResults>The system produces an error message indicating that the date is invalid.</actualResults>
+    </description>
+  </test>
+  
+  <test id="testHCPGroupReportAgeBounds">
+  <role>HCP</role>
+    <dateAdded>09/04/2012</dateAdded>
+    <description>
+    <precondition>LHCP 9000000000 is a registered user of the iTrust system.</precondition>
+    <precondition>LHCP 9000000000 has authenticated successfully.</precondition>
+    <step>LHCP 9000000000 clicks the Group Report link under the Patient Info header</step>
+    <step>LHCP 9000000000 selects the UPPER AGE LIMIT and LOWER AGE LIMIT boxes and clicks Continue</step>
+    <step>LHCP 9000000000 types nonsense values, -1 and "asdf" in the boxes</step>
+    <step>LHCP 9000000000 clicks Generate Report</step>
+    <expectedResults>
+      <eResult>The system produces an error message indicating that the age range is invalid.</eResult>
+    </expectedResults>
+    <actualResults>The system produces an error message indicating that the age range is invalid.</actualResults>
+    </description>
+  </test>
+  
+  <test id="testHCPGroupReportMID">
+  <role>HCP</role>
+    <dateAdded>09/04/2012</dateAdded>
+    <description>
+    <precondition>LHCP 9000000000 is a registered user of the iTrust system.</precondition>
+    <precondition>LHCP 9000000000 has authenticated successfully.</precondition>
+    <step>LHCP 9000000000 clicks the Group Report link under the Patient Info header</step>
+    <step>LHCP 9000000000 clicks Continue</step>
+    <step>LHCP 9000000000 clicks Generate Report</step>
+    <expectedResults>
+      <eResult>An MID column should be present displaying the MIDs of the patients.</eResult>
+    </expectedResults>
+    <actualResults>An MID column is present displaying the MIDs of the patients.</actualResults>
+    </description>
+  </test>
+  
+  <test id="testAdminAddAppointmentZeroDuration">
+  <role>Admin</role>
+    <dateAdded>09/04/2012</dateAdded>
+    <description>
+    <precondition>Admin is a registered user of the iTrust system.</precondition>
+    <precondition>Admin has authenticated successfully.</precondition>
+    <step>Admin clicks the Edit Appointments link under the Edit header</step>
+    <step>Admin enters "Test" for the name, 0 for the duration, and clicks Continue</step>
+    <expectedResults>
+      <eResult>The system produces an error message indicating that the appointment duration must be greater than 0.</eResult>
+    </expectedResults>
+    <actualResults>The system produces an error message indicating that the appointment duration must be greater than 0.</actualResults>
+    </description>
+  </test>
+  
+  <test id="testHCPPatientUploadValidData">
+  <role>HCP</role>
+    <dateAdded>09/11/2012</dateAdded>
+    <description>
+    <precondition>HCP Kelly Doctor is registered and authenticated with the iTrust system.</precondition>
+    <precondition>HCP Kelly Doctor has authenticated successfully.</precondition>
+    <step>HCP clicks on the “List of Patients” link in the “Add” category on the left sidebar.</step>
+    <step>HCP selects the HCPPatientUploadValidData.csv file and clicks “Upload”</step>
+    <expectedResults>
+      <eResult>A list of the three patients and their temporary passwords is shown with links to edit other patient data.  No error messages are shown.</eResult>
+    </expectedResults>
+    <actualResults></actualResults>
+    </description>
+  </test>
+  
+  <test id="testHCPPatientUploadInvalidData">
+  <role>HCP</role>
+    <dateAdded>09/11/2012</dateAdded>
+    <description>
+    <precondition>HCP Kelly Doctor is registered and authenticated with the iTrust system.</precondition>
+    <precondition>HCP Kelly Doctor has authenticated successfully.</precondition>
+    <step>HCP clicks on the “List of Patients” link in the “Add” category on the left sidebar.</step>
+    <step>HCP selects the HCPPatientUploadInvalidData.csv file and clicks “Upload”</step>
+    <expectedResults>
+      <eResult>Line 2 (Correct Number) is added successfully.  Line 3 fails due to too many fields.  Line 4 fails due to not enough fields.  Line 5 fails due to an invalid email address</eResult>
+    </expectedResults>
+    <actualResults></actualResults>
+    </description>
+  </test>
+  
+  <test id="testHCPPatientUploadBinaryData">
+  <role>HCP</role>
+    <dateAdded>09/11/2012</dateAdded>
+    <description>
+    <precondition>HCP Kelly Doctor is registered and authenticated with the iTrust system.</precondition>
+    <precondition>HCP Kelly Doctor has authenticated successfully.</precondition>
+    <step>HCP clicks on the “List of Patients” link in the “Add” category on the left sidebar.</step>
+    <step>HCP selects the HCPPatientUploadBinaryData.doc file and clicks “Upload”</step>
+    <expectedResults>
+      <eResult>An error message is displayed indicating that a binary file was uploaded instead of the required CSV file.</eResult>
+    </expectedResults>
+    <actualResults></actualResults>
+    </description>
+  </test>
+  
+  <test id="testHCPPatientUploadInvalidHeader">
+  <role>HCP</role>
+    <dateAdded>09/11/2012</dateAdded>
+    <description>
+    <precondition>HCP Kelly Doctor is registered and authenticated with the iTrust system.</precondition>
+    <precondition>HCP Kelly Doctor has authenticated successfully.</precondition>
+    <step>HCP clicks on the “List of Patients” link in the “Add” category on the left sidebar.</step>
+    <step>HCP selects the HCPPatientUploadInvalidHeader.csv file and clicks “Upload”</step>
+    <expectedResults>
+      <eResult>An error message is shown indicating that the field “invalidfield” is unknown to iTrust.</eResult>
+    </expectedResults>
+    <actualResults></actualResults>
+    </description>
+  </test>
+  
+  <test id="pendingAppointmentAlert">
+  <role>HCP</role>
+    <dateAdded>09/11/2012</dateAdded>
+    <description>
+    <precondition>HHCP Kelly Doctor (MID 9000000000) is a registered and authenticated user of iTrust.</precondition>
+    <precondition>Patient Trend Setter (MID 25) is a registered user of iTrust</precondition>
+    <precondition>TestDataGenerator.pendingAppointmentAlert(); has been run.</precondition>
+    <step>HCP Kelly Doctor logs in.</step>
+    <expectedResults>
+      <eResult>Kelly Doctor's home page has an alert for a pending appointment with Trend Setter</eResult>
+    </expectedResults>
+    <actualResults></actualResults>
+    </description>
+  </test>
+  
+  <test id="acceptAnAppointmentForToday">
+  <role>HCP</role>
+    <dateAdded>09/11/2012</dateAdded>
+    <description>
+    <precondition>HCP Kelly Doctor (MID 9000000000) is a registered and authenticated user of iTrust.</precondition>
+    <precondition>Patient Trend Setter (MID 25) is a registered user of iTrust</precondition>
+    <precondition>TestDataGenerator.pendingAppointmentAlert(); has been run.</precondition>
+    <step>HCP Kelly Doctor approves Trend Setter's Appointment</step>
+    <expectedResults>
+      <eResult>Kelly Doctor no longer has the pending appointment on her feed, and instead sees Trend Setter's appointment in "Today's Appointments" in the sidebar.</eResult>
+    </expectedResults>
+    <actualResults></actualResults>
+    </description>
+  </test>
+  
+  <test id="testAppointmentAtSameTime">
+  <role>HCP</role>
+    <dateAdded>09/11/2012</dateAdded>
+    <description>
+    <precondition>Logged in as an HCP</precondition>
+    <precondition>Patient Random Person (MID 1) is a registered user of iTrust</precondition>
+    <precondition>Patient Trend Setter (MID 25) is a registered user of iTrust</precondition>
+    <precondition>TestDataGenerator.pendingAppointmentAlert(); has been run.</precondition>
+    <step>Go to the HCP pending requests page</step>
+    <step>Accept one of the two appointments listed</step>>
+    <step>Go to the HCP homepage</step>>
+    <expectedResults>
+      <eResult>Pending appointments go from 2 to 0.</eResult>
+    </expectedResults>
+    <actualResults></actualResults>
+    </description>
+  </test>
+  
+   <test id="testDeleteAppointmentRequest">
+  <role>HCP</role>
+    <dateAdded>09/11/2012</dateAdded>
+    <description>
+    <precondition>HCP Kelly Doctor (MID 9000000000) is a registered and authenticated user of iTrust.</precondition>
+    <precondition>Patient Trend Setter (MID 25) is a registered user of iTrust</precondition>
+    <precondition>TestDataGenerator.pendingAppointmentAlert(); has been run.</precondition>
+    <step>Go to the pending appointments page.</step>
+    <step>Decline an appointment request.</step>
+    <step>Go to the HCP homepage</step>
+    <expectedResults>
+      <eResult>Pending appointments go from 1 to 0.</eResult>
+    </expectedResults>
+    <actualResults></actualResults>
+    </description>
+  </test>
+  
+  <test id="HCPDeactivatePatient">
+  <role>HCP</role>
+    <dateAdded>09/24/2012</dateAdded>
+    <description>
+    <precondition>HCP Kelly Doctor is registered and authenticated with the iTrust system.</precondition>
+    <precondition>Patient Bad Horse is registered with the iTrust system.</precondition>
+    <precondition>TestDataGenerator.patientDeactivate(); has been run.</precondition>
+    <step>HCP clicks on the “Deactivate Patient” link in the “Patient” category on the left sidebar.</step>
+    <step>HCP types “Bad Horse” and clicks the button for MID 42.</step>
+    <step>HCP types “YES, I UNDERSTAND” into the confirmation textbox and clicks “Deactivate”</step>
+    <expectedResults>
+      <eResult>A message is displayed indicating that Bad Horse is now deactivated.</eResult>
+    </expectedResults>
+    <actualResults></actualResults>
+    </description>
+  </test>
+  
+  <test id="HCPEditDeactivatedPatient">
+  <role>HCP</role>
+    <dateAdded>09/24/2012</dateAdded>
+    <description>
+    <precondition>HCP Kelly Doctor is registered and authenticated with the iTrust system.</precondition>
+    <precondition>TestDataGenerator.patientDeactivate(); has been run.</precondition>
+    <step>HCP clicks on the “Patient Info” link in the “Patient” category on the left sidebar.</step>
+    <step>HCP types “Fake Baby” and clicks the button for Fake Baby.</step>
+    <step>HCP types “05/10/1950” into the “Date of Birth” textbox and clicks “Edit Patient Record”</step>
+    <expectedResults>
+      <eResult>An error message is displayed indicating that Fake Baby is deactivated and cannot be edited.</eResult>
+    </expectedResults>
+    <actualResults></actualResults>
+    </description>
+  </test>
+  
+  <test id="HCPDeactivatedPatientGroupReport">
+  <role>HCP</role>
+    <dateAdded>09/24/2012</dateAdded>
+    <description>
+    <precondition>HCP Kelly Doctor is registered and authenticated with the iTrust system.</precondition>
+    <precondition>TestDataGenerator.patientDeactivate(); has been run.</precondition>
+    <step>HCP clicks on the “Patient Info” link in the “Group Report” category on the left sidebar.</step>
+    <step>HCP clicks “Continue”.</step>
+    <step>HCP clicks “Generate Report”.</step>
+    <expectedResults>
+      <eResult>A group report that does not contain Fake Baby is returned.</eResult>
+    </expectedResults>
+    <actualResults></actualResults>
+    </description>
+  </test>
+  
+  <test id="AdministratorReactivatePatient">
+  <role>Admin</role>
+    <dateAdded>09/24/2012</dateAdded>
+    <description>
+    <precondition>Administrator is registered and authenticated with the iTrust system.</precondition>
+    <precondition>TestDataGenerator.patientDeactivate(); has been run.</precondition>
+    <step>Administrator clicks “Reactivate Patient” in the “Other” category.</step>
+    <step>Administrator clicks the button for “Fake Baby”</step>
+    <step>Administrator clicks the “Reactivate” button.</step>
+    <expectedResults>
+      <eResult>A message is displayed indicating that Fake Baby has been reactivated.</eResult>
+    </expectedResults>
+    <actualResults></actualResults>
+    </description>
+  </test>
+  
+  <test id="HCPDeativatedPatientScheduleAppointment">
+  <role>HCP</role>
+    <dateAdded>09/24/2012</dateAdded>
+    <description>
+    <precondition>HCP Kelly Doctor is registered and authenticated with the iTrust system.</precondition>
+    <precondition>TestDataGenerator.patientDeactivate(); has been run.</precondition>
+    <step>HCP clicks “Schedule Appointment” under “Appointments”.</step>
+    <step>HCP types “Fake Baby” in the search box.</step>
+    <expectedResults>
+      <eResult>Fake Baby does not appear in the list of patients.</eResult>
+    </expectedResults>
+    <actualResults></actualResults>
+    </description>
+  </test>
+  
+  <test id="HCPDeativatedPatientAddTelemedicine">
+  <role>HCP</role>
+    <dateAdded>09/24/2012</dateAdded>
+    <description>
+    <precondition>HCP Kelly Doctor is registered and authenticated with the iTrust system.</precondition>
+    <precondition>TestDataGenerator.patientDeactivate(); has been run.</precondition>
+    <step>HCP clicks “Edit Patient List” under “Telemedicine”.</step>
+    <step>HCP types “Fake Baby” in the search box.</step>
+    <expectedResults>
+      <eResult>Fake Baby does not appear in the list of patients.</eResult>
+    </expectedResults>
+    <actualResults></actualResults>
+    </description>
+  </test>
+  
+  <test id="HCPDeativatedPatientSendMessage">
+  <role>HCP</role>
+    <dateAdded>09/24/2012</dateAdded>
+    <description>
+    <precondition>HCP Kelly Doctor is registered and authenticated with the iTrust system.</precondition>
+    <precondition>TestDataGenerator.patientDeactivate(); has been run.</precondition>
+    <step>HCP clicks “Compose a Message” under “Messaging”.</step>
+    <step>HCP types “Fake Baby” in the search box.</step>
+    <expectedResults>
+      <eResult>Fake Baby does not appear in the list of patients.</eResult>
+    </expectedResults>
+    <actualResults></actualResults>
+    </description>
+  </test>
+  
+  <test id="PatientDeactivatedLogin">
+  <role>Patient</role>
+    <dateAdded>09/24/2012</dateAdded>
+    <description>
+    <precondition>Patient Fake Baby is registered with and deactivated in the iTrust system.</precondition>
+    <precondition>TestDataGenerator.patientDeactivate(); has been run.</precondition>
+    <step>Patient types username and password into login page and clicks “Login”.</step>
+    <expectedResults>
+      <eResult>An error message is displayed indicating that Fake Baby cannot log on because he/she is deactivated.</eResult>
+    </expectedResults>
+    <actualResults></actualResults>
     </description>
   </test>
 

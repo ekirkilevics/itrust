@@ -80,6 +80,17 @@ public class SearchUsersAction {
 	 * @throws DBException 
 	 */
 	public List<PatientBean> fuzzySearchForPatients(String query) {
+		return fuzzySearchForPatients(query,false);
+	}
+	
+	/**
+	 * Search for all patients with first name and last name given in parameters.
+	 * @param firstName The first name of the patient being searched.
+	 * @param lastName The last name of the patient being searched.
+	 * @return A java.util.List of PatientBeans
+	 * @throws DBException 
+	 */
+	public List<PatientBean> fuzzySearchForPatients(String query, boolean allowDeactivated) {
 		String[] subqueries=null;
 		
 		Set<PatientBean> patientsSet = new TreeSet<PatientBean>();
@@ -112,6 +123,16 @@ public class SearchUsersAction {
 				}catch(NullPointerException e){}
 			}
 		}
-		return new ArrayList<PatientBean>(patientsSet);
+		ArrayList<PatientBean> results=new ArrayList<PatientBean>(patientsSet);
+		
+		if(allowDeactivated==false){
+			for(int i=results.size()-1;i>=0;i--){
+				if(!results.get(i).getDateOfDeactivationStr().equals("")){
+					results.remove(i);
+				}
+			}
+		}
+		
+		return results;
 	}
 }

@@ -1,4 +1,4 @@
-INSERT INTO ReportRequests
+INSERT INTO reportrequests
 (ID,RequesterMID,PatientMID,RequestedDate,ViewedDate,Status)
 VALUES
 (1,9000000000,2,'2008-01-01 12:00',null,'Requested'),

@@ -106,6 +106,8 @@ public class GroupReportAction {
 			return patient.getIcZip();
 		case INSURE_PHONE:
 			return patient.getIcPhone();
+		case MID:
+			return Long.toString(patient.getMID());
 		case INSURE_ID:
 			return patient.getIcID();
 		case PARENT_FIRST_NAME:
@@ -174,6 +176,8 @@ public class GroupReportAction {
 			} catch (Exception e) {
 				break;
 			}
+		case DEACTIVATED:
+			return patient.getDateOfDeactivationStr();
 		default:
 			break;
 		}

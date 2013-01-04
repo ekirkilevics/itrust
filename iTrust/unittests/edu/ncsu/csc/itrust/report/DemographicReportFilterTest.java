@@ -390,8 +390,13 @@ public class DemographicReportFilterTest extends TestCase {
 
 	public void testFilterByLowerAgeNoResult() throws Exception {
 		filter = new DemographicReportFilter(DemographicReportFilterType.LOWER_AGE_LIMIT, "Dalpe", factory);
-		List<PatientBean> res = filter.filter(allPatients);
-		assertTrue(res.isEmpty());
+		try{
+			List<PatientBean> res = filter.filter(allPatients);
+		}catch(NumberFormatException e){
+			//exception is good.
+			return;
+		}
+		assertTrue(false);
 	}
 	
 	public void testFilterByUpperAge() throws Exception { 
@@ -404,8 +409,13 @@ public class DemographicReportFilterTest extends TestCase {
 
 	public void testFilterByUpperAgeNoResult() throws Exception {
 		filter = new DemographicReportFilter(DemographicReportFilterType.UPPER_AGE_LIMIT, "Dalpe", factory);
-		List<PatientBean> res = filter.filter(allPatients);
-		assertTrue(res.isEmpty());
+		try{
+			List<PatientBean> res = filter.filter(allPatients);
+		}catch(NumberFormatException e){
+			//exception is good.
+			return;
+		}
+		assertTrue(false);
 	}
 	
 	public void testToString() {
@@ -512,6 +522,10 @@ public class DemographicReportFilterTest extends TestCase {
 		filter = new DemographicReportFilter(DemographicReportFilterType.UPPER_AGE_LIMIT, "val", factory);
 		expected = "Filter by UPPER AGE LIMIT with value val";
 		assertEquals(expected, filter.toString());
+		
+		filter = new DemographicReportFilter(DemographicReportFilterType.MID, "val", factory);
+		expected = "Filter by MID with value val";
+		assertEquals(expected, filter.toString());
 	}
 
 	public void testFilterTypeFromString() {
@@ -531,5 +545,27 @@ public class DemographicReportFilterTest extends TestCase {
 		filter = new DemographicReportFilter(DemographicReportFilterType.CITY, "city!", factory);
 		String expected = "city!";
 		assertEquals(expected, filter.getFilterValue());
+	}
+	
+	public void testFilterByInvalidLowerAge() throws Exception { 
+		filter = new DemographicReportFilter(DemographicReportFilterType.LOWER_AGE_LIMIT, "-1", factory);
+		try{
+			List<PatientBean> res = filter.filter(allPatients);
+		}catch(NumberFormatException e){
+			//exception is good
+			return;
+		}
+		assertTrue(false);
+	}
+	
+	public void testFilterByInvalidUpperAge() throws Exception { 
+		filter = new DemographicReportFilter(DemographicReportFilterType.UPPER_AGE_LIMIT, "-1", factory);
+		try{
+			List<PatientBean> res = filter.filter(allPatients);
+		}catch(NumberFormatException e){
+			//exception is good
+			return;
+		}
+		assertTrue(false);
 	}
 }

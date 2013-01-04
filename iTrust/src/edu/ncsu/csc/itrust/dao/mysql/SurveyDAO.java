@@ -46,30 +46,30 @@ public class SurveyDAO {
 
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("INSERT INTO OVSurvey (VisitID, SurveyDate) VALUES (?,?)");
+			ps = conn.prepareStatement("INSERT INTO ovsurvey (VisitID, SurveyDate) VALUES (?,?)");
 			ps.setLong(1, surveyBean.getVisitID());
 			ps.setTimestamp(2, new java.sql.Timestamp(date.getTime()));
 			ps.executeUpdate();
 			if (surveyBean.getWaitingRoomMinutes() > 0) {
-				ps = conn.prepareStatement("update OVSurvey set WaitingRoomMinutes = ? where VisitID = ?");
+				ps = conn.prepareStatement("update ovsurvey set WaitingRoomMinutes = ? where VisitID = ?");
 				ps.setFloat(1, surveyBean.getWaitingRoomMinutes());
 				ps.setLong(2, surveyBean.getVisitID());
 				ps.executeUpdate();
 			}
 			if (surveyBean.getExamRoomMinutes() > 0) {
-				ps = conn.prepareStatement("update OVSurvey set ExamRoomMinutes = ? where VisitID = ?");
+				ps = conn.prepareStatement("update ovsurvey set ExamRoomMinutes = ? where VisitID = ?");
 				ps.setFloat(1, surveyBean.getExamRoomMinutes());
 				ps.setLong(2, surveyBean.getVisitID());
 				ps.executeUpdate();
 			}
 			if (surveyBean.getVisitSatisfaction() > 0) {
-				ps = conn.prepareStatement("update OVSurvey set VisitSatisfaction = ? where VisitID = ?");
+				ps = conn.prepareStatement("update ovsurvey set VisitSatisfaction = ? where VisitID = ?");
 				ps.setFloat(1, surveyBean.getVisitSatisfaction());
 				ps.setLong(2, surveyBean.getVisitID());
 				ps.executeUpdate();
 			}
 			if (surveyBean.getTreatmentSatisfaction() > 0) {
-				ps = conn.prepareStatement("update OVSurvey set TreatmentSatisfaction = ? where VisitID = ?");
+				ps = conn.prepareStatement("update ovsurvey set TreatmentSatisfaction = ? where VisitID = ?");
 				ps.setFloat(1, surveyBean.getTreatmentSatisfaction());
 				ps.setLong(2, surveyBean.getVisitID());
 				ps.executeUpdate();
@@ -97,7 +97,7 @@ public class SurveyDAO {
 
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("SELECT * FROM OVSurvey WHERE VisitID = ?");
+			ps = conn.prepareStatement("SELECT * FROM ovsurvey WHERE VisitID = ?");
 			ps.setLong(1, id);
 			ResultSet rs = ps.executeQuery();
 			rs.next();
@@ -124,7 +124,7 @@ public class SurveyDAO {
 		
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("SELECT count(*) FROM OVSurvey WHERE VisitID = ?");
+			ps = conn.prepareStatement("SELECT count(*) FROM ovsurvey WHERE VisitID = ?");
 			ps.setLong(1, visitID);
 			ResultSet rs = ps.executeQuery();
 			rs.next();

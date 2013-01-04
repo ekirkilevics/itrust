@@ -1,8 +1,8 @@
-INSERT INTO Users(MID, password, role, sQuestion, sAnswer) 
+INSERT INTO users(MID, password, role, sQuestion, sAnswer) 
 			VALUES (5, '1a91d62f7ca67399625a4368a6ab5d4a3baa6073', 'patient', 'opposite of yin?', 'yang');
 /*password: pw*/
 
-INSERT INTO Patients
+INSERT INTO patients
 (MID,
 lastName, 
 firstName,
@@ -11,25 +11,17 @@ address1,
 address2,
 city,
 state,
-zip1,
-zip2,
-phone1,
-phone2,
-phone3,
+zip,
+phone,
 eName,
-ePhone1,
-ePhone2,
-ePhone3,
+ePhone,
 iCName,
 iCAddress1,
 iCAddress2,
 iCCity, 
 ICState,
-iCZip1,
-iCZip2,
-iCPhone1,
-iCPhone2,
-iCPhone3,
+iCZip,
+iCPhone,
 iCID,
 dateofbirth,
 mothermid,
@@ -47,25 +39,17 @@ VALUES
 'Suite 106',
 'Raleigh', 
 'NC',
-'27606',
-'1234',
-'919',
-'971',
-'0000',
+'27606-1234',
+'919-971-0000',
 'Mum',
-'704',
-'532',
-'2117',
+'704-532-2117',
 'Aetna', 
 '1234 Aetna Blvd', 
 'Suite 602',
 'Charlotte',
 'NC',
 '28215',
-'',
-'704',
-'555',
-'1234', 
+'704-555-1234', 
 'ChetumNHowe', 
 '1995-05-10',
 0,
@@ -78,11 +62,11 @@ VALUES
 
 
 
-INSERT INTO Representatives(RepresenterMID, RepresenteeMID) VALUES(2, 5);
+INSERT INTO representatives(RepresenterMID, RepresenteeMID) VALUES(2, 5);
 
 INSERT INTO declaredhcp(patientid, hcpid) VALUES (5, 9000000000);
 
-INSERT INTO OfficeVisits(id, visitDate, HCPID, notes, PatientID, HospitalID)
+INSERT INTO officevisits(id, visitDate, HCPID, notes, PatientID, HospitalID)
 VALUES
 	(1000, '1995-05-10', 9000000000, 'Hep B Immunization 1', '5', null),
 	(1001, '1995-06-10', 9000000000, 'Hep B Immunization 2', '5', null),
@@ -150,6 +134,6 @@ VALUES
 	(1029, 1029, "90649"),
 	(1030, 1030, "90649");
 	
-INSERT INTO PersonalHealthInformation
+INSERT INTO personalhealthinformation
 (PatientID,Height,Weight,Smoker,SmokingStatus,BloodPressureN,BloodPressureD,CholesterolHDL,CholesterolLDL,CholesterolTri,HCPID, AsOfDate)
 VALUES ( 5,  60,   200,   0, 9,     190,          100,           500,             239,         290,          9000000000, '2007-06-07 20:33:58');

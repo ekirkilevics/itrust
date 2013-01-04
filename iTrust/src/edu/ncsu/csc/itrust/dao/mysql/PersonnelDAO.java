@@ -60,7 +60,7 @@ public class PersonnelDAO {
 		PreparedStatement pstmt = null;
 		try {
 			conn = factory.getConnection();
-			pstmt = conn.prepareStatement("SELECT firstName, lastName FROM Personnel WHERE MID=?");
+			pstmt = conn.prepareStatement("SELECT firstName, lastName FROM personnel WHERE MID=?");
 			pstmt.setLong(1, mid);
 			ResultSet rs;
 
@@ -84,13 +84,13 @@ public class PersonnelDAO {
 		//long newID = 9000000000L;
 		long minID = role.getMidFirstDigit()*1000000000L;
 		minID = minID == 0 ? 1 : minID;  // Do not use 0 as an ID.
-	    long maxID = minID + 999999999L;
+	    long maxID = minID + 999999998L;
 		long nextID = minID;
 		
 		try {
 			conn = factory.getConnection();
 			
-			ps = conn.prepareStatement("SELECT MAX(users.mid) FROM Users WHERE mid >= ? AND mid <= ?");
+			ps = conn.prepareStatement("SELECT MAX(users.mid) FROM users WHERE mid BETWEEN ? AND ?");
 			ps.setLong(1, minID);
 			ps.setLong(2, maxID);
 			ResultSet rs = ps.executeQuery();
@@ -126,12 +126,13 @@ public class PersonnelDAO {
 		try {
 			conn = factory.getConnection();
 			
-			ps = conn.prepareStatement("INSERT INTO Personnel(MID, Role) VALUES(?,?)");
+			ps = conn.prepareStatement("INSERT INTO personnel(MID, Role) VALUES(?,?)");
 			ps.setString(1, ""+nextID);
 			ps.setString(2, role.name());
 			ps.executeUpdate();
 			return nextID;
 		} catch (SQLException e) {
+			System.out.println(e.getMessage());
 			e.printStackTrace();
 			throw new DBException(e);
 		} finally {
@@ -151,7 +152,7 @@ public class PersonnelDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("SELECT * FROM Personnel WHERE MID = ?");
+			ps = conn.prepareStatement("SELECT * FROM personnel WHERE MID = ?");
 			ps.setLong(1, mid);
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
@@ -177,11 +178,11 @@ public class PersonnelDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("UPDATE Personnel SET AMID=?,firstName=?,lastName=?,"
-					+ "phone1=?,phone2=?,phone3=?, address1=?,address2=?,city=?, state=?, zip=?, zip1=?, zip2=?, specialty=?, email=?"
+			ps = conn.prepareStatement("UPDATE personnel SET AMID=?,firstName=?,lastName=?,"
+					+ "phone=?, address1=?,address2=?,city=?, state=?, zip=?, specialty=?, email=?"
 					+ " WHERE MID=?");
 			personnelLoader.loadParameters(ps, p);
-			ps.setLong(16, p.getMID());
+			ps.setLong(12, p.getMID());
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -203,7 +204,7 @@ public class PersonnelDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("SELECT * FROM Personnel WHERE MID=?");
+			ps = conn.prepareStatement("SELECT * FROM personnel WHERE MID=?");
 			ps.setLong(1, pid);
 			ResultSet rs = ps.executeQuery();
 			return rs.next();
@@ -227,7 +228,7 @@ public class PersonnelDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("SELECT * FROM HCPAssignedHos hah,Hospitals h "
+			ps = conn.prepareStatement("SELECT * FROM hcpassignedhos hah,hospitals h "
 					+ "WHERE hah.HCPID=? AND hah.HosID=h.HospitalID ORDER BY HospitalName ASC");
 			ps.setLong(1, mid);
 			ResultSet rs = ps.executeQuery();
@@ -276,7 +277,7 @@ public class PersonnelDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("SELECT * FROM Personnel WHERE MID IN (SELECT UAP FROM HCPRelations WHERE HCP=?)");
+			ps = conn.prepareStatement("SELECT * FROM personnel WHERE MID IN (SELECT UAP FROM hcprelations WHERE HCP=?)");
 			ps.setLong(1, hcpid);
 			ResultSet rs = ps.executeQuery();
 			return personnelLoader.loadList(rs);
@@ -301,7 +302,7 @@ public class PersonnelDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("SELECT * FROM Personnel WHERE MID IN (SELECT HCPID FROM OfficeVisits WHERE ID=?)");
+			ps = conn.prepareStatement("SELECT * FROM personnel WHERE MID IN (SELECT HCPID FROM officevisits WHERE ID=?)");
 			ps.setLong(1, prescription.getVisitID());
 			ResultSet rs = ps.executeQuery();
 			return personnelLoader.loadList(rs).get(0);

@@ -3,6 +3,7 @@ package edu.ncsu.csc.itrust.beans;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 /**
  * A bean for storing data about an office visit at the hospital.

@@ -138,7 +138,7 @@ public class ManageHospitalAssignmentsActionTest extends TestCase {
 	}
 
 	public void testGetAvailableHospitals() throws iTrustException {
-		assertSame(7, action.getAvailableHospitals("9000000000").size());
+		assertSame(9, action.getAvailableHospitals("9000000000").size());
 	}
 
 	public void testGetAvailableHospitalsBadMID() {

@@ -49,7 +49,7 @@ public class HealthRecordsDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("SELECT * FROM PersonalHealthInformation "
+			ps = conn.prepareStatement("SELECT * FROM personalhealthinformation "
 					+ "WHERE PatientID=? ORDER BY ASOFDATE DESC");
 			ps.setLong(1, mid);
 			ResultSet rs;
@@ -75,7 +75,7 @@ public class HealthRecordsDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("INSERT INTO PersonalHealthInformation(PatientID,Height,Weight,"
+			ps = conn.prepareStatement("INSERT INTO personalhealthinformation(PatientID,Height,Weight,"
 					+ "Smoker,SmokingStatus,BloodPressureN,BloodPressureD,CholesterolHDL,CholesterolLDL,CholesterolTri,"
 					+ "HCPID) VALUES(?,?,?,?,?,?,?,?,?,?,?)");
 			loader.loadParameters(ps, record);

@@ -54,8 +54,8 @@ public class DiagnosesDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("Select * From OVDiagnosis,ICDCodes Where OVDiagnosis.VisitID = ? "
-					+ "AND ICDCodes.Code=OVDiagnosis.ICDCode");
+			ps = conn.prepareStatement("Select * From ovdiagnosis,icdcodes Where ovdiagnosis.VisitID = ? "
+					+ "AND icdcodes.Code=ovdiagnosis.ICDCode");
 			ps.setLong(1, visitID);
 			ResultSet rs = ps.executeQuery();
 			return loader.loadList(rs);
@@ -83,7 +83,7 @@ public class DiagnosesDAO {
 		DiagnosisStatisticsBean dsBean = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("SELECT * FROM ovdiagnosis INNER JOIN officevisits ON ovdiagnosis.VisitID=officevisits.ID INNER JOIN patients ON officevisits.PatientID=patients.MID WHERE ICDCode=? AND zip1=? AND visitDate >= ? AND visitDate <= ? ");
+			ps = conn.prepareStatement("SELECT * FROM ovdiagnosis INNER JOIN officevisits ON ovdiagnosis.VisitID=officevisits.ID INNER JOIN patients ON officevisits.PatientID=patients.MID WHERE ICDCode=? AND zip=? AND visitDate >= ? AND visitDate <= ? ");
 			ps.setString(1, icdCode);
 			ps.setString(2, zipCode);
 			ps.setTimestamp(3, new Timestamp(lower.getTime()));
@@ -94,7 +94,7 @@ public class DiagnosesDAO {
 			rs.last();
 			int local = rs.getRow();
 
-			ps = conn.prepareStatement("SELECT * FROM ovdiagnosis INNER JOIN officevisits ON ovdiagnosis.VisitID=officevisits.ID INNER JOIN patients ON officevisits.PatientID=patients.MID WHERE ICDCode=? AND zip1 LIKE ? AND visitDate >= ? AND visitDate <= ? ");
+			ps = conn.prepareStatement("SELECT * FROM ovdiagnosis INNER JOIN officevisits ON ovdiagnosis.VisitID=officevisits.ID INNER JOIN patients ON officevisits.PatientID=patients.MID WHERE ICDCode=? AND zip LIKE ? AND visitDate >= ? AND visitDate <= ? ");
 			ps.setString(1, icdCode);
 			ps.setString(2, zipCode.substring(0, 3) + "%");
 			ps.setTimestamp(3, new Timestamp(lower.getTime()));
@@ -198,7 +198,7 @@ public class DiagnosesDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			String statement = "INSERT INTO OVDiagnosis " +
+			String statement = "INSERT INTO ovdiagnosis " +
 				"(VisitID,ICDCode) VALUES (?,?)";
 			ps = conn.prepareStatement(statement);
 			ps.setLong(1, bean.getVisitID());
@@ -226,7 +226,7 @@ public class DiagnosesDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			String statement = "UPDATE OVDiagnosis " +
+			String statement = "UPDATE ovdiagnosis " +
 				"SET VisitID=?, ICDCode=?" +
 				"WHERE ID=?";
 			ps = conn.prepareStatement(statement);
@@ -254,7 +254,7 @@ public class DiagnosesDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("DELETE FROM OVDiagnosis WHERE ID=? ");
+			ps = conn.prepareStatement("DELETE FROM ovdiagnosis WHERE ID=? ");
 			ps.setLong(1, ovDiagnosisID);
 			ps.executeUpdate();
 		} catch (SQLException e) {

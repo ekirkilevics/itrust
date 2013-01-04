@@ -1,4 +1,4 @@
-INSERT INTO OfficeVisits(
+INSERT INTO officevisits(
 	id,
 	visitDate,
 	HCPID,
@@ -36,7 +36,7 @@ VALUES
 (1381, 44200, '90371', '9000000003'),
 (1382, 44200, '90712', '9000000003');
 
-INSERT INTO OVMedication(
+INSERT INTO ovmedication(
     VisitID, 
     NDCode, 
     StartDate, 

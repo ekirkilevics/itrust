@@ -44,7 +44,7 @@ public class PatientInstructionsDAO {
 		try {
 			conn = factory.getConnection();
 			ps = conn.prepareStatement(
-					"Select * From PatientSpecificInstructions Where PatientSpecificInstructions.VisitID = ? ");
+					"Select * From patientspecificinstructions Where patientspecificinstructions.VisitID = ? ");
 			ps.setLong(1, visitID);
 			ResultSet rs = ps.executeQuery();
 			return loader.loadList(rs);
@@ -67,7 +67,7 @@ public class PatientInstructionsDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			String statement = "INSERT INTO PatientSpecificInstructions " +
+			String statement = "INSERT INTO patientspecificinstructions " +
 				"(VisitID,Modified,Name,URL,Comment) VALUES (?,?,?,?,?)";
 			ps = conn.prepareStatement(statement);
 			ps = loader.loadParameters(ps, bean);
@@ -92,7 +92,7 @@ public class PatientInstructionsDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			String statement = "UPDATE PatientSpecificInstructions " +
+			String statement = "UPDATE patientspecificinstructions " +
 				"SET VisitID=?, Modified=?, Name=?, URL=?, Comment=? " +
 				"WHERE ID=?";
 			ps = conn.prepareStatement(statement);
@@ -118,7 +118,7 @@ public class PatientInstructionsDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("DELETE FROM PatientSpecificInstructions WHERE ID=? ");
+			ps = conn.prepareStatement("DELETE FROM patientspecificinstructions WHERE ID=? ");
 			ps.setLong(1, patientInstructionsID);
 			ps.executeUpdate();
 		} catch (SQLException e) {
@@ -142,9 +142,9 @@ public class PatientInstructionsDAO {
 			OfficeVisitLoader ovloader = new OfficeVisitLoader();
 			conn = factory.getConnection();
 			ps = conn.prepareStatement(
-					"Select * From OfficeVisits Where " +
-					"OfficeVisits.ID in (Select VisitID From PatientSpecificInstructions) " +
-					"and OfficeVisits.PatientID = ?");
+					"Select * From officevisits Where " +
+					"officevisits.ID in (Select VisitID From patientspecificinstructions) " +
+					"and officevisits.PatientID = ?");
 			ps.setLong(1, pid);
 			ResultSet rs = ps.executeQuery();
 			return ovloader.loadList(rs);

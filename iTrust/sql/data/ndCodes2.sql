@@ -1,4 +1,4 @@
-INSERT INTO NDCodes(Code, Description) VALUES
+INSERT INTO ndcodes(Code, Description) VALUES
 ('009042407','Tetracycline'),
 ('548680955','Isotretinoin')
 

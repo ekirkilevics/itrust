@@ -5,7 +5,7 @@
  * 
  * Ensures patients 1, 2, and 3 are dead, and should be recurring patients
  */
-INSERT INTO Patients 
+INSERT INTO patients 
 (MID,	LastName,	FirstName,	DateOfBirth,					DateOfDeath,					Gender)
 VALUES
 /* Diabetic who hasn't visited in last year*/
@@ -16,7 +16,7 @@ VALUES
 (3,		'HPV',	'Crystal',	CURDATE() - INTERVAL 9 YEAR,	CURDATE() - INTERVAL 2 YEAR,	'Female')
 ON DUPLICATE KEY UPDATE MID = MID;
 
-INSERT INTO DeclaredHCP
+INSERT INTO declaredhcp
 (PatientID,	HCPID)
 VALUES
 (1,			9000000000),
@@ -25,21 +25,21 @@ VALUES
 ON DUPLICATE KEY UPDATE PatientID = PatientID;
 
 /* Chronic, Diabetes with Ketoacidosis */
-INSERT INTO OVDiagnosis
+INSERT INTO ovdiagnosis
 (ID,	VisitID,	ICDCode)
 VALUES
 (1,		1,			250.10)
 ON DUPLICATE KEY UPDATE ID = ID;
 
 /* HPV */
-INSERT INTO OVProcedure
+INSERT INTO ovprocedure
 (ID,	VisitID,	CPTCode)
 VALUES
 (1,		2,			'90649')
 ON DUPLICATE KEY UPDATE ID = ID;
 
 
-INSERT INTO OfficeVisits
+INSERT INTO officevisits
 (ID,	VisitDate,						HCPID,		Notes,		PatientID)
 VALUES
 (1,		CURDATE() - INTERVAL 3 YEAR,	9000000000,	'Diabetes',	1), /* Chronic patient, diabetes */

@@ -50,7 +50,7 @@ public class ReportRequestDAO {
 		try {
 			if (id == 0L) throw new SQLException("ID cannot be null");
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("SELECT * FROM ReportRequests WHERE ID = ?");
+			ps = conn.prepareStatement("SELECT * FROM reportrequests WHERE ID = ?");
 			ps.setLong(1, id);
 			ResultSet rs = ps.executeQuery();
 			rs.next();
@@ -77,7 +77,7 @@ public class ReportRequestDAO {
 		try {
 			if (mid == 0L) throw new SQLException("RequesterMID cannot be null");
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("SELECT * FROM ReportRequests WHERE RequesterMID = ?");
+			ps = conn.prepareStatement("SELECT * FROM reportrequests WHERE RequesterMID = ?");
 			ps.setLong(1, mid);
 			ResultSet rs = ps.executeQuery();
 			return loader.loadList(rs);
@@ -103,7 +103,7 @@ public class ReportRequestDAO {
 		try {
 			if (pid == 0L) throw new SQLException("PatientMID cannot be null");
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("SELECT * FROM ReportRequests WHERE PatientMID = ?");
+			ps = conn.prepareStatement("SELECT * FROM reportrequests WHERE PatientMID = ?");
 			ps.setLong(1, pid);
 			ResultSet rs = ps.executeQuery();
 			return loader.loadList(rs);
@@ -152,7 +152,7 @@ public class ReportRequestDAO {
 		try {
 			if (requesterMID == 0L) throw new SQLException("RequesterMID cannot be null");
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("INSERT INTO ReportRequests (ID, RequesterMID, PatientMID, RequestedDate, Status) VALUES (null,?,?,?,'Requested')");
+			ps = conn.prepareStatement("INSERT INTO reportrequests (ID, RequesterMID, PatientMID, RequestedDate, Status) VALUES (null,?,?,?,'Requested')");
 			ps.setLong(1, requesterMID);
 			ps.setLong(2, patientMID);
 			ps.setTimestamp(3, new java.sql.Timestamp(date.getTime()));
@@ -235,7 +235,7 @@ public class ReportRequestDAO {
 		try {
 			if (ID == 0L) throw new SQLException("ID cannot be null");
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("UPDATE ReportRequests set ViewedDate = ?, Status = 'Viewed' where ID = ?");
+			ps = conn.prepareStatement("UPDATE reportrequests set ViewedDate = ?, Status = 'Viewed' where ID = ?");
 			ps.setTimestamp(1, new java.sql.Timestamp(date.getTime()));
 			ps.setLong(2, ID);
 			ps.executeUpdate();

@@ -1,6 +1,6 @@
-DELETE FROM TransactionLog;
+DELETE FROM transactionlog;
                     
-INSERT INTO TransactionLog(loggedInMID, secondaryMID, transactionCode, timeLogged, addedInfo) VALUES 
+INSERT INTO transactionlog(loggedInMID, secondaryMID, transactionCode, timeLogged, addedInfo) VALUES 
 					 (9000000000, 1, 1900,CONCAT(SUBDATE(CURDATE(),1),' 08:15:00'),''),
 					 (2         , 1, 1900,CONCAT(SUBDATE(CURDATE(),1),' 09:43:00'),''),
 					 (9000000006, 1, 2100,CONCAT(SUBDATE(CURDATE(),1),' 10:04:00'),''),

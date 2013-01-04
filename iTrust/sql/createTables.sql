@@ -1,4 +1,4 @@
-CREATE TABLE Users(
+CREATE TABLE users(
 	MID                 BIGINT unsigned,
 	Password            VARCHAR(200),
 	openID              VARCHAR(200),
@@ -11,14 +11,20 @@ CREATE TABLE Users(
 	/* Please use the MyISAM backend with no foreign keys.*/
 ) ENGINE=MyISAM; 
 
-CREATE TABLE Hospitals(
+CREATE TABLE hospitals(
 	HospitalID   varchar(10),
-	HospitalName varchar(30) NOT NULL, 
+	HospitalName varchar(30) NOT NULL,
+	Address varchar(30),
+	City varchar(15),
+	State varchar(2),
+	Zip varchar(10),
+	Lat double,
+	Lng double,
 	
 	PRIMARY KEY (hospitalID)
 ) ENGINE=MyISAM;
 
-CREATE TABLE Personnel(
+CREATE TABLE personnel(
 	MID BIGINT unsigned default NULL,
 	AMID BIGINT unsigned default NULL,
 	role enum('admin','hcp','uap','er','tester','pha', 'lt') NOT NULL default 'admin',
@@ -30,18 +36,13 @@ CREATE TABLE Personnel(
 	city varchar(15) NOT NULL default '',
 	state enum('','AK','AL','AR','AZ','CA','CO','CT','DE','DC','FL','GA','HI','IA','ID','IL','IN','KS','KY','LA','MA','MD','ME','MI','MN','MO','MS','MT','NC','ND','NE','NH','NJ','NM','NV','NY','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VA','VT','WA','WI','WV','WY') NOT NULL default '',
 	zip varchar(10) NOT NULL default '',
-	zip1 varchar(5)  default '',
-	zip2 varchar(4)  default '',
 	phone varchar(12) NOT NULL default '',
-	phone1 varchar(3) default '',
-    phone2 varchar(3) default '',
-    phone3 varchar(4) default '',
 	specialty varchar(40) default NULL,
 	email varchar(55)  default '',
 	PRIMARY KEY  (MID)
 ) auto_increment=9000000000 ENGINE=MyISAM;
 
-CREATE TABLE Patients(
+CREATE TABLE patients(
 	MID BIGINT unsigned  auto_increment, 
 	lastName varchar(20)  default '', 
 	firstName varchar(20)  default '', 
@@ -50,25 +51,17 @@ CREATE TABLE Patients(
 	address2 varchar(20)  default '', 
 	city varchar(15)  default '', 
 	state enum('AK','AL','AR','AZ','CA','CO','CT','DE','DC','FL','GA','HI','IA','ID','IL','IN','KS','KY','LA','MA','MD','ME','MI','MN','MO','MS','MT','NC','ND','NE','NH','NJ','NM','NV','NY','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VA','VT','WA','WI','WV','WY')  default 'AK', 
-	zip1 varchar(5)  default '', 
-	zip2 varchar(4)  default '',
-	phone1 varchar(3) default '',
-    phone2 varchar(3) default '',
-    phone3 varchar(4) default '',
+	zip varchar(10)  default '', 
+	phone varchar(12) default '',
 	eName varchar(40)  default '', 
-	ePhone1 varchar(3)  default '', 
-	ePhone2 varchar(3)  default '', 		
-	ePhone3 varchar(4)  default '', 	
+	ePhone varchar(12)  default '', 
 	iCName varchar(20)  default '', 
 	iCAddress1 varchar(20)  default '', 
 	iCAddress2 varchar(20)  default '', 
 	iCCity varchar(15)  default '', 
 	ICState enum('AK','AL','AR','AZ','CA','CO','CT','DE','DC','FL','GA','HI','IA','ID','IL','IN','KS','KY','LA','MA','MD','ME','MI','MN','MO','MS','MT','NC','ND','NE','NH','NJ','NM','NV','NY','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VA','VT','WA','WI','WV','WY')  default 'AK', 
-	iCZip1 varchar(5)  default '', 
-	iCZip2 varchar(4)  default '',
-	iCPhone1 varchar(3)  default '',
-	iCPhone2 varchar(3)  default '',
-	iCPhone3 varchar(4)  default '',			
+	iCZip varchar(10)  default '', 
+	iCPhone varchar(12)  default '',
 	iCID varchar(20)  default '', 
 	DateOfBirth DATE,
 	DateOfDeath DATE,
@@ -86,10 +79,11 @@ CREATE TABLE Patients(
 	Language varchar(32) default '',
 	SpiritualPractices varchar(512) default '',
 	AlternateName varchar(32) default '',
+	DateOfDeactivation DATE default NULL,
 	PRIMARY KEY (MID)
 ) ENGINE=MyISAM;
 
-CREATE TABLE HistoryPatients(
+CREATE TABLE historypatients(
 	ID BIGINT unsigned  auto_increment,
 	changeDate DATE NOT NULL,
 	changeMID BIGINT unsigned NOT NULL,
@@ -101,25 +95,17 @@ CREATE TABLE HistoryPatients(
 	address2 varchar(20)  default '', 
 	city varchar(15)  default '', 
 	state enum('AK','AL','AR','AZ','CA','CO','CT','DE','DC','FL','GA','HI','IA','ID','IL','IN','KS','KY','LA','MA','MD','ME','MI','MN','MO','MS','MT','NC','ND','NE','NH','NJ','NM','NV','NY','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VA','VT','WA','WI','WV','WY')  default 'AK', 
-	zip1 varchar(5)  default '', 
-	zip2 varchar(4)  default '',
-	phone1 varchar(3) default '',
-    phone2 varchar(3) default '',
-    phone3 varchar(4) default '',
+	zip varchar(10)  default '', 
+	phone varchar(12) default '',
 	eName varchar(40)  default '', 
-	ePhone1 varchar(3)  default '', 
-	ePhone2 varchar(3)  default '', 		
-	ePhone3 varchar(4)  default '', 	
+	ePhone varchar(12)  default '', 	
 	iCName varchar(20)  default '', 
 	iCAddress1 varchar(20)  default '', 
 	iCAddress2 varchar(20)  default '', 
 	iCCity varchar(15)  default '', 
 	ICState enum('AK','AL','AR','AZ','CA','CO','CT','DE','DC','FL','GA','HI','IA','ID','IL','IN','KS','KY','LA','MA','MD','ME','MI','MN','MO','MS','MT','NC','ND','NE','NH','NJ','NM','NV','NY','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VA','VT','WA','WI','WV','WY')  default 'AK', 
-	iCZip1 varchar(5)  default '', 
-	iCZip2 varchar(4)  default '',
-	iCPhone1 varchar(3)  default '',
-	iCPhone2 varchar(3)  default '',
-	iCPhone3 varchar(4)  default '',			
+	iCZip varchar(10)  default '', 
+	iCPhone varchar(12)  default '',
 	iCID varchar(20)  default '', 
 	DateOfBirth DATE,
 	DateOfDeath DATE,
@@ -137,17 +123,18 @@ CREATE TABLE HistoryPatients(
 	Language varchar(32) default '',
 	SpiritualPractices varchar(512) default '',
 	AlternateName varchar(32) default '',
+	DateOfDeactivation DATE default NULL,
 	PRIMARY KEY (ID)
 ) ENGINE=MyISAM;
 
-CREATE TABLE LoginFailures(
+CREATE TABLE loginfailures(
 	ipaddress varchar(128) NOT NULL, 
 	failureCount int NOT NULL default 0, 
 	lastFailure TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	PRIMARY KEY (ipaddress)
 ) ENGINE=MyISAM;
 
-CREATE TABLE ResetPasswordFailures(
+CREATE TABLE resetpasswordfailures(
 	ipaddress varchar(128) NOT NULL, 
 	failureCount int NOT NULL default 0, 
 	lastFailure TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -161,33 +148,33 @@ CREATE TABLE icdcodes (
   PRIMARY KEY (Code)
 ) ENGINE=MyISAM;
 
-CREATE TABLE CPTCodes(
+CREATE TABLE cptcodes(
 	Code varchar(5) NOT NULL COMMENT 'Actual CPT Code', 
 	Description varchar(30) NOT NULL COMMENT 'Description of the CPT Codes', 
 	Attribute varchar(30),
 	PRIMARY KEY (Code)
 ) ENGINE=MyISAM;
 
-CREATE TABLE DrugReactionOverrideCodes(
+CREATE TABLE drugreactionoverridecodes(
 	Code varchar(5) NOT NULL COMMENT 'Identifier for override reason',
 	Description varchar(80) NOT NULL COMMENT 'Description of override reason',
 	PRIMARY KEY (Code)
 ) ENGINE=MyISAM;
 	
-CREATE TABLE NDCodes(
+CREATE TABLE ndcodes(
 	Code varchar(10) NOT NULL, 
 	Description varchar(100) NOT NULL, 
 	PRIMARY KEY  (Code)
 ) ENGINE=MyISAM;
 
-CREATE TABLE DrugInteractions(
+CREATE TABLE druginteractions(
 	FirstDrug varchar(9) NOT NULL,
 	SecondDrug varchar(9) NOT NULL,
 	Description varchar(100) NOT NULL,
 	PRIMARY KEY  (FirstDrug,SecondDrug)
 ) ENGINE=MyISAM;
 
-CREATE TABLE TransactionLog(
+CREATE TABLE transactionlog(
 	transactionID int(10) unsigned NOT NULL auto_increment, 
 	loggedInMID BIGINT unsigned NOT NULL DEFAULT '0', 
 	secondaryMID BIGINT unsigned NOT NULL DEFAULT '0', 
@@ -197,37 +184,37 @@ CREATE TABLE TransactionLog(
 	PRIMARY KEY (transactionID)
 ) ENGINE=MyISAM;
 
-CREATE TABLE HCPRelations(
+CREATE TABLE hcprelations(
 	HCP BIGINT unsigned NOT NULL default '0', 
 	UAP BIGINT unsigned NOT NULL default '0',
 	PRIMARY KEY (HCP, UAP)
 ) ENGINE=MyISAM;
 
-CREATE TABLE PersonalRelations(
+CREATE TABLE personalrelations(
 	PatientID BIGINT unsigned NOT NULL COMMENT 'MID of the patient',
 	RelativeID BIGINT unsigned NOT NULL COMMENT 'MID of the Relative',
 	RelativeType VARCHAR( 35 ) NOT NULL COMMENT 'Relation Type'
 ) ENGINE=MyISAM;
 
-CREATE TABLE Representatives(
+CREATE TABLE representatives(
 	representerMID BIGINT unsigned default 0, 
 	representeeMID BIGINT unsigned default 0,
 	PRIMARY KEY  (representerMID,representeeMID)
 ) ENGINE=MyISAM;
 
-CREATE TABLE HCPAssignedHos(
+CREATE TABLE hcpassignedhos(
 	hosID VARCHAR(10) NOT NULL, 
 	HCPID BIGINT unsigned NOT NULL, 
 	PRIMARY KEY (hosID,HCPID)
 ) ENGINE=MyISAM;
 
-CREATE TABLE DeclaredHCP(
+CREATE TABLE declaredhcp(
 	PatientID BIGINT unsigned NOT NULL default '0', 
 	HCPID BIGINT unsigned NOT NULL default '0', 
 	PRIMARY KEY  (PatientID,HCPID)
 ) ENGINE=MyISAM;
 
-CREATE TABLE OfficeVisits(
+CREATE TABLE officevisits(
 	ID int(10) unsigned auto_increment,
 	visitDate date default '0000-00-00',  
 	HCPID BIGINT unsigned default '0', 
@@ -238,7 +225,7 @@ CREATE TABLE OfficeVisits(
 	PRIMARY KEY  (ID)
 ) ENGINE=MyISAM;
 
-CREATE TABLE PersonalHealthInformation (
+CREATE TABLE personalhealthinformation (
 	PatientID BIGINT unsigned NOT NULL default '0',
 	Height float default '0',  
 	Weight float default '0',  
@@ -253,13 +240,13 @@ CREATE TABLE PersonalHealthInformation (
 	AsOfDate timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP
 ) ENGINE=MyISAM;
 
-CREATE TABLE PersonalAllergies(
+CREATE TABLE personalallergies(
 	PatientID BIGINT unsigned NOT NULL COMMENT 'MID of the Patient',
 	Allergy VARCHAR( 50 ) NOT NULL COMMENT 'Description of the allergy'
 ) ENGINE=MyISAM;
 
 
-CREATE TABLE Allergies(
+CREATE TABLE allergies(
 	ID INT(10) unsigned auto_increment primary key,
 	PatientID BIGINT unsigned NOT NULL COMMENT 'MID of the Patient',
 	Description VARCHAR( 50 ) NOT NULL COMMENT 'Description of the allergy',
@@ -268,14 +255,14 @@ CREATE TABLE Allergies(
 	/*NEW, Added Code, so that we could pass the NDCode of the drug when adding allergy.*/
 ) ENGINE=MyISAM;
 
-CREATE TABLE OVProcedure(
+CREATE TABLE ovprocedure(
 	ID INT(10) auto_increment primary key,
 	VisitID INT( 10 ) unsigned NOT NULL COMMENT 'ID of the Office Visit',
 	CPTCode VARCHAR( 5 ) NOT NULL COMMENT 'CPTCode of the procedure',
 	HCPID VARCHAR( 10 ) NOT NULL DEFAULT ''
 ) ENGINE=MyISAM;
 
-CREATE TABLE OVMedication (
+CREATE TABLE ovmedication (
     ID INT(10)  auto_increment primary key,
 	VisitID INT( 10 ) unsigned NOT NULL COMMENT 'ID of the Office Visit',
 	NDCode VARCHAR( 9 ) NOT NULL COMMENT 'NDCode for the medication',
@@ -286,27 +273,27 @@ CREATE TABLE OVMedication (
 	OverrideOther VARCHAR(255) DEFAULT '' COMMENT 'Provided if user chooses other reason'
 ) ENGINE=MyISAM;
 
-CREATE TABLE OVReactionOverride (
+CREATE TABLE ovreactionoverride (
 	ID INT(10)  auto_increment primary key,
 	OVMedicationID INT(10) NOT NULL COMMENT 'Must correspond to an ID in OVMedication table',
 	OverrideCode VARCHAR(5) COMMENT 'Code identifier of the override reason',
 	FOREIGN KEY (OVMedicationID) REFERENCES OVMedication (ID)
 ) ENGINE=MyISAM;
 
-CREATE TABLE OVDiagnosis (
+CREATE TABLE ovdiagnosis (
     ID INT(10) auto_increment primary key,
 	VisitID INT( 10 ) unsigned NOT NULL COMMENT 'ID of the Office Visit',
 	ICDCode DECIMAL( 5, 2 ) NOT NULL COMMENT 'Code for the Diagnosis'
 ) ENGINE=MyISAM;
 
-CREATE TABLE GlobalVariables (
+CREATE TABLE globalvariables (
 	Name VARCHAR(20) primary key,
 	Value VARCHAR(20)
 ) ENGINE=MyISAM;
 
-INSERT INTO GlobalVariables(Name,Value) VALUES ('Timeout', '20');
+INSERT INTO globalvariables(Name,Value) VALUES ('Timeout', '20');
 
-CREATE TABLE FakeEmail(
+CREATE TABLE fakeemail(
 	ID INT(10) auto_increment primary key,
 	ToAddr VARCHAR(100),
 	FromAddr VARCHAR(100),
@@ -315,7 +302,7 @@ CREATE TABLE FakeEmail(
 	AddedDate timestamp NOT NULL default CURRENT_TIMESTAMP
 ) ENGINE=MyISAM;
 
-CREATE TABLE ReportRequests (
+CREATE TABLE reportrequests (
 	ID INT(10) auto_increment primary key,
     RequesterMID BIGINT unsigned,
     PatientMID BIGINT unsigned,
@@ -327,7 +314,7 @@ CREATE TABLE ReportRequests (
 	Comment TEXT
 ) ENGINE=MyISAM;
 
-CREATE TABLE OVSurvey (
+CREATE TABLE ovsurvey (
 	VisitID int(10) unsigned primary key COMMENT 'ID of the Office Visit',
 	SurveyDate datetime not null COMMENT 'Date the survey was completed',
 	WaitingRoomMinutes int(3) COMMENT 'How many minutes did you wait in the waiting room?',
@@ -336,7 +323,7 @@ CREATE TABLE OVSurvey (
 	TreatmentSatisfaction int(1) COMMENT 'How satisfied were you with the treatment or information you received?'
 ) ENGINE=MyISAM;
 
-CREATE TABLE LOINC (
+CREATE TABLE loinc (
 	LaboratoryProcedureCode VARCHAR (7), 
 	Component VARCHAR(100),
 	KindOfProperty VARCHAR(100),
@@ -346,7 +333,7 @@ CREATE TABLE LOINC (
 	MethodType VARCHAR(100)
 ) ENGINE=MyISAM;
 
-CREATE TABLE LabProcedure (
+CREATE TABLE labprocedure (
 	LaboratoryProcedureID BIGINT(10) auto_increment primary key,
 	PatientMID BIGINT unsigned, 
 	LaboratoryProcedureCode VARCHAR (7), 
@@ -378,7 +365,7 @@ CREATE TABLE message (
 	PRIMARY KEY (message_id)
 ) ENGINE=MyISAM;
 
-CREATE TABLE Appointment (
+CREATE TABLE appointment (
 	appt_id				INT UNSIGNED AUTO_INCREMENT primary key,
 	doctor_id           BIGINT UNSIGNED NOT NULL,
 	patient_id          BIGINT UNSIGNED NOT NULL,
@@ -387,7 +374,7 @@ CREATE TABLE Appointment (
 	comment				TEXT
 ) ENGINE=MyISAM;
 
-CREATE TABLE AppointmentType (
+CREATE TABLE appointmenttype (
 	apptType_id			INT UNSIGNED AUTO_INCREMENT primary key,
 	appt_type           VARCHAR(30) NOT NULL,
 	duration			INT UNSIGNED NOT NULL
@@ -407,7 +394,7 @@ CREATE TABLE referrals (
 	PRIMARY KEY (id)
 ) AUTO_INCREMENT=1 ENGINE=MyISAM;
 
-CREATE TABLE RemoteMonitoringData (
+CREATE TABLE remotemonitoringdata (
 	id          INT UNSIGNED AUTO_INCREMENT,
 	PatientID          BIGINT UNSIGNED NOT NULL,
 	systolicBloodPressure int(10) SIGNED default -1,
@@ -422,7 +409,7 @@ CREATE TABLE RemoteMonitoringData (
 	PRIMARY KEY (id)
 ) AUTO_INCREMENT=1 ENGINE=MyISAM;
 
-CREATE TABLE RemoteMonitoringLists (
+CREATE TABLE remotemonitoringlists (
 	PatientMID BIGINT unsigned default 0, 
 	HCPMID BIGINT unsigned default 0,
 	SystolicBloodPressure BOOLEAN default true,
@@ -434,7 +421,7 @@ CREATE TABLE RemoteMonitoringLists (
 	PRIMARY KEY  (PatientMID,HCPMID)
 ) ENGINE=MyISAM;
 
-CREATE TABLE AdverseEvents (
+CREATE TABLE adverseevents (
 	id INT UNSIGNED AUTO_INCREMENT primary key,
 	Status VARCHAR(10) default "Active",
 	PatientMID BIGINT unsigned default 0,
@@ -445,13 +432,13 @@ CREATE TABLE AdverseEvents (
 	TimeLogged timestamp NOT NULL default CURRENT_TIMESTAMP
 ) ENGINE=MyISAM;
 
-CREATE TABLE ProfilePhotos (
+CREATE TABLE profilephotos (
 	MID BIGINT (10) primary key,
 	Photo LONGBLOB,
 	UpdatedDate timestamp NOT NULL default CURRENT_TIMESTAMP
 ) ENGINE=MyISAM;
 
-CREATE TABLE PatientSpecificInstructions (
+CREATE TABLE patientspecificinstructions (
     id BIGINT unsigned AUTO_INCREMENT primary key,
     VisitID BIGINT unsigned,
     Modified TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -460,13 +447,13 @@ CREATE TABLE PatientSpecificInstructions (
     Comment VARCHAR(500)
 ) ENGINE=MyISAM;
 
-CREATE TABLE ReferralMessage(
+CREATE TABLE referralmessage(
 	messageID  INT unsigned NOT NULL, 
 	referralID INT unsigned NOT NULL, 
 	PRIMARY KEY (messageID,referralID)
 ) ENGINE=MyISAM;
 
-CREATE TABLE AppointmentRequests(
+CREATE TABLE appointmentrequests(
 	appt_id				INT UNSIGNED AUTO_INCREMENT primary key,
 	doctor_id           BIGINT UNSIGNED NOT NULL,
 	patient_id          BIGINT UNSIGNED NOT NULL,

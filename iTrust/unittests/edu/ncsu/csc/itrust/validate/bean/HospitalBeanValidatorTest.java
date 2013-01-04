@@ -21,13 +21,21 @@ public class HospitalBeanValidatorTest extends TestCase {
 		HospitalBean h = new HospitalBean();
 		h.setHospitalName("A Hospital!");
 		h.setHospitalID("-1");
+		h.setHospitalAddress("1000 Toooooooooooooooooo Manyyyyyyyyyyyyyyyyyy Charsssssssssssssssss Streetttttttttttttttt");
+		h.setHospitalCity("Longggggggggggggggggggggggg Nameeeeeeeeeeeeeeeeeeeeeeeee Cityyyyyyyyyyyyyyyyy");
+		h.setHospitalState("Zx");
+		h.setHospitalZip("2-304-22-");
 		try {
 			validator.validate(h);
 			fail("exception should have been thrown");
 		} catch (FormValidationException e) {
 			assertEquals("Hospital ID: " + ValidationFormat.HOSPITAL_ID.getDescription(), e.getErrorList().get(0));
 			assertEquals("Hospital Name: " + ValidationFormat.HOSPITAL_NAME.getDescription(), e.getErrorList().get(1));
-			assertEquals("number of errors", 2, e.getErrorList().size());
+			assertEquals("Hospital Address: " + ValidationFormat.ADDRESS.getDescription(), e.getErrorList().get(2));
+			assertEquals("Hospital City: " + ValidationFormat.CITY.getDescription(), e.getErrorList().get(3));
+			assertEquals("Hospital State: " + ValidationFormat.STATE.getDescription(), e.getErrorList().get(4));
+			assertEquals("Hospital Zip: " + ValidationFormat.ZIPCODE.getDescription(), e.getErrorList().get(5));
+			assertEquals("number of errors", 6, e.getErrorList().size());
 		}
 	}
 }

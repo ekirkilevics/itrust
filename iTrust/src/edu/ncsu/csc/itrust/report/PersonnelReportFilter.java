@@ -122,5 +122,13 @@ public class PersonnelReportFilter extends ReportFilter {
 	public PersonnelReportFilterType getFilterType() {
 		return filterType;
 	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public String getFilterTypeString() {
+		return filterType.toString();
+	}
 
 }

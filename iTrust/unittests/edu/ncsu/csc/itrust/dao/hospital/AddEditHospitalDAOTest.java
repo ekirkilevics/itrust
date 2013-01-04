@@ -29,7 +29,7 @@ public class AddEditHospitalDAOTest extends TestCase {
 	}
 
 	private void clearHospitals() throws SQLException {
-		new DBBuilder(factory).executeSQL(Arrays.asList("DELETE FROM Hospitals;"));
+		new DBBuilder(factory).executeSQL(Arrays.asList("DELETE FROM hospitals;"));
 	}
 
 	/**
@@ -42,15 +42,15 @@ public class AddEditHospitalDAOTest extends TestCase {
 	 */
 	public void testGetAllHospitals() throws Exception {
 		List<HospitalBean> hospitals = hospitalDAO.getAllHospitals();
-		assertEquals(7, hospitals.size());
+		assertEquals(9, hospitals.size());
 		// All hospitals in alphabetical order.
-		assertEquals("Central Hospital", hospitals.get(0).getHospitalName());
-		assertEquals("Eastern Hospital", hospitals.get(1).getHospitalName());
-		assertEquals("Northern Hospital", hospitals.get(2).getHospitalName());
-		assertEquals("Test Hospital 1", hospitals.get(3).getHospitalName());
-		assertEquals("Test Hospital 8181818181", hospitals.get(4).getHospitalName());
-		assertEquals("Test Hospital 9191919191", hospitals.get(5).getHospitalName());
-		assertEquals("Z Empty Hospital", hospitals.get(6).getHospitalName());
+		assertEquals("Facebook Rehab Center", hospitals.get(0).getHospitalName());
+		assertEquals("Health Institute Dr. E", hospitals.get(1).getHospitalName());
+		assertEquals("Health Institute Mr. Barry", hospitals.get(2).getHospitalName());
+		assertEquals("Health Institute Mr. Donghoon", hospitals.get(3).getHospitalName());
+		assertEquals("Le Awesome Hospital", hospitals.get(4).getHospitalName());
+		assertEquals("Mental Hospital 4 iTrust Devs", hospitals.get(5).getHospitalName());
+		assertEquals("Ninja Hospital", hospitals.get(6).getHospitalName());
 	}
 
 	public void testGetHospital() throws DBException {
@@ -71,12 +71,12 @@ public class AddEditHospitalDAOTest extends TestCase {
 	}
 
 	public void testAddHospital() throws DBException, iTrustException {
-		final String id = "9999999999";
+		final String id = "9191919192";
 		final String name = "testAddHospital Hospital ";
 		genericAdd(id, name);
 		List<HospitalBean> allCodes = hospitalDAO.getAllHospitals();
-		assertEquals(id, allCodes.get(allCodes.size() - 2).getHospitalID());
-		assertEquals(name, allCodes.get(allCodes.size() - 2).getHospitalName());
+		assertEquals(id, allCodes.get(allCodes.size() - 1).getHospitalID());
+		assertEquals(name, allCodes.get(allCodes.size() - 1).getHospitalName());
 	}
 
 	public void testAddDupe() throws SQLException, DBException, iTrustException {

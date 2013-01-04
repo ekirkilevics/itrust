@@ -33,12 +33,10 @@ public class PatientBeanTest extends TestCase {
 		p.setDateOfBirthStr("bad date");
 		p.setCity("Raleigh");
 		p.setState("NC");
-		p.setZip1("27613");
-		p.setZip2("1234");
+		p.setZip("27613-1234");
 		p.setIcCity("Raleigh");
 		p.setIcState("NC");
-		p.setIcZip1("27613");
-		p.setIcZip2("1234");
+		p.setIcZip("27613-1234");
 		p.setSecurityQuestion("Question");
 		p.setSecurityAnswer("Answer");
 		p.setPassword("password");

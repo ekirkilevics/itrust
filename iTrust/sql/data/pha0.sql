@@ -1,4 +1,4 @@
-INSERT INTO Personnel(
+INSERT INTO personnel(
 MID,
 AMID,
 role,
@@ -9,12 +9,7 @@ address2,
 city,
 state,
 zip,
-zip1,
-zip2,
 phone,
-phone1,
-phone2,
-phone3,
 specialty,
 email)
 VALUES (
@@ -28,16 +23,11 @@ null,
 'CityName',
 'NY',
 '12345-1234',
-'12345',
-'1234',
 '999-888-7777',
-'999',
-'888',
-'7777',
 'human bieng',
 'bjones@iTrust.org'
 )ON DUPLICATE KEY UPDATE MID = MID;
 
-INSERT INTO Users(MID, password, role, sQuestion, sAnswer) VALUES(9999999990, '1a91d62f7ca67399625a4368a6ab5d4a3baa6073', 'pha', 'first letter?', 'a')
+INSERT INTO users(MID, password, role, sQuestion, sAnswer) VALUES(9999999990, '1a91d62f7ca67399625a4368a6ab5d4a3baa6073', 'pha', 'first letter?', 'a')
 ON DUPLICATE KEY UPDATE MID = MID;
 /*password: pw*/

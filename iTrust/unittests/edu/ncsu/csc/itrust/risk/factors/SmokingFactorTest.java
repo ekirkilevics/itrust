@@ -43,7 +43,7 @@ public class SmokingFactorTest extends TestCase {
 		PreparedStatement ps = null;
 		try{
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("DELETE FROM PersonalHealthInformation WHERE PatientID=2 AND Smoker=1");
+			ps = conn.prepareStatement("DELETE FROM personalhealthinformation WHERE PatientID=2 AND Smoker=1");
 			ps.executeUpdate();
 		}
 		catch (SQLException ex){

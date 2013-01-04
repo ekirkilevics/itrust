@@ -116,7 +116,7 @@ pageTitle = "iTrust - Please Select a Patient";
  $(function(){
 	
 	$("#searchBox").keyup(function(){
-		$("#userSearch").attr("src","patientSearch.jsp?forward=<%=StringEscapeUtils.escapeHtml("" + (request.getParameter("forward") ))%>&q="+$("#searchBox").val())
+		$("#userSearch").attr("src","patientSearch.jsp?forward=<%=StringEscapeUtils.escapeHtml("" + (request.getParameter("forward") ))%>&q="+$("#searchBox").val()+"&allowDeactivated="+$("#allowDeactivated:checked").val())
 	});
 	$("#oldSearch").hide(); 
 	 
@@ -126,6 +126,9 @@ pageTitle = "iTrust - Please Select a Patient";
 <b>Search by name or MID:</b><br/>
 <div style="border: 1px solid Gray; padding:5px;float:left;">
 	<input id="searchBox" style="width: 250px;" type="text" value="<%= StringEscapeUtils.escapeHtml("" + ( firstName )) %>" />
+	<br />
+	<input id="allowDeactivated" type="checkbox" />
+	Show deactivated patients
 </div>
 
 <iframe id="userSearch" style="width:100%;min-height:600px;border:none;"></iframe>

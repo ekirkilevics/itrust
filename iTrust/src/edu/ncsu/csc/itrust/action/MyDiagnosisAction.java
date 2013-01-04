@@ -81,8 +81,8 @@ public class MyDiagnosisAction {
 		for (OfficeVisitBean bean: beans) {
 			
 			// check for HCP-Patient locality based on first 3 digits in ZIP
-			if (!patientDAO.getPatient(loggedInMID).getZip1().substring(0, 2).
-					equals(personnelDAO.getPersonnel(bean.getHcpID()).getZip1().substring(0, 2)))
+			if (!patientDAO.getPatient(loggedInMID).getZip().substring(0, 2).
+					equals(personnelDAO.getPersonnel(bean.getHcpID()).getZip().substring(0, 2)))
 				continue;
 			
 			// Check to see if we already have a bean for the HCP associated with this visit

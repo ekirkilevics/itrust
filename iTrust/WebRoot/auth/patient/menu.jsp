@@ -14,6 +14,7 @@
 	<div class="menuItem"><span class="highlighted">&#187;</span><a href="/iTrust/auth/patient/viewPrescriptionRecords.jsp">Prescription Records</a></div>
 	<div class="menuItem"><span class="highlighted">&#187;</span><a href="/iTrust/auth/patient/viewExpiredPrescriptionRecords.jsp">My Expired Prescription Reports</a></div>
 	<div class="menuItem"><span class="highlighted">&#187;</span><a href="/iTrust/auth/patient/viewPatientReferrals.jsp">My Referrals</a></div>
+	<div class="menuItem"><span class="highlighted">&#187;</span><a href="/iTrust/auth/patient/expertSearch.jsp">Find Expert Hospital</a></div>
 </div>
 <div class="menu_category">
 	<span>Appointments</span><br />

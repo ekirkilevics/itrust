@@ -199,7 +199,7 @@ public class ViewDiagnosisStatisticsTest extends iTrustHTTPTest {
 		// View Trend
 		form = wr.getFormWithID("formMain");
 		form.getScriptableObject().setParameterValue("icdCode", "487.00");
-		form.getScriptableObject().setParameterValue("zipCode", "27606");
+		form.getScriptableObject().setParameterValue("zipCode", "27606-1234");
 		form.getScriptableObject().setParameterValue("startDate", "08/28/2011");
 		form.getScriptableObject().setParameterValue("endDate", "09/28/2011");
 		form.getSubmitButtons()[0].click();

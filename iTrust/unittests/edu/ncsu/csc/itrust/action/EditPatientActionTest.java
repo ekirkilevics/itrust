@@ -117,4 +117,16 @@ public class EditPatientActionTest extends TestCase {
 		PatientBean patient = action.getPatient();
 		assertEquals(2L, patient.getMID());
 	}
+	
+	public void testDeactivateActivate() throws Exception {
+		gen.patient1();
+		action = new EditPatientAction(factory, 1L, "1");
+		PatientDAO po = TestDAOFactory.getTestInstance().getPatientDAO();
+		action.deactivate();
+		PatientBean pb1 = po.getPatient(1l);
+		assertFalse(pb1.getDateOfDeactivationStr().equals(""));
+		action.activate();
+		PatientBean pb2 = po.getPatient(1l);
+		assertTrue(pb2.getDateOfDeactivationStr().equals(""));
+	}
 }

@@ -101,6 +101,6 @@ public class NDCodeTest extends TestCase {
 	}
 
 	private void clearNDCodes() throws SQLException {
-		new DBBuilder().executeSQL(Arrays.asList("DELETE FROM NDCodes;"));
+		new DBBuilder().executeSQL(Arrays.asList("DELETE FROM ndcodes;"));
 	}
 }

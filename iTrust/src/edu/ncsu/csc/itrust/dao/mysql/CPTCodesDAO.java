@@ -55,7 +55,7 @@ public class CPTCodesDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("SELECT * FROM CPTCodes ORDER BY CODE");
+			ps = conn.prepareStatement("SELECT * FROM cptcodes ORDER BY CODE");
 			ResultSet rs = ps.executeQuery();
 			return procedureBeanLoader.loadList(rs);
 		} catch (SQLException e) {
@@ -122,7 +122,7 @@ public class CPTCodesDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("SELECT * FROM CPTCodes WHERE Code = ?");
+			ps = conn.prepareStatement("SELECT * FROM cptcodes WHERE Code = ?");
 			ps.setString(1, code);
 			ResultSet rs = ps.executeQuery();
 			if (rs.next())
@@ -149,7 +149,7 @@ public class CPTCodesDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("INSERT INTO CPTCodes (Code, Description, Attribute) " + "VALUES (?,?,?)");
+			ps = conn.prepareStatement("INSERT INTO cptcodes (Code, Description, Attribute) " + "VALUES (?,?,?)");
 			ps.setString(1, proc.getCPTCode());
 			ps.setString(2, proc.getDescription());
 			ps.setString(3, proc.getAttribute());
@@ -176,7 +176,7 @@ public class CPTCodesDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("UPDATE CPTCodes SET Description = ?, Attribute = ? WHERE Code = ?");
+			ps = conn.prepareStatement("UPDATE cptcodes SET Description = ?, Attribute = ? WHERE Code = ?");
 			ps.setString(1, proc.getDescription());
 			ps.setString(2, proc.getAttribute());
 			ps.setString(3, proc.getCPTCode());

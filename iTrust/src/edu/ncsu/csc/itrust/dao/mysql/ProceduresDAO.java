@@ -48,8 +48,8 @@ public class ProceduresDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("Select * From OVProcedure,CPTCodes,OfficeVisits Where OVProcedure.VisitID = ? "
-					+ "AND OfficeVisits.ID=OVProcedure.VisitID AND CPTCodes.Code=OVProcedure.CPTCode");
+			ps = conn.prepareStatement("Select * From ovprocedure,cptcodes,officevisits Where ovprocedure.VisitID = ? "
+					+ "AND officevisits.ID=ovprocedure.VisitID AND cptcodes.Code=ovprocedure.CPTCode");
 			ps.setLong(1, visitID);
 			ResultSet rs = ps.executeQuery();
 			return loader.loadList(rs);
@@ -72,8 +72,8 @@ public class ProceduresDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("Select * From OVProcedure,CPTCodes,OfficeVisits Where OVProcedure.VisitID = ? "
-					+ "AND OfficeVisits.ID=OVProcedure.VisitID AND CPTCodes.Code=OVProcedure.CPTCode AND CPTCodes.attribute='immunization'");
+			ps = conn.prepareStatement("Select * From ovprocedure,cptcodes,officevisits Where ovprocedure.VisitID = ? "
+					+ "AND officevisits.ID=ovprocedure.VisitID AND cptcodes.Code=ovprocedure.CPTCode AND cptcodes.attribute='immunization'");
 			ps.setLong(1, visitID);
 			ResultSet rs = ps.executeQuery();
 			return loader.loadList(rs);
@@ -91,8 +91,8 @@ public class ProceduresDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("Select * From OVProcedure,CPTCodes,OfficeVisits Where OVProcedure.VisitID = ? "
-					+ "AND OfficeVisits.ID=OVProcedure.VisitID AND CPTCodes.Code=OVProcedure.CPTCode AND CPTCodes.attribute is NULL");
+			ps = conn.prepareStatement("Select * From ovprocedure,cptcodes,officevisits Where ovprocedure.VisitID = ? "
+					+ "AND officevisits.ID=ovprocedure.VisitID AND cptcodes.Code=ovprocedure.CPTCode AND cptcodes.attribute is NULL");
 			ps.setLong(1, visitID);
 			ResultSet rs = ps.executeQuery();
 			return loader.loadList(rs);
@@ -117,7 +117,7 @@ public class ProceduresDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			String statement = "INSERT INTO OVProcedure " +
+			String statement = "INSERT INTO ovprocedure " +
 				"(VisitID,CPTCode) VALUES (?,?)";
 			ps = conn.prepareStatement(statement);
 			ps.setLong(1, bean.getVisitID());
@@ -145,7 +145,7 @@ public class ProceduresDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			String statement = "UPDATE OVProcedure " +
+			String statement = "UPDATE ovprocedure " +
 				"SET VisitID=?, CPTCode=?" +
 				"WHERE ID=?";
 			ps = conn.prepareStatement(statement);
@@ -173,7 +173,7 @@ public class ProceduresDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("DELETE FROM OVProcedure WHERE ID=? ");
+			ps = conn.prepareStatement("DELETE FROM ovprocedure WHERE ID=? ");
 			ps.setLong(1, ovProcedureID);
 			ps.executeUpdate();
 		} catch (SQLException e) {

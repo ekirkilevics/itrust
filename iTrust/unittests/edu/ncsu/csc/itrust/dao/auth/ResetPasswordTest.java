@@ -41,7 +41,7 @@ public class ResetPasswordTest extends TestCase {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("SELECT password from Users WHERE MID=" + mid);
+			ps = conn.prepareStatement("SELECT password from users WHERE MID=" + mid);
 			ResultSet rs = ps.executeQuery();
 			rs.next();
 			return rs.getString("password");

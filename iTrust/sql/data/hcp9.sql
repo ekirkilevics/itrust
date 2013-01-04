@@ -1,4 +1,4 @@
-INSERT INTO Personnel(
+INSERT INTO personnel(
 MID,
 AMID,
 role,
@@ -9,12 +9,7 @@ address2,
 city,
 state,
 zip,
-zip1,
-zip2,
 phone,
-phone1,
-phone2,
-phone3,
 specialty,
 email)
 VALUES (
@@ -28,17 +23,12 @@ null,
 'CityName',
 'NY',
 '12345-1234',
-'12345',
-'1234',
 '999-888-7777',
-'999',
-'888',
-'7777',
 NULL,
 'jzoidberg@iTrust.org'
 ) ON DUPLICATE KEY UPDATE MID = MID;
 
-INSERT INTO Users(MID, 
+INSERT INTO users(MID, 
 password, 
 role, 
 sQuestion, 
@@ -50,11 +40,11 @@ VALUES(9000000010,
 'z')
 ON DUPLICATE KEY UPDATE MID = MID;
 /*password: pw*/
-INSERT INTO HCPAssignedHos(HCPID, HosID) VALUES(9000000010,'9191919191')
+INSERT INTO hcpassignedhos(HCPID, HosID) VALUES(9000000010,'9191919191')
 ON DUPLICATE KEY UPDATE HCPID = HCPID;
 
-INSERT INTO Appointment(doctor_id, patient_id, sched_date, appt_type)
+INSERT INTO appointment(doctor_id, patient_id, sched_date, appt_type)
 VALUES(9000000010, 2, '2012-08-22 13:30:00', 'General Checkup');
 
-INSERT INTO AppointmentRequests(doctor_id, patient_id, sched_date, appt_type,pending, accepted)
+INSERT INTO appointmentrequests(doctor_id, patient_id, sched_date, appt_type,pending, accepted)
 VALUES(9000000010, 26, '2012-02-24 09:00:00', 'General Checkup',1,0);

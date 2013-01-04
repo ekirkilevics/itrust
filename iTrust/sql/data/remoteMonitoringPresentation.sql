@@ -1,4 +1,4 @@
-INSERT INTO RemoteMonitoringData(PatientID, systolicBloodPressure, diastolicBloodPressure, glucoseLevel, timeLogged, ReporterRole, ReporterID) 
+INSERT INTO remotemonitoringdata(PatientID, systolicBloodPressure, diastolicBloodPressure, glucoseLevel, timeLogged, ReporterRole, ReporterID) 
                     VALUES 	(2, 120, 80, 100, '2009-11-13 05:30:00', "self-reported", 1),
                     		(2, 110, 60, 110, '2009-11-14 05:30:00', "self-reported", 1),
                     		(2, 120, 70, 120, '2009-11-15 05:30:00', "self-reported", 1),

@@ -73,10 +73,7 @@
 									<%= StringEscapeUtils.escapeHtml("" + (p.getStreetAddress2())) %><br />
 								<% } %>
 								<%= StringEscapeUtils.escapeHtml("" + (p.getCity())) %>, <%= StringEscapeUtils.escapeHtml(p.getState()) %> 
-								<%= StringEscapeUtils.escapeHtml("" + (p.getZip1())) %>
-								<% if (!p.getZip2().equals(""))  { %>
-									- <%= StringEscapeUtils.escapeHtml("" + (p.getZip2())) %>
-								<% } %>		
+								<%= StringEscapeUtils.escapeHtml("" + (p.getZip())) %>
 						</td>
 						<td> <%= StringEscapeUtils.escapeHtml("" + (p.getPhone())) %> </td>
 						<td> <%= StringEscapeUtils.escapeHtml("" + (p.getDirectionsToHome())) %> </td>

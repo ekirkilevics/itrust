@@ -33,6 +33,7 @@ public class EditPatientTest extends TestCase {
 		p.setEmergencyName("another emergency person");
 		p.setTopicalNotes("some topical notes");
 		p.setDateOfBirthStr("05/20/1984");
+		p.setDateOfDeactivationStr("05/21/1984");
 		patientDAO.editPatient(p, 9000000003L);
 		
 		p = patientDAO.getPatient(2);
@@ -42,6 +43,7 @@ public class EditPatientTest extends TestCase {
 		assertEquals("another emergency person", p.getEmergencyName());
 		assertEquals("some topical notes", p.getTopicalNotes());
 		assertEquals("05/20/1984", p.getDateOfBirthStr());
+		assertEquals("05/21/1984", p.getDateOfDeactivationStr());
 		assertEquals("250.10", p.getCauseOfDeath());
 		assertEquals("344 Bob Street", p.getStreetAddress1());
 		assertEquals("", p.getStreetAddress2());

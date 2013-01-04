@@ -74,16 +74,16 @@ public class EditOfficeVisitActionTest extends TestCase {
 		// NOTE: may have to fix this... use different pid and ovid.
 		action = new EditOfficeVisitAction(factory, 9000000000L, "1", "1");
 		List<HospitalBean> hospitals = action.getHospitals();
-		assertEquals(7, hospitals.size());
+		assertEquals(9, hospitals.size());
 		// First comes hospitals associated with the HCP in alphabetical order.
 		// Then comes all other hospitals in alphabetical order.
 		assertEquals("Test Hospital 8181818181", hospitals.get(0).getHospitalName());
 		assertEquals("Test Hospital 9191919191", hospitals.get(1).getHospitalName());
-		assertEquals("Central Hospital", hospitals.get(2).getHospitalName());
-		assertEquals("Eastern Hospital", hospitals.get(3).getHospitalName());
-		assertEquals("Northern Hospital", hospitals.get(4).getHospitalName());
-		assertEquals("Test Hospital 1", hospitals.get(5).getHospitalName());
-		assertEquals("Z Empty Hospital", hospitals.get(6).getHospitalName());
+		assertEquals("Facebook Rehab Center", hospitals.get(2).getHospitalName());
+		assertEquals("Health Institute Dr. E", hospitals.get(3).getHospitalName());
+		assertEquals("Health Institute Mr. Barry", hospitals.get(4).getHospitalName());
+		assertEquals("Health Institute Mr. Donghoon", hospitals.get(5).getHospitalName());
+		assertEquals("Le Awesome Hospital", hospitals.get(6).getHospitalName());
 	}
 
 	/**

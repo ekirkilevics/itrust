@@ -77,7 +77,7 @@ public class RiskDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("SELECT * FROM OVDiagnosis ovd, OfficeVisits ov, Patients p "
+			ps = conn.prepareStatement("SELECT * FROM ovdiagnosis ovd, officevisits ov, patients p "
 					+ "WHERE ovd.visitID=ov.id AND ov.patientid=p.mid AND p.mid=? "
 					+ "AND datediff(ov.visitdate,p.dateofbirth) < 6570 AND ovd.icdcode IN ("
 					+ createPrepared(icdCodes.length) + ")");
@@ -118,7 +118,7 @@ public class RiskDAO {
 		try {
 			conn = factory.getConnection();
 			ps = conn
-					.prepareStatement("SELECT * FROM PersonalHealthInformation WHERE PatientID=? AND Smoker=1");
+					.prepareStatement("SELECT * FROM personalhealthinformation WHERE PatientID=? AND Smoker=1");
 			ps.setLong(1, patientID);
 			return ps.executeQuery().next(); // if this query has ANY rows, then yes
 		} catch (SQLException e) {
@@ -144,7 +144,7 @@ public class RiskDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("SELECT * FROM OVDiagnosis ovd, OfficeVisits ov, Patients p "
+			ps = conn.prepareStatement("SELECT * FROM ovdiagnosis ovd, officevisits ov, patients p "
 					+ "WHERE ovd.visitID=ov.id AND ov.patientid=p.mid AND p.mid=? "
 					+ "AND ovd.icdcode>=? AND ovd.icdcode<?");
 			ps.setLong(1, patientID);

@@ -1,6 +1,6 @@
 /* for UC11-UC37 accept test scenario 3 */
 
-INSERT INTO OfficeVisits(
+INSERT INTO officevisits(
 	id,
 	visitDate,
 	HCPID,

@@ -1,6 +1,6 @@
-DELETE FROM Representatives where representeeMID = '2';
+DELETE FROM representatives where representeeMID = '2';
   
-INSERT INTO TransactionLog(loggedInMID, secondaryMID, transactionCode, timeLogged, addedInfo) 
+INSERT INTO transactionlog(loggedInMID, secondaryMID, transactionCode, timeLogged, addedInfo) 
 						VALUES (1, 2, 1900,'2008-05-12 14:11:00','Viewed prescription report');
 
 

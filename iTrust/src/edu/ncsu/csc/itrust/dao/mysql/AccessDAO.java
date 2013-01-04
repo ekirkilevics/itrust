@@ -47,7 +47,7 @@ public class AccessDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("SELECT Value FROM GlobalVariables WHERE Name='Timeout'");
+			ps = conn.prepareStatement("SELECT Value FROM globalvariables WHERE Name='Timeout'");
 			ResultSet rs = ps.executeQuery();
 			if (rs.next())
 				return rs.getInt("Value");
@@ -74,7 +74,7 @@ public class AccessDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("UPDATE GlobalVariables SET Value=? WHERE Name='Timeout'");
+			ps = conn.prepareStatement("UPDATE globalvariables SET Value=? WHERE Name='Timeout'");
 			ps.setInt(1, mins);
 			int numUpdated = ps.executeUpdate();
 			if (numUpdated == 0) // no value in the table
@@ -89,7 +89,7 @@ public class AccessDAO {
 
 	private void insertDefaultTimeout(Connection conn, int mins) throws SQLException {
 		PreparedStatement ps = null;
-		ps = conn.prepareStatement("INSERT INTO GlobalVariables(Name,Value) VALUES ('Timeout', ?)");
+		ps = conn.prepareStatement("INSERT INTO globalvariables(Name,Value) VALUES ('Timeout', ?)");
 		ps.setInt(1, mins);
 		ps.executeUpdate();
 	}

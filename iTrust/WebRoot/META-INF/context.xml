@@ -33,9 +33,9 @@
 		localDataSource="true"
 		debug="99"
 	    dataSourceName="jdbc/itrust"
-		userTable="Users"
+		userTable="users"
 		userNameCol="MID"
 		userCredCol="Password"
-		userRoleTable="Users"
+		userRoleTable="users"
 		roleNameCol="Role" />
 </Context>

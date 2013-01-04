@@ -41,7 +41,7 @@ public class PrescriptionOverrideDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("Select * From OVReactionOverride Where OVMedicationID = ? ");
+			ps = conn.prepareStatement("Select * From ovreactionoverride Where ovmedicationID = ? ");
 			ps.setLong(1, medID);
 			ResultSet rs = ps.executeQuery();
 
@@ -66,7 +66,7 @@ public class PrescriptionOverrideDAO {
 			conn = factory.getConnection();
 			
 			
-			ps = conn.prepareStatement("INSERT INTO OVReactionOverride (OVMedicationID,OverrideCode) VALUES (?,?)");
+			ps = conn.prepareStatement("INSERT INTO ovreactionoverride (OVMedicationID,OverrideCode) VALUES (?,?)");
 			ps.setLong(1, pres.getPresID());
 			ps.setString(2, pres.getORCode());
 
@@ -93,7 +93,7 @@ public class PrescriptionOverrideDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("DELETE FROM OVReactionOverride WHERE OVMedicationID=? ");
+			ps = conn.prepareStatement("DELETE FROM ovreactionoverride WHERE OVMedicationID=? ");
 			ps.setLong(1, ovMedicationID);
 			ps.executeUpdate();
 		} catch (SQLException e) {

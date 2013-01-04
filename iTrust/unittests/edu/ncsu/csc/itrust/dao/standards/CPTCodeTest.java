@@ -116,6 +116,6 @@ public class CPTCodeTest extends TestCase {
 	}
 
 	private void clearCPTCodes() throws SQLException {
-		new DBBuilder().executeSQL(Arrays.asList("DELETE FROM CPTCodes;"));
+		new DBBuilder().executeSQL(Arrays.asList("DELETE FROM cptcodes;"));
 	}
 }

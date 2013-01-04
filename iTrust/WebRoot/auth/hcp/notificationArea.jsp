@@ -16,6 +16,8 @@
 <%@page import="java.util.List"%>
 <%@page import="java.util.Date"%>
 <%@page import="java.util.ArrayList"%>
+<%@page import="edu.ncsu.csc.itrust.action.ViewApptRequestsAction"%>
+<%@page import="edu.ncsu.csc.itrust.beans.ApptRequestBean"%>
 
 <%
 ViewMyMessagesAction messageAction = new ViewMyMessagesAction(prodDAO, loggedInMID.longValue());
@@ -26,6 +28,8 @@ List <ApptBean> appointments = apptAction.getAppointments(loggedInMID.longValue(
 ViewMyRemoteMonitoringListAction remoteMonitoringAction = new ViewMyRemoteMonitoringListAction(prodDAO, loggedInMID.longValue());
 List<RemoteMonitoringDataBean> remoteData = remoteMonitoringAction.getPatientsData();
 loggingAction.logEvent(TransactionType.NOTIFICATIONS_VIEW, loggedInMID.longValue(), 0, "");
+ViewApptRequestsAction reqAction = new ViewApptRequestsAction(loggedInMID.longValue(), prodDAO);
+List<ApptRequestBean> reqs = reqAction.getApptRequests();
 
 
 int bucketPhysiologic = 0;
@@ -52,6 +56,17 @@ int pendingLabProcsCount = lpaction.getPendingCount();
 <!-- Begin Message Notification -->    
     <div class="contentBlock" style="margin:0.3em;">
     <ul>
+<% if(reqAction.getNumRequests(reqs) == 0) { %>
+	<li><img class="icon" src="/iTrust/image/icons/inboxEmpty.png" style="border:0px;">
+	No appointment requests.</li>
+<%	} else { %>    
+	<li><a href="/iTrust/auth/hcp-patient/messageInbox.jsp">
+	<img class="icon" src="/iTrust/image/icons/inboxUnread.png" style="border:0px;"></a>
+    <a href="/iTrust/auth/hcp-patient/messageInbox.jsp"> 
+<%= StringEscapeUtils.escapeHtml("" + (reqAction.getNumRequests(reqs))) %></a>
+	Appointment requests.
+	</li>
+<%	} %>
 <% if(messageAction.getUnreadCount() == 0) { %>
 	<li><img class="icon" src="/iTrust/image/icons/inboxEmpty.png" style="border:0px;">
 	No unread messages.</li>

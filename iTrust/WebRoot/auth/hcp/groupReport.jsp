@@ -27,6 +27,13 @@
 <%@include file="/header.jsp"%>
 <h1>Generate Group Report</h1>
 <%
+	if (session.getAttribute("validationError")!=null){
+		session.setAttribute("validationError",null);
+	%>
+		<h3 style="color: red;">Invalid age range entered!  Please check the age range and try again!</h3>
+	<%
+	}
+
 	if (request.getParameter("fillValues") != null) {
 %>
 <h2>Step 2: Input Filter Values</h2>
@@ -52,6 +59,12 @@
 							out.print("<option value=\"Male\">Male</option>");
 							out.print("<option value=\"Female\">Female</option>");
 							out.print("<option value=\"Not Specified\">Not Specified</option>");
+							out.println("</select>");
+						} else if (type == DemographicReportFilterType.DEACTIVATED) {
+							out.println("<select name=\"" + filter + "\">");
+							out.print("<option value=\"allow\">Show both</option>");
+							out.print("<option value=\"exclude\">Exclude deactivated</option>");
+							out.print("<option value=\"only\">Show only deactivated</option>");
 							out.println("</select>");
 						} else {
 							out.println("<input name=\"" + filter
@@ -161,8 +174,7 @@
 				}
 		%>
 	</fieldset>
-	<input class="clear_button" type="submit" name="generate"
-		value="Generate Report" />
+	<input class="clear_button" type="submit" name="generate" value="Generate Report" />
 </form>
 <%
 	} else {
@@ -208,8 +220,7 @@
 				}
 		%>
 	</fieldset>
-	<input class="clear_button" type="submit" name="fillValues"
-		value="Continue" />
+	<input class="clear_button" type="submit" name="fillValues" value="Continue" />
 </form>
 <%
 	}

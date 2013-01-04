@@ -66,10 +66,10 @@ public class ChildhoodInfectionFactorTest extends TestCase {
 		PreparedStatement ps = null;
 		try{
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("INSERT INTO OfficeVisits(VisitDate,PatientID, hcpid, hospitalid) VALUES(?, 2, 9000000000, '1')");
+			ps = conn.prepareStatement("INSERT INTO officevisits(VisitDate,PatientID, hcpid, hospitalid) VALUES(?, 2, 9000000000, '1')");
 			ps.setDate(1, new java.sql.Date(date.getTime()));
 			ps.executeUpdate();
-			ps = conn.prepareStatement("INSERT INTO OVDiagnosis(VisitID, ICDCode) VALUES(?,?)");
+			ps = conn.prepareStatement("INSERT INTO ovdiagnosis(VisitID, ICDCode) VALUES(?,?)");
 			ps.setLong(1, DBUtil.getLastInsert(conn));
 			ps.setDouble(2, icd);
 			ps.executeUpdate();
