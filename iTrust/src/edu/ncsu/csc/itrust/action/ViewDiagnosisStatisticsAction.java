@@ -105,7 +105,7 @@ public class ViewDiagnosisStatisticsAction {
 	 * @param startDate a date in the week to analyze
 	 * @param icdCode the diagnosis to analyze
 	 * @param zip the area to analyze
-	 * @param threshold TODO
+	 * @param threshold
 	 * @return statistics for the week and previous averages
 	 * @throws FormValidationException
 	 * @throws DBException
@@ -129,7 +129,6 @@ public class ViewDiagnosisStatisticsAction {
 		try {
 			lower = new SimpleDateFormat("MM/dd/yyyy").parse(startDate);
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			throw new FormValidationException("Enter dates in MM/dd/yyyy");
 		}
 		if (!zip.matches("([0-9]{5})|([0-9]{5}-[0-9]{4})"))

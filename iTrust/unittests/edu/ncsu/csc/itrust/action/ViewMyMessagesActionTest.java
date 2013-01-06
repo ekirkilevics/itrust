@@ -70,7 +70,6 @@ public class ViewMyMessagesActionTest extends TestCase {
 		try {
 			assertTrue(action2.getName(mbList.get(0).getFrom()).compareTo(action2.getName(mbList.get(13).getFrom())) >= 0);
 		} catch (iTrustException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -86,7 +85,6 @@ public class ViewMyMessagesActionTest extends TestCase {
 		try {
 			assertTrue(action2.getName(mbList.get(13).getFrom()).compareTo(action2.getName(mbList.get(0).getFrom())) >= 0);
 		} catch (iTrustException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -118,7 +116,6 @@ public class ViewMyMessagesActionTest extends TestCase {
 		try {
 			assertTrue(action2.getName(mbList.get(0).getFrom()).compareTo(action2.getName(mbList.get(1).getFrom())) >= 0);
 		} catch (iTrustException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -134,7 +131,6 @@ public class ViewMyMessagesActionTest extends TestCase {
 		try {
 			assertTrue(action2.getName(mbList.get(1).getFrom()).compareTo(action2.getName(mbList.get(0).getFrom())) >= 0);
 		} catch (iTrustException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

@@ -253,7 +253,6 @@ public class ViewMyMessagesAction {
 		try {
 			messageDAO.updateRead(mBean);
 		} catch (DBException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
